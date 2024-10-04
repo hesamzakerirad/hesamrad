@@ -1,0 +1,46 @@
+@import 'fonts.css';
+
+:root {
+	--primary-color 	: #2455c3;
+	--white 	    	: #fff;
+	--black         	: #0d1117;
+	--grey				: #333;
+	--muted				: #9a9a9a;
+	--red				: #bb3825;
+	--green				: #3bbb25;
+	--blue				: #2455c3;
+	--unit				: 1.614;
+	--space				: 1rem;
+	--font-family		: 'Vazir FD', 'Open Sans', sans-serif;
+	--monospace-font-family : 'Ubuntu Sans Mono', monospace;
+	--default-font-size : 1rem;
+	--word-spacing 	    : 0.3px;
+	--line-height		: 32px;
+	--border-radius		: 0px;
+}
+
+html {
+	--background-color	: var(--white);
+	--text-color		: var(--grey);
+	--header-color		: var(--black);
+	--input-color		: var(--white);
+	--border-color		: var(--muted);
+	--label-color		: var(--muted);
+}
+
+html[theme='dark'] {
+	--background-color	: var(--black);
+	--text-color		: var(--muted);
+	--header-color		: var(--white);
+	--input-color		: var(--black-white);
+	--border-color		: var(--grey);
+	--label-color		: var(--grey);
+}
+
+@media all and (max-width: 768px) {
+	:root {
+		--unit			: 1;
+		--default-font-size: 0.95rem;
+		--line-height	: 28px;
+	}
+}

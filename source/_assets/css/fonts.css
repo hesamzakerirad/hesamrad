@@ -1,0 +1,127 @@
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/Vazirmatn-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+	font-family: "YekanBakh";
+	font-style: normal;
+	font-weight: 100;
+	src: url('../fonts/yekanbakh/YekanBakhFaNum-thin.woff') format('woff');		
+}
+
+@font-face {
+	font-family: "YekanBakh";
+	font-style: normal;
+	font-weight: 300;
+	src: url('../fonts/yekanbakh/YekanBakhFaNum-Light.woff') format('woff');	
+}
+
+@font-face {
+	font-family: "YekanBakh";
+	font-style: normal;
+	font-weight: normal;
+	src: url('../fonts/yekanbakh/YekanBakhFaNum-Regular.woff') format('woff');		 
+}
+
+@font-face {
+	font-family: "YekanBakh";
+	font-style: normal;
+	font-weight: 600;
+	src: url('../fonts/yekanbakh/YekanBakhFaNum-SemiBold.woff') format('woff');		 
+}
+
+@font-face {
+	font-family: "YekanBakh";
+	font-style: normal;
+	font-weight: bold;
+	src: url('../fonts/yekanbakh/YekanBakhFaNum-Bold.woff') format('woff'); 
+}
+
+@font-face {
+	font-family: "YekanBakh";
+	font-style: normal;
+	font-weight: 800;
+	src: url('../fonts/yekanbakh/YekanBakhFaNum-ExtraBold.woff') format('woff');		 
+}
+
+@font-face {
+	font-family: "YekanBakh";
+	font-style: normal;
+	font-weight: 900;
+	src: url('../fonts/yekanbakh/YekanBakhFaNum-Black.woff') format('woff');		 
+}
+
+@font-face {
+	font-family: "YekanBakh";
+	font-style: normal;
+	font-weight: 950;
+	src: url('../fonts/yekanbakh/YekanBakhFaNum-ExtraBlack.woff') format('woff');		 
+}
