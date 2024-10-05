@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $page->locale }}" theme="{{ $page->isDuringDay() ? 'light' : 'dark' }}">
+<html lang="{{ $page->locale }}" theme="{{ $page->theme }}">
 
 <head>
     <meta charset="utf-8">
@@ -48,7 +48,7 @@
     <section class="wrapper">
         <header>
             <section class="identity">
-                <a href="/" class="no-decoration">
+                <a href="{{ $page->baseUrl }}" class="no-decoration">
                     {{ $page->siteName }}
                 </a>
                 <small> {{ $page->siteDescription }} </small>
@@ -62,7 +62,7 @@
         <footer>
             <section>
                 <div>
-                    <a href="/" class="no-decoration">{{ $page->siteName }}</a>
+                    <a href="{{ $page->baseUrl }}" class="no-decoration">{{ $page->siteName }}</a>
                     <span>
                         از 1397 خورشیدی
                     </span>

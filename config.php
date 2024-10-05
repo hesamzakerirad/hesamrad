@@ -9,6 +9,7 @@ return [
     'siteDescription' => 'وبلاگی درباره مهندسی نرم‌افزار و زندگی',
     'siteAuthor' => 'حسام راد',
     'locale' => 'fa',
+    'theme' => 'light',
 
     // collections
     'collections' => [
@@ -64,7 +65,4 @@ return [
     'getJalaliDate' => function ($page, $format = '%d %B %Y') {
         return verta($page->getDate())->format($format);
     },
-    'isDuringDay' => function ($page) {
-        return date('H') <= 18 ? true : false;
-    }
 ];
