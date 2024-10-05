@@ -1,5 +1,9 @@
 @extends('_layouts.main')
 
+@php
+    $page->title = $page->siteDescription;
+@endphp
+
 @section('body')
     @foreach ($posts->where('featured', true) as $post)
         <div class="featured">

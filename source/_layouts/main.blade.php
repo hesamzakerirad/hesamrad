@@ -7,12 +7,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="{{ $page->description ?? $page->siteDescription }}">
 
-    <meta property="og:title" content="{{ $page->title ? $page->title . ' | ' : '' }}{{ $page->siteName }}" />
+    <meta property="og:title" content="{{ $page->siteName }}{{ $page->title ? ' - ' . $page->title : '' }}" />
     <meta property="og:type" content="{{ $page->type ?? 'website' }}" />
     <meta property="og:url" content="{{ $page->getUrl() }}" />
     <meta property="og:description" content="{{ $page->description ?? $page->siteDescription }}" />
 
-    <title>{{ $page->title ? $page->title . ' | ' : '' }}{{ $page->siteName }}</title>
+    <title>{{ $page->siteName }}{{ $page->title ? ' - ' . $page->title : '' }}</title>
 
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="icon" href="/favicon.ico">

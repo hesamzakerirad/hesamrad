@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 
 return [
-    'baseUrl' => 'https://hesamrad.com',
+    'baseUrl' => 'http://localhost:3000',
     'production' => false,
     'siteName' => 'حسام راد',
     'siteDescription' => 'وبلاگی درباره مهندسی نرم‌افزار و زندگی',
