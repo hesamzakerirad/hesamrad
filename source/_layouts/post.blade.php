@@ -6,7 +6,14 @@
 
 @section('body')
     @if ($page->cover_image)
-        <img src="{{ $page->cover_image }}" alt="{{ $page->title }}">
+        @if ($page->cover_image_copyright)
+            <a href="{{ $page->cover_image_copyright }}" class="no-decoration" target="_blank" >
+                <img src="{{ $page->cover_image }}">
+            </a>
+        @else
+            <img src="{{ $page->cover_image }}">
+        @endif
+        </div>
     @endif
 
     <h1>{{ $page->title }}</h1>
