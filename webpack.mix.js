@@ -11,6 +11,7 @@ mix.jigsaw()
         require('tailwindcss/nesting'),
         require('tailwindcss'),
     ])
+    .copyDirectory('source/_assets/fonts', 'source/assets/build/fonts')
     .options({ processCssUrls: false })
     .browserSync({
         server: 'build_local',

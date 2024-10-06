@@ -16,7 +16,6 @@
 
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="icon" href="/favicon.ico">
-    <link href="/blog/feed.atom" type="application/atom+xml" rel="alternate" title="{{ $page->siteName }} Atom Feed">
 
     @if ($page->production)
         <!-- Google tag (gtag.js) -->
@@ -32,10 +31,6 @@
             gtag('config', 'G-RKMJRVDWWQ');
         </script>
     @endif
-
-    <link rel="preconnect" href="//fdn.fontcdn.ir">
-    <link rel="preconnect" href="//v1.fontapi.ir">
-    <link href="https://v1.fontapi.ir/css/VazirFD" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
