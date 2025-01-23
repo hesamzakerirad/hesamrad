@@ -248,3 +248,8 @@ footer > section {
 .contact a {
     margin: 0 3px;
 }
+
+.smaller {
+    font-size: smaller;
+    font-weight: lighter;
+}
