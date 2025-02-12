@@ -3,12 +3,13 @@ html * {
 }
 
 html {
+    margin: 0;
+    padding: 0;
     height: 100%;
 }
 
 body {
     margin: 0;
-    padding: 0;
     font-size: var(--default-font-size);
     line-height: var(--line-height);
     background-color: var(--background-color);
@@ -263,3 +264,24 @@ footer > section {
     font-size: smaller;
     font-weight: lighter;
 }
+
+@media screen and (max-width: 767px) {
+    body {
+        padding: 0;
+        background-color: white;
+    }
+
+    .wrapper {
+        padding: 0;
+        border: none;
+    }
+
+    .identity {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .post, footer > section {
+        flex-direction: column-reverse;
+    }
+  }
