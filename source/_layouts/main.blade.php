@@ -40,14 +40,12 @@
 </head>
 
 <body>
-    <section class="wrapper">
         <header>
-            <section class="identity">
+            <section class="identity wrapper">
                 <a href="{{ $page->baseUrl }}" class="no-decoration">
                     {{ $page->siteName }}
                 </a>
                 <small> {{ $page->siteDescription }} </small>
-            </section>
         </header>
 
         <main role="main">
@@ -55,7 +53,7 @@
         </main>
 
         <footer>
-            <section>
+            <section class="wrapper">
                 <div>
                     <a href="{{ $page->baseUrl }}" class="no-decoration">{{ $page->siteName }}</a>
                     <span>

@@ -2,7 +2,7 @@
     $link = $post->source ?? $post->getUrl();
 @endphp
 
-<div class="post">
+<div class="post-preview">
     <p>
         <a 
             href="{{ $link }}" 
