@@ -4,7 +4,7 @@ section: content
 title: چرا نباید سنگ‌بنای کسب‌وکار خود را در شبکه‌های مجازی بنا کنید؟
 date: 2024-11-13
 description:
-featured: false
+isFeatured: false
 isExternal: false
 ---
 

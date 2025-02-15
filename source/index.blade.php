@@ -6,7 +6,7 @@
 
 @section('body')
     <div class="wrapper">
-        @foreach ($posts->where('featured', true) as $post)
+        @foreach ($posts->where('isFeatured', true) as $post)
             <div class="featured">
                 @include('_components.post-preview-inline')
             </div>
@@ -16,7 +16,7 @@
             @endif
         @endforeach
 
-        @foreach ($posts->where('featured', false)->take(6)->chunk(2) as $row)
+        @foreach ($posts->where('isFeatured', false)->take(6)->chunk(2) as $row)
             <div>
                 @foreach ($row as $post)
                     <div>
