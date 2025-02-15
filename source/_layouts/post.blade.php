@@ -10,7 +10,7 @@
 
 @section('body')
     <div class="post">
-        <header>
+        <header {{ $page->color ? 'style=background-color:' . $page->color : '' }}>
             <div class="wrapper">
                 <h1>{{ $page->title }}</h1>
             </div>
