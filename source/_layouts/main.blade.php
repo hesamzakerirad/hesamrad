@@ -40,33 +40,33 @@
 </head>
 
 <body>
-        <header>
-            <section class="identity wrapper">
-                <a href="{{ $page->baseUrl }}" class="no-decoration">
-                    {{ $page->siteName }}
-                </a>
-                <small> {{ $page->siteDescription }} </small>
-        </header>
+    <header>
+        <section class="identity wrapper">
+            <a href="{{ $page->baseUrl }}" class="no-decoration">
+                {{ $page->siteName }}
+            </a>
+            <small> {{ $page->siteDescription }} </small>
+    </header>
 
-        <main role="main">
-            @yield('body')
-        </main>
+    <main role="main">
+        @yield('body')
+    </main>
 
-        <footer>
-            <section class="wrapper">
-                <div>
-                    <a href="{{ $page->baseUrl }}" class="no-decoration">{{ $page->siteName }}</a>
-                    <span>
-                        از 1397 خورشیدی
-                    </span>
-                </div>
-                <div class="contact">
-                    <a href="mailto:hesamzakerirad@gmail.com" class="no-decoration" target="_blank">ایمیل</a>
-                    <a href="https://github.com/hesamzakerirad" class="no-decoration" target="_blank">گیت‌هاب</a>
-                    <a href="https://linkedin.com/in/hesamrad" class="no-decoration" target="_blank">لینکداین</a>
-                </div>
-            </section>
-        </footer>
+    <footer>
+        <section class="wrapper">
+            <div>
+                <a href="{{ $page->baseUrl }}" class="no-decoration">{{ $page->siteName }}</a>
+                <span>
+                    از 1397 خورشیدی
+                </span>
+            </div>
+            <div class="contact">
+                <a href="mailto:hesamzakerirad@gmail.com" class="no-decoration" target="_blank">ایمیل</a>
+                <a href="https://github.com/hesamzakerirad" class="no-decoration" target="_blank">گیت‌هاب</a>
+                <a href="https://linkedin.com/in/hesamrad" class="no-decoration" target="_blank">لینکداین</a>
+            </div>
+        </section>
+    </footer>
     </section>
 
     <script src="{{ mix('js/main.js', 'assets/build') }}"></script>
