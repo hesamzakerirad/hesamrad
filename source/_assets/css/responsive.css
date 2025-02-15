@@ -43,6 +43,10 @@
         align-items: center;
     }
 
+    .post header {
+        width: unset;
+    }
+
     .post-preview,
     footer>section {
         flex-direction: column-reverse;

@@ -19,6 +19,8 @@ body {
     direction: rtl;
     box-sizing: content-box;
     min-height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 h1,
