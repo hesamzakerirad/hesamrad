@@ -23,15 +23,15 @@
                         @include('_components.post-preview-inline')
                     </div>
 
-                    @if (!$loop->last)
+                    {{-- @if (!$loop->last)
                         <hr>
-                    @endif
+                    @endif --}}
                 @endforeach
             </div>
 
-            @if (!$loop->last)
+            {{-- @if (!$loop->last)
                 <hr>
-            @endif
+            @endif --}}
         @endforeach
     </div>
 @stop

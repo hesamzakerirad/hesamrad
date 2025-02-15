@@ -86,8 +86,15 @@ a {
 }
 
 hr {
+    margin: calc(2.5 * var(--space)) 0 calc(2 * var(--space));
     border: 0;
-    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+hr:before {
+    content: '* * *';
 }
 
 blockquote {
@@ -198,8 +205,14 @@ nav ul li {
 }
 
 .featured {
-    border: 2px solid var(--black);
-    padding: 10px
+    position: relative;
+}
+
+.featured::before {
+    content: '*';
+    position: absolute;
+    right: -20px;
+    top: 12px;
 }
 
 .post-preview {

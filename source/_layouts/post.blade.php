@@ -2,8 +2,10 @@
 
 @php
     $page->type = 'article';
-    $next = $page->getNext();
-    $previous = $page->getPrevious();
+
+    $otherPosts = $posts->filter(function ($post) use ($page) {
+        return !$post->isExternal && $post->title !== $page->title;
+    });
 @endphp
 
 @section('body')
@@ -20,38 +22,20 @@
             </div>
         </article>
 
-        <section>
-            <div class="wrapper">
-                <div class="details">
-                    <p>
-                        <time datetime="{{ $page->getJalaliDate() }}">
-                            منتشر شده در تاریخ: {{ $page->getJalaliDate() }}
-                        </time>
-                    </p>
-                    <a href="{{ $page->baseUrl }}">بازگشت به خانه</a>
-                </div>
-            </div>
-        </section>
+        @if ($otherPosts->isNotEmpty())
+            <hr>
 
-        @if ($next || $previous)
             <section>
-                <nav role="navigation" class="post-navigation">
-                    @if ($next)
-                        <div>
-                            <a href="{{ $next->getUrl() }}" title="{{ $next->title }}">
-                                {{ $next->title }}
-                            </a>
-                        </div>
-                    @endif
-
-                    @if ($previous)
-                        <div>
-                            <a href="{{ $previous->getUrl() }}" title="{{ $previous->title }}">
-                                {{ $previous->title }}
-                            </a>
-                        </div>
-                    @endif
-                </nav>
+                <div class="wrapper">
+                    <h3>نوشته‌های دیگر</h3>
+                    <ul>
+                        @foreach ($otherPosts as $post)
+                            <li>
+                                <a href="{{ $post->getUrl() }}">{{ $post->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </section>
         @endif
     </div>

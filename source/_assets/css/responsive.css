@@ -1,9 +1,7 @@
 /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
-    .details {
-        flex-direction: column;
-        justify-content: start;
-        align-items: start;
+    .post-preview {
+        margin-bottom: 6px;
     }
 }
 
@@ -37,19 +35,9 @@
     h6 {
         font-size: calc(var(--default-font-size));
     }
-    
-    .identity {
-        justify-content: center;
-        align-items: center;
-    }
 
     .post header {
         width: unset;
-    }
-
-    .post-preview,
-    footer>section {
-        flex-direction: column-reverse;
     }
 }
 
