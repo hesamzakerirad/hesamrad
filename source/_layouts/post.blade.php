@@ -14,9 +14,24 @@
             </div>
         </header>
 
-        <div class="wrapper">
-            @yield('content')
-        </div>
+        <article>
+            <div class="wrapper">
+                @yield('content')
+            </div>
+        </article>
+
+        <section>
+            <div class="wrapper">
+                <div class="details">
+                    <p>
+                        <time datetime="{{ $page->getJalaliDate() }}">
+                            منتشر شده در تاریخ: {{ $page->getJalaliDate() }}
+                        </time>
+                    </p>
+                    <a href="{{ $page->baseUrl }}">بازگشت به خانه</a>
+                </div>
+            </div>
+        </section>
 
         @if ($next || $previous)
             <section>

@@ -5,8 +5,6 @@ title: چرا نباید سنگ‌بنای کسب‌وکار خود را در ش
 date: 2024-11-13
 description:
 featured: false
-cover_image: https://images.unsplash.com/photo-1532622785990-d2c36a76f5a6?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-cover_image_copyright: https://unsplash.com/photos/two-people-drawing-on-whiteboard-26MJGnCM0Wc
 ---
 
 نوشته پیش روی شما دیدگاه شخصی من درباره نحوه استفاده از فضای مجازی برای رشد کسب‌وکار است. من مشاور کسب‌وکار نیستم و توصیه می‌کنم هر مطلبی که توی اینترنت (و اینجا) می‌خونید رو با منطق پرسشگرایانه خودتون بسنجید و اگه براتون مفید بود اندک چیزی ازش یاد بگیرید.

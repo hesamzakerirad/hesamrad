@@ -9,7 +9,6 @@
 	--red: #bb3825;
 	--green: #3bbb25;
 	--blue: #2455c3;
-	--unit: 1.614;
 	--space: 1rem;
 	--font-family: 'Vazir', 'Open Sans', sans-serif;
 	--header-font-family: 'IranYekanX', 'Open Sans', sans-serif;
@@ -36,12 +35,4 @@ html[theme='dark'] {
 	--input-color: var(--black-white);
 	--border-color: #3d444d;
 	--label-color: var(--grey);
-}
-
-@media all and (max-width: 768px) {
-	:root {
-		--unit: 1;
-		--default-font-size: 0.95rem;
-		--line-height: 28px;
-	}
 }
