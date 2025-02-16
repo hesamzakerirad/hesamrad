@@ -39,6 +39,12 @@
     .post header {
         width: unset;
     }
+
+    .post-preview {
+        flex-direction: column-reverse;
+        align-items: start;
+        margin-bottom: calc(var(--space) * 0.5)
+    }
 }
 
 /* Medium devices (tablets, less than 992px) */
