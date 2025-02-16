@@ -45,7 +45,7 @@
             <a href="{{ $page->baseUrl }}" class="no-decoration">
                 {{ $page->siteName }}
             </a>
-            <small> {{ $page->siteDescription }} </small>
+            <small class="description"> {{ $page->siteDescription }} </small>
     </header>
 
     <main role="main">

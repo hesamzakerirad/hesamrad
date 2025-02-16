@@ -32,6 +32,7 @@ h6 {
     color: var(--header-color);
     font-family: var(--header-font-family) !important;
     margin-top: calc(var(--space) * 2) !important;
+    font-weight: 900 !important;
 }
 
 h1:first-of-type,
@@ -181,10 +182,15 @@ nav ul li {
     padding: calc(2 * var(--space)) 0;
 }
 
+.identity * {
+    font-family: var(--header-font-family) !important;
+    font-weight: 900 !important;
+}
+
 .identity a {
     display: inline-block;
     font-weight: bold;
-    font-size: calc(1.5 * var(--default-font-size));
+    font-size: calc(1.3 * var(--default-font-size));
     margin: 0;
     padding: 0;
 }
