@@ -23,8 +23,6 @@
         </article>
 
         @if ($otherPosts->isNotEmpty())
-            <hr>
-
             <section>
                 <div class="wrapper">
                     <h3>نوشته‌های دیگر</h3>
@@ -38,5 +36,19 @@
                 </div>
             </section>
         @endif
+
+        <hr>
+
+        <section>
+            <div class="wrapper">
+                <script src="https://utteranc.es/client.js"
+                        repo="hesamzakerirad/hesamrad"
+                        issue-term="title"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                </script>
+            </div>
+        </section>
     </div>
 @endsection
