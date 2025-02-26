@@ -187,7 +187,6 @@ nav ul li {
 
 .identity * {
     font-family: var(--header-font-family) !important;
-    font-weight: 900 !important;
 }
 
 .identity a {
