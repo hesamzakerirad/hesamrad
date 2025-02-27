@@ -30,7 +30,6 @@ h4,
 h5,
 h6 {
     color: var(--header-color);
-    font-family: var(--header-font-family) !important;
     margin-top: calc(var(--space) * 2) !important;
     font-weight: 900 !important;
 }
@@ -185,10 +184,6 @@ nav ul li {
     padding: calc(2 * var(--space)) 0;
 }
 
-.identity * {
-    font-family: var(--header-font-family) !important;
-}
-
 .identity a {
     display: inline-block;
     font-weight: bold;
@@ -243,7 +238,6 @@ nav ul li {
 }
 
 .post-navigation a {
-    font-family: var(--header-font-family) !important;
     color: var(--white);
     margin: 1rem !important;
     display: inline-block;
@@ -332,4 +326,8 @@ table caption {
 table th,
 table td {
     padding: .625em;
+}
+
+.overflow-auto {
+    overflow: auto;
 }
