@@ -129,6 +129,7 @@ code {
     direction: ltr;
 }
 
+code,
 code * {
     font-family: var(--monospace-font-family) !important;
 }
@@ -167,6 +168,27 @@ nav.menu ul,
 
 nav ul li {
     padding: 5px 0;
+}
+
+table,
+th,
+td {
+    border: 1px solid var(--border-color);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table caption {
+    margin: .5em 0 .75em;
+}
+
+table th,
+table td {
+    padding: .625em;
 }
 
 .post-preview>a {
@@ -266,8 +288,6 @@ nav.menu a::before {
     background: #e6edf4;
 }
 
-
-
 footer>section {
     display: flex;
     justify-content: space-between;
@@ -308,25 +328,6 @@ footer>section {
 .utterances {}
 
 .utterances-frame {}
-
-table, th, td {
-    border: 1px solid var(--border-color);
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
-}
-
-table caption {
-    margin: .5em 0 .75em;
-}
-
-table th,
-table td {
-    padding: .625em;
-}
 
 .overflow-auto {
     overflow: auto;
