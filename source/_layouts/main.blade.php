@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+    <meta name="theme-color" content="#2455c3" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="{{ $page->description ?? $page->siteDescription }}">
 
