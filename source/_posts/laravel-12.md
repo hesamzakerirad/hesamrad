@@ -2,6 +2,10 @@
 extends: _layouts.post
 section: content
 title: لاراول 12 منتشر شد!
+description: نسخه 12 فریم ورک لاراول در 6 بهمن ماه 1403 منتشر شد و بر خلاف نسخه 11 که تغییرات سنگین و شکننده‌ای به همراه داشت تنها با لیست کوچکی از تغییرات به دست ما رسید.
+pageKeyWords:
+    - لاراول 12
+    - laravel 12
 date: 2025-02-24
 isExternal: false
 color: '#f5e0db'

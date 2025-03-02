@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ $page->locale }}" theme="{{ $page->theme }}">
+<html lang="{{ $page->language }}" theme="{{ $page->theme }}">
+
+@php
+    $title = $page->siteName . ($page->title ? ' - ' . $page->title : '');
+    $description = $page->description ?? $page->siteDescription;
+    $favicon = $page->baseUrl . "/favicon.ico";
+@endphp
 
 <head>
     @if ($page->production)
@@ -26,18 +32,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
     <meta name="theme-color" content="#2455c3" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="{{ $page->description ?? $page->siteDescription }}">
+    <meta name="copyright" content="{{ $page->siteName }}">
+    <meta name="language" content="{{ $page->language }}">
+    <meta name="medium" content="blog">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="robots" content="{{ $page->getRobotsStatus() }}">
+    <meta name="author" content="حسام راد, hesamzakerirad@gmail.com">
+    <meta name="keywords" content="{{ $page->getKeyWords() }}"/>
+    <meta name="description" content="{{ $description }}">
+    <meta name="pagename" content="{{ $title }}">
+    <title>{{ $title }}</title>
 
-    <meta property="og:title" content="{{ $page->siteName }}{{ $page->title ? ' - ' . $page->title : '' }}" />
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta http-equiv="x-dns-prefetch-control" content="off">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ $title }}" />
     <meta property="og:type" content="{{ $page->type ?? 'website' }}" />
     <meta property="og:url" content="{{ $page->getUrl() }}" />
-    <meta property="og:description" content="{{ $page->description ?? $page->siteDescription }}" />
+    <meta property="og:site_name" content="{{ $page->siteName }}">
+    <meta property="og:description" content="{{ $description }}" />
+    <meta property="og:locale" content="{{ $page->locale }}">
+    <meta property="og:image" content="{{ $favicon }}">
 
-    <title>{{ $page->siteName }}{{ $page->title ? ' - ' . $page->title : '' }}</title>
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="{{ $favicon }}">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:image" content="{{ $favicon }}">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "{{ $title }}",
+            "description": "{{ $description }}",
+            "url": "{{ $page->getUrl() }}"
+        }
+    </script>
 
     <link rel="home" href="{{ $page->baseUrl }}">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="{{ $favicon }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
