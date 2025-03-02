@@ -26,15 +26,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
     <meta name="theme-color" content="#2455c3" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="copyright" content="{{ $page->siteName }}">
+    <meta name="language" content="{{ $page->language }}">
+    <meta name="medium" content="blog">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="robots" content="{{ $page->getRobotsStatus() }}">
+    <meta name="author" content="حسام راد, hesamzakerirad@gmail.com">
+    <meta name="keywords" content="{{ $page->getKeyWords() }}"/>
     <meta name="description" content="{{ $page->description ?? $page->siteDescription }}">
+    <meta name="pagename" content="{{ $page->siteName }}{{ $page->title ? ' - ' . $page->title : '' }}">
+    <title>{{ $page->siteName }}{{ $page->title ? ' - ' . $page->title : '' }}</title>
+
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta http-equiv="x-dns-prefetch-control" content="off">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <meta property="og:title" content="{{ $page->siteName }}{{ $page->title ? ' - ' . $page->title : '' }}" />
     <meta property="og:type" content="{{ $page->type ?? 'website' }}" />
     <meta property="og:url" content="{{ $page->getUrl() }}" />
+    <meta property="og:site_name" content="{{ $page->siteName }}">
     <meta property="og:description" content="{{ $page->description ?? $page->siteDescription }}" />
-
-    <title>{{ $page->siteName }}{{ $page->title ? ' - ' . $page->title : '' }}</title>
+    <meta property='og:region' content='{{ $page->locale }}'>
 
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="icon" href="/favicon.ico">
