@@ -8,9 +8,15 @@ return [
     'siteName' => 'حسام راد',
     'siteDescription' => 'وب‌نوشت‌هایی از دنیای مهندسی نرم‌افزار',
     'siteAuthor' => 'حسام راد',
-    'locale' => 'fa',
+    'locale' => 'fa_IR',
     'language' => 'fa',
     'theme' => 'light',
+    'siteKeyWords' => [
+        'مهندسی نرم‌افزار',
+        'نرم‌افزار',
+        'پی اچ پی',
+        'لاراول',
+    ],
     'siteKeyWords' => [
         'مهندسی نرم‌افزار',
         'نرم‌افزار',
@@ -71,6 +77,22 @@ return [
     },
     'getJalaliDate' => function ($page, $format = '%d %B %Y') {
         return verta($page->getDate())->format($format);
+    },
+    'getKeyWords' => function ($page) {
+        $keywords = $page->pageKeyWords ?? $page->siteKeyWords;
+
+        if ($keywords instanceof \TightenCo\Jigsaw\IterableObject) {
+            $keywords = $keywords->toArray();
+        }
+
+        return implode('|', $keywords);
+    },
+    'getRobotsStatus' => function ($page) {
+        if ($page->isExternal) {
+            return 'noindex,nofollow';
+        }
+
+        return 'index,follow';
     },
     'getKeyWords' => function ($page) {
         $keywords = $page->pageKeyWords ?? $page->siteKeyWords;
