@@ -212,6 +212,7 @@ table td {
     font-size: calc(1.3 * var(--default-font-size));
     margin: 0;
     padding: 0;
+    color: var(--black)
 }
 
 .tags a {
@@ -300,11 +301,9 @@ footer>section {
 
 .post header {
     padding: calc(7 * var(--space)) 0;
-    margin-bottom: calc(2 * var(--space));
     background-color: #dbe3f5;
     background-image: radial-gradient(#00000010 1px, transparent 0);
     background-size: 20px 20px;
-    width: 85%;
     margin-left: auto;
     margin-right: auto;
 }
