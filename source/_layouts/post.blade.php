@@ -6,13 +6,18 @@
     $otherPosts = $posts->filter(function ($post) use ($page) {
         return !$post->isExternal && $post->title !== $page->title;
     });
+    
+    $tags = $page->getTags($page);
 @endphp
 
 @section('body')
     <div class="post">
-        <header {{ $page->color ? 'style=background-color:' . $page->color : '' }}>
+        <header>
             <div class="wrapper">
                 <h1>{{ $page->title }}</h1>
+                <small>آخرین بروزرسانی: 
+                    <time>{{ $page->getJalaliDate() }}</time>
+                </small>
             </div>
         </header>
 
