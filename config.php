@@ -91,4 +91,11 @@ return [
     'isPost' => function ($page) {
         return str_contains($page->getPath(), 'blog');
     },
+    'getPostColor' => function ($page) {
+        if (! $page->isPost($page)) {
+            return '';
+        }
+
+        return $page->color ?? '#dbe3f5';
+    }
 ];

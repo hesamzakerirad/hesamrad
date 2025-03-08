@@ -6,13 +6,11 @@
     $otherPosts = $posts->filter(function ($post) use ($page) {
         return !$post->isExternal && $post->title !== $page->title;
     });
-    
-    $tags = $page->getTags($page);
 @endphp
 
 @section('body')
     <div class="post">
-        <header>
+        <header {{ 'style=background-color:' . $page->getPostColor() }}>
             <div class="wrapper">
                 <h1>{{ $page->title }}</h1>
                 <small>آخرین بروزرسانی: 

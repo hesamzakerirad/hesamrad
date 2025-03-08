@@ -300,12 +300,7 @@ footer>section {
 }
 
 .post header {
-    padding: calc(7 * var(--space)) 0;
-    background-color: #dbe3f5;
-    background-image: radial-gradient(#00000010 1px, transparent 0);
-    background-size: 20px 20px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: calc(5 * var(--space)) 0 calc(7 * var(--space));
 }
 
 .post header .wrapper * {
