@@ -88,20 +88,7 @@ return [
 
         return 'index,follow';
     },
-    'getKeyWords' => function ($page) {
-        $keywords = $page->pageKeyWords ?? $page->siteKeyWords;
-
-        if ($keywords instanceof \TightenCo\Jigsaw\IterableObject) {
-            $keywords = $keywords->toArray();
-        }
-
-        return implode('|', $keywords);
-    },
-    'getRobotsStatus' => function ($page) {
-        if ($page->isExternal) {
-            return 'noindex,nofollow';
-        }
-
-        return 'index,follow';
+    'isPost' => function ($page) {
+        return str_contains($page->getPath(), 'blog');
     },
 ];

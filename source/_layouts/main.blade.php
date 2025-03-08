@@ -30,6 +30,7 @@
     <meta http-equiv="x-dns-prefetch-control" content="off">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
+    @if ($page->isPost($page))
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="{{ $title }}" />
     <meta property="og:type" content="{{ $page->type ?? 'website' }}" />
@@ -55,6 +56,7 @@
             "url": "{{ $page->getUrl() }}"
         }
     </script>
+    @endif
 
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="icon" href="{{ $favicon }}">
