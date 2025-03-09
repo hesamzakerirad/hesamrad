@@ -80,8 +80,6 @@
         @yield('body')
     </main>
 
-    <hr>
-
     <footer>
         <section class="wrapper">
             <div>

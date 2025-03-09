@@ -40,8 +40,6 @@
             </section>
         @endif
 
-        <hr>
-
         <section>
             <div class="wrapper">
                 <script src="https://utteranc.es/client.js"
