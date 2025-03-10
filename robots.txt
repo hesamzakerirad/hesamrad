@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://hesamrad.com/sitemap.xml
