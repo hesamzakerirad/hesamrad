@@ -26,9 +26,11 @@ readTime: 2
 در نسخه جدید لاراول شاهد دو ویژگی جدید هستیم:
 
 - انتشار Starter Kitهایی برای React ،Vue و Livewire (<a href="https://laravel.com/docs/12.x/starter-kits" target="_blank">لینک مستند</a>)
-- انتشار Cloud برای deploy نرم افزار به محیط production (<a href="https://laravel.com/docs/12.x/deployment#laravel-cloud" target="_blank">لینک مستند</a>)
+- انتشار Cloud برای deploy نرم‌افزار به محیط production (<a href="https://laravel.com/docs/12.x/deployment#laravel-cloud" target="_blank">لینک مستند</a>)
 
 به غیر از این دو ویژگی، بقیه تغییرها در راستای رفع باگ، بهبود کد و پایداری بیشتر فریم ورک بوده است و همونطور که در مستندات لاراول گفته شده است، بروزررسانی به این نسخه کمترین تغییر در کد برنامه را به همراه خواهد داشت. (<a href="https://laravel.com/docs/12.x/releases#minimal-breaking-changes" target="_blank">لینک مستند</a>)
+
+![Laravel 12](/assets/build/images/laravel-12.avif)
 
 در آخر میشه گفت این نسخه تفاوت چندانی با نسخه 11 نداره و بیشتر شبیه به یک نسخه بهینه شده سری 11 می‌باشد اما به نظر شخصی من حتی یک commit هم ارزش بروزرسانی رو داره. (<a href="https://github.com/laravel/framework/releases/tag/v12.0.0" target="_blank">مشاهده تغییرات این نسخه</a>)
 
