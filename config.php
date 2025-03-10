@@ -97,5 +97,8 @@ return [
         }
 
         return $page->color ?? '#dbe3f5';
-    }
+    },
+    'getReadTime' => function ($page) {
+        return $page->readTime;
+    },
 ];

@@ -13,7 +13,11 @@
         <header {{ 'style=background-color:' . $page->getPostColor() }}>
             <div class="wrapper">
                 <h1>{{ $page->title }}</h1>
-                <small>آخرین بروزرسانی: 
+                <small>خواندن در
+                    <span>{{ $page->getReadTime() }} دقیقه</span>
+                </small>
+                <span>.</span>
+                <small>منتشر شده در
                     <time>{{ $page->getJalaliDate() }}</time>
                 </small>
             </div>
