@@ -17,7 +17,7 @@
                     <span>{{ $page->getReadTime() }} دقیقه</span>
                 </small>
                 <span>.</span>
-                <small>منتشر شده در
+                <small>آخرین بروزرسانی در
                     <time>{{ $page->getJalaliDate() }}</time>
                 </small>
             </div>
