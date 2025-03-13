@@ -10,7 +10,6 @@ return [
     'siteAuthor' => 'حسام راد',
     'locale' => 'fa_IR',
     'language' => 'fa',
-    'theme' => 'light',
     'siteKeyWords' => [
         'مهندسی نرم‌افزار',
         'نرم‌افزار',

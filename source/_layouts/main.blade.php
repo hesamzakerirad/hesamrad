@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $page->language }}" theme="{{ $page->theme }}">
+<html lang="{{ $page->language }}">
 
 @php
     $title = $page->siteName . ($page->title ? ' - ' . $page->title : '');

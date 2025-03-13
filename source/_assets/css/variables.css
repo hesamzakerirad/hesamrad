@@ -6,15 +6,12 @@
 	--black: #0d1117;
 	--grey: #333;
 	--muted: #9a9a9a;
-	--red: #bb3825;
-	--green: #3bbb25;
-	--blue: #2455c3;
 	--space: 1rem;
 	--font-family: 'Estedad', 'Open Sans', sans-serif;
 	--monospace-font-family: 'JetBrains Mono', monospace;
 	--default-font-size: 1rem;
 	--word-spacing: 0.3px;
-	--line-height: 32px;
+	--line-height: 2rem;
 	--border-radius: 0px;
 }
 
@@ -25,13 +22,4 @@ html {
 	--input-color: var(--white);
 	--border-color: #e3e3e3;
 	--label-color: var(--muted);
-}
-
-html[theme='dark'] {
-	--background-color: var(--black);
-	--text-color: var(--muted);
-	--header-color: var(--white);
-	--input-color: var(--black-white);
-	--border-color: #3d444d;
-	--label-color: var(--grey);
 }
