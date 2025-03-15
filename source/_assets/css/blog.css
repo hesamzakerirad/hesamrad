@@ -138,6 +138,10 @@ code {
     direction: ltr;
 }
 
+code.hljs {
+    border: 1px solid var(--border-color);
+}
+
 code,
 code * {
     font-family: var(--monospace-font-family) !important;
