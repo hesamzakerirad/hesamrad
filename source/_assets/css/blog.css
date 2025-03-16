@@ -82,6 +82,7 @@ b {
 
 small {
     font-size: 0.889rem;
+    font-weight: 400 !important;
 }
 
 h1,
@@ -110,10 +111,11 @@ a[target=_blank]::after {
 }
 
 hr {
-    margin: calc(3* var(--space)) 0;
+    margin: calc(2* var(--space)) auto;
     border: none;
     box-shadow: none;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #efefef;
+    width: 65%
 }
 
 blockquote {
@@ -204,13 +206,6 @@ table td {
     padding: .625em;
 }
 
-.post-preview>a {
-    display: flex;
-    justify-content: space-between;
-    padding: 17px 0;
-    text-decoration: none;
-}
-
 .identity {
     display: flex;
     flex-direction: column;
@@ -254,11 +249,22 @@ table td {
     top: 12px;
 }
 
+.post-preview a {
+    color: var(--black);
+}
+
 .post-preview {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0px;
+    flex-direction: column;
+}
+
+.post-preview h3 {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.post-preview .description {
+    font-weight: 400;
 }
 
 .post-navigation {
@@ -293,6 +299,12 @@ nav.menu a::before {
 .post-preview p {
     margin: 0;
     font-weight: bold;
+}
+
+.blog {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem
 }
 
 .metadata {

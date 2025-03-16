@@ -5,9 +5,9 @@
 @endphp
 
 @section('body')
-    <div class="wrapper">
+    <div class="wrapper blog">
         @foreach ($posts->where('isFeatured', true) as $post)
-            <div class="featured">
+            <div class="post-preview featured">
                 @include('_components.post-preview-inline')
             </div>
 
@@ -16,22 +16,15 @@
             @endif
         @endforeach
 
-        @foreach ($posts->where('isFeatured', false)->take(6)->chunk(2) as $row)
-            <div>
-                @foreach ($row as $post)
-                    <div>
-                        @include('_components.post-preview-inline')
-                    </div>
-
-                    {{-- @if (!$loop->last)
-                        <hr>
-                    @endif --}}
-                @endforeach
+        @foreach ($posts->where('isFeatured', false) as $post)
+            <div class="post-preview">
+                @include('_components.post-preview-inline')
             </div>
 
-            {{-- @if (!$loop->last)
+
+            @if (!$loop->last)
                 <hr>
-            @endif --}}
+            @endif
         @endforeach
     </div>
-@stop
+@endsection

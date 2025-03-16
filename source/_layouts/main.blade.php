@@ -68,7 +68,7 @@
 </head>
 
 <body>
-    <header {{ 'style=background-color:' . $page->getPostColor() }}>
+    <header {{ $page->getPostColor() ? ('style=background-color:' . $page->getPostColor()) : '' }}>
         <section class="identity wrapper">
             <a href="{{ $page->baseUrl }}" class="no-decoration">
                 {{ $page->siteName }}

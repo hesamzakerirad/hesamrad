@@ -1,7 +1,8 @@
 ---
 extends: _layouts.post
 section: content
-title: آمار نسخه‌های مختلف php در ژانویه 2025
+title: php در ابتدای سال 2025 میلادی
+description: آمار استفاده از php به چه صورت است؟
 date: 2025-01-23
 isExternal: true
 source: https://stitcher.io/blog/php-version-stats-january-2025
