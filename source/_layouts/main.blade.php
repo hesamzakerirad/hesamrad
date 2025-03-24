@@ -30,6 +30,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     @if ($page->isPost($page))
+        @if ($page->isTranslated)
+            <link rel="alternate" hreflang="en" href="{{ $page->source }}" />
+        @endif
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="{{ $title }}" />
     <meta property="og:type" content="{{ $page->type ?? 'website' }}" />

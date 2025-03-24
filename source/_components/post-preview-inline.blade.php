@@ -1,5 +1,6 @@
 @php
-    $link = $post->source ?? $post->getUrl();
+    $isExternal = $post->isExternal && $post->source;
+    $link = $isExternal ? $post->source : $post->getUrl();
 @endphp
 
 <article>

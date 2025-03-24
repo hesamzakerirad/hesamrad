@@ -2,10 +2,6 @@
 
 @php
     $page->type = 'article';
-
-    $otherPosts = $posts->filter(function ($post) use ($page) {
-        return !$post->isExternal && $post->title !== $page->title;
-    });
 @endphp
 
 @section('body')
@@ -29,17 +25,13 @@
             </div>
         </article>
 
-        @if ($otherPosts->isNotEmpty())
+        @if ($next = $page->getNext())
             <section>
                 <div class="wrapper">
-                    <h3>نوشته‌های دیگر</h3>
-                    <ul>
-                        @foreach ($otherPosts as $post)
-                            <li>
-                                <a href="{{ $post->getUrl() }}">{{ $post->title }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <div class="next" role="navigation">
+                        <span>نوشته بعدی:</span>
+                        <a href="{{ $next->getUrl() }}">{{ $next->title }}</a>
+                    </div>
                 </div>
             </section>
         @endif
