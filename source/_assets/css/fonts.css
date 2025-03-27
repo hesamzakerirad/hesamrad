@@ -1,62 +1,62 @@
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-100.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-100.woff2") format("woff2");
     font-weight: 100;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-200.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-200.woff2") format("woff2");
     font-weight: 200;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-300.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-300.woff2") format("woff2");
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-400.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-400.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-500.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-500.woff2") format("woff2");
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-600.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-600.woff2") format("woff2");
     font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-700.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-700.woff2") format("woff2");
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-800.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-800.woff2") format("woff2");
     font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Estedad";
-    src: url("../fonts/Estedad-FD-900.woff2") format("woff2");
+    src: url("../fonts/Estedad-FD/Estedad-FD-900.woff2") format("woff2");
     font-weight: 900;
     font-style: normal;
 }
