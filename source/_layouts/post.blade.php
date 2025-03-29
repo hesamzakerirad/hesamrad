@@ -6,18 +6,29 @@
 
 @section('body')
     <div class="post">
-        <header {{ 'style=background-color:' . $page->getPostColor() }}>
+        <header>
             <div class="wrapper">
+                <div class="mb-1">
+                    <a href="{{ $page->baseUrl }}">
+                        <i class="fa-solid fa-arrow-right ml-05"></i>
+                        بازگشت به وبلاگ
+                    </a>
+                </div>
+
                 <h1>{{ $page->title }}</h1>
-                <small>خواندن در
+                <span>خواندن در
                     <span>{{ $page->getReadTime() }} دقیقه</span>
-                </small>
-                <span>.</span>
-                <small>آخرین بروزرسانی در
-                    <time>{{ $page->getJalaliDate() }}</time>
-                </small>
+                </span>
+                <span>-</span>
+                <span>آخرین بروزرسانی در
+                    <time>{{ $page->getUpdatedJalaliDate() }}</time>
+                </span>
             </div>
         </header>
+
+        @if ($page->thumbnail)
+            <img src="{{ $page->thumbnail }}">
+        @endif
 
         <article>
             <div class="wrapper">
@@ -30,22 +41,13 @@
                 <div class="wrapper">
                     <div class="next" role="navigation">
                         <span>نوشته بعدی:</span>
-                        <a href="{{ $next->getUrl() }}">{{ $next->title }}</a>
+                        <a href="{{ $next->getUrl() }}">
+                            {{ $next->title }}
+                            <i class="fa-solid fa-arrow-left mr-05"></i>
+                        </a>
                     </div>
                 </div>
             </section>
         @endif
-
-        <section>
-            <div class="wrapper">
-                <script src="https://utteranc.es/client.js"
-                        repo="hesamzakerirad/hesamrad"
-                        issue-term="title"
-                        theme="github-light"
-                        crossorigin="anonymous"
-                        async>
-                </script>
-            </div>
-        </section>
     </div>
 @endsection
