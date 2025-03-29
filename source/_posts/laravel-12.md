@@ -6,10 +6,12 @@ description: نسخه 12 فریم ورک لاراول در 6 بهمن ماه 140
 pageKeyWords:
     - لاراول 12
     - laravel 12
-date: 2025-02-24
+created_at: 2025-02-24
+updated_at: 2025-03-29
 isExternal: false
 color: '#f5e0db'
 readTime: 2
+thumbnail: https://picperf.io/https://laravelnews.s3.amazonaws.com/featured-images/laravel-12.jpg
 ---
 
 نسخه 12 فریم ورک لاراول در 6 بهمن ماه 1403 منتشر شد و بر خلاف نسخه 11 که تغییرات سنگین و شکننده‌ای به همراه داشت تنها با لیست کوچکی از تغییرات به دست ما رسید. سازنده فریم ورک لاراول،‌ آقای Taylor Otwell در توییتر(ایکس) اعلام کرد که در این نسخه تلاش شده تا مشکلات موجود رو رفع و نسخه پایدارتری رو به دنیای متن باز روانه کنند. (<a href="https://x.com/taylorotwell/status/1892337776298787188?t=6NLK_XeFtTrsBrm0BTaYDQ&s=19" target="_blank">لینک توییت</a>)
@@ -29,8 +31,6 @@ readTime: 2
 - انتشار Cloud برای deploy نرم‌افزار به محیط production (<a href="https://laravel.com/docs/12.x/deployment#laravel-cloud" target="_blank">لینک مستند</a>)
 
 به غیر از این دو ویژگی، بقیه تغییرها در راستای رفع باگ، بهبود کد و پایداری بیشتر فریم ورک بوده است و همونطور که در مستندات لاراول گفته شده است، بروزررسانی به این نسخه کمترین تغییر در کد برنامه را به همراه خواهد داشت. (<a href="https://laravel.com/docs/12.x/releases#minimal-breaking-changes" target="_blank">لینک مستند</a>)
-
-![Laravel 12](/assets/build/images/laravel-12.avif)
 
 در آخر میشه گفت این نسخه تفاوت چندانی با نسخه 11 نداره و بیشتر شبیه به یک نسخه بهینه شده سری 11 می‌باشد اما به نظر شخصی من حتی یک commit هم ارزش بروزرسانی رو داره. (<a href="https://github.com/laravel/framework/releases/tag/v12.0.0" target="_blank">مشاهده تغییرات این نسخه</a>)
 

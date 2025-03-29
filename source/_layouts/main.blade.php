@@ -67,13 +67,17 @@
 </head>
 
 <body>
-    <header {{ $page->getPostColor() ? ('style=background-color:' . $page->getPostColor()) : '' }}>
-        <section class="identity wrapper">
+    <header class="main-header">
+        <div class="identity">
             <a href="{{ $page->baseUrl }}" class="no-decoration">
                 {{ $page->siteName }}
             </a>
             <small class="description"> {{ $page->siteDescription }} </small>
-    </header>
+        </div>
+        {{-- <div>
+            <a href="#">اینجا کجاست؟</a>
+        </div> --}}
+        </header>
 
     <main role="main">
         @yield('body')
@@ -97,6 +101,7 @@
     </section>
 
     <script src="{{ mix('js/main.js', 'assets/build') }}"></script>
+    <script src="https://kit.fontawesome.com/3aa580010a.js" crossorigin="anonymous"></script>
     @stack('scripts')
 </body>
 

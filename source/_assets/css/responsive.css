@@ -51,6 +51,10 @@
     .post-navigation {
         flex-direction: column;
     }
+
+    img {
+        width: 100% !important;
+    }
 }
 
 /* Large devices (desktops, less than 1200px) */

@@ -21,7 +21,7 @@ return [
     'collections' => [
         'posts' => [
             'author' => 'حسام راد',
-            'sort' => '-date',
+            'sort' => '-created_at',
             'path' => 'blog/{filename}',
         ],
         'categories' => [
@@ -36,7 +36,10 @@ return [
 
     // helpers
     'getDate' => function ($page) {
-        return Datetime::createFromFormat('U', $page->date);
+        return Datetime::createFromFormat('U', $page->created_at);
+    },
+    'getUpdatedDate' => function ($page) {
+        return Datetime::createFromFormat('U', $page->updated_at);
     },
     'getExcerpt' => function ($page, $length = 255) {
         if ($page->excerpt) {
@@ -70,6 +73,9 @@ return [
     },
     'getJalaliDate' => function ($page, $format = '%d %B %Y') {
         return verta($page->getDate())->format($format);
+    },
+    'getUpdatedJalaliDate' => function ($page, $format = '%d %B %Y') {
+        return verta($page->getUpdatedDate())->format($format);
     },
     'getKeyWords' => function ($page) {
         $keywords = $page->pageKeyWords ?? $page->siteKeyWords;

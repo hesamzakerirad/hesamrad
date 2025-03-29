@@ -4,12 +4,13 @@ section: content
 title: دیگه مثل گذشته کد نمی‌نویسم.
 description: تجربه نویسنده وبلاگ stitcher.io بعد از 10 سال برنامه‌نویسی
 pageKeyWords:
-date: 2025-03-24
+created_at: 2025-03-24
+updated_at: 2025-03-29
 isExternal: false
 isTranslated: true
 source: https://stitcher.io/blog/i-dont-code-the-way-i-used-to
-color: "#dbf5ef"
 readTime: 3
+thumbnail: /assets/build/images/code.jpeg
 ---
 
 این نوشته برگردان پست منتشر شده در وبلاگ آقای Brent Roose می‌باشد.
