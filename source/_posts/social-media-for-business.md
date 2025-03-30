@@ -11,10 +11,14 @@ tags:
     - کسب‌و‌کار
 created_at: 2024-11-13
 updated_at: 2024-11-17
-isFeatured: false
-isExternal: false
-readTime: 4
 thumbnail: /assets/build/images/social-media.jpeg
+thumbnailCopyRightSource:
+readTime: 4
+source:
+isTranslated: false
+isExternal: false
+isFeatured: false
+isPublished: true
 ---
 
 نوشته پیش روی شما دیدگاه شخصی من درباره نحوه استفاده از فضای مجازی برای رشد کسب‌و‌کار است. من مشاور کسب‌و‌کار نیستم و توصیه می‌کنم هر مطلبی که توی اینترنت (و اینجا) می‌خونید رو با منطق پرسشگرایانه خودتون بسنجید و اگه براتون مفید بود اندک چیزی ازش یاد بگیرید.

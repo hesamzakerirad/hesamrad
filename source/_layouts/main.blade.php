@@ -67,24 +67,26 @@
 </head>
 
 <body>
-    <header class="main-header">
-        <div class="identity">
-            <a href="{{ $page->baseUrl }}" class="no-decoration">
-                {{ $page->siteName }}
-            </a>
-            <small class="description"> {{ $page->siteDescription }} </small>
+    <header>
+        <div class="big-container">
+            <div class="identity">
+                <a href="{{ $page->baseUrl }}" class="no-decoration">
+                    {{ $page->siteName }}
+                </a>
+                <small class="description"> {{ $page->siteDescription }} </small>
+            </div>
+            {{-- <div>
+                <a href="#">اینجا کجاست؟</a>
+            </div> --}}
         </div>
-        {{-- <div>
-            <a href="#">اینجا کجاست؟</a>
-        </div> --}}
-        </header>
+    </header>
 
     <main role="main">
         @yield('body')
     </main>
 
     <footer>
-        <section class="wrapper">
+        <section class="big-container">
             <div>
                 <a href="{{ $page->baseUrl }}" class="no-decoration">{{ $page->siteName }}</a>
                 <span>

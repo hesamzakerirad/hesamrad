@@ -23,6 +23,7 @@ return [
             'author' => 'حسام راد',
             'sort' => '-created_at',
             'path' => 'blog/{filename}',
+            'filter' => fn ($post) => $post->isPublished === true, 
         ],
         'categories' => [
             'path' => '/blog/categories/{filename}',
@@ -38,9 +39,11 @@ return [
     'getDate' => function ($page) {
         return Datetime::createFromFormat('U', $page->created_at);
     },
+
     'getUpdatedDate' => function ($page) {
         return Datetime::createFromFormat('U', $page->updated_at);
     },
+
     'getExcerpt' => function ($page, $length = 255) {
         if ($page->excerpt) {
             return $page->excerpt;
@@ -68,15 +71,19 @@ return [
             ? preg_replace('/\s+?(\S+)?$/', '', $truncated) . '...'
             : $cleaned;
     },
+
     'isActive' => function ($page, $path) {
         return Str::endsWith(trimPath($page->getPath()), trimPath($path));
     },
+
     'getJalaliDate' => function ($page, $format = '%d %B %Y') {
         return verta($page->getDate())->format($format);
     },
+
     'getUpdatedJalaliDate' => function ($page, $format = '%d %B %Y') {
         return verta($page->getUpdatedDate())->format($format);
     },
+
     'getKeyWords' => function ($page) {
         $keywords = $page->pageKeyWords ?? $page->siteKeyWords;
 
@@ -86,6 +93,7 @@ return [
 
         return implode('|', $keywords);
     },
+
     'getRobotsStatus' => function ($page) {
         if ($page->isExternal) {
             return 'noindex,nofollow';
@@ -93,16 +101,11 @@ return [
 
         return 'index,follow';
     },
+
     'isPost' => function ($page) {
         return str_contains($page->getPath(), 'blog');
     },
-    'getPostColor' => function ($page) {
-        if (! $page->isPost($page)) {
-            return '';
-        }
 
-        return $page->color ?? '#dbe3f5';
-    },
     'getReadTime' => function ($page) {
         return $page->readTime;
     },

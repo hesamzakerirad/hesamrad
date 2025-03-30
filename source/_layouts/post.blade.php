@@ -7,7 +7,7 @@
 @section('body')
     <div class="post">
         <header>
-            <div class="wrapper">
+            <div class="container">
                 <div class="mb-1">
                     <a href="{{ $page->baseUrl }}">
                         <i class="fa-solid fa-arrow-right ml-05"></i>
@@ -31,14 +31,14 @@
         @endif
 
         <article>
-            <div class="wrapper">
+            <div class="container">
                 @yield('content')
             </div>
         </article>
 
         @if ($next = $page->getNext())
             <section>
-                <div class="wrapper">
+                <div class="container">
                     <div class="next" role="navigation">
                         <span>نوشته بعدی:</span>
                         <a href="{{ $next->getUrl() }}">
