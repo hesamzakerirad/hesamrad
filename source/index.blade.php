@@ -11,7 +11,7 @@
                 @include('_components.post-preview-inline')
             </div>
 
-            @if (!$loop->last)
+            @if (!$post->last)
                 <hr>
             @endif
         @endforeach
@@ -20,7 +20,6 @@
             <div class="post-preview">
                 @include('_components.post-preview-inline')
             </div>
-
 
             @if (!$loop->last)
                 <hr>
