@@ -5,7 +5,7 @@
 @endphp
 
 @section('body')
-    <div class="wrapper blog mt-2 mb-2">
+    <div class="container blog mt-2 mb-2">
         @foreach ($posts->where('isFeatured', true) as $post)
             <div class="post-preview featured">
                 @include('_components.post-preview-inline')
