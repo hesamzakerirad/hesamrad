@@ -12,7 +12,7 @@ tags:
 created_at: 2024-11-13
 updated_at: 2024-11-17
 thumbnail: /assets/build/images/social-media.jpeg
-thumbnailCopyRightSource:
+thumbnailCopyRightSource: https://unsplash.com/photos/neon-signage-xv7-GlvBLFw
 readTime: 4
 source:
 isTranslated: false
