@@ -27,7 +27,14 @@
         </header>
 
         @if ($page->thumbnail)
-            <img src="{{ $page->thumbnail }}">
+            <div class="thumbnail big-container">
+                <img src="{{ $page->thumbnail }}">
+
+                @if ($page->thumbnailCopyRightSource) 
+                    <span class="copyright">تصویر اصلی از <a href="{{ $page->thumbnailCopyRightSource }}" target="_blank">اینجا</a>
+                        برداشته شده است.</span>
+                @endif
+            </div>
         @endif
 
         <article>

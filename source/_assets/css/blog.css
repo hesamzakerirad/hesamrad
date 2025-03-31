@@ -288,6 +288,20 @@ table td {
     margin-left: 5px;
 }
 
+.thumbnail {
+    position: relative;
+    z-index: 1;
+}
+
+.thumbnail .copyright {
+    position: absolute;
+    right: calc(1* var(--space));
+    bottom: calc(2.5* var(--space));
+    color: #696969;
+    padding: 0 5px;
+    font-size: smaller;
+}
+
 .post-preview a {
     color: var(--black);
 }
