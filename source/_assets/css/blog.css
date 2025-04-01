@@ -120,7 +120,7 @@ hr {
 
 blockquote {
     display: block;
-    background: #f8f8f8;
+    background: var(--background-color);
     border-radius: var(--border-radius);
     margin: var(--space) 0 !important;
     padding: calc(2 * var(--space));
@@ -141,6 +141,10 @@ img {
     display: block;
     object-fit: cover;
     aspect-ratio: 16 / 9;
+}
+
+.hljs {
+    background: var(--background-color) !important;
 }
 
 code {
@@ -173,6 +177,7 @@ svg {
 body>header {
     display: flex;
     flex-direction: column;
+    padding: calc(2 * var(--space)) 0;
 }
 
 .mr-05 {
@@ -271,7 +276,6 @@ table td {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: calc(2 * var(--space)) 0;
 }
 
 .identity a {
@@ -280,7 +284,7 @@ table td {
     font-size: calc(1.3 * var(--default-font-size));
     margin: 0;
     padding: 0;
-    color: var(--black)
+    color: var(--header-color)
 }
 
 .tags a {
@@ -311,9 +315,8 @@ table td {
     position: absolute;
     right: calc(1* var(--space));
     bottom: calc(1* var(--space));
-    color: var(--muted);
+    color: var(--grey);
     padding: 0 5px;
-    font-size: smaller;
     margin: 0;
     z-index: 2;
 }
@@ -324,7 +327,7 @@ table td {
 }
 
 .post-preview a {
-    color: var(--black);
+    color: var(--text-color);
 }
 
 .post-preview h3 {
@@ -380,4 +383,45 @@ footer>section {
     border: 1px solid var(--border-color);
     padding: var(--space);
     margin-top: calc(2 * var(--space));
+}
+
+#theme {
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    padding: 1rem
+}
+.theme-toggle {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+/* Ensure only one icon is visible at a time */
+#moon-icon, #sun-icon {
+    position: absolute;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity; /* Smoother animation */
+}
+
+/* Light Mode (Sun visible, Moon hidden above) */
+#moon-icon {
+    opacity: 1;
+    transform: translateY(0);
+}
+#sun-icon {
+    opacity: 0;
+    transform: translateY(-24px);
+}
+
+/* Dark Mode (Moon visible, Sun hidden below) */
+html[theme="dark"] #moon-icon {
+    opacity: 0;
+    transform: translateY(24px);
+}
+html[theme="dark"] #sun-icon {
+    opacity: 1;
+    transform: translateY(0);
 }

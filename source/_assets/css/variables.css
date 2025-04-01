@@ -2,10 +2,9 @@
 
 :root {
 	--primary-color: #2455c3;
-	--white: #fff;
+	--white: #ffffff;
 	--black: #0d1117;
-	--grey: #333;
-	--muted: #9a9a9a;
+	--grey: #9198A1;
 	--space: 1rem;
 	--font-family: 'Estedad', 'Open Sans', sans-serif;
 	--monospace-font-family: 'JetBrains Mono', monospace;
@@ -18,9 +17,16 @@
 
 html {
 	--background-color: var(--white);
-	--text-color: var(--grey);
+	--text-color: #333333;
 	--header-color: var(--black);
 	--input-color: var(--white);
 	--border-color: #e3e3e3;
-	--label-color: var(--muted);
+}
+
+html[theme=dark] {
+	--background-color: var(--black);
+	--text-color: var(--grey);
+	--header-color: var(--white);
+	--input-color: var(--text-color);
+	--border-color: #3d444d;
 }
