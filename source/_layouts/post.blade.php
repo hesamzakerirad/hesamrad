@@ -31,10 +31,10 @@
                 <img src="{{ $page->thumbnail }}">
 
                 @if ($page->thumbnailCopyRightSource) 
-                    <p class="copyright">
+                    <small class="copyright">
                         <i class="fa-regular fa-copyright"></i>
                         نگاره از <a href="{{ $page->thumbnailCopyRightSource }}" target="_blank">اینجا</a> به امانت گرفته شده است.
-                    </p>
+                    </small>
                 @endif
             </div>
         @endif

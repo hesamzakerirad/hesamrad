@@ -24,3 +24,19 @@ document.querySelectorAll('pre code').forEach((block) => {
     hljs.highlightElement(block);
 });
 
+// Dark mode logic
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('theme');
+    const html = document.documentElement;
+
+    // Initialize
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('theme', savedTheme);
+
+    // Toggle theme
+    themeToggle.addEventListener('click', function() {
+        const newTheme = html.getAttribute('theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+});
