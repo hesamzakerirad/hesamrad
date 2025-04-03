@@ -318,11 +318,9 @@ table td {
 
 .thumbnail .copyright {
     position: absolute;
-    right: calc(1* var(--space));
-    bottom: calc(1* var(--space));
+    right: calc(1.2* var(--space));
+    bottom: calc(0.7* var(--space));
     color: var(--grey);
-    padding: 0 5px;
-    margin: 0;
     z-index: 2;
 }
 
