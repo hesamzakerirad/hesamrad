@@ -10,7 +10,7 @@ tags:
     - 
 created_at: 2025-02-24
 updated_at: 2025-03-29
-thumbnail: https://picperf.io/https://laravelnews.s3.amazonaws.com/featured-images/laravel-12.jpg
+thumbnail: /assets/build/images/laravel-12.jpeg
 thumbnailCopyRightSource:
 readTime: 2
 source: 
