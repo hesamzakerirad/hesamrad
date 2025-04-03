@@ -127,8 +127,13 @@ blockquote {
     border-right: 7px solid var(--border-color);
 }
 
+b,
+strong {
+    color: var(--header-color);
+}
+
 img {
-    background-color: var(--black);
+    background-color: #181818;
     box-shadow: 0 0 #0000, 0 0 #0000, 0px 14px 34px 0px rgba(0, 0, 0, 0.1);
     -webkit-border-radius: var(--border-radius);
     -moz-border-radius: var(--border-radius);
@@ -308,7 +313,7 @@ table td {
     right: 0;
     bottom: 0;
     background: linear-gradient(345deg, black, transparent 40%);
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .thumbnail .copyright {
@@ -323,7 +328,7 @@ table td {
 
 .thumbnail img {
     position: relative;
-    display: block; 
+    display: block;
 }
 
 .post-preview a {
@@ -391,6 +396,7 @@ footer>section {
     text-align: center;
     padding: 1rem
 }
+
 .theme-toggle {
     display: inline-block;
     cursor: pointer;
@@ -399,28 +405,29 @@ footer>section {
     height: 24px;
 }
 
-/* Ensure only one icon is visible at a time */
-#moon-icon, #sun-icon {
+#moon-icon,
+#sun-icon {
     position: absolute;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity; /* Smoother animation */
+    will-change: transform, opacity;
+    color: var(--header-color);
 }
 
-/* Light Mode (Sun visible, Moon hidden above) */
 #moon-icon {
     opacity: 1;
     transform: translateY(0);
 }
+
 #sun-icon {
     opacity: 0;
     transform: translateY(-24px);
 }
 
-/* Dark Mode (Moon visible, Sun hidden below) */
 html[theme="dark"] #moon-icon {
     opacity: 0;
     transform: translateY(24px);
 }
+
 html[theme="dark"] #sun-icon {
     opacity: 1;
     transform: translateY(0);

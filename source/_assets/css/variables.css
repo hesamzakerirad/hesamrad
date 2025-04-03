@@ -2,7 +2,7 @@
 
 :root {
 	--primary-color: #2455c3;
-	--white: #ffffff;
+	--white: #e8ecf2;
 	--black: #0d1117;
 	--grey: #9198A1;
 	--space: 1rem;
@@ -20,7 +20,7 @@ html {
 	--text-color: #333333;
 	--header-color: var(--black);
 	--input-color: var(--white);
-	--border-color: #e3e3e3;
+	--border-color: #b2b9c2;
 }
 
 html[theme=dark] {
