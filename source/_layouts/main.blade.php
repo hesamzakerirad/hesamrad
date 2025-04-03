@@ -5,6 +5,7 @@
     $title = $page->siteName . ($page->title ? ' - ' . $page->title : '');
     $description = $page->description ?? $page->siteDescription;
     $favicon = $page->baseUrl . '/favicon.ico';
+    $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : $favicon;
 @endphp
 
 <head>
@@ -12,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
     <meta name="copyright" content="{{ $page->siteName }}">
     <meta name="language" content="{{ $page->language }}">
+    <meta name="theme-color" content="#2455c3" />
     <meta name="medium" content="blog">
     <meta name="coverage" content="Worldwide">
     <meta name="distribution" content="Global">
@@ -41,13 +43,13 @@
         <meta property="og:site_name" content="{{ $page->siteName }}">
         <meta property="og:description" content="{{ $description }}" />
         <meta property="og:locale" content="{{ $page->locale }}">
-        <meta property="og:image" content="{{ $favicon }}">
+        <meta property="og:image" content="{{ $thumbnail }}">
 
         <!-- Twitter Card Meta Tags -->
-        <meta name="twitter:card" content="{{ $favicon }}">
+        <meta name="twitter:card" content="{{ $thumbnail }}">
         <meta name="twitter:title" content="{{ $title }}">
         <meta name="twitter:description" content="{{ $description }}">
-        <meta name="twitter:image" content="{{ $favicon }}">
+        <meta name="twitter:image" content="{{ $thumbnail }}">
 
         <!-- Structured Data -->
         <script type="application/ld+json">
