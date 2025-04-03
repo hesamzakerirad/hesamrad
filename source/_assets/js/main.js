@@ -40,3 +40,28 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', newTheme);
     });
 });
+
+// copy to clipboard logic
+document.addEventListener('DOMContentLoaded', function() {
+    const copyBtn = document.getElementById('copy-url-btn');
+    if (!copyBtn) return;
+
+    copyBtn.addEventListener('click', function() {
+        const postUrl = window.location.href;
+        
+        navigator.clipboard.writeText(postUrl).then(() => {
+            const copyText = copyBtn.querySelector('.copy-text');
+            const copiedText = copyBtn.querySelector('.copied-text');
+            
+            copyText.style.display = 'none';
+            copiedText.style.display = 'inline';
+            
+            setTimeout(() => {
+                copyText.style.display = 'inline';
+                copiedText.style.display = 'none';
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    });
+}); 
