@@ -432,3 +432,8 @@ html[theme="dark"] #sun-icon {
     opacity: 1;
     transform: translateY(0);
 }
+
+#copy-url-btn {
+    color: var(--primary-color);
+    cursor: pointer;
+}

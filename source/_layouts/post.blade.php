@@ -19,10 +19,16 @@
                 <span>خواندن در
                     <span>{{ $page->getReadTime() }} دقیقه</span>
                 </span>
-                <span>-</span>
+                <span class="ml-05 mr-05">-</span>
                 <span>آخرین بروزرسانی در
                     <time>{{ $page->getUpdatedJalaliDate() }}</time>
                 </span>
+                <span class="ml-05 mr-05">-</span>
+                    <span id="copy-url-btn" class="copy-url-button">
+                        <i class="fa-regular fa-copy ml-05"></i>
+                        <span class="copy-text">کپی آدرس</span>
+                        <span class="copied-text" style="display: none;">کپی شد!</span>
+                    </span>
             </div>
         </header>
 
@@ -32,7 +38,7 @@
 
                 @if ($page->thumbnailCopyRightSource) 
                     <small class="copyright">
-                        <i class="fa-regular fa-copyright"></i>
+                        <i class="fa-regular fa-copyright ml-05"></i>
                         نگاره از <a href="{{ $page->thumbnailCopyRightSource }}" target="_blank">اینجا</a> به امانت گرفته شده است.
                     </small>
                 @endif
