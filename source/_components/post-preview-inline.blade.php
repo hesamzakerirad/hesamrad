@@ -13,7 +13,7 @@
             @if ($post->isExternal)
                 <span class="badge">بازنشر</span> -
             @endif
-            <time>{{ $post->getJalaliDate() }}</time>
+            <time datetime="{{ $post->getDate() }}">{{ $post->getJalaliDate() }}</time>
         </small>
     </a>
 </article>

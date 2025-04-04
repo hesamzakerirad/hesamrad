@@ -8,6 +8,11 @@ permalink: /404.html
 @section('body')
     <div class="container">
         <h1>برگه مورد نظر پیدا نشد.</h1>
-        <a href="/">دیدن لیست نوشته‌ها</a>
+        <div class="mt-1 mb-1">
+            <a href="{{ $page->baseUrl }}">
+                <i class="fa-solid fa-arrow-right ml-05"></i>
+                بازگشت به وبلاگ
+            </a>
+        </div>
     </div>
 @endsection

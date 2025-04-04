@@ -10,12 +10,6 @@ return [
     'siteAuthor' => 'حسام راد',
     'locale' => 'fa_IR',
     'language' => 'fa',
-    'siteKeyWords' => [
-        'مهندسی نرم‌افزار',
-        'نرم‌افزار',
-        'پی اچ پی',
-        'لاراول',
-    ],
 
     // collections
     'collections' => [
@@ -36,12 +30,24 @@ return [
     ],
 
     // helpers
-    'getDate' => function ($page) {
-        return Datetime::createFromFormat('U', $page->created_at);
+    'getDate' => function ($page, $format = 'Y-m-d'): string {
+        $datetime = Datetime::createFromFormat('U', (string) $page->created_at);
+
+        return $datetime->format($format);
     },
 
-    'getUpdatedDate' => function ($page) {
-        return Datetime::createFromFormat('U', $page->updated_at);
+    'getUpdatedDate' => function ($page, $format = 'Y-m-d'): string {
+        $datetime = Datetime::createFromFormat('U', (string) $page->updated_at);
+
+        return $datetime->format($format);
+    },
+
+    'getJalaliDate' => function ($page, $format = '%d %B %Y'): string {
+        return verta($page->getDate())->format($format);
+    },
+
+    'getUpdatedJalaliDate' => function ($page, $format = '%d %B %Y'): string {
+        return verta($page->getUpdatedDate())->format($format);
     },
 
     'getExcerpt' => function ($page, $length = 255) {
@@ -74,14 +80,6 @@ return [
 
     'isActive' => function ($page, $path) {
         return Str::endsWith(trimPath($page->getPath()), trimPath($path));
-    },
-
-    'getJalaliDate' => function ($page, $format = '%d %B %Y') {
-        return verta($page->getDate())->format($format);
-    },
-
-    'getUpdatedJalaliDate' => function ($page, $format = '%d %B %Y') {
-        return verta($page->getUpdatedDate())->format($format);
     },
 
     'getKeyWords' => function ($page) {

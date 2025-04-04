@@ -3,15 +3,10 @@ extends: _layouts.post
 section: content
 title: ترفندهای کار تیمی که هر توسعه‌دهنده‌‌ای باید بداند
 description: 10 ترفند طلایی کار تیمی در برنامه‌نویسی - این مهارت‌ها را ارشدها می‌دانند و شما هم می‌توانید یاد بگیرید!
-pageKeyWords:
-  - کار‌تیمی
-  - برنامه‌نویسی
-  - توسعه‌دهنده ارشد
-  - توسعه‌دهنده حرفه‌ای
 tags:
   -
 created_at: 2025-04-03
-updated_at: 2025-04-03
+updated_at: 2025-04-04
 thumbnail: /assets/build/images/a-close-up-of-a-text-description-on-a-computer-screen.jpeg
 thumbnailCopyRightSource: https://unsplash.com/photos/a-close-up-of-a-text-description-on-a-computer-screen-842ofHC6MaI
 readTime: 9
