@@ -6,7 +6,7 @@ description: 10 ترفند طلایی کار تیمی در برنامه‌نوی
 tags:
   -
 created_at: 2025-04-03
-updated_at: 2025-04-04
+updated_at: 2025-04-05
 thumbnail: /assets/build/images/a-close-up-of-a-text-description-on-a-computer-screen.jpeg
 thumbnailCopyRightSource: https://unsplash.com/photos/a-close-up-of-a-text-description-on-a-computer-screen-842ofHC6MaI
 readTime: 9
@@ -143,7 +143,7 @@ isPublished: true
 
 اگر چه خواننده ممکن است اشتباه کرده باشد، باز هم نیاز دارید تا کد را بررسی کنید تا متوجه دلیل اشتباه خواننده شوید و کد را به گونه‌ای تغییر دهید تا خواننده‌های بعدی دچار این اشتباه نشوند.
 
-(در [این](http://localhost:3000/blog/i-dont-code-the-way-i-used-to/) مقاله تعدادی نکته برای بازنویسی کد بیان کردم که می‌تونید از اون‌ها استفاده کنید.)
+(در پستی با عنوان *[دیگه مثل گذشته کد نمی‌نویسم](http://localhost:3000/blog/i-dont-code-the-way-i-used-to/)* چند نکته برای بازنویسی کد بیان کردم که می‌تونید از اون‌ها استفاده کنید.)
 
 <a name="respond-clearly"></a>
 
