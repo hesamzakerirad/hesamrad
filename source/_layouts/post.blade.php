@@ -39,7 +39,7 @@
 
         @if ($page->thumbnail)
             <div class="thumbnail">
-                <img src="{{ $page->thumbnail }}">
+                <img src="{{ $page->thumbnail }}" alt="{{ $page->title }}">
 
                 @if ($page->thumbnailCopyRightSource) 
                     <small class="copyright">
