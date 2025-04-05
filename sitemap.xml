@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+ <url>
+  <loc>https://hesamrad.com/blog/i-dont-code-the-way-i-used-to</loc>
+  <lastmod>2025-04-05T06:20:40+00:00</lastmod>
+  <changefreq>daily</changefreq>
+ </url>
+ <url>
+  <loc>https://hesamrad.com/blog/laravel-12</loc>
+  <lastmod>2025-04-05T06:20:40+00:00</lastmod>
+  <changefreq>daily</changefreq>
+ </url>
+ <url>
+  <loc>https://hesamrad.com/blog/social-media-for-business</loc>
+  <lastmod>2025-04-05T06:20:40+00:00</lastmod>
+  <changefreq>daily</changefreq>
+ </url>
+ <url>
+  <loc>https://hesamrad.com/blog/teamwork-tips-every-developer-should-know</loc>
+  <lastmod>2025-04-05T06:20:40+00:00</lastmod>
+  <changefreq>daily</changefreq>
+ </url>
+ <url>
+  <loc>https://hesamrad.com</loc>
+  <lastmod>2025-04-05T06:20:40+00:00</lastmod>
+  <changefreq>daily</changefreq>
+ </url>
+ <url>
+  <loc>https://hesamrad.com/robots.txt</loc>
+  <lastmod>2025-04-05T06:20:40+00:00</lastmod>
+  <changefreq>daily</changefreq>
+ </url>
+</urlset>
