@@ -27,14 +27,13 @@
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="حسام راد, hesamzakerirad@gmail.com">
     <meta name="description" content="{{ $description }}">
+    <link rel="canonical" href="{{ $page->getUrl() }}">
     <title>{{ $title }}</title>
 
     @if ($page->isPost($page))
         @if ($page->isTranslated)
             <link rel="alternate" hreflang="en" href="{{ $page->source }}" />
         @endif
-
-        <link rel="canonical" href="{{ $page->getUrl() }}" />
 
         <!-- Open Graph Meta Tags -->
         <meta property="og:title" content="{{ $title }}" />
