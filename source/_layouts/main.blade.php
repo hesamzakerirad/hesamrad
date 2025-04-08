@@ -23,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="{{ $page->siteName }}">
     <meta name="language" content="{{ $page->language }}">
-    <meta name="theme-color" content="#2455c3" />
+    <meta name="theme-color" content="#2455c3">
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="حسام راد, hesamzakerirad@gmail.com">
     <meta name="description" content="{{ $description }}">
@@ -32,15 +32,15 @@
 
     @if ($page->isPost($page))
         @if ($page->isTranslated)
-            <link rel="alternate" hreflang="en" href="{{ $page->source }}" />
+            <link rel="alternate" hreflang="en" href="{{ $page->source }}">
         @endif
 
         <!-- Open Graph Meta Tags -->
-        <meta property="og:title" content="{{ $title }}" />
-        <meta property="og:type" content="{{ $page->type ?? 'website' }}" />
-        <meta property="og:url" content="{{ $page->getUrl() }}" />
+        <meta property="og:title" content="{{ $title }}">
+        <meta property="og:type" content="{{ $page->type ?? 'website' }}">
+        <meta property="og:url" content="{{ $page->getUrl() }}">
         <meta property="og:site_name" content="{{ $page->siteName }}">
-        <meta property="og:description" content="{{ $description }}" />
+        <meta property="og:description" content="{{ $description }}">
         <meta property="og:locale" content="{{ $page->locale }}">
         <meta property="og:image" content="{{ $thumbnail }}">
         <meta property="og:image:width" content="850">
