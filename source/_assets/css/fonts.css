@@ -172,3 +172,24 @@
     font-weight: 800;
     font-style: italic;
 }
+
+@font-face {
+    font-family: "Pinar";
+    src: url("../fonts/Pinar/Pinar-DS1-FD-900.woff2");
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Pinar";
+    src: url("../fonts/Pinar/Pinar-DS1-FD-800.woff2");
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Pinar";
+    src: url("../fonts/Pinar/Pinar-DS1-FD-700.woff2");
+    font-weight: 700;
+    font-style: normal;
+}

@@ -31,7 +31,7 @@
                         </span>
                         <span class="copied-text" style="display: none;">
                             <i class="fa-solid fa-check ml-05"></i>
-                            <span>کپی شد</span>
+                            <span>کپی شد!</span>
                         </span>
                     </span>
             </div>
