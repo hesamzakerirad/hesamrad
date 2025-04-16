@@ -82,16 +82,6 @@ return [
         return Str::endsWith(trimPath($page->getPath()), trimPath($path));
     },
 
-    'getKeyWords' => function ($page) {
-        $keywords = $page->pageKeyWords ?? $page->siteKeyWords;
-
-        if ($keywords instanceof \TightenCo\Jigsaw\IterableObject) {
-            $keywords = $keywords->toArray();
-        }
-
-        return implode('|', $keywords);
-    },
-
     'getRobotsStatus' => function ($page) {
         if ($page->isExternal) {
             return 'noindex,nofollow';
