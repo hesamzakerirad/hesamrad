@@ -6,7 +6,7 @@ description: 10 ترفند طلایی کار تیمی در برنامه‌نوی
 tags:
   -
 created_at: 2025-04-03
-updated_at: 2025-04-05
+updated_at: 2025-04-15
 thumbnail: /assets/build/images/a-close-up-of-a-text-description-on-a-computer-screen.jpeg
 thumbnailCopyRightSource: https://unsplash.com/photos/a-close-up-of-a-text-description-on-a-computer-screen-842ofHC6MaI
 readTime: 9
@@ -39,7 +39,7 @@ isPublished: true
 
 ## ترفندهای کار تیمی که هر توسعه‌دهنده‌‌ای باید بداند
 
-1. [ابتدا کد را خودتان مطالعه کنید.](#read-the-code-yourself)
+1. [ابتدا خودتان کد را مطالعه کنید.](#read-the-code-yourself)
 2. [لیست تغییرات را به دقت تنظیم کنید.](#write-clear-changelist)
 3. [موارد آسان را به صورت خودکار مدیریت کنید.](#automate-easy-stuff)
 4. [دامنه تغییرات را کوچک نگه دارید.](#keep-changes-small)
@@ -52,7 +52,7 @@ isPublished: true
 
 <a name="read-the-code-yourself"></a>
 
-## 1. ابتدا کد را خودتان مطالعه کنید.
+## 1. ابتدا خودتان کد را مطالعه کنید.
 
 قبل از اینکه کد را برای بررسی به تیم ارسال کنید،‌ یک بار تغییرات جدید را مرور کنید و به این فکر کنید که چه چیزی ممکن است کمی گنگ یا گیج کننده باشد.
 
@@ -143,7 +143,7 @@ isPublished: true
 
 اگر چه خواننده ممکن است اشتباه کرده باشد، باز هم نیاز دارید تا کد را بررسی کنید تا متوجه دلیل اشتباه خواننده شوید و کد را به گونه‌ای تغییر دهید تا خواننده‌های بعدی دچار این اشتباه نشوند.
 
-(در پستی با عنوان *[دیگه مثل گذشته کد نمی‌نویسم](https://hesamrad.com/blog/i-dont-code-the-way-i-used-to/)* چند نکته برای بازنویسی کد بیان کردم که می‌تونید از اون‌ها استفاده کنید.)
+(در پستی با عنوان *[دیگه مثل گذشته کد نمی‌نویسم](https://hesamrad.com/blog/i-dont-code-the-way-i-used-to)* چند نکته برای بازنویسی کد بیان کردم که می‌تونید از اون‌ها استفاده کنید.)
 
 <a name="respond-clearly"></a>
 
