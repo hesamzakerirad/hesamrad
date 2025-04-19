@@ -12,7 +12,6 @@ thumbnailCopyRightSource: https://unsplash.com/photos/black-flat-screen-computer
 readTime: 3
 source: https://stitcher.io/blog/i-dont-code-the-way-i-used-to
 isTranslated: true
-isExternal: false
 isFeatured: false
 isPublished: true
 ---

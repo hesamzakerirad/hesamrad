@@ -21,7 +21,7 @@
                 </span>
                 <span class="ml-05 mr-05">-</span>
                 <span>آخرین بروزرسانی در
-                    <time>{{ $page->getUpdatedJalaliDate() }}</time>
+                    <time datetime="{{ $page->getUpdatedDate() }}">{{ $page->getUpdatedJalaliDate() }}</time>
                 </span>
                 <span class="ml-05 mr-05">-</span>
                     <span id="copy-url-btn" class="copy-url-button">

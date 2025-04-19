@@ -12,7 +12,6 @@ thumbnailCopyRightSource:
 readTime: 1
 source: 
 isTranslated: false
-isExternal: false
 isFeatured: false
 isPublished: false
 ---

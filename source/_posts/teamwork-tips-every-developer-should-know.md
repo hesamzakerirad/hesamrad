@@ -12,7 +12,6 @@ thumbnailCopyRightSource: https://unsplash.com/photos/a-close-up-of-a-text-descr
 readTime: 9
 source:
 isTranslated: false
-isExternal: false
 isFeatured: false
 isPublished: true
 ---

@@ -12,7 +12,6 @@ thumbnailCopyRightSource: https://unsplash.com/photos/neon-signage-xv7-GlvBLFw
 readTime: 4
 source:
 isTranslated: false
-isExternal: false
 isFeatured: false
 isPublished: true
 ---
