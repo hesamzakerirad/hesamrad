@@ -16,11 +16,14 @@ return [
         'posts' => [
             'author' => 'حسام راد',
             'sort' => '-created_at',
-            'path' => 'blog/{filename}',
+            'path' => 'blog/{filename}/',
             'filter' => fn ($post) => $post->isPublished === true, 
         ],
+        'pages' => [
+            'path' => '{filename}/',
+        ],
         'categories' => [
-            'path' => '/blog/categories/{filename}',
+            'path' => '/blog/categories/{filename}/',
             'posts' => function ($page, $allPosts) {
                 return $allPosts->filter(function ($post) use ($page) {
                     return $post->categories ? in_array($page->getFilename(), $post->categories, true) : false;
@@ -96,5 +99,17 @@ return [
 
     'getReadTime' => function ($page) {
         return $page->readTime;
+    },
+
+    'isHomePage' => function ($page) {
+        return $page->getPath() === '' || 
+               $page->getPath() === '/' || 
+               $page->getPath() === 'index';
+    },
+
+    // Override URL generator (safety net)
+    'getUrlWithTrailingSlash' => function ($page) {
+        $url = rtrim($page->getBaseUrl(), '/') . '/' . ltrim($page->getPath(), '/');
+        return $url . (str_ends_with($url, '/') ? '' : '/');
     },
 ];

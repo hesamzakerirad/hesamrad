@@ -61,7 +61,7 @@
                 <div class="container">
                     <div class="next" role="navigation">
                         <span>نوشته بعدی:</span>
-                        <a href="{{ $next->getUrl() }}">
+                        <a href="{{ $next->getUrlWithTrailingSlash() }}">
                             {{ $next->title }}
                             <i class="fa-solid fa-arrow-left mr-05"></i>
                         </a>

@@ -6,6 +6,7 @@
     $description = $page->description ?? $page->siteDescription;
     $favicon = $page->baseUrl . '/favicon.ico';
     $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : $favicon;
+    $pageUrl = $page->isHomePage() ? $page->baseUrl : $page->getUrlWithTrailingSlash();
 @endphp
 
 <head>
@@ -27,7 +28,7 @@
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="حسام راد, hesamzakerirad@gmail.com">
     <meta name="description" content="{{ $description }}">
-    <link rel="canonical" href="{{ $page->getUrl() }}">
+    <link rel="canonical" href="{{ $pageUrl }}">
     <title>{{ $title }}</title>
 
     @if ($page->isPost($page))
@@ -38,7 +39,7 @@
         <!-- Open Graph Meta Tags -->
         <meta property="og:title" content="{{ $title }}">
         <meta property="og:type" content="{{ $page->type ?? 'website' }}">
-        <meta property="og:url" content="{{ $page->getUrl() }}">
+        <meta property="og:url" content="{{ $pageUrl }}">
         <meta property="og:site_name" content="{{ $page->siteName }}">
         <meta property="og:description" content="{{ $description }}">
         <meta property="og:locale" content="{{ $page->locale }}">

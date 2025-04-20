@@ -1,5 +1,5 @@
 <article class="post-preview">
-    <a href="{{ $post->getUrl() }}" title="{{ $post->title }}">
+    <a href="{{ $post->getUrlWithTrailingSlash() }}" title="{{ $post->title }}">
         <header>
             <h3>{{ $post->title }}</h3>
         </header>
