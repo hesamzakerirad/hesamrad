@@ -26,7 +26,7 @@
     <meta name="language" content="{{ $page->language }}">
     <meta name="theme-color" content="#2455c3">
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
-    <meta name="author" content="حسام راد, hesamzakerirad@gmail.com">
+    <meta name="author" content="{{ $page->siteName  }}">
     <meta name="description" content="{{ $description }}">
     <link rel="canonical" href="{{ $pageUrl }}">
     <title>{{ $title }}</title>
@@ -67,7 +67,7 @@
                 "description": "{{ $description }}",
                 "author": {
                   "@type": "Person",
-                  "name": "{{ $page->siteName }}"
+                  "name": "{{ $page->siteName }}",
                   "url": "{{ $page->baseUrl }}"
                 },
                 "datePublished": "{{ $page->getDate() }}",
