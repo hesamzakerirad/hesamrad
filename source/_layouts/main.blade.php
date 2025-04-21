@@ -129,7 +129,7 @@
     <footer>
         <section class="big-container">
             <div>
-                <a href="{{ $page->baseUrl }}" class="no-decoration">{{ $page->siteName }}</a>
+                <a href="{{ $page->baseUrl }}" class="no-decoration" rel="home">{{ $page->siteName }}</a>
                 <span>
                     از 1397 خورشیدی
                 </span>

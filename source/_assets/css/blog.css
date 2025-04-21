@@ -100,6 +100,11 @@ p {
     margin-bottom: var(--space)
 }
 
+.underline {
+    text-decoration: underline;
+    text-underline-offset: 0.5rem;
+}
+
 a {
     color: var(--primary-color);
     text-decoration: none;
@@ -120,7 +125,7 @@ hr {
     border: none;
     box-shadow: none;
     border-bottom: 1px solid var(--border-color);
-    width: 65%
+    width: 100%
 }
 
 blockquote {
@@ -144,13 +149,17 @@ img {
     -moz-border-radius: var(--border-radius);
     -ms-border-radius: var(--border-radius);
     border-radius: var(--border-radius);
-    width: calc(var(--container-size) + 100px) !important;
+    width: calc(var(--container-size) + 120px) !important;
     height: auto;
     margin-left: auto;
     margin-right: auto;
     display: block;
     object-fit: cover;
     aspect-ratio: 16 / 9;
+}
+
+.color-primary {
+    color: var(--primary-color);
 }
 
 .hljs {
@@ -176,7 +185,7 @@ iframe {
 }
 
 footer {
-    padding: calc(2 * var(--space)) 0;
+    padding: calc(4 * var(--space)) 0;
     font-size: smaller
 }
 
@@ -187,7 +196,7 @@ svg {
 body>header {
     display: flex;
     flex-direction: column;
-    padding: calc(2 * var(--space)) 0;
+    padding: calc(4 * var(--space)) 0;
 }
 
 .mr-05 {
@@ -247,7 +256,7 @@ body>header {
 
 .big-container {
     width: 85%;
-    max-width: calc(var(--container-size) + 100px);
+    max-width: calc(var(--container-size) + 120px);
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -308,7 +317,7 @@ table td {
     margin-bottom: calc(2*var(--space));
     margin-left: auto;
     margin-right: auto;
-    max-width: calc(var(--container-size) + 100px);
+    max-width: calc(var(--container-size) + 120px);
 }
 
 .thumbnail::after {
@@ -339,19 +348,15 @@ table td {
     color: var(--text-color);
 }
 
-.post-preview h3 {
+.post-preview p, .post-preview h3  {
     margin-top: 0 !important;
-    margin-bottom: 0.3rem !important;
-}
-
-.post-preview p {
-    margin: 0;
+    margin-bottom: calc(0.7 * var(--space)) !important;
 }
 
 .blog {
     display: flex;
     flex-direction: column;
-    gap: calc(2 * var(--space));
+    gap: calc(6 * var(--space));
 }
 
 footer>section {
@@ -365,7 +370,8 @@ footer>section {
 }
 
 .post header {
-    padding: calc(6* var(--space)) 0 calc(3* var(--space));
+    padding-top: calc(3* var(--space));
+    padding-bottom: calc(3* var(--space));
 }
 
 .post header h1 {
