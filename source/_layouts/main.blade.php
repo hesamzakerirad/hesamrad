@@ -10,13 +10,11 @@
 @endphp
 
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H516TJZR2S"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-H516TJZR2S');
     </script>
     
@@ -36,7 +34,8 @@
             <link rel="alternate" hreflang="en" href="{{ $page->source }}">
         @endif
 
-        <!-- Open Graph Meta Tags -->
+        <link rel="preload" as="image" href="{{ $thumbnail }}">
+
         <meta property="og:title" content="{{ $title }}">
         <meta property="og:type" content="{{ $page->type ?? 'website' }}">
         <meta property="og:url" content="{{ $pageUrl }}">
@@ -44,12 +43,12 @@
         <meta property="og:description" content="{{ $description }}">
         <meta property="og:locale" content="{{ $page->locale }}">
         <meta property="og:image" content="{{ $thumbnail }}">
+        <meta property="og:image:alt" content="{{ $title }}">
         <meta property="article:published_time" content="{{ $page->getDate() }}">
         <meta property="article:modified_time" content="{{ $page->getUpdatedDate() }}">
         <meta property="og:image:width" content="850">
         <meta property="og:image:height" content="470">
 
-        <!-- Twitter Card Meta Tags -->
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ $title }}">
         <meta name="twitter:description" content="{{ $description }}">
@@ -58,7 +57,6 @@
         <meta name="twitter:site" content="@hesamzakerirad">
         <meta name="twitter:creator" content="@hesamzakerirad">
 
-        <!-- Structured Data -->
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -69,6 +67,15 @@
                   "@type": "Person",
                   "name": "{{ $page->siteName }}",
                   "url": "{{ $page->baseUrl }}"
+                },
+                "publisher": {
+                  "@type": "Organization",
+                  "name": "{{ $page->siteName }}",
+                  "url": "{{ $page->baseUrl }}",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ $favicon }}"
+                  }
                 },
                 "datePublished": "{{ $page->getDate() }}",
                 "dateModified": "{{ $page->getUpdatedDate() }}",
