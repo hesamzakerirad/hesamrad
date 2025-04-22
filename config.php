@@ -86,8 +86,10 @@ return [
     },
 
     'getRobotsStatus' => function ($page) {
-        if ($page->isExternal) {
-            return 'noindex,nofollow';
+        if ($page->robots) {
+            return is_array($page->robots) ? 
+                implode(',', $page->robots) :
+                $page->robots;
         }
 
         return 'index,follow';

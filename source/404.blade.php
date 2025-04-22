@@ -1,6 +1,7 @@
 ---
 title: برگه مورد نظر پیدا نشد.
 permalink: /404.html
+robots: noindex, follow {{-- This is different because it somehow misbehaved compared to other pages. --}}
 ---
 
 @extends('_layouts.main')

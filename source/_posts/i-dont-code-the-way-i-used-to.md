@@ -5,6 +5,9 @@ title: دیگه مثل گذشته کد نمی‌نویسم.
 description: تجربه نویسنده وبلاگ stitcher.io بعد از 10 سال برنامه‌نویسی
 tags:
     - 
+robots: 
+    - index
+    - follow
 created_at: 2025-03-24
 updated_at: 2025-03-29
 thumbnail: /assets/build/images/code.jpeg
