@@ -44,8 +44,8 @@
         <meta property="og:locale" content="{{ $page->locale }}">
         <meta property="og:image" content="{{ $thumbnail }}">
         <meta property="og:image:alt" content="{{ $title }}">
-        <meta property="article:published_time" content="{{ $page->getDate() }}">
-        <meta property="article:modified_time" content="{{ $page->getUpdatedDate() }}">
+        <meta property="article:published_time" content="{{ $page->getCreatedAtDate() }}">
+        <meta property="article:modified_time" content="{{ $page->getUpdatedAtDate() }}">
         <meta property="og:image:width" content="850">
         <meta property="og:image:height" content="470">
 
@@ -77,8 +77,8 @@
                     "url": "{{ $favicon }}"
                   }
                 },
-                "datePublished": "{{ $page->getDate() }}",
-                "dateModified": "{{ $page->getUpdatedDate() }}",
+                "datePublished": "{{ $page->getCreatedAtDate('Y-m-d\TH:i:s\Z') }}",
+                "dateModified": "{{ $page->getUpdatedAtDate('Y-m-d\TH:i:s\Z') }}",
                 "image": "{{ $thumbnail }}",
                 "timeRequired": "PT{{ $page->getReadTime() }}M",
                 "mainEntityOfPage": {

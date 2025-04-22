@@ -32,25 +32,28 @@ return [
         ],
     ],
 
-    // helpers
-    'getDate' => function ($page, $format = 'Y-m-d'): string {
-        $datetime = Datetime::createFromFormat('U', (string) $page->created_at);
-
-        return $datetime->format($format);
+    'getCreatedAtDateObject' => function ($page): DateTime {
+        return Datetime::createFromFormat('U', (string) $page->created_at);
     },
 
-    'getUpdatedDate' => function ($page, $format = 'Y-m-d'): string {
-        $datetime = Datetime::createFromFormat('U', (string) $page->updated_at);
+    'getUpdatedAtObject' => function ($page): DateTime {
+        return Datetime::createFromFormat('U', (string) $page->updated_at);
+    },
 
-        return $datetime->format($format);
+    'getCreatedAtDate' => function ($page, $format = 'Y-m-d'): string {
+        return $page->getCreatedAtDateObject()->format($format);
+    },
+
+    'getUpdatedAtDate' => function ($page, $format = 'Y-m-d'): string {
+        return $page->getUpdatedAtObject()->format($format);
     },
 
     'getJalaliDate' => function ($page, $format = '%d %B %Y'): string {
-        return verta($page->getDate())->format($format);
+        return verta($page->getCreatedAtDate())->format($format);
     },
 
     'getUpdatedJalaliDate' => function ($page, $format = '%d %B %Y'): string {
-        return verta($page->getUpdatedDate())->format($format);
+        return verta($page->getUpdatedAtDate())->format($format);
     },
 
     'getExcerpt' => function ($page, $length = 255) {
