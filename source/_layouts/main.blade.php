@@ -96,6 +96,8 @@
         document.documentElement.setAttribute('theme', localStorage.getItem('theme') || 'light');
     </script>
     <link rel="stylesheet" href="{{ mix('css/main.css', 'assets/build') }}">
+    <link rel="stylesheet" href="{{ mix('css/highlight/github.min.css', 'assets/build') }}" id="hljs-light">
+    <link rel="stylesheet" href="{{ mix('css/highlight/github-dark.min.css', 'assets/build') }}" id="hljs-dark" disabled>
 </head>
 
 <body>

@@ -25,19 +25,35 @@ document.querySelectorAll('pre code').forEach((block) => {
 });
 
 // Dark mode logic
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const themeToggle = document.getElementById('theme');
     const html = document.documentElement;
+    const lightCss = document.getElementById('hljs-light');
+    const darkCss = document.getElementById('hljs-dark');
 
-    // Initialize
+    // Helper to switch syntax highlight theme
+    function updateHighlightTheme(theme) {
+        if (theme === 'dark') {
+            lightCss.disabled = true;
+            darkCss.disabled = false;
+        } else {
+            lightCss.disabled = false;
+            darkCss.disabled = true;
+        }
+    }
+
+    // Initialize theme
     const savedTheme = localStorage.getItem('theme') || 'light';
     html.setAttribute('theme', savedTheme);
+    updateHighlightTheme(savedTheme);
 
-    // Toggle theme
-    themeToggle.addEventListener('click', function() {
-        const newTheme = html.getAttribute('theme') === 'dark' ? 'light' : 'dark';
+    // Toggle theme on click
+    themeToggle.addEventListener('click', function () {
+        const currentTheme = html.getAttribute('theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         html.setAttribute('theme', newTheme);
         localStorage.setItem('theme', newTheme);
+        updateHighlightTheme(newTheme);
     });
 });
 
