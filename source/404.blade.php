@@ -8,12 +8,15 @@ robots: noindex,follow
 
 @section('body')
     <div class="container">
-        <h1>برگه مورد نظر پیدا نشد.</h1>
-        <div class="mt-1 mb-1">
-            <a href="{{ $page->baseUrl }}">
-                <i class="fa-solid fa-arrow-right ml-05"></i>
-                بازگشت به وبلاگ
-            </a>
-        </div>
+        <header class="header">
+            <div class="mb-1">
+                <a href="{{ $page->baseUrl }}" rel="home" aria-label="بازگشت به وبلاگ">
+                    <i class="fa-solid fa-arrow-right ml-05"></i>
+                    بازگشت به وبلاگ
+                </a>
+            </div>
+            <h1>برگه مورد نظر پیدا نشد.</h1>
+            <p>می‌خوای <a href="{{ $page->baseUrl }}">لیست نوشته‌ها</a> رو ببینی؟ شاید چیزی که می‌خواستی رو اونجا پیدا کردی.</p>
+        </header>
     </div>
 @endsection

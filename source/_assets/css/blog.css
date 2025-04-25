@@ -369,12 +369,12 @@ footer>section {
     margin: 0 4px;
 }
 
-.post header {
+.post header, .header {
     padding-top: calc(3* var(--space));
     padding-bottom: calc(3* var(--space));
 }
 
-.post header h1 {
+header h1 {
     margin-top: 0 !important;
     padding: 0 !important;
 }
