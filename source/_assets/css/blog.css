@@ -447,3 +447,15 @@ html[theme="dark"] #sun-icon {
     color: var(--primary-color);
     cursor: pointer;
 }
+
+.banner {
+    display: block;
+    background-color: var(--header-color);
+    color: var(--background-color);
+    text-align: center;
+    padding: 3px 0
+}
+
+.banner p {
+    margin: 0
+}

@@ -101,6 +101,10 @@
 </head>
 
 <body>
+    <div class="banner">
+        <p>به سوگ ایران نشستیم...</p>
+    </div>
+    
     <header>
         <div class="big-container">
             <div class="identity">
