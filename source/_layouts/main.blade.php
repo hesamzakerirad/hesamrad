@@ -101,9 +101,13 @@
 </head>
 
 <body>
-    <div class="banner">
-        <p>به سوگ ایران نشستیم...</p>
-    </div>
+    @if (false)
+        <div class="banner">
+            <p>
+                //
+            </p>
+        </div>
+    @endif
     
     <header>
         <div class="big-container">
