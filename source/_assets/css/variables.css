@@ -18,6 +18,7 @@
 
 html {
 	--background-color: var(--white);
+	--box-background-color: color-mix(in srgb, var(--background-color), black 1%);
 	--text-color: #333333;
 	--header-color: #222221;
 	--border-color: #e2e1de;
@@ -25,6 +26,7 @@ html {
 
 html[theme=dark] {
 	--background-color: var(--black);
+	--box-background-color: color-mix(in srgb, var(--background-color), white 1%);
 	--text-color: var(--grey);
 	--header-color: var(--white);
 	--border-color: #31312e;

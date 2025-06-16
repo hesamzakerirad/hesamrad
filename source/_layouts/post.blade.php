@@ -59,7 +59,7 @@
         @if ($next = $page->getNext())
             <section>
                 <div class="container">
-                    <div class="next" role="navigation">
+                    <div class="box" role="navigation">
                         <span>نوشته بعدی:</span>
                         <a href="{{ $next->getUrlWithTrailingSlash() }}">
                             {{ $next->title }}

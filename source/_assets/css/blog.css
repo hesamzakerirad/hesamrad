@@ -162,8 +162,8 @@ img {
     color: var(--primary-color);
 }
 
-.hljs {
-    background: var(--background-color) !important;
+.hljs, .box, table {
+    background: var(--box-background-color) !important;
 }
 
 code {
@@ -394,7 +394,7 @@ header h1 {
     overflow: auto;
 }
 
-.next {
+.box {
     border: 1px solid var(--border-color);
     padding: var(--space);
     margin-top: calc(2 * var(--space));
