@@ -459,3 +459,19 @@ html[theme="dark"] #sun-icon {
 .banner p {
     margin: 0
 }
+
+.next {
+    display: flex;
+    padding-left: calc(2 * var(--space));
+}
+
+.next {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1
+}
+
+.next p {
+    margin: 0;
+}

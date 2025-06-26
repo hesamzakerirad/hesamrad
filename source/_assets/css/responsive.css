@@ -1,5 +1,13 @@
 /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
+    .next {
+        padding-left: var(--space);
+    }
+
+    .next svg {
+        display: none;
+    }
+
     footer>section {
         flex-direction: column-reverse;
     }

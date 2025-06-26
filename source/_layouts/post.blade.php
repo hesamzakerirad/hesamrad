@@ -59,13 +59,12 @@
         @if ($next = $page->getNext())
             <section>
                 <div class="container">
-                    <div class="box" role="navigation">
-                        <span>نوشته بعدی:</span>
-                        <a href="{{ $next->getUrlWithTrailingSlash() }}">
-                            {{ $next->title }}
+                    <a href="{{ $next->getUrlWithTrailingSlash() }}">
+                        <div class="box next" role="navigation">
+                            <p>نوشته بعدی: {{ $next->title }}</p>
                             <i class="fa-solid fa-arrow-left mr-05"></i>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             </section>
         @endif
