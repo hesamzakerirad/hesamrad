@@ -1,7 +1,8 @@
 @import 'fonts.css';
 
 :root {
-	--primary-color: #2455c3;
+	--primary-color: #ed1a76;
+	--secondary-color: #047a76;
 	--white: #fdfdfc;
 	--black: #111110;
 	--grey: #9198A1;
