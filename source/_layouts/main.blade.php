@@ -145,7 +145,7 @@
                 </span>
             </div>
             <div class="contact">
-                <a href="mailto:hesamzakerirad@gmail.com" rel="me" class="no-decoration" target="_blank">ایمیل</a>
+                <a href="mailto:hesamrad@duck.com" rel="me" class="no-decoration" target="_blank">ایمیل</a>
                 <a href="https://github.com/hesamzakerirad" rel="me" class="no-decoration" target="_blank">گیت‌هاب</a>
                 <a href="https://linkedin.com/in/hesamrad" rel="me" class="no-decoration" target="_blank">لینکداین</a>
             </div>
