@@ -24,16 +24,16 @@
                     <time datetime="{{ $page->getUpdatedAtDate() }}">{{ $page->getUpdatedJalaliDate() }}</time>
                 </span>
                 <span class="ml-05 mr-05">-</span>
-                    <span id="copy-url-btn" class="copy-url-button">
-                        <span class="copy-text">
-                            <i class="fa-regular fa-copy ml-05"></i>
-                            <span>کپی آدرس</span>
-                        </span>
-                        <span class="copied-text" style="display: none;">
-                            <i class="fa-solid fa-check ml-05"></i>
-                            <span>کپی شد!</span>
-                        </span>
+                <span id="copy-url-btn" class="copy-url-button">
+                    <span class="copy-text">
+                        <i class="fa-regular fa-copy ml-05"></i>
+                        <span>کپی آدرس</span>
                     </span>
+                    <span class="copied-text" style="display: none;">
+                        <i class="fa-solid fa-check ml-05"></i>
+                        <span>کپی شد!</span>
+                    </span>
+                </span>
             </div>
         </header>
 
@@ -41,10 +41,11 @@
             <div class="thumbnail">
                 <img src="{{ $page->thumbnail }}" alt="{{ $page->title }}">
 
-                @if ($page->thumbnailCopyRightSource) 
+                @if ($page->thumbnailCopyRightSource)
                     <small class="copyright">
                         <i class="fa-regular fa-copyright ml-05"></i>
-                        نگاره از <a href="{{ $page->thumbnailCopyRightSource }}" target="_blank">اینجا</a> به امانت گرفته شده است.
+                        نگاره از <a href="{{ $page->thumbnailCopyRightSource }}" target="_blank">اینجا</a> به امانت گرفته
+                        شده است.
                     </small>
                 @endif
             </div>

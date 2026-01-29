@@ -10,7 +10,7 @@
     @foreach ($page->posts($posts) as $post)
         @include('_components.post-preview-inline')
 
-        @if (! $loop->last)
+        @if (!$loop->last)
             <hr>
         @endif
     @endforeach
