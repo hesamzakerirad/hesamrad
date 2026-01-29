@@ -32,6 +32,13 @@
     <link rel="canonical" href="{{ $pageUrl }}">
     <title>{{ $title }}</title>
 
+    <script>
+        (function() {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('theme', isDark ? 'dark' : 'light');
+        })();
+    </script>
+
     @if ($page->isPost($page))
         @if ($page->isTranslated)
             <link rel="alternate" hreflang="en" href="{{ $page->source }}">
@@ -45,8 +52,8 @@
         <meta property="og:locale" content="{{ $page->locale }}">
         <meta property="og:image" content="{{ $thumbnail }}">
         <meta property="og:image:alt" content="{{ $title }}">
-        <meta property="article:published_time" content="{{ $page->getCreatedAtDate() }}">
-        <meta property="article:modified_time" content="{{ $page->getUpdatedAtDate() }}">
+        {{-- <meta property="article:published_time" content="{{ $page->getCreatedAtDate() }}">
+        <meta property="article:modified_time" content="{{ $page->getUpdatedAtDate() }}"> --}}
         <meta property="og:image:width" content="850">
         <meta property="og:image:height" content="470">
         <meta name="twitter:card" content="summary_large_image">
@@ -77,8 +84,8 @@
                     "url": "{{ $favicon }}"
                   }
                 },
-                "datePublished": "{{ $page->getCreatedAtDate('Y-m-d\TH:i:s\Z') }}",
-                "dateModified": "{{ $page->getUpdatedAtDate('Y-m-d\TH:i:s\Z') }}",
+                {{-- "datePublished": "{{ $page->getCreatedAtDate('Y-m-d\TH:i:s\Z') }}",
+                "dateModified": "{{ $page->getUpdatedAtDate('Y-m-d\TH:i:s\Z') }}", --}}
                 "image": "{{ $thumbnail }}",
                 "timeRequired": "PT{{ $page->getReadTime() }}M",
                 "mainEntityOfPage": {
@@ -101,19 +108,17 @@
     @if (true)
         <div class="banner">
             <p>
-                رهایی نیابم سرانجام ازین - خوشا باد نوشین ایران‌زمین
+                رهایی نیابم سرانجام ازین | خوشا باد نوشین ایران‌زمین
             </p>
         </div>
-    @endif
-
-    @include('_includes.header')
+    @endif 
 
     <main role="main">
         @yield('body')
     </main>
 
     @include('_includes.footer')
-    
+
     <script src="https://kit.fontawesome.com/3aa580010a.js" crossorigin="anonymous"></script>
     <script src="{{ mix('js/main.js', 'assets/build') }}"></script>
     @stack('scripts')

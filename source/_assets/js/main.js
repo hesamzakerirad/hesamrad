@@ -47,15 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize theme
     html.setAttribute('theme', theme);
     updateHighlightTheme(theme);
-
-    // Toggle theme on click
-    themeToggle.addEventListener('click', function () {
-        const currentTheme = html.getAttribute('theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        html.setAttribute('theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateHighlightTheme(newTheme);
-    });
 });
 
 // copy to clipboard logic

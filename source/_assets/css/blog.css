@@ -247,6 +247,14 @@ body>header {
     margin-bottom: calc(var(--space) * 2);
 }
 
+.mt-3 {
+    margin-top: calc(var(--space) * 3);
+}
+
+.mb-3 {
+    margin-bottom: calc(var(--space) * 3);
+}
+
 .container {
     width: 85%;
     max-width: var(--container-size);
@@ -288,6 +296,10 @@ table caption {
 table th,
 table td {
     padding: .625em;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .identity {
@@ -356,7 +368,7 @@ table td {
 .blog {
     display: flex;
     flex-direction: column;
-    gap: calc(4 * var(--space));
+    gap: calc(3 * var(--space));
 }
 
 footer>section {
@@ -365,12 +377,8 @@ footer>section {
     align-items: center;
 }
 
-.contact a {
-    margin: 0 4px;
-}
-
 .post header, .header {
-    padding-top: calc(3* var(--space));
+    padding-top: calc(6* var(--space));
     padding-bottom: calc(3* var(--space));
 }
 
@@ -474,4 +482,8 @@ html[theme="dark"] #sun-icon {
 
 .next p {
     margin: 0;
+}
+
+.landing {
+    padding: 6rem 0
 }

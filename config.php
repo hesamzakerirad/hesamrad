@@ -6,7 +6,7 @@ return [
     'baseUrl' => 'http://localhost:3000',
     'production' => false,
     'siteName' => 'حسام راد',
-    'siteDescription' => 'وب‌نوشت‌هایی از دنیای مهندسی نرم‌افزار',
+    'siteDescription' => 'مهندس نرم‌افزار',
     'siteAuthor' => 'حسام راد',
     'locale' => 'fa_IR',
     'language' => 'fa',

@@ -9,7 +9,7 @@
         <header>
             <div class="container">
                 <div class="mb-1">
-                    <a href="{{ $page->baseUrl }}" rel="home" aria-label="بازگشت به وبلاگ">
+                    <a href="{{ $page->baseUrl }}/blog/" rel="home" aria-label="بازگشت به وبلاگ">
                         <i class="fa-solid fa-arrow-right ml-05"></i>
                         بازگشت به وبلاگ
                     </a>
