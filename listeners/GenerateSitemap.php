@@ -2,54 +2,55 @@
 
 namespace App\Listeners;
 
+use Illuminate\Support\Str;
 use samdark\sitemap\Sitemap;
 use TightenCo\Jigsaw\Jigsaw;
-use Illuminate\Support\Str;
 
 class GenerateSitemap
 {
     protected $exclude = [
         '/assets/*',
         '*/favicon.ico',
-        '*/404*'
+        '*/404*',
     ];
 
     public function handle(Jigsaw $jigsaw)
-{
-    $baseUrl = $jigsaw->getConfig('baseUrl');
+    {
+        $baseUrl = $jigsaw->getConfig('baseUrl');
 
-    if (!$baseUrl) {
-        echo ("\nTo generate a sitemap.xml file, please specify a 'baseUrl' in config.php.\n\n");
-        return;
-    }
+        if (! $baseUrl) {
+            echo "\nTo generate a sitemap.xml file, please specify a 'baseUrl' in config.php.\n\n";
 
-    $sitemap = new Sitemap($jigsaw->getDestinationPath() . '/sitemap.xml');
+            return;
+        }
 
-    collect($jigsaw->getOutputPaths())
-        ->reject(function ($path) {
-            return $this->isExcluded($path);
-        })
-        ->each(function ($path) use ($baseUrl, $sitemap) {
-            // Homepage
-            if ($path === '') {
-                $url = $baseUrl;
-            } else {
-                $url = $baseUrl . $path;
+        $sitemap = new Sitemap($jigsaw->getDestinationPath().'/sitemap.xml');
 
-                // Don't add slash if it's a file (has extension like .xml, .txt, .html, etc.)
-                if (! preg_match('/\.\w+$/', $path)) {
-                    // Add trailing slash if missing
-                    if (substr($url, -1) !== '/') {
-                        $url .= '/';
+        collect($jigsaw->getOutputPaths())
+            ->reject(function ($path) {
+                return $this->isExcluded($path);
+            })
+            ->each(function ($path) use ($baseUrl, $sitemap) {
+                // Homepage
+                if ($path === '') {
+                    $url = $baseUrl;
+                } else {
+                    $url = $baseUrl.$path;
+
+                    // Don't add slash if it's a file (has extension like .xml, .txt, .html, etc.)
+                    if (! preg_match('/\.\w+$/', $path)) {
+                        // Add trailing slash if missing
+                        if (substr($url, -1) !== '/') {
+                            $url .= '/';
+                        }
                     }
                 }
-            }
 
-            $sitemap->addItem($url, time(), Sitemap::DAILY);
-        });
+                $sitemap->addItem($url, time(), Sitemap::DAILY);
+            });
 
-    $sitemap->write();
-}
+        $sitemap->write();
+    }
 
     public function isExcluded($path)
     {

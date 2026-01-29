@@ -17,7 +17,7 @@ return [
             'author' => 'حسام راد',
             'sort' => '-created_at',
             'path' => 'blog/{filename}/',
-            'filter' => fn ($post) => $post->isPublished === true, 
+            'filter' => fn ($post) => $post->isPublished === true,
         ],
         'pages' => [
             'path' => '{filename}/',
@@ -80,7 +80,7 @@ return [
         }
 
         return strlen($cleaned) > $length
-            ? preg_replace('/\s+?(\S+)?$/', '', $truncated) . '...'
+            ? preg_replace('/\s+?(\S+)?$/', '', $truncated).'...'
             : $cleaned;
     },
 
@@ -90,7 +90,7 @@ return [
 
     'getRobotsStatus' => function ($page) {
         if ($page->robots) {
-            return is_array($page->robots) ? 
+            return is_array($page->robots) ?
                 implode(',', $page->robots) :
                 $page->robots;
         }
@@ -107,14 +107,15 @@ return [
     },
 
     'isHomePage' => function ($page) {
-        return $page->getPath() === '' || 
-               $page->getPath() === '/' || 
+        return $page->getPath() === '' ||
+               $page->getPath() === '/' ||
                $page->getPath() === 'index';
     },
 
     // Override URL generator (safety net)
     'getUrlWithTrailingSlash' => function ($page) {
-        $url = rtrim($page->getBaseUrl(), '/') . '/' . ltrim($page->getPath(), '/');
-        return $url . (str_ends_with($url, '/') ? '' : '/');
+        $url = rtrim($page->getBaseUrl(), '/').'/'.ltrim($page->getPath(), '/');
+
+        return $url.(str_ends_with($url, '/') ? '' : '/');
     },
 ];
