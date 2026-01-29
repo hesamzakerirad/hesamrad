@@ -30,9 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const html = document.documentElement;
     const lightCss = document.getElementById('hljs-light');
     const darkCss = document.getElementById('hljs-dark');
-    const hour = new Date().getHours();
-    const isNight = (hour >= 19 || hour < 7);
-    const defaultTheme = isNight ? 'dark' : 'light';
+    const isOsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = isOsDark ? 'dark' : 'light';
 
     // Helper to switch syntax highlight theme
     function updateHighlightTheme(theme) {
@@ -46,9 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Initialize theme
-    const savedTheme = localStorage.getItem('theme') || defaultTheme;
-    html.setAttribute('theme', savedTheme);
-    updateHighlightTheme(savedTheme);
+    html.setAttribute('theme', theme);
+    updateHighlightTheme(theme);
 
     // Toggle theme on click
     themeToggle.addEventListener('click', function () {
