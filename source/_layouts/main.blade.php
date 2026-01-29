@@ -101,10 +101,10 @@
 </head>
 
 <body>
-    @if (false)
+    @if (true)
         <div class="banner">
             <p>
-                //
+رهایی نیابم سرانجام ازین - خوشا باد نوشین ایران‌زمین
             </p>
         </div>
     @endif
