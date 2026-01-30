@@ -26,12 +26,15 @@ document.querySelectorAll('pre code').forEach((block) => {
 
 // Dark mode logic
 document.addEventListener('DOMContentLoaded', function () {
-    const themeToggle = document.getElementById('theme');
     const html = document.documentElement;
     const lightCss = document.getElementById('hljs-light');
     const darkCss = document.getElementById('hljs-dark');
-    const isOsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = isOsDark ? 'dark' : 'light';
+    
+    applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        applyTheme(e.matches);
+    });
 
     // Helper to switch syntax highlight theme
     function updateHighlightTheme(theme) {
@@ -44,9 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Initialize theme
-    html.setAttribute('theme', theme);
-    updateHighlightTheme(theme);
+    function applyTheme(isOsDark) {
+        const theme = isOsDark ? 'dark' : 'light';
+        html.setAttribute('theme', theme);
+        updateHighlightTheme(theme);
+    } 
 });
 
 // copy to clipboard logic
