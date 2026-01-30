@@ -365,6 +365,10 @@ table td {
     margin-bottom: calc(0.7 * var(--space)) !important;
 }
 
+.post-preview header * {
+    color: var(--primary-color) !important
+}
+
 .blog {
     display: flex;
     flex-direction: column;
@@ -485,5 +489,5 @@ html[theme="dark"] #sun-icon {
 }
 
 .landing {
-    padding: 6rem 0
+    padding: 10rem 0;
 }

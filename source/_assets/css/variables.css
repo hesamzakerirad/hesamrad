@@ -1,11 +1,30 @@
 @import 'fonts.css';
 
 :root {
-	--primary-color: #ff4d00;
-	--secondary-color: #047a76;
-	--white: #fdfdfc;
-	--black: #111110;
-	--grey: #9198A1;
+	/* COLORS */
+	--red: #ff3b30;
+	--orange: #ff4d00;
+	--yellow: #ffcc00;
+	--green: #34c759;
+	--mint: #00c7be;
+	--teal: #30b0c7;
+	--cyan: #32ade6;
+	--blue: #007aff;
+	--indigo: #5856d6;
+	--purple: #a652de;
+	--pink: #ff2d55;
+	--brown: #a2845e;
+	--black: #000000;
+	--white: #ffffff;
+	--grey: #8e8e93;
+
+	/* BACKGROUND COLORS */
+	--light-background-color: #f6f6f6;
+	--dark-background-color: #131313;
+
+	--primary-color: var(--orange);
+	--secondary-color: var(--mint);
+	
 	--space: 1rem;
 	--font-family: 'Estedad', 'Open Sans', sans-serif;
 	--header-font-family: 'Estedad', 'Open Sans', sans-serif;
@@ -18,7 +37,7 @@
 }
 
 html {
-	--background-color: var(--white);
+	--background-color: var(--light-background-color);
 	--box-background-color: color-mix(in srgb, var(--background-color), black 1%);
 	--text-color: #333333;
 	--header-color: #222221;
@@ -26,7 +45,7 @@ html {
 }
 
 html[theme=dark] {
-	--background-color: var(--black);
+	--background-color: var(--dark-background-color);
 	--box-background-color: color-mix(in srgb, var(--background-color), white 1%);
 	--text-color: var(--grey);
 	--header-color: var(--white);
