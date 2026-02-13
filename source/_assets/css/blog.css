@@ -463,8 +463,8 @@ html[theme="dark"] #sun-icon {
 .banner {
     display: block;
     text-align: center;
-    color: #ecc978;
-    background-color: #553564;
+    color: var(--header-color);
+    background-color: var(--primary-color);
     padding: 3px 0
 }
 
