@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H516TJZR2S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-H516TJZR2S');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="copyright" content="حسام راد">
+    <meta name="language" content="fa">
+    <meta name="theme-color" content="#2455c3">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="حسام راد">
+    <meta name="description" content="با استفاده از این پکیج متن باز مشکلات اجرایی API رو با سرعت بیشتری ریشه‌یابی کن.">
+    <link rel="canonical" href="https://hesamrad.com/blog/laravel-api-debugger/">
+    <title>حسام راد - یک ابزار متن باز و سبک برای دیباگ API در لاراول</title>
+
+    <script>
+        (function() {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('theme', isDark ? 'dark' : 'light');
+        })();
+    </script>
+
+                    <link rel="preload" as="image" href="https://hesamrad.com/assets/build/images/baby-duck-swimming.jpg">
+        <meta property="og:title" content="حسام راد - یک ابزار متن باز و سبک برای دیباگ API در لاراول">
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://hesamrad.com/blog/laravel-api-debugger/">
+        <meta property="og:site_name" content="حسام راد">
+        <meta property="og:description" content="با استفاده از این پکیج متن باز مشکلات اجرایی API رو با سرعت بیشتری ریشه‌یابی کن.">
+        <meta property="og:locale" content="fa_IR">
+        <meta property="og:image" content="https://hesamrad.com/assets/build/images/baby-duck-swimming.jpg">
+        <meta property="og:image:alt" content="حسام راد - یک ابزار متن باز و سبک برای دیباگ API در لاراول">
+        
+        <meta property="og:image:width" content="850">
+        <meta property="og:image:height" content="470">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="حسام راد - یک ابزار متن باز و سبک برای دیباگ API در لاراول">
+        <meta name="twitter:description" content="با استفاده از این پکیج متن باز مشکلات اجرایی API رو با سرعت بیشتری ریشه‌یابی کن.">
+        <meta name="twitter:image" content="https://hesamrad.com/assets/build/images/baby-duck-swimming.jpg">
+        <meta name="twitter:image:alt" content="حسام راد - یک ابزار متن باز و سبک برای دیباگ API در لاراول">
+        <meta name="twitter:site" content="@hesamzakerirad">
+        <meta name="twitter:creator" content="@hesamzakerirad">
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": "حسام راد - یک ابزار متن باز و سبک برای دیباگ API در لاراول",
+                "description": "با استفاده از این پکیج متن باز مشکلات اجرایی API رو با سرعت بیشتری ریشه‌یابی کن.",
+                "author": {
+                  "@type": "Person",
+                  "name": "حسام راد",
+                  "url": "https://hesamrad.com"
+                },
+                "publisher": {
+                  "@type": "Organization",
+                  "name": "حسام راد",
+                  "url": "https://hesamrad.com",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://hesamrad.com/favicon.ico"
+                  }
+                },
+                
+                "image": "https://hesamrad.com/assets/build/images/baby-duck-swimming.jpg",
+                "timeRequired": "PT2M",
+                "mainEntityOfPage": {
+                  "@type": "WebPage",
+                  "@id": "https://hesamrad.com/blog/laravel-api-debugger/"
+                }
+            }
+        </script>
+    
+    <link rel="home" href="https://hesamrad.com">
+    <link rel="icon" href="https://hesamrad.com/favicon.ico">
+    <link rel="stylesheet" href="/assets/build/css/main.css?id=62818e91030b9b94f3b3d89071ed2d65">
+    <link rel="stylesheet" href="/assets/build/css/highlight/github.min.css?id=340e65ffd5c17713efc9107c06304f7b" id="hljs-light">
+    <link rel="stylesheet" href="/assets/build/css/highlight/github-dark.min.css?id=4009275e152550dcb97bce1b1b1985a6" id="hljs-dark"
+        disabled>
+</head>
+
+<body>
+     
+
+    <main role="main">
+            <div class="post">
+        <header>
+            <div class="container">
+                <div class="mb-1">
+                    <a href="https://hesamrad.com/blog/" rel="home" aria-label="بازگشت به وبلاگ">
+                        <i class="fa-solid fa-arrow-right ml-05"></i>
+                        بازگشت به وبلاگ
+                    </a>
+                </div>
+
+                <h1>یک ابزار متن باز و سبک برای دیباگ API در لاراول</h1>
+                <span>خواندن در
+                    <span>2 دقیقه</span>
+                </span>
+                <span class="ml-05 mr-05">-</span>
+                <span>آخرین بروزرسانی در
+                    <time datetime="2025-06-22">01 تیر 1404</time>
+                </span>
+                <span class="ml-05 mr-05">-</span>
+                <span id="copy-url-btn" class="copy-url-button">
+                    <span class="copy-text">
+                        <i class="fa-regular fa-copy ml-05"></i>
+                        <span>کپی آدرس</span>
+                    </span>
+                    <span class="copied-text" style="display: none;">
+                        <i class="fa-solid fa-check ml-05"></i>
+                        <span>کپی شد!</span>
+                    </span>
+                </span>
+            </div>
+        </header>
+
+                    <div class="thumbnail">
+                <img src="/assets/build/images/baby-duck-swimming.jpg" alt="یک ابزار متن باز و سبک برای دیباگ API در لاراول">
+
+                                    <small class="copyright">
+                        <i class="fa-regular fa-copyright ml-05"></i>
+                        نگاره از <a href="https://unsplash.com/photos/a-duck-floating-on-top-of-a-body-of-water-aM7-IUvh_VY" target="_blank">اینجا</a> به امانت گرفته
+                        شده است.
+                    </small>
+                            </div>
+        
+        <article>
+            <div class="container">
+                <p>هر توسعه‌دهنده‌ای که یک بار با فریم‌ورک لاراول کار کرده حتما با ابزاری مثل <a href="https://laraveldebugbar.com" target="_blank">Debugbar</a> برخورد داشته و می‌دونه که این ابزار چقدر در ریشه‌یابی و بررسی مشکل‌ها کمک‌کننده است؛ مشکلی که این ابزار داره اینه که پروژه‌ شما حتما باید دارای رابط گرافیکی باشد تا بتونید از این ابزار استفاده کنید و اگر در حال توسعه یک API هستید که هیچ رابط گرافیکی‌ای ندارد، امکان استفاده از Debugbar رو ندارید. در این نوشته می‌خوام ابزار متن بازی رو بهتون معرفی کنم که با استفاده از اون بتونید مشکلات API رو با راحتی بیشتری ریشه‌یابی یا دیباگ کنید.</p>
+
+<h3>درباره پکیج</h3>
+
+<p>پکیج متن باز Laravel API Debugger یک پکیج خیلی ساده‌ست که با استفاده از اون می‌تونید روند دیباگ API محصول‌تون رو با سرعت بیشتری انجام بدید.
+(<a href="https://github.com/hesamzakerirad/laravel-api-debugger" target="_blank">آدرس مخزن گیت‌هاب</a>)</p>
+
+<h3>راهنمای نصب پکیج</h3>
+
+<p>کافی‌ست دستور زیر رو داخل محیط ترمنیال پروژه بزنید:</p>
+
+<pre><code>composer require hesamrad/laravel-api-debugger
+</code></pre>
+
+<p>بعد از نصب پکیج باید یک middlware سر راه درخواست قرار دهید؛ برای نمونه:</p>
+
+<pre><code class="language-php">Route::get('users', function () {
+    return response()-&gt;json([
+        'users' =&gt; User::get()
+    ]);
+})-&gt;middleware('debugger');
+</code></pre>
+
+<h3>خروجی پکیج</h3>
+
+<p>اگر به آدرس بالا درخواست بدید با چنین پاسخی رو به رو خواهید شد:</p>
+
+<pre><code class="language-json">{
+  "data": [
+    {
+      "id": 1,
+      "name": "Demo User Number 1",
+      "email": "user-1@test.com"
+    },
+    {
+      "id": 2,
+      "name": "Demo User Number 2",
+      "email": "user-2@test.com"
+    }
+  ],
+  "debugger": {
+    "server": {
+      "web_server": "nginx/1.27.5",
+      "protocol": "HTTP/1.1",
+      "remote_address": "192.168.73.1",
+      "remote_port": "52697",
+      "server_name": "test.local",
+      "server_port": "80"
+    },
+    "app": {
+      "environment": "local",
+      "laravel_version": "12.18.0",
+      "php_version": "8.3.22",
+      "locale": "en"
+    },
+    "request": {
+      "ip": "192.168.65.1",
+      "uri": "/api",
+      "method": "GET",
+      "body": [],
+      "headers": {
+        "connection": [
+          "keep-alive"
+        ],
+        "accept-encoding": [
+          "gzip, deflate, br"
+        ],
+        "host": [
+          "test.local"
+        ],
+        "cache-control": [
+          "no-cache"
+        ],
+        "user-agent": [
+          "PostmanRuntime/7.44.0"
+        ],
+        "accept": [
+          "application/json"
+        ]
+      }
+    },
+    "session": {
+      "authenticated": false,
+      "token": null
+    },
+    "queries": {
+      "count": 1,
+      "data": [
+        {
+          "query": "select * from \"users\"",
+          "bindings": [],
+          "time": 1.17
+        }
+      ]
+    }
+  }
+}
+</code></pre>
+
+<p>این پکیج اطلاعات مورد نیاز توسعه‌دهنده رو برای درخواستی که در حال پردازش هست جمع‌آوری می‌کنه و با کلید <code>debugger</code> داخل پاسخ برمی‌گردونه.</p>
+
+<p>قسمت کاربردی این پکیج جایی هست که تمام Query هایی که در درخواست زده شده‌اند رو داخل پاسخ برمی‌گردونه و به توسعه‌دهنده کمک می‌کنه که مشکلات اجرایی رو بهتر ریشه‌یابی کنه.</p>
+
+<p>البته دقت کنید که برای دریافت این خروجی، امکان debug برنامه شما باید فعال باشد. برای فعال‌سازی این امکان کافی‌ست به فایل env. رفته و کلید APP_DEBUG رو با مقدار true ویرایش کنید.</p>
+
+<h3>متد dd اما برای API!</h3>
+
+<p>تابع دوست‌داشتنی <code>dd</code> رو که خاطرتون هست؟ این تابع یک مشکل بزرگ داره و اون هم اینه که از API پشتیبانی نمی‌کنه و خروجی رو خراب می‌کنه. این پکیج یک تابع بامزه برای حل این مشکل معرفی کرده به نام <code>jdd</code> که دقیقا همون کار <code>dd</code> رو می‌کنه اما برای API! (jdd کوتاه شده json die and dump هست.)</p>
+
+<p>نحوه کارش هیچ فرقی با dd نداره؛ کافیه برای API استفاده بشه تا خروجی در پاسخ به شکل json برگردونده بشه.</p>
+
+<pre><code class="language-php">// api.php
+
+$string = "This is awesome!";
+
+jdd($string);
+</code></pre>
+
+<p>و خروجی به این شکل برمی‌گرده: (اطلاعات مربوط به جایی که تابع <code>jdd</code> فراخوانی شده هم نمایش داده می‌شود!)</p>
+
+<pre><code class="language-json">{
+    "dump": [
+        "This is awesome!"
+    ],
+    "trace": {
+        "file": "/var/www/laravel-api-debugger/routes/api.php",
+        "line": 14
+    }
+}
+</code></pre>
+
+<h3>هشدار</h3>
+
+<p>استفاده از این پکیج در محیط production می‌تواند خطرناک باشد و باعث نشت اطلاعات مهم محصول شما شود؛ لطفا در صورتی که تصمیم دارید از این پکیج در محیط production استفاده کنید، از خاموش بودن APP_DEBUG مطمئن شوید.</p>
+            </div>
+        </article>
+
+                    <section>
+                <div class="container">
+                    <a href="https://hesamrad.com/blog/teamwork-tips-every-developer-should-know/">
+                        <div class="box next" role="navigation">
+                            <p>نوشته بعدی: ترفندهای کار تیمی که هر توسعه‌دهنده‌‌ای باید بداند</p>
+                            <i class="fa-solid fa-arrow-left mr-05"></i>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            </div>
+    </main>
+
+    <footer>
+    <p class="text-center">از اینکه از <a href="https://hesamrad.com">وب‌سایت</a> من بازدید کردید سپاسگزارم.</p>
+</footer>
+    <script src="https://kit.fontawesome.com/3aa580010a.js" crossorigin="anonymous"></script>
+    <script src="/assets/build/js/main.js?id=8c1603305fd19b775892f0356b5da0cf"></script>
+    </body>
+
+</html>
