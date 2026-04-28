@@ -472,6 +472,15 @@ html[theme="dark"] #sun-icon {
     margin: 0
 }
 
+.banner a {
+    color: var(--header-color);
+    text-decoration: underline;
+}
+
+.banner a[target=_blank]::after {
+    content: none
+}
+
 .next {
     display: flex;
     padding-left: calc(2 * var(--space));

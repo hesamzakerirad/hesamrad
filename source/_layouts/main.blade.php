@@ -105,13 +105,13 @@
 </head>
 
 <body>
-    @if (false)
+    @if (true)
         <div class="banner">
             <p>
-                //
+                مکالمه خصوصی انگلیسی، برای هر سطحی! شماره تماس: <a href="tel:+989366392566">۰۹۳۶۶۳۹۲۵۶۶</a>
             </p>
         </div>
-    @endif 
+    @endif
 
     <main role="main">
         @yield('body')
