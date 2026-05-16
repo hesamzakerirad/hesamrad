@@ -98,6 +98,10 @@ return [
         return 'index,follow';
     },
 
+    'getAuthor' => function ($page) {
+        return $page->author ?? $page->siteName;
+    },
+
     'isPost' => function ($page) {
         return str_contains($page->getPath(), 'blog');
     },
