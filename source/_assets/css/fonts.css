@@ -172,3 +172,15 @@
     font-weight: 800;
     font-style: italic;
 }
+
+@font-face {
+    font-family: "Instrument Sans";
+    src: url("../fonts/Instrument-Sans/InstrumentSans-Variable.ttf");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Instrument Sans";
+    src: url("../fonts/Instrument-Sans/InstrumentSans-Italic-Variable.ttf");
+    font-style: italic;
+}

@@ -1,5 +1,9 @@
-html * {
-    font-family: var(--font-family) !important;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    font-family: var(--rtl-font-family);
 }
 
 html {
@@ -156,10 +160,6 @@ img {
     display: block;
     object-fit: cover;
     aspect-ratio: 16 / 9;
-}
-
-.color-primary {
-    color: var(--primary-color);
 }
 
 .hljs, .box, table {
@@ -509,20 +509,18 @@ html[theme="dark"] #sun-icon {
     margin-top: calc(2 * var(--space));
 }
 
-.button {
-    display: block;
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-    padding: 0.75rem 1.5rem;
-    background-color: var(--primary-color);
-    color: var(--header-color);
-    text-decoration: none;
-    border-radius: var(--border-radius);
+.rtl {
+    direction: rtl;
+    font-family: var(--rtl-font-family) !important;
 }
 
-.button.outlined {
-    background-color: transparent;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
+.ltr {
+    direction: ltr;
+    font-family: var(--ltr-font-family) !important;
+}
+
+.resume-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

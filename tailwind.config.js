@@ -9,22 +9,27 @@ module.exports = {
         'source/**/*.vue',
     ]),
     options: {
-        safelist: [/language/, /hljs/, /mce/],
+        safelist: [
+            /language/,
+            /hljs/,
+            /mce/,
+        ],
     },
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['"Nunito Sans"', ...defaults.fontFamily.sans],
-            },
-            lineHeight: {
-                normal: '1.6',
-                loose: '1.75',
-            },
-            maxWidth: {
-                '8xl': '88rem',
-            },
-            boxShadow: {
-                search: '0 -1px 27px 0 rgba(0, 0, 0, 0.04), 0 4px 15px 0 rgba(0, 0, 0, 0.08)',
+            colors: {
+                primary: {
+                    50: '#FFF0E6',
+                    100: '#FFD9BF',
+                    200: '#FFB380',
+                    300: '#FF8C40',
+                    400: '#FF6B1A',
+                    500: '#FF4D00',
+                    600: '#E64500',
+                    700: '#CC3D00',
+                    800: '#B33600',
+                    900: '#992E00',
+                },
             },
         },
         fontSize: {
