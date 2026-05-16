@@ -12,6 +12,7 @@ mix.jigsaw()
         require('tailwindcss'),
     ])
     .copyDirectory('source/_assets/css/highlight', 'source/assets/build/css/highlight')
+    .copyDirectory('source/_assets/css/fontawesome', 'source/assets/build/css/fontawesome')
     .copyDirectory('source/_assets/fonts', 'source/assets/build/fonts')
     .copyDirectory('source/_assets/svg', 'source/assets/build/svg')
     .copyDirectory('source/_assets/images', 'source/assets/build/images')
