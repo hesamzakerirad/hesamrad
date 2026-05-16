@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="{{ $page->getAuthor() }}">
     <meta name="language" content="{{ $page->language }}">
-    <meta name="theme-color" content="#2455c3">
+    <meta name="theme-color" content="#ff4d00">
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="{{ $page->getAuthor() }}">
     <meta name="description" content="{{ $description }}">
