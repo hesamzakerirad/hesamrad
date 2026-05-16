@@ -2,7 +2,8 @@
 <html lang="{{ $page->language }}">
 
 @php
-    $title = $page->siteName . ($page->title ? ' - ' . $page->title : '');
+    $titlePrefix = $page->disableTitlePrefix ? '' : $page->siteName . ' - ';
+    $title = $titlePrefix . ($page->title ?? '');
     $description = $page->description ?? $page->siteDescription;
     $favicon = $page->baseUrl . '/favicon.ico';
     $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : $favicon;
@@ -99,6 +100,8 @@
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="icon" href="{{ $favicon }}">
     <link rel="stylesheet" href="{{ mix('css/main.css', 'assets/build') }}">
+    <link rel="stylesheet" href="{{ mix('css/fontawesome/fontawesome.min.css', 'assets/build') }}">
+    <link rel="stylesheet" href="{{ mix('css/fontawesome/solid.min.css', 'assets/build') }}">
     <link rel="stylesheet" href="{{ mix('css/highlight/github.min.css', 'assets/build') }}" id="hljs-light">
     <link rel="stylesheet" href="{{ mix('css/highlight/github-dark.min.css', 'assets/build') }}" id="hljs-dark"
         disabled>
@@ -119,7 +122,6 @@
 
     @include('_includes.footer')
 
-    <script src="https://kit.fontawesome.com/3aa580010a.js" crossorigin="anonymous"></script>
     <script src="{{ mix('js/main.js', 'assets/build') }}"></script>
     @stack('scripts')
 </body>
