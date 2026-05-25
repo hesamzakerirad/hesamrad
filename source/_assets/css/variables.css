@@ -26,6 +26,6 @@ html[theme=dark] {
 	--background-color: #131313;
 	--box-background-color: color-mix(in srgb, var(--background-color), white 1%);
 	--text-color: #8e8e93;
-	--header-color: var(--white);
+	--header-color: #ffffff;
 	--border-color: #31312e;
 }
