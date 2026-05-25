@@ -6,12 +6,11 @@
 
 @section('body')
     <div class="container blog mt-3 mb-3">
-        <div class="mb-1">
-            <a href="{{ $page->baseUrl }}" rel="home" aria-label="بازگشت به خانه">
-                <i class="fa-solid fa-arrow-right ml-05"></i>
-                بازگشت به خانه
-            </a>
-        </div>
+        @include('_components.backlink')
+
+        @if ($posts->where('isPublished', true))
+            <p>No posts have been published yet.</p>
+        @endif
 
         @foreach ($posts->where('isFeatured', true) as $post)
             <div class="post-preview featured">

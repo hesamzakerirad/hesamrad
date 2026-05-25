@@ -14,9 +14,8 @@ thumbnail: /assets/build/images/social-media.jpeg
 thumbnailCopyRightSource: https://unsplash.com/photos/neon-signage-xv7-GlvBLFw
 readTime: 4
 source:
-isTranslated: false
 isFeatured: false
-isPublished: true
+isPublished: false
 ---
 
 نوشته پیش روی شما دیدگاه شخصی من درباره نحوه استفاده از فضای مجازی برای رشد کسب‌و‌کار است. من مشاور کسب‌و‌کار نیستم و توصیه می‌کنم هر مطلبی که توی اینترنت (و اینجا) می‌خونید رو با منطق پرسشگرایانه خودتون بسنجید و اگه براتون مفید بود اندک چیزی ازش یاد بگیرید.

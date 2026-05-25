@@ -5,16 +5,16 @@ use Illuminate\Support\Str;
 return [
     'baseUrl' => 'http://localhost:3000',
     'production' => false,
-    'siteName' => 'حسام راد',
-    'siteDescription' => 'مهندس نرم‌افزار',
-    'siteAuthor' => 'حسام راد',
-    'locale' => 'fa_IR',
-    'language' => 'fa',
+    'siteName' => 'Hesam Rad',
+    'siteDescription' => 'Software Engineer',
+    'siteAuthor' => 'Hesam Rad',
+    'locale' => 'en_US',
+    'language' => 'en',
 
     // collections
     'collections' => [
         'posts' => [
-            'author' => 'حسام راد',
+            'author' => 'Hesam Rad',
             'sort' => '-created_at',
             'path' => 'blog/{filename}/',
             'filter' => fn ($post) => $post->isPublished === true,

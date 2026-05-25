@@ -41,9 +41,6 @@
     </script>
 
     @if ($page->isPost($page))
-        @if ($page->isTranslated)
-            <link rel="alternate" hreflang="en" href="{{ $page->source }}">
-        @endif
         <link rel="preload" as="image" href="{{ $thumbnail }}">
         <meta property="og:title" content="{{ $title }}">
         <meta property="og:type" content="{{ $page->type ?? 'website' }}">
@@ -64,37 +61,6 @@
         <meta name="twitter:image:alt" content="{{ $title }}">
         <meta name="twitter:site" content="@hesamzakerirad">
         <meta name="twitter:creator" content="@hesamzakerirad">
-
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "Article",
-                "headline": "{{ $title }}",
-                "description": "{{ $description }}",
-                "author": {
-                  "@type": "Person",
-                  "name": "{{ $page->siteName }}",
-                  "url": "{{ $page->baseUrl }}"
-                },
-                "publisher": {
-                  "@type": "Organization",
-                  "name": "{{ $page->siteName }}",
-                  "url": "{{ $page->baseUrl }}",
-                  "logo": {
-                    "@type": "ImageObject",
-                    "url": "{{ $favicon }}"
-                  }
-                },
-                {{-- "datePublished": "{{ $page->getCreatedAtDate('Y-m-d\TH:i:s\Z') }}",
-                "dateModified": "{{ $page->getUpdatedAtDate('Y-m-d\TH:i:s\Z') }}", --}}
-                "image": "{{ $thumbnail }}",
-                "timeRequired": "PT{{ $page->getReadTime() }}M",
-                "mainEntityOfPage": {
-                  "@type": "WebPage",
-                  "@id": "{{ $pageUrl }}"
-                }
-            }
-        </script>
     @endif
 
     <link rel="home" href="{{ $page->baseUrl }}">
@@ -105,6 +71,10 @@
     <link rel="stylesheet" href="{{ mix('css/highlight/github.min.css', 'assets/build') }}" id="hljs-light">
     <link rel="stylesheet" href="{{ mix('css/highlight/github-dark.min.css', 'assets/build') }}" id="hljs-dark"
         disabled>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -115,6 +85,8 @@
             </p>
         </div>
     @endif
+
+    @include('_includes.header')
 
     <main role="main">
         @yield('body')

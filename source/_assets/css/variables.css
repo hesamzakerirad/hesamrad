@@ -1,43 +1,21 @@
 @import 'fonts.css';
 
 :root {
-	/* COLORS */
-	--red: #ff3b30;
-	--orange: #ff4d00;
-	--yellow: #ffcc00;
-	--green: #34c759;
-	--mint: #00c7be;
-	--teal: #30b0c7;
-	--cyan: #32ade6;
-	--blue: #007aff;
-	--indigo: #5856d6;
-	--purple: #a652de;
-	--pink: #ff2d55;
-	--brown: #a2845e;
-	--black: #000000;
-	--white: #ffffff;
-	--grey: #8e8e93;
+	--primary-color: #ff4d00;
 
-	/* BACKGROUND COLORS */
-	--light-background-color: #f6f6f6;
-	--dark-background-color: #131313;
-
-	--primary-color: var(--orange);
-	
 	--space: 1rem;
-	--rtl-font-family: 'Estedad', 'Open Sans', sans-serif;
-	--ltr-font-family: 'Instrument Sans', 'Open Sans', sans-serif;
-	--header-font-family: 'Estedad', 'Open Sans', sans-serif;
+	--font-family: 'Noto Sans', 'Open Sans', sans-serif;
+	--header-font-family: 'Noto Sans', 'Open Sans', sans-serif;
 	--monospace-font-family: 'JetBrains Mono', monospace;
 	--default-font-size: 1rem;
-	--word-spacing: 0.5px;
+	--word-spacing: 0;
 	--line-height: 2rem;
 	--border-radius: 0px;
 	--container-size: 750px;
 }
 
 html {
-	--background-color: var(--light-background-color);
+	--background-color: #ffffff;
 	--box-background-color: color-mix(in srgb, var(--background-color), black 1%);
 	--text-color: #333333;
 	--header-color: #222221;
@@ -45,9 +23,9 @@ html {
 }
 
 html[theme=dark] {
-	--background-color: var(--dark-background-color);
+	--background-color: #131313;
 	--box-background-color: color-mix(in srgb, var(--background-color), white 1%);
-	--text-color: var(--grey);
+	--text-color: #8e8e93;
 	--header-color: var(--white);
 	--border-color: #31312e;
 }

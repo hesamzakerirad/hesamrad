@@ -3,7 +3,8 @@
 @php
     $yearsOfExperience = date('Y') - 2018;
     $page->title = 'Hesam Rad - Resume';
-    $page->description = 'Software Engineer with ' . $yearsOfExperience . '+ years of experience in building products for the internet.';
+    $page->description =
+        'Software Engineer with ' . $yearsOfExperience . '+ years of experience in building products for the internet.';
     $page->robots = 'noindex,nofollow';
     $page->author = 'Hesam Rad';
     $page->language = 'en';
@@ -14,6 +15,8 @@
 @section('body')
     <div class="landing ltr">
         <div class="container">
+            @include('_components.backlink')
+
             <h1>Hesam Rad - Resume</h1>
 
             <p>I am a back-end developer with {{ $yearsOfExperience }}+ years of professional experience in B2B, B2C,
@@ -33,12 +36,12 @@
                 </a>
             </small>
 
-            <h2 id="works">Work Experiences</h2>
+            <h2 id="works" class="my-6">Work Experiences</h2>
 
             <div class="mb-1">
                 <div class="flex lg:flex-row lg:justify-between lg:align-middle flex-col justify-start mt-1">
                     <b>Back-end Developer at TS Information Technology Ltd</b>
-                    <span class="text-gray-400">(Mar 2024 – Nov 2025)</span>
+                    <span class="text-gray-400 text-sm">(Mar 2024 – Nov 2025)</span>
                 </div>
                 <ul class="ml-3 list-disc list-inside">
                     <li>Contributed to a large number of projects ranging from <a href="https://gap.im/" target="_blank">Gap
@@ -59,7 +62,7 @@
             <div class="mb-1">
                 <div class="flex lg:flex-row lg:justify-between lg:align-middle flex-col justify-start mt-1">
                     <b>Lead Back-end Developer at A.P.P. Software Solutions</b>
-                    <span class="text-gray-400">(Oct 2020 – Sep 2025)</span>
+                    <span class="text-gray-400 text-sm">(Oct 2020 – Sep 2025)</span>
                 </div>
                 <ul class="ml-3 list-disc list-inside">
                     <li>Designed and developed the entire back-end API in a RESTful manner to be consumed by multiple
@@ -79,7 +82,7 @@
             <div class="mb-1">
                 <div class="flex lg:flex-row lg:justify-between lg:align-middle flex-col justify-start mt-1">
                     <b>Back-end Developer at Eghamat24</b>
-                    <span class="text-gray-400">(Apr 2022 – Jan 2023)</span>
+                    <span class="text-gray-400 text-sm">(Apr 2022 – Jan 2023)</span>
                 </div>
                 <ul class="ml-3 list-disc list-inside">
                     <li>Engineered a solution to auto-update frequently changed data without the need of a human operator,
@@ -96,7 +99,7 @@
             <div class="mb-1">
                 <div class="flex lg:flex-row lg:justify-between lg:align-middle flex-col justify-start mt-1">
                     <b>Back-end Developer at S.E.I. Digital Economy</b>
-                    <span class="text-gray-400">(Dec 2017 – Oct 2020)</span>
+                    <span class="text-gray-400 text-sm">(Dec 2017 – Oct 2020)</span>
                 </div>
                 <ul class="ml-3 list-disc list-inside">
                     <li>Created a solution to automate manual procedures, which saved 10% of the company’s payroll.
@@ -108,7 +111,7 @@
                 </ul>
             </div>
 
-            <h2 id="projects">Projects</h2>
+            <h2 id="projects" class="my-6">Projects</h2>
 
             <div>
                 <b><a href="https://github.com/hesamzakerirad/laravel-sql-logger" target="_blank">Laravel SQL Logger</a></b>
@@ -137,20 +140,20 @@
                 </a>
             </small>
 
-            <h2 id="education">Education</h2>
+            <h2 id="education" class="my-6">Education</h2>
 
             <div class="flex lg:flex-row lg:justify-between lg:align-middle flex-col justify-start">
                 <b>MS in English Literature at <a href="https://mashhad.iau.ir" target="_blank">Azad University</a></b>
-                <span class="text-gray-400">(Sep 2025 – On Going)</span>
+                <span class="text-gray-400 text-sm">(Sep 2025 – On Going)</span>
             </div>
 
             <div class="flex lg:flex-row lg:justify-between lg:align-middle flex-col justify-start">
                 <b>BS in Computer Engineering at <a href="https://www.sadjad.ac.ir" target="_blank">Sadjad
                         University</a></b>
-                <span class="text-gray-400">(Sep 2016 – Sep 2021)</span>
+                <span class="text-gray-400 text-sm">(Sep 2016 – Sep 2021)</span>
             </div>
 
-            <h2 id="languages">Languages</h2>
+            <h2 id="languages" class="my-6">Languages</h2>
 
             <div>
                 <b>Persian:</b> Native -

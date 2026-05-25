@@ -14,9 +14,8 @@ thumbnail: /assets/build/images/laravel-12.jpeg
 thumbnailCopyRightSource:
 readTime: 2
 source: 
-isTranslated: false
 isFeatured: false
-isPublished: true
+isPublished: false
 ---
 
 نسخه 12 فریم ورک لاراول در 6 بهمن ماه 1403 منتشر شد و بر خلاف نسخه 11 که تغییرات سنگین و شکننده‌ای به همراه داشت تنها با لیست کوچکی از تغییرات به دست ما رسید. سازنده فریم ورک لاراول،‌ آقای Taylor Otwell در توییتر(ایکس) اعلام کرد که در این نسخه تلاش شده تا مشکلات موجود رو رفع و نسخه پایدارتری رو به دنیای متن باز روانه کنند. (<a href="https://x.com/taylorotwell/status/1892337776298787188?t=6NLK_XeFtTrsBrm0BTaYDQ&s=19" target="_blank">لینک توییت</a>)

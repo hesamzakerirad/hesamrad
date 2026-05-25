@@ -12,9 +12,8 @@ thumbnail: /assets/build/images/baby-duck-swimming.jpg
 thumbnailCopyRightSource: https://unsplash.com/photos/a-duck-floating-on-top-of-a-body-of-water-aM7-IUvh_VY
 readTime: 2
 source: 
-isTranslated: false
 isFeatured: false
-isPublished: true
+isPublished: false
 ---
 
 هر توسعه‌دهنده‌ای که یک بار با فریم‌ورک لاراول کار کرده حتما با ابزاری مثل <a href="https://laraveldebugbar.com" target="_blank">Debugbar</a> برخورد داشته و می‌دونه که این ابزار چقدر در ریشه‌یابی و بررسی مشکل‌ها کمک‌کننده است؛ مشکلی که این ابزار داره اینه که پروژه‌ شما حتما باید دارای رابط گرافیکی باشد تا بتونید از این ابزار استفاده کنید و اگر در حال توسعه یک API هستید که هیچ رابط گرافیکی‌ای ندارد، امکان استفاده از Debugbar رو ندارید. در این نوشته می‌خوام ابزار متن بازی رو بهتون معرفی کنم که با استفاده از اون بتونید مشکلات API رو با راحتی بیشتری ریشه‌یابی یا دیباگ کنید.

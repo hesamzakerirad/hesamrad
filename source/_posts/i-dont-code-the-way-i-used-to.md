@@ -13,10 +13,9 @@ updated_at: 2025-03-29
 thumbnail: /assets/build/images/code.jpeg
 thumbnailCopyRightSource: https://unsplash.com/photos/black-flat-screen-computer-monitor-turned-on-near-blue-and-white-sky-SrewPUfo2c0
 readTime: 3
-source: https://stitcher.io/blog/i-dont-code-the-way-i-used-to
-isTranslated: true
+source: 
 isFeatured: false
-isPublished: true
+isPublished: false
 ---
 
 این نوشته برگردان پست منتشر شده در وبلاگ آقای Brent Roose می‌باشد.

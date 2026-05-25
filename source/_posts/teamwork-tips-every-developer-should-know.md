@@ -14,9 +14,8 @@ thumbnail: /assets/build/images/a-close-up-of-a-text-description-on-a-computer-s
 thumbnailCopyRightSource: https://unsplash.com/photos/a-close-up-of-a-text-description-on-a-computer-screen-842ofHC6MaI
 readTime: 9
 source:
-isTranslated: false
 isFeatured: false
-isPublished: true
+isPublished: false
 ---
 
 ## پیش‌گفتار

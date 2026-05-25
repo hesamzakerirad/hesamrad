@@ -4,7 +4,7 @@
 
 html,
 body {
-    font-family: var(--rtl-font-family);
+    font-family: var(--font-family);
 }
 
 html {
@@ -22,11 +22,16 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     word-spacing: var(--word-spacing);
-    direction: rtl;
     box-sizing: content-box;
     min-height: 100%;
     position: relative;
     z-index: 1;
+}
+
+
+.wall {
+    background-color: #91412F;
+    background-image: url(../images/brick-wall.png);
 }
 
 h1,
@@ -36,16 +41,6 @@ h4,
 h5,
 h6 {
     color: var(--header-color);
-    margin-top: calc(var(--space) * 2) !important;
-}
-
-h1:first-of-type,
-h2:first-of-type,
-h3:first-of-type,
-h4:first-of-type,
-h5:first-of-type,
-h6:first-of-type {
-    margin-top: 0;
 }
 
 h1 {
@@ -117,15 +112,9 @@ a {
 
 a[target=_blank]::after {
     content: url('../svg/external-link.svg');
-    margin-right: 3px;
-    margin-left: 0;
-    display: inline-block;
-}
-
-.ltr a[target=_blank]::after {
-    margin-right: 0;
     margin-left: 3px;
-    transform: rotate(90deg);
+    margin-right: 0;
+    display: inline-block;
 }
 
 .no-decoration::after {
@@ -207,62 +196,6 @@ body>header {
     display: flex;
     flex-direction: column;
     padding: calc(4 * var(--space)) 0;
-}
-
-.mr-05 {
-    margin-right: calc(var(--space) * 0.5);
-}
-
-.ml-05 {
-    margin-left: calc(var(--space) * 0.5);
-}
-
-.mt-05 {
-    margin-top: calc(var(--space) * 0.5);
-}
-
-.mb-05 {
-    margin-bottom: calc(var(--space) * 0.5);
-}
-
-.mr-1 {
-    margin-right: calc(var(--space) * 1);
-}
-
-.ml-1 {
-    margin-left: calc(var(--space) * 1);
-}
-
-.mt-1 {
-    margin-top: calc(var(--space) * 1);
-}
-
-.mb-1 {
-    margin-bottom: calc(var(--space) * 1);
-}
-
-.mr-2 {
-    margin-right: calc(var(--space) * 2);
-}
-
-.ml-2 {
-    margin-left: calc(var(--space) * 2);
-}
-
-.mt-2 {
-    margin-top: calc(var(--space) * 2);
-}
-
-.mb-2 {
-    margin-bottom: calc(var(--space) * 2);
-}
-
-.mt-3 {
-    margin-top: calc(var(--space) * 3);
-}
-
-.mb-3 {
-    margin-bottom: calc(var(--space) * 3);
 }
 
 .container {
@@ -519,16 +452,6 @@ html[theme="dark"] #sun-icon {
     justify-self: center;
     align-items: center;
     margin-top: calc(2 * var(--space));
-}
-
-.rtl {
-    direction: rtl;
-    font-family: var(--rtl-font-family) !important;
-}
-
-.ltr {
-    direction: ltr;
-    font-family: var(--ltr-font-family) !important;
 }
 
 .resume-item-header {
