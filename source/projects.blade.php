@@ -1,5 +1,9 @@
 @extends('_layouts.main')
 
+@php
+    $page->title = 'Projects';
+@endphp
+
 @section('body')
     <div class="landing">
         <div class="container">
@@ -8,7 +12,7 @@
             <h1>Projects</h1>
 
             <p>I love open-source projects and contributing to the developer community. Over the years of working with
-                Laravel, I have come across some ideas that I keep implementing on every project. To avoid that, I have
+                <a href="https://laravel.com" target="_blank">Laravel</a>, I have come across some ideas that I keep implementing on every project. To avoid that, I have
                 created usable packages to be pulled into any Laravel project. Here are a few of them:</p>
 
             <ul class="list-disc list-inside space-y-3">
@@ -29,7 +33,7 @@
             <hr>
 
             <p>I also develop non-profit software that are specifically designed to make a positive
-                impact in the digital world. Here are a few of them:</p>
+                impact in the internet:</p>
 
             <ul class="list-disc list-inside space-y-3">
                 <li class="list-item">
