@@ -3,7 +3,7 @@
 
 @php
     $titlePrefix = $page->disableTitlePrefix ? '' : $page->siteName . ' - ';
-    $title = $titlePrefix . ($page->title ?? '');
+    $title = $titlePrefix . trim($__env->yieldContent('title'));
     $description = $page->description ?? $page->siteDescription;
     $favicon = $page->baseUrl . '/favicon.ico';
     $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : $favicon;
