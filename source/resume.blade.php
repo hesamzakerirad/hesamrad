@@ -4,15 +4,12 @@
     $yearsOfExperience = date('Y') - 2018;
     $page->description = 'Software Engineer with ' . $yearsOfExperience . '+ years of experience in building products for the internet.';
     $page->robots = 'noindex,nofollow';
-    $page->disableTitlePrefix = true;
 @endphp
 
-@section('title', 'Hesam Rad - Resume')
+@section('title', 'Resume')
 
 @section('content')
     <section class="mb-3">
-        <h2>Summary</h2>
-
         <p>I am a back-end developer with {{ $yearsOfExperience }}+ years of professional experience in B2B, B2C,
             e-commerce, online hotel and
             flight reservation services, CRM and management systems with a strong focus on optimization and code

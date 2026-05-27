@@ -88,7 +88,7 @@
 
     @include('_includes.header')
 
-    <main role="main">
+    <main role="main" class="container my-12">
         @yield('body')
     </main>
 

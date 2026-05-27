@@ -112,9 +112,8 @@ a {
 
 a[target=_blank]::after {
     content: url('../svg/external-link.svg');
-    margin-left: 3px;
+    margin-left: 1px;
     margin-right: 0;
-    display: inline-block;
 }
 
 .no-decoration::after {
@@ -183,19 +182,8 @@ iframe {
     height: 350px;
 }
 
-footer {
-    padding: calc(4 * var(--space)) 0;
-    font-size: smaller
-}
-
 svg {
     vertical-align: middle !important;
-}
-
-body>header {
-    display: flex;
-    flex-direction: column;
-    padding: calc(4 * var(--space)) 0;
 }
 
 .container {
@@ -203,6 +191,7 @@ body>header {
     max-width: var(--container-size);
     margin-left: auto;
     margin-right: auto;
+    padding: var(--space);
 }
 
 .big-container {
@@ -319,14 +308,7 @@ table td {
     gap: calc(3 * var(--space));
 }
 
-footer>section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.post header,
-.header {
+.post header {
     padding-top: calc(6* var(--space));
     padding-bottom: calc(3* var(--space));
 }

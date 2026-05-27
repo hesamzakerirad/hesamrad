@@ -25,16 +25,16 @@
                 Flashlight</a> is a highly customizable Laravel package to log HTTP requests</li>
     </ul>
 
-    <hr>
+    <div class="mt-6">
+        <p>I also develop non-profit software that are specifically designed to make a positive
+            impact in the internet:</p>
 
-    <p>I also develop non-profit software that are specifically designed to make a positive
-        impact in the internet:</p>
-
-    <ul class="list-disc list-inside space-y-3">
-        <li class="list-item">
-            PVND is a free url shortener, QR-code and profile
-            generator.
-            <span class="text-yellow-500">(Coming soon)</span>
-        </li>
-    </ul>
+        <ul class="list-disc list-inside space-y-3">
+            <li class="list-item">
+                PVND is a free url shortener, QR-code and profile
+                generator.
+                <span class="text-yellow-500">(Coming soon)</span>
+            </li>
+        </ul>
+    </div>
 @endsection

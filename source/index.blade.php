@@ -3,7 +3,7 @@
 @section('title', $page->siteDescription)
 
 @section('content')
-    <p class="my-6">Hello, I am Hesam.</p>
+    <p class="mb-3">Hello, I am Hesam.</p>
     <h1>I build software.</h1>
 
     <p>I have been building web-based software since 2017 when I was still in college. Every once in a while, I

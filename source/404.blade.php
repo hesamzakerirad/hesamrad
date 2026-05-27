@@ -1,15 +1,13 @@
 ---
-title: برگه مورد نظر پیدا نشد.
+title: Not Found!
 permalink: /404.html
 robots: noindex,follow
 ---
 
-@extends('_layouts.main')
+@extends('_layouts.page')
 
-@section('body')
-    <div class="container blog mt-3 mb-3">
-        @include('_components.backlink')
+@section('title', 'Not Found!')
 
-        <h1>Not Found.</h1>
-    </div>
+@section('content')
+    <p>Sorry, the page you are looking for does not exist. Why don't we head back <a href="{{ $page->baseUrl }}">home</a>?</p>
 @endsection
