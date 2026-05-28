@@ -65,11 +65,12 @@
 
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="icon" href="{{ $favicon }}">
-    <link rel="stylesheet" href="{{ mix('css/main.css', 'assets/build') }}">
-    <link rel="stylesheet" href="{{ mix('css/fontawesome/fontawesome.min.css', 'assets/build') }}">
-    <link rel="stylesheet" href="{{ mix('css/fontawesome/solid.min.css', 'assets/build') }}">
-    <link rel="stylesheet" href="{{ mix('css/highlight/github.min.css', 'assets/build') }}" id="hljs-light">
-    <link rel="stylesheet" href="{{ mix('css/highlight/github-dark.min.css', 'assets/build') }}" id="hljs-dark"
+    @viteRefresh()
+    <link rel="stylesheet" href="{{ vite('source/_assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ vite('source/_assets/css/fontawesome/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ vite('source/_assets/css/fontawesome/solid.min.css') }}">
+    <link rel="stylesheet" href="{{ vite('source/_assets/css/highlight/github.min.css') }}" id="hljs-light">
+    <link rel="stylesheet" href="{{ vite('source/_assets/css/highlight/github-dark.min.css') }}" id="hljs-dark"
         disabled>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,7 +95,7 @@
 
     @include('_includes.footer')
 
-    <script src="{{ mix('js/main.js', 'assets/build') }}"></script>
+    <script src="{{ vite('source/_assets/js/main.js') }}"></script>
     @stack('scripts')
 </body>
 

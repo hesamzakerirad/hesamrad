@@ -1,6 +1,6 @@
 {
     "require": {
-        "tightenco/jigsaw": "^1.7",
+        "tightenco/jigsaw": "^1.8",
         "tightenco/jigsaw-blog-template": "^1.4",
         "samdark/sitemap": "^2.2.1",
         "hekmatinasser/verta": "^8.4"
