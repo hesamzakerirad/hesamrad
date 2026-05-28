@@ -18,39 +18,9 @@ export default defineConfig({
         viteStaticCopy({
             targets: [
                 {
-                    src: 'source/_assets/images/*',
-                    dest: 'images',
-                    rename: {
-                        stripBase: true
-                    }
-                },
-                {
-                    src: 'source/_assets/fonts/*',
-                    dest: 'fonts',
-                    rename: {
-                        stripBase: true
-                    }
-                },
-                {
-                    src: 'source/_assets/svg/*',
-                    dest: 'svg',
-                    rename: {
-                        stripBase: true
-                    }
-                },
-                {
-                    src: 'source/_assets/css/highlight/*',
-                    dest: 'css/highlight',
-                    rename: {
-                        stripBase: true
-                    }
-                },
-                {
-                    src: 'source/_assets/css/fontawesome/*',
-                    dest: 'css/fontawesome',
-                    rename: {
-                        stripBase: true
-                    }
+                    src: 'source/_assets',  // Copy contents of _assets folder
+                    dest: '.',              // into assets/build folder
+                    rename: {stripBase: 2}  // strip source/_assets from path when naming
                 },
             ]
         })
