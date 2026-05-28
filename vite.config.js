@@ -3,24 +3,31 @@ import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
+    base: '/assets/build',
+    build: {
+        assetsDir: '',
+        rollupOptions: {
+            output: {
+                assetFileNames: '[name]-[hash][extname]',  // No 'build/' prefix
+                chunkFileNames: '[name]-[hash].js',
+                entryFileNames: '[name]-[hash].js',
+            }
+        }
+    },
     plugins: [
         jigsaw({
             input: [
                 'source/_assets/js/main.js',
                 'source/_assets/css/main.css',
-                'source/_assets/css/fontawesome/fontawesome.min.css',
-                'source/_assets/css/fontawesome/solid.min.css',
-                'source/_assets/css/highlight/github.min.css',
-                'source/_assets/css/highlight/github-dark.min.css'
             ],
             refresh: true,
         }),
         viteStaticCopy({
             targets: [
                 {
-                    src: 'source/_assets',  // Copy contents of _assets folder
-                    dest: '.',              // into assets/build folder
-                    rename: {stripBase: 2}  // strip source/_assets from path when naming
+                    src: 'source/_assets/images',
+                    dest: '',  // Empty = root of base path
+                    rename: {stripBase: 2}
                 },
             ]
         })

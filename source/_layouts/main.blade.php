@@ -67,11 +67,6 @@
     <link rel="icon" href="{{ $favicon }}">
     @viteRefresh()
     <link rel="stylesheet" href="{{ vite('source/_assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ vite('source/_assets/css/fontawesome/fontawesome.min.css') }}">
-    <link rel="stylesheet" href="{{ vite('source/_assets/css/fontawesome/solid.min.css') }}">
-    <link rel="stylesheet" href="{{ vite('source/_assets/css/highlight/github.min.css') }}" id="hljs-light">
-    <link rel="stylesheet" href="{{ vite('source/_assets/css/highlight/github-dark.min.css') }}" id="hljs-dark"
-        disabled>
 </head>
 
 <body>

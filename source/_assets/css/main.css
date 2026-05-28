@@ -1,4 +1,9 @@
+@import 'fontawesome/fontawesome.min.css';
+@import 'fontawesome/solid.min.css';
+@import 'highlight/github.min.css';
+@import 'highlight/github-dark.min.css';
+
 @import 'variables.css';
 @import 'fonts.css';
-@import 'blog.css';
+@import 'style.css';
 @import 'responsive.css';
