@@ -30,28 +30,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const lightCss = document.getElementById('hljs-light');
     const darkCss = document.getElementById('hljs-dark');
     
-    applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        applyTheme(e.matches);
-    });
-
-    // Helper to switch syntax highlight theme
-    function updateHighlightTheme(theme) {
-        if (theme === 'dark') {
-            lightCss.disabled = true;
-            darkCss.disabled = false;
-        } else {
-            lightCss.disabled = false;
-            darkCss.disabled = true;
-        }
-    }
-
     function applyTheme(isOsDark) {
         const theme = isOsDark ? 'dark' : 'light';
         html.setAttribute('theme', theme);
-        updateHighlightTheme(theme);
-    } 
+        
+        if (lightCss && darkCss) {
+            if (theme === 'dark') {
+                lightCss.disabled = true;
+                darkCss.disabled = false;
+            } else {
+                lightCss.disabled = false;
+                darkCss.disabled = true;
+            }
+        }
+    }
+    
+    // Get initial OS theme preference
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    applyTheme(darkModeMediaQuery.matches);
+    
+    // Listen for OS theme changes
+    darkModeMediaQuery.addEventListener('change', function (e) {
+        applyTheme(e.matches);
+    });
 });
 
 // copy to clipboard logic
