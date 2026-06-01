@@ -1,0 +1,49 @@
+{
+  "source/_assets/css/main.css": {
+    "file": "main-Bk9E96Qe.css",
+    "name": "main",
+    "names": [
+      "main.css"
+    ],
+    "src": "source/_assets/css/main.css",
+    "isEntry": true,
+    "assets": [
+      "fa-solid-900-BLm1ImsD.woff2",
+      "JetBrainsMono-Variable-BrlcHZ7m.ttf",
+      "JetBrainsMono-Italic-Variable-CZO9PUqx.ttf",
+      "NotoSans-Variable-CYoOFcCZ.ttf",
+      "NotoSans-Italic-Variable-DJsZH3RN.ttf",
+      "external-link-Dm4LJn5S.svg"
+    ]
+  },
+  "source/_assets/fonts/FontAwesome/fa-solid-900.woff2": {
+    "file": "fa-solid-900-BLm1ImsD.woff2",
+    "src": "source/_assets/fonts/FontAwesome/fa-solid-900.woff2"
+  },
+  "source/_assets/fonts/JetBrains-Mono/JetBrainsMono-Italic-Variable.ttf": {
+    "file": "JetBrainsMono-Italic-Variable-CZO9PUqx.ttf",
+    "src": "source/_assets/fonts/JetBrains-Mono/JetBrainsMono-Italic-Variable.ttf"
+  },
+  "source/_assets/fonts/JetBrains-Mono/JetBrainsMono-Variable.ttf": {
+    "file": "JetBrainsMono-Variable-BrlcHZ7m.ttf",
+    "src": "source/_assets/fonts/JetBrains-Mono/JetBrainsMono-Variable.ttf"
+  },
+  "source/_assets/fonts/Noto-Sans/NotoSans-Italic-Variable.ttf": {
+    "file": "NotoSans-Italic-Variable-DJsZH3RN.ttf",
+    "src": "source/_assets/fonts/Noto-Sans/NotoSans-Italic-Variable.ttf"
+  },
+  "source/_assets/fonts/Noto-Sans/NotoSans-Variable.ttf": {
+    "file": "NotoSans-Variable-CYoOFcCZ.ttf",
+    "src": "source/_assets/fonts/Noto-Sans/NotoSans-Variable.ttf"
+  },
+  "source/_assets/js/main.js": {
+    "file": "main-BsSFcxQb.js",
+    "name": "main",
+    "src": "source/_assets/js/main.js",
+    "isEntry": true
+  },
+  "source/_assets/svg/external-link.svg": {
+    "file": "external-link-Dm4LJn5S.svg",
+    "src": "source/_assets/svg/external-link.svg"
+  }
+}
