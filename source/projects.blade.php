@@ -2,6 +2,8 @@
 
 @section('title', 'Projects')
 
+{{-- @section('description', 'I enjoy pushing interesting ideas into reality! Take a look at a few of them here.') --}}
+
 @section('content')
     <p>I love open-source projects and contributing to the developer community. Over the years of working with
         <a href="https://laravel.com" target="_blank">Laravel</a>, I have come across some ideas that I keep implementing on

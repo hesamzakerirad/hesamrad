@@ -1,5 +1,8 @@
 @extends('_layouts.main')
 
+{{-- This is the fallback value for the meta description tag --}}
+@section('description', $page->siteDescription)
+
 @section('body')
     <div>
         @if (!$page->isHomePage())

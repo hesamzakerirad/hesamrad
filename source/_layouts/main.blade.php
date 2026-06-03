@@ -4,7 +4,7 @@
 @php
     $titlePrefix = $page->disableTitlePrefix ? '' : $page->siteName . ' - ';
     $title = $titlePrefix . trim($__env->yieldContent('title'));
-    $description = $page->description ?? $page->siteDescription;
+    $description = trim($__env->yieldContent('description'));
     $favicon = $page->baseUrl . '/favicon.ico';
     $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : $favicon;
     $pageUrl = $page->isHomePage() ? $page->baseUrl : $page->getUrlWithTrailingSlash();

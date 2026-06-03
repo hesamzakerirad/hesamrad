@@ -2,6 +2,8 @@
 
 @section('title', $page->siteDescription)
 
+@section('description', 'Software Engineer with ' . $page->getMyYearsOfExperience() . '+ years of experience in building products for the internet.')
+
 @section('content')
     <p class="mb-3">Hello, I am Hesam.</p>
     <h1>I build software.</h1>

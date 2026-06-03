@@ -122,4 +122,8 @@ return [
 
         return $url.(str_ends_with($url, '/') ? '' : '/');
     },
+
+    'getMyYearsOfExperience' => function () {
+        return date('Y') - 2018;
+    }
 ];
