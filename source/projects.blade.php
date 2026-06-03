@@ -2,7 +2,7 @@
 
 @section('title', 'Projects')
 
-{{-- @section('description', 'I enjoy pushing interesting ideas into reality! Take a look at a few of them here.') --}}
+@section('description', 'I enjoy pushing interesting ideas into reality! Take a look at a few of them here.')
 
 @section('content')
     <p>I love open-source projects and contributing to the developer community. Over the years of working with
