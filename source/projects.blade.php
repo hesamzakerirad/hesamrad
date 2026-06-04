@@ -25,6 +25,8 @@
         </li>
         <li class="list-item"><a href="https://github.com/hesamzakerirad/laravel-flashlight" target="_blank">Laravel
                 Flashlight</a> is a highly customizable Laravel package to log HTTP requests</li>
+        <li class="list-item"><a href="https://github.com/hesamzakerirad/laravel-api-debugger" target="_blank">Laravel Api
+                Debugger</a> is a Laravel package to ease the process of debugging JSON APIs</li>
     </ul>
 
     <div class="mt-6">
@@ -35,7 +37,7 @@
             <li class="list-item">
                 PVND is a free url shortener, QR-code and profile
                 generator.
-                <span class="text-yellow-500">(Coming soon)</span>
+                <span>(Coming soon)</span>
             </li>
         </ul>
     </div>

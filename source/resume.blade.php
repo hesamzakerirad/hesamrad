@@ -130,15 +130,9 @@
             <p>A Highly Customizable Laravel Package to Log Requests</p>
         </div>
 
-        <div>
-            <b><a href="https://github.com/hesamzakerirad/laravel-api-debugger" target="_blank">Laravel Api
-                    Debugger</a></b>
-            <p>A Laravel package to ease the process of debugging JSON APIs</p>
-        </div>
-
         <small>
-            <a href="https://github.com/hesamzakerirad?tab=repositories" target="_blank" class="underline">
-                <span>See more on GitHub</span>
+            <a href="{{ $page->baseUrl }}/projects/" class="underline">
+                <span>See more here</span>
             </a>
         </small>
     </section>
