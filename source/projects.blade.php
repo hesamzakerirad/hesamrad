@@ -35,10 +35,11 @@
 
         <ul class="list-disc list-inside space-y-3">
             <li class="list-item">
-                PVND is a free url shortener, QR-code and profile
-                generator.
-                <span>(Coming soon)</span>
+                <a href="https://pvnd.io" target="_blank">Peyvand</a> is a free url shortener, QR-code and profile
+                generator. (Project is in active development.)
             </li>
         </ul>
+
+        <p class="mb-0 mt-3">Apart from these, my mind is filled with a lot more ideas and I only hope I am lucky enough to bring them into life 🤞</p>
     </div>
 @endsection
