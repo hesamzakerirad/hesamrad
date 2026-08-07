@@ -14,8 +14,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
-    <meta name="copyright" content="{{ $page->getAuthor() }}">
-    <meta name="language" content="{{ $page->getLanguage() }}">
     <meta name="theme-color" content="#ff4d00">
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="{{ $page->getAuthor() }}">
