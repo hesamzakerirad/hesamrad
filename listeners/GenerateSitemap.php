@@ -32,16 +32,15 @@ class GenerateSitemap
 
         $destination = $jigsaw->getDestinationPath();
         $sitemap = new Sitemap($destination.'/sitemap.xml');
-        $postDates = $this->postDates($jigsaw);
 
         collect($jigsaw->getOutputPaths())
             ->reject(function ($path) use ($jigsaw) {
                 return $this->isExcluded($path) || $this->isNoIndex($jigsaw, $path);
             })
-            ->each(function ($path) use ($baseUrl, $destination, $sitemap, $postDates, $jigsaw) {
+            ->each(function ($path) use ($baseUrl, $destination, $sitemap, $jigsaw) {
                 $sitemap->addItem(
                     $this->url($baseUrl, $destination, $path),
-                    $this->lastModified($jigsaw, $path, $postDates)
+                    $this->lastModified($jigsaw, $path)
                 );
             });
 
@@ -98,26 +97,18 @@ class GenerateSitemap
      * that would restamp every URL on every build and teach crawlers to ignore
      * the field. An absent lastmod is better than a false one.
      */
-    protected function lastModified(Jigsaw $jigsaw, $path, $postDates)
+    protected function lastModified(Jigsaw $jigsaw, $path)
     {
-        $key = trim($path, '/');
+        // Ask the page itself rather than mapping post paths to dates: a post
+        // that sets `permalink` is written to an output path its own getPath()
+        // never matches, and the lookup would silently miss.
+        $page = $jigsaw->getPages()[$path] ?? null;
 
-        if (isset($postDates[$key])) {
-            return $postDates[$key];
+        if ($page && $date = $page->getLastModified()) {
+            return $date;
         }
 
-        return $this->lastCommitTimestamp($jigsaw, $key);
-    }
-
-    /** Post paths mapped to their `updated_at` timestamp. */
-    protected function postDates(Jigsaw $jigsaw)
-    {
-        return collect($jigsaw->getCollection('posts'))
-            ->mapWithKeys(function ($post) {
-                return [trim($post->getPath(), '/') => $post->updated_at ?? $post->created_at];
-            })
-            ->filter()
-            ->all();
+        return $this->lastCommitTimestamp($jigsaw, trim($path, '/'));
     }
 
     /**

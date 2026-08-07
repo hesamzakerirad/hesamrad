@@ -4,9 +4,12 @@ permalink: /feed.xml
 @php
     echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 
-    // The collection is sorted by -created_at, so first() is the newest post,
-    // not the most recently edited one. lastBuildDate means the latter.
-    $lastUpdated = $posts->max('updated_at') ?: $posts->max('created_at');
+    // lastBuildDate is the newest change of any kind. max('updated_at') is not
+    // enough: Collection::max skips posts with no updated_at, so a brand new
+    // post that has never been revised would not count. Map through property
+    // access rather than a column name — data_get() throws on a front-matter
+    // key that is present but blank.
+    $lastUpdated = $posts->map(fn ($post) => $post->getLastModified())->filter()->max();
 @endphp
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
@@ -21,9 +24,9 @@ permalink: /feed.xml
         @foreach ($posts as $post)
             <item>
                 <title>{{ $post->title }}</title>
-                <link>{{ $post->getUrlWithTrailingSlash() }}</link>
-                <guid isPermaLink="true">{{ $post->getUrlWithTrailingSlash() }}</guid>
-                <description>{{ strip_tags($post->description ?: $post->getExcerpt(300)) }}</description>
+                <link>{{ $post->getCanonicalUrl() }}</link>
+                <guid isPermaLink="true">{{ $post->getCanonicalUrl() }}</guid>
+                <description>{{ $post->getSummary(300) }}</description>
                 <pubDate>{{ $post->getCreatedAtDateObject()->format(DATE_RSS) }}</pubDate>
                 <dc:creator>{{ $post->getAuthor() }}</dc:creator>
                 <dc:language>{{ $post->getLanguage() }}</dc:language>

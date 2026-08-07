@@ -33,9 +33,15 @@ return [
         ],
     ],
 
+    // A quoted `created_at: '2025-01-01'` stays a string instead of being coerced
+    // to a timestamp, so check for a usable value rather than merely a present
+    // one — otherwise createFromFormat returns false and the return type fatals
+    // with an error that says nothing about which post is at fault.
     'getCreatedAtDateObject' => function ($page): DateTime {
-        if (! $page->created_at) {
-            throw new InvalidArgumentException("'{$page->getPath()}' is missing a created_at date.");
+        if (! is_numeric($page->created_at)) {
+            throw new InvalidArgumentException(
+                "'{$page->getPath()}' needs a created_at date written as an unquoted YYYY-MM-DD."
+            );
         }
 
         return Datetime::createFromFormat('U', (string) $page->created_at);
@@ -44,9 +50,14 @@ return [
     // updated_at is optional; a post that has never been revised falls back to
     // its creation date. Returning false here would be a fatal TypeError.
     'getUpdatedAtObject' => function ($page): DateTime {
-        return $page->updated_at
+        return is_numeric($page->updated_at)
             ? Datetime::createFromFormat('U', (string) $page->updated_at)
             : $page->getCreatedAtDateObject();
+    },
+
+    /** The timestamp a page was last meaningfully changed. */
+    'getLastModified' => function ($page) {
+        return is_numeric($page->updated_at) ? $page->updated_at : $page->created_at;
     },
 
     'getCreatedAtDate' => function ($page, $format = 'Y-m-d'): string {
@@ -65,20 +76,28 @@ return [
         return verta($page->getUpdatedAtDate())->format($format);
     },
 
+    /**
+     * A plain-text summary of a page's opening content.
+     *
+     * Every consumer (meta description, OG/Twitter cards, JSON-LD, the RSS
+     * feed) needs plain text, so this strips markup and decodes entities
+     * rather than leaving HTML for each caller to clean up.
+     */
     'getExcerpt' => function ($page, $length = 255) {
         if ($page->excerpt) {
             return $page->excerpt;
         }
 
         $content = preg_split('/<!-- more -->/m', $page->getContent(), 2);
-        $cleaned = trim(
-            strip_tags(
-                preg_replace(['/<pre>[\w\W]*?<\/pre>/', '/<h\d>[\w\W]*?<\/h\d>/'], '', $content[0]),
-                '<code>'
-            )
+        $stripped = strip_tags(
+            preg_replace(['/<pre>[\w\W]*?<\/pre>/', '/<h\d>[\w\W]*?<\/h\d>/'], '', $content[0])
         );
 
-        if (count($content) > 1) {
+        // getContent() returns rendered HTML, so entities have to be decoded or
+        // an ampersand in the body reaches the page as a literal '&amp;'.
+        $cleaned = trim(preg_replace('/\s+/u', ' ', html_entity_decode($stripped, ENT_QUOTES, 'UTF-8')));
+
+        if (count($content) > 1 || mb_strlen($cleaned) <= $length) {
             return $cleaned;
         }
 
@@ -86,23 +105,28 @@ return [
         // the resulting invalid UTF-8 makes json_encode() fail outright.
         $truncated = mb_substr($cleaned, 0, $length);
 
-        if (substr_count($truncated, '<code>') > substr_count($truncated, '</code>')) {
-            $truncated .= '</code>';
-        }
+        // preg_replace returns null on malformed input; keep the hard cut then.
+        return (preg_replace('/\s+?(\S+)?$/u', '', $truncated) ?? $truncated).'...';
+    },
 
-        return mb_strlen($cleaned) > $length
-            ? preg_replace('/\s+?(\S+)?$/u', '', $truncated).'...'
-            : $cleaned;
+    /** The description used for meta tags, cards, JSON-LD and the feed. */
+    'getSummary' => function ($page, $length = 255) {
+        return $page->description ?: $page->getExcerpt($length);
     },
 
     'getRobotsStatus' => function ($page) {
-        if ($page->robots) {
-            return is_array($page->robots) ?
-                implode(',', $page->robots) :
-                $page->robots;
+        if (! $page->robots) {
+            return 'index,follow';
         }
 
-        return 'index,follow';
+        // List-form front matter arrives as a plain array on collection items
+        // but as an IterableObject on regular pages; stringifying the latter
+        // would emit a JSON array as the directive.
+        if (is_array($page->robots) || $page->robots instanceof Traversable) {
+            return implode(',', collect($page->robots)->filter()->all());
+        }
+
+        return $page->robots;
     },
 
     // Front matter wins when set. `??` alone is not enough: a blank `language:`

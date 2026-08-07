@@ -36,7 +36,7 @@
     </script>
 
     <meta property="og:title" content="{{ $title }}">
-    <meta property="og:type" content="{{ $page->isPost($page) ? 'article' : 'website' }}">
+    <meta property="og:type" content="{{ $page->type ?: ($page->isPost($page) ? 'article' : 'website') }}">
     <meta property="og:url" content="{{ $pageUrl }}">
     <meta property="og:site_name" content="{{ $page->siteName }}">
     <meta property="og:description" content="{{ $description }}">
