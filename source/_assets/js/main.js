@@ -1,15 +1,29 @@
 import hljs from 'highlight.js/lib/core';
 
+// Static imports, not require(): the production bundler resolves require()
+// at build time, but the dev server serves this file as an ES module and
+// leaves the call in place, where `require` is undefined. That threw on the
+// first line and silently left every code block unhighlighted in dev.
+import bash from 'highlight.js/lib/languages/bash';
+import css from 'highlight.js/lib/languages/css';
+import xml from 'highlight.js/lib/languages/xml';
+import javascript from 'highlight.js/lib/languages/javascript';
+import json from 'highlight.js/lib/languages/json';
+import markdown from 'highlight.js/lib/languages/markdown';
+import php from 'highlight.js/lib/languages/php';
+import scss from 'highlight.js/lib/languages/scss';
+import yaml from 'highlight.js/lib/languages/yaml';
+
 // Syntax highlighting
-hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'));
-hljs.registerLanguage('css', require('highlight.js/lib/languages/css'));
-hljs.registerLanguage('html', require('highlight.js/lib/languages/xml'));
-hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
-hljs.registerLanguage('json', require('highlight.js/lib/languages/json'));
-hljs.registerLanguage('markdown', require('highlight.js/lib/languages/markdown'));
-hljs.registerLanguage('php', require('highlight.js/lib/languages/php'));
-hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'));
-hljs.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'));
+hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('css', css);
+hljs.registerLanguage('html', xml);
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('markdown', markdown);
+hljs.registerLanguage('php', php);
+hljs.registerLanguage('scss', scss);
+hljs.registerLanguage('yaml', yaml);
 
 document.querySelectorAll('pre code').forEach((block) => {
     hljs.highlightElement(block);

@@ -1,6 +1,9 @@
 /build_*/
 /node_modules/
 /source/assets/build/
+# Written by the dev server; committing it would point the deployed
+# site's asset URLs at localhost:5173.
+/source/hot
 /vendor/
 .DS_Store
 /cache/

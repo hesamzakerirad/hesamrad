@@ -103,7 +103,9 @@
 
     @include('_includes.footer')
 
-    <script src="{{ vite('source/_assets/js/main.js') }}"></script>
+    {{-- type="module": the dev server serves this file with its `import`s
+         intact, which a classic script rejects outright. --}}
+    <script type="module" src="{{ vite('source/_assets/js/main.js') }}"></script>
     @stack('scripts')
 </body>
 
