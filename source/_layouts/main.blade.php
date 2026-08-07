@@ -30,7 +30,9 @@
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="{{ $page->getAuthor() }}">
     <meta name="description" content="{{ $description }}">
-    <link rel="canonical" href="{{ $pageUrl }}">
+    @unless ($page->disableCanonical)
+        <link rel="canonical" href="{{ $pageUrl }}">
+    @endunless
     <title>{{ $title }}</title>
 
     <script>
