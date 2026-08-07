@@ -1,23 +1,37 @@
-@font-face {
-    font-family: "JetBrains Mono";
-    src: url("../fonts/JetBrains-Mono/JetBrainsMono-Variable.ttf");
-    font-style: normal;
-}
+/*
+ * The .woff2 files are generated from the .ttf sources kept alongside them:
+ * subset to the Latin + Latin-Extended ranges, with Noto Sans' unused `wdth`
+ * axis pinned to 100. Regenerate with fonttools if a source font is updated.
+ */
 
 @font-face {
     font-family: "JetBrains Mono";
-    src: url("../fonts/JetBrains-Mono/JetBrainsMono-Italic-Variable.ttf");
-    font-style: italic;
+    src: url("../fonts/JetBrains-Mono/JetBrainsMono-Variable.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100 800;
+    font-display: swap;
 }
 
-/* @font-face {
-    font-family: "Noto Sans";
-    src: url("../fonts/Noto-Sans/NotoSans-Variable.ttf");
-    font-style: normal;
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../fonts/JetBrains-Mono/JetBrainsMono-Italic-Variable.woff2") format("woff2");
+    font-style: italic;
+    font-weight: 100 800;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Noto Sans";
-    src: url("../fonts/Noto-Sans/NotoSans-Italic-Variable.ttf");
+    src: url("../fonts/Noto-Sans/NotoSans-Variable.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("../fonts/Noto-Sans/NotoSans-Italic-Variable.woff2") format("woff2");
     font-style: italic;
-} */
+    font-weight: 100 900;
+    font-display: swap;
+}
