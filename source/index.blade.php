@@ -10,7 +10,7 @@
 
     <p>I have been building web-based software since 2017 when I was still in college. Every once in a while, I
         publish something about software engineering, books or life on my blog; if not, I am probably working on one of my
-        side <a href="{{ $page->baseUrl }}/projects">projects</a>. I also have a literary background so the rest of my time
+        side <a href="{{ $page->baseUrl }}/projects/">projects</a>. I also have a literary background so the rest of my time
         is spent reading books.</p>
 
     <p>I mindfully employ digital minimalism in my life; but you can still reach me by sending an <a
