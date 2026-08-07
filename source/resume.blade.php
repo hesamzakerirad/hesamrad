@@ -23,7 +23,7 @@
         </p>
 
         <small>
-            <a href="https://www.linkedin.com/in/hesamrad/details/recommendations/" target="_blank" class="underline">
+            <a href="https://www.linkedin.com/in/hesamrad/details/recommendations/" target="_blank" rel="noopener noreferrer" class="underline">
                 <span>Read endorsements on LinkedIn</span>
             </a>
         </small>
@@ -38,12 +38,12 @@
                 <span class="text-gray-400 text-sm">(Mar 2024 – Nov 2025)</span>
             </div>
             <ul class="ml-3 list-disc list-inside">
-                <li>Contributed to a large number of projects ranging from <a href="https://gap.im/" target="_blank">Gap
+                <li>Contributed to a large number of projects ranging from <a href="https://gap.im/" target="_blank" rel="noopener noreferrer">Gap
                         Messenger</a>,
-                    <a href="https://virasty.com/" target="_blank">Virasty Social Platform</a>,
-                    <a href="https://mihansms.com/" target="_blank">MihanSms</a>,
-                    <a href="https://msgway.com/" target="_blank">MessageWay</a>, <a href="https://kingsera.com/"
-                        target="_blank">KingsEra</a>, <a href="https://samandesk.com/" target="_blank">SamanDesk</a>
+                    <a href="https://virasty.com/" target="_blank" rel="noopener noreferrer">Virasty Social Platform</a>,
+                    <a href="https://mihansms.com/" target="_blank" rel="noopener noreferrer">MihanSms</a>,
+                    <a href="https://msgway.com/" target="_blank" rel="noopener noreferrer">MessageWay</a>, <a href="https://kingsera.com/"
+                        target="_blank" rel="noopener noreferrer">KingsEra</a>, <a href="https://samandesk.com/" target="_blank" rel="noopener noreferrer">SamanDesk</a>
                     and
                     many more.
                 </li>
@@ -114,18 +114,18 @@
         <h2 id="projects" class="my-6">Projects</h2>
 
         <div>
-            <b><a href="https://github.com/hesamzakerirad/laravel-sql-logger" target="_blank">Laravel SQL
+            <b><a href="https://github.com/hesamzakerirad/laravel-sql-logger" target="_blank" rel="noopener noreferrer">Laravel SQL
                     Logger</a></b>
             <p>A lightweight package to log SQL queries in your Laravel application</p>
         </div>
 
         <div>
-            <b><a href="https://github.com/hesamzakerirad/laravel-wallet" target="_blank">Laravel Wallet</a></b>
+            <b><a href="https://github.com/hesamzakerirad/laravel-wallet" target="_blank" rel="noopener noreferrer">Laravel Wallet</a></b>
             <p> A minimalistic wallet for any Laravel application allowing logging and concurrency</p>
         </div>
 
         <div>
-            <b><a href="https://github.com/hesamzakerirad/laravel-flashlight" target="_blank">Laravel
+            <b><a href="https://github.com/hesamzakerirad/laravel-flashlight" target="_blank" rel="noopener noreferrer">Laravel
                     Flashlight</a></b>
             <p>A Highly Customizable Laravel Package to Log Requests</p>
         </div>
@@ -141,12 +141,12 @@
         <h2 id="education" class="my-6">Education</h2>
 
         <div class="flex lg:flex-row lg:justify-between lg:align-middle flex-col justify-start">
-            <b>MS in English Literature at <a href="https://mashhad.iau.ir" target="_blank">Azad University</a></b>
+            <b>MS in English Literature at <a href="https://mashhad.iau.ir" target="_blank" rel="noopener noreferrer">Azad University</a></b>
             <span class="text-gray-400 text-sm">(Sep 2025 – On Going)</span>
         </div>
 
         <div class="flex lg:flex-row lg:justify-between lg:align-middle flex-col justify-start">
-            <b>BS in Computer Engineering at <a href="https://www.sadjad.ac.ir" target="_blank">Sadjad
+            <b>BS in Computer Engineering at <a href="https://www.sadjad.ac.ir" target="_blank" rel="noopener noreferrer">Sadjad
                     University</a></b>
             <span class="text-gray-400 text-sm">(Sep 2016 – Sep 2021)</span>
         </div>

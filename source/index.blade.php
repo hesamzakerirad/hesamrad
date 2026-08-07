@@ -15,6 +15,6 @@
 
     <p>I mindfully employ digital minimalism in my life; but you can still reach me by sending an <a
             href="mailto:hesamrad.dev@gmail.com">email</a> or visiting my <a href="https://linkedin.com/in/hesamrad"
-            target="_blank">LinkedIn</a> or <a href="https://github.com/hesamzakerirad" target="_blank">GitHub</a>
+            target="_blank" rel="noopener noreferrer">LinkedIn</a> or <a href="https://github.com/hesamzakerirad" target="_blank" rel="noopener noreferrer">GitHub</a>
         page.</p>
 @endsection
