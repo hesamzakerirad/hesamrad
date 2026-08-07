@@ -204,12 +204,18 @@ return [
             ?: ($page->isPost($page) ? $page->postLocale : $page->defaultLocale);
     },
 
-    // Compare on the primary subtag so 'fa-IR' resolves the same as 'fa'.
-    'getDirection' => function ($page) {
-        $primarySubtag = strtolower(strtok($page->getLanguage(), '-_'));
+    /**
+     * The primary subtag of a page's language, so 'fa-IR' resolves the same as
+     * 'fa'. Anything keyed by language — direction, the post chrome's wording —
+     * has to agree on what "the language" is, so they all go through this.
+     */
+    'getBaseLanguage' => function ($page) {
+        return strtolower(strtok($page->getLanguage(), '-_'));
+    },
 
+    'getDirection' => function ($page) {
         // rtlLanguages arrives as an IterableObject (a Collection), not an array.
-        return collect($page->rtlLanguages)->contains($primarySubtag) ? 'rtl' : 'ltr';
+        return collect($page->rtlLanguages)->contains($page->getBaseLanguage()) ? 'rtl' : 'ltr';
     },
 
     'getAuthor' => function ($page) {
