@@ -9,6 +9,12 @@ return [
     'locale' => 'en_US',
     'language' => 'en',
 
+    'socialProfiles' => [
+        'https://linkedin.com/in/hesamrad',
+        'https://github.com/hesamzakerirad',
+        'https://x.com/hesamzakerirad',
+    ],
+
     // collections
     'collections' => [
         'posts' => [
@@ -89,7 +95,8 @@ return [
     },
 
     'isPost' => function ($page) {
-        return str_contains($page->getPath(), 'blog');
+        // 'blog' is the listing page; only 'blog/{slug}' is an actual post.
+        return str_starts_with(trim($page->getPath(), '/'), 'blog/');
     },
 
     'getReadTime' => function ($page) {

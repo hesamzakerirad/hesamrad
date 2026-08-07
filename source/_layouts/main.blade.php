@@ -64,6 +64,8 @@
         <meta name="twitter:card" content="summary">
     @endif
 
+    @include('_includes.structured-data')
+
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="icon" href="{{ $favicon }}">
     @viteRefresh()
