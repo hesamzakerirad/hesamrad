@@ -12,6 +12,9 @@ class GenerateSitemap
         '/assets/*',
         '*/favicon.ico',
         '*/404*',
+        '*.txt',
+        '*.xml',
+        '*.json',
     ];
 
     /** Cache of source file path => last commit timestamp. */
