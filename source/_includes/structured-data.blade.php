@@ -23,32 +23,49 @@
     ];
 
     $pageNode = [
-        '@type' => $page->isPost($page) ? 'BlogPosting' : 'WebPage',
         '@id' => $pageUrl . '#webpage',
         'url' => $pageUrl,
-        'name' => $title,
-        'description' => $description,
         'inLanguage' => $page->getLanguage(),
         'isPartOf' => ['@id' => $websiteId],
-        'about' => ['@id' => $person['@id']],
     ];
 
+    // An empty string is a worse claim than an absent property.
+    if ($description !== '') {
+        $pageNode['description'] = $description;
+    }
+
     if ($page->isPost($page)) {
-        $pageNode += [
+        // A post's own title, not the prefixed document title: `name` and
+        // `headline` describe the same article and must not disagree.
+        $pageNode = array_merge($pageNode, [
+            '@type' => 'BlogPosting',
+            'name' => $page->title,
             'headline' => $page->title,
             'datePublished' => $page->getCreatedAtDateObject()->format('c'),
             'dateModified' => $page->getUpdatedAtObject()->format('c'),
             'author' => ['@id' => $person['@id']],
             'publisher' => ['@id' => $person['@id']],
-        ];
+        ]);
 
         if ($thumbnail) {
             $pageNode['image'] = $thumbnail;
         }
 
-        if ($page->tags) {
-            $pageNode['keywords'] = implode(', ', $page->tags);
+        // A blank `tags:` entry in the post template yields [null], which is
+        // truthy but implodes to an empty string.
+        $keywords = collect($page->tags)->filter()->implode(', ');
+
+        if ($keywords !== '') {
+            $pageNode['keywords'] = $keywords;
         }
+    } else {
+        $pageNode = array_merge($pageNode, [
+            '@type' => 'WebPage',
+            'name' => $title,
+            // Only a plain page is "about" the site's author; an article is
+            // about its own subject.
+            'about' => ['@id' => $person['@id']],
+        ]);
     }
 
     /*

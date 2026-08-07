@@ -23,7 +23,10 @@
     <meta name="theme-color" content="#ff4d00">
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="{{ $page->getAuthor() }}">
-    <meta name="description" content="{{ $description }}">
+    {{-- An empty description tag is worse than none: omit rather than assert nothing. --}}
+    @if ($description !== '')
+        <meta name="description" content="{{ $description }}">
+    @endif
     @unless ($page->disableCanonical)
         <link rel="canonical" href="{{ $pageUrl }}">
     @endunless
@@ -36,13 +39,15 @@
     </script>
 
     <meta property="og:title" content="{{ $title }}">
-    <meta property="og:type" content="{{ $page->isPost($page) ? 'article' : 'website' }}">
+    <meta property="og:type" content="{{ $page->type ?: ($page->isPost($page) ? 'article' : 'website') }}">
     <meta property="og:url" content="{{ $pageUrl }}">
     <meta property="og:site_name" content="{{ $page->siteName }}">
-    <meta property="og:description" content="{{ $description }}">
     <meta property="og:locale" content="{{ $page->getLocale() }}">
     <meta name="twitter:title" content="{{ $title }}">
-    <meta name="twitter:description" content="{{ $description }}">
+    @if ($description !== '')
+        <meta property="og:description" content="{{ $description }}">
+        <meta name="twitter:description" content="{{ $description }}">
+    @endif
     <meta name="twitter:site" content="@hesamzakerirad">
     <meta name="twitter:creator" content="@hesamzakerirad">
 

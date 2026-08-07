@@ -33,20 +33,65 @@ return [
         ],
     ],
 
-    'getCreatedAtDateObject' => function ($page): DateTime {
-        if (! $page->created_at) {
-            throw new InvalidArgumentException("'{$page->getPath()}' is missing a created_at date.");
+    /**
+     * A front-matter date as a Unix timestamp, or null if it isn't usable.
+     *
+     * Symfony YAML coerces an unquoted `2025-01-01` to an integer, so anything
+     * else — a quoted string, a float, whitespace — is an authoring mistake.
+     * is_numeric is too loose (it accepts floats and padding that
+     * createFromFormat('U') then rejects, fatalling on the callers' `: DateTime`
+     * return type) but ctype_digit is too strict: any date before 1970 is a
+     * negative integer, and so is a Jalali year written as `1403-05-16`.
+     */
+    'getTimestamp' => function ($page, $value) {
+        if (is_int($value)) {
+            return $value;
         }
 
-        return Datetime::createFromFormat('U', (string) $page->created_at);
+        return is_string($value) && preg_match('/^-?\d+$/', $value) ? (int) $value : null;
     },
 
-    // updated_at is optional; a post that has never been revised falls back to
-    // its creation date. Returning false here would be a fatal TypeError.
+    'getCreatedAtDateObject' => function ($page): DateTime {
+        $timestamp = $page->getTimestamp($page->created_at);
+
+        if ($timestamp === null) {
+            throw new InvalidArgumentException(
+                "'{$page->getPath()}' needs a created_at date written as an unquoted YYYY-MM-DD."
+            );
+        }
+
+        return Datetime::createFromFormat('U', (string) $timestamp);
+    },
+
+    /**
+     * updated_at is optional; a post that has never been revised falls back to
+     * its creation date. Shares getLastModified's later-of-the-two rule so that
+     * `dateModified` can never precede `datePublished`, which is a structured
+     * data validation error.
+     */
     'getUpdatedAtObject' => function ($page): DateTime {
-        return $page->updated_at
-            ? Datetime::createFromFormat('U', (string) $page->updated_at)
-            : $page->getCreatedAtDateObject();
+        $timestamp = $page->getLastModified();
+
+        return $timestamp === null
+            ? $page->getCreatedAtDateObject()
+            : Datetime::createFromFormat('U', (string) $timestamp);
+    },
+
+    /**
+     * The timestamp a page was last meaningfully changed, or null for a page
+     * that carries no dates at all (the sitemap then falls back to git).
+     *
+     * Takes the later of the two dates rather than trusting updated_at, so an
+     * updated_at accidentally set earlier than created_at cannot publish a
+     * lastmod that predates the post's own pubDate.
+     */
+    'getLastModified' => function ($page) {
+        $dates = array_filter([
+            $page->getTimestamp($page->created_at),
+            $page->getTimestamp($page->updated_at),
+        ], fn ($timestamp) => $timestamp !== null);
+
+        return $dates ? max($dates) : null;
     },
 
     'getCreatedAtDate' => function ($page, $format = 'Y-m-d'): string {
@@ -65,20 +110,17 @@ return [
         return verta($page->getUpdatedAtDate())->format($format);
     },
 
-    'getExcerpt' => function ($page, $length = 255) {
-        if ($page->excerpt) {
-            return $page->excerpt;
-        }
+    /**
+     * Collapses whitespace and bounds a string to $length, cutting on a word
+     * boundary. Leaves the text otherwise untouched.
+     */
+    'toSummaryText' => function ($page, $text, $length = null) {
+        // preg_replace returns null on malformed UTF-8; keeping the original is
+        // better than silently collapsing the whole summary to an empty string.
+        $collapsed = preg_replace('/\s+/u', ' ', (string) $text) ?? (string) $text;
+        $cleaned = trim($collapsed);
 
-        $content = preg_split('/<!-- more -->/m', $page->getContent(), 2);
-        $cleaned = trim(
-            strip_tags(
-                preg_replace(['/<pre>[\w\W]*?<\/pre>/', '/<h\d>[\w\W]*?<\/h\d>/'], '', $content[0]),
-                '<code>'
-            )
-        );
-
-        if (count($content) > 1) {
+        if ($length === null || mb_strlen($cleaned) <= $length) {
             return $cleaned;
         }
 
@@ -86,23 +128,68 @@ return [
         // the resulting invalid UTF-8 makes json_encode() fail outright.
         $truncated = mb_substr($cleaned, 0, $length);
 
-        if (substr_count($truncated, '<code>') > substr_count($truncated, '</code>')) {
-            $truncated .= '</code>';
+        // `??`, not `?:` — a trimmed result of "0" is a valid summary, and
+        // treating it as failure would fall back to the untrimmed cut.
+        $trimmed = preg_replace('/\s+\S*$/u', '', $truncated) ?? $truncated;
+
+        return rtrim($trimmed === '' ? $truncated : $trimmed).'…';
+    },
+
+    /**
+     * A plain-text summary of a page's opening content.
+     *
+     * getContent() is rendered HTML, so tags are stripped and entities decoded
+     * — every consumer (meta description, OG/Twitter cards, JSON-LD, the feed)
+     * needs plain text.
+     */
+    'getExcerpt' => function ($page, $length = 255) {
+        if ($page->excerpt) {
+            return $page->toSummaryText($page->excerpt, $length);
         }
 
-        return mb_strlen($cleaned) > $length
-            ? preg_replace('/\s+?(\S+)?$/u', '', $truncated).'...'
-            : $cleaned;
+        // A <!-- more --> marker chooses where the body is cut, but the caller's
+        // budget still applies — these summaries land in fixed-size meta tags.
+        $content = preg_split('/<!-- more -->/m', $page->getContent(), 2);
+        $body = preg_replace(['/<pre>[\w\W]*?<\/pre>/', '/<h\d>[\w\W]*?<\/h\d>/'], '', $content[0]);
+        $text = html_entity_decode(strip_tags((string) $body), ENT_QUOTES, 'UTF-8');
+
+        return $page->toSummaryText($text, $length);
+    },
+
+    /**
+     * The description used for meta tags, cards, JSON-LD and the feed.
+     *
+     * A front-matter description is authored plain text, so it is bounded but
+     * never stripped — removing markup an author typed deliberately would
+     * silently rewrite their words.
+     */
+    'getSummary' => function ($page, $length = 255) {
+        // Compare against '' rather than testing truthiness: a description of
+        // "0" is something the author wrote and must not be thrown away.
+        $description = $page->toSummaryText($page->description, $length);
+
+        return $description !== '' ? $description : $page->getExcerpt($length);
     },
 
     'getRobotsStatus' => function ($page) {
-        if ($page->robots) {
-            return is_array($page->robots) ?
-                implode(',', $page->robots) :
-                $page->robots;
+        // List-form front matter arrives as a plain array on collection items
+        // but as an IterableObject on regular pages; stringifying the latter
+        // would emit a JSON array as the directive. A list of blank entries —
+        // the shape the post template ships — filters down to nothing, so the
+        // default has to be applied after the filter, not before it.
+        $robots = $page->robots;
+
+        if (is_array($robots) || $robots instanceof Traversable) {
+            $directives = collect($robots)->filter()->implode(',');
+        } elseif (is_string($robots)) {
+            $directives = trim($robots);
+        } else {
+            // A YAML bool or number is not a directive; `robots: true` would
+            // otherwise stringify to the meaningless content="1".
+            $directives = '';
         }
 
-        return 'index,follow';
+        return $directives !== '' ? $directives : 'index,follow';
     },
 
     // Front matter wins when set. `??` alone is not enough: a blank `language:`
