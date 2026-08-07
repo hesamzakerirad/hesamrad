@@ -6,7 +6,7 @@
     $title = $titlePrefix . trim($__env->yieldContent('title'));
     $description = trim($__env->yieldContent('description'));
     $favicon = $page->baseUrl . '/favicon.ico';
-    $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : $favicon;
+    $thumbnail = $page->baseUrl . $page->thumbnail;
     $pageUrl = $page->isHomePage() ? $page->baseUrl : $page->getUrlWithTrailingSlash();
 @endphp
 
@@ -40,27 +40,28 @@
         })();
     </script>
 
-    @if ($page->isPost($page))
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:type" content="{{ $page->type ?? 'website' }}">
+    <meta property="og:url" content="{{ $pageUrl }}">
+    <meta property="og:site_name" content="{{ $page->siteName }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:locale" content="{{ $page->locale }}">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:site" content="@hesamzakerirad">
+    <meta name="twitter:creator" content="@hesamzakerirad">
+
+    @if ($page->thumbnail)
         <link rel="preload" as="image" href="{{ $thumbnail }}">
-        <meta property="og:title" content="{{ $title }}">
-        <meta property="og:type" content="{{ $page->type ?? 'website' }}">
-        <meta property="og:url" content="{{ $pageUrl }}">
-        <meta property="og:site_name" content="{{ $page->siteName }}">
-        <meta property="og:description" content="{{ $description }}">
-        <meta property="og:locale" content="{{ $page->locale }}">
         <meta property="og:image" content="{{ $thumbnail }}">
         <meta property="og:image:alt" content="{{ $title }}">
-        {{-- <meta property="article:published_time" content="{{ $page->getCreatedAtDate() }}">
-        <meta property="article:modified_time" content="{{ $page->getUpdatedAtDate() }}"> --}}
         <meta property="og:image:width" content="850">
         <meta property="og:image:height" content="470">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="{{ $title }}">
-        <meta name="twitter:description" content="{{ $description }}">
         <meta name="twitter:image" content="{{ $thumbnail }}">
         <meta name="twitter:image:alt" content="{{ $title }}">
-        <meta name="twitter:site" content="@hesamzakerirad">
-        <meta name="twitter:creator" content="@hesamzakerirad">
+    @else
+        <meta name="twitter:card" content="summary">
     @endif
 
     <link rel="home" href="{{ $page->baseUrl }}">
