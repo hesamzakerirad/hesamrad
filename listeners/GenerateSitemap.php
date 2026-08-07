@@ -30,17 +30,18 @@ class GenerateSitemap
             return;
         }
 
-        $sitemap = new Sitemap($jigsaw->getDestinationPath().'/sitemap.xml');
+        $destination = $jigsaw->getDestinationPath();
+        $sitemap = new Sitemap($destination.'/sitemap.xml');
         $postDates = $this->postDates($jigsaw);
 
         collect($jigsaw->getOutputPaths())
             ->reject(function ($path) use ($jigsaw) {
                 return $this->isExcluded($path) || $this->isNoIndex($jigsaw, $path);
             })
-            ->each(function ($path) use ($baseUrl, $sitemap, $postDates) {
+            ->each(function ($path) use ($baseUrl, $destination, $sitemap, $postDates, $jigsaw) {
                 $sitemap->addItem(
-                    $this->url($baseUrl, $path),
-                    $this->lastModified($path, $postDates)
+                    $this->url($baseUrl, $destination, $path),
+                    $this->lastModified($jigsaw, $path, $postDates)
                 );
             });
 
@@ -53,31 +54,26 @@ class GenerateSitemap
     }
 
     /**
-     * Whether the rendered page asks robots not to index it.
+     * Whether the page asks robots not to index it.
      *
      * Listing a noindex URL in the sitemap sends crawlers two opposite
-     * instructions, so the page's own robots meta is the single source of
-     * truth and this stays in sync with it automatically.
+     * instructions, so the page's own robots value is the single source of
+     * truth and this stays in sync with it automatically. Reading it off the
+     * page object rather than out of the rendered HTML also survives pages
+     * that assign `robots` at render time, which several templates do.
      */
     public function isNoIndex(Jigsaw $jigsaw, $path)
     {
-        $file = rtrim($jigsaw->getDestinationPath().'/'.ltrim($path, '/'), '/');
+        $page = $jigsaw->getPages()[$path] ?? null;
 
-        if (! preg_match('/\.\w+$/', $file)) {
-            $file .= '/index.html';
-        }
-
-        if (! is_file($file) || ! str_ends_with($file, '.html')) {
+        if (! $page) {
             return false;
         }
 
-        return (bool) preg_match(
-            '/<meta\s+name=["\']robots["\']\s+content=["\'][^"\']*noindex/i',
-            file_get_contents($file)
-        );
+        return str_contains(strtolower($page->getRobotsStatus()), 'noindex');
     }
 
-    protected function url($baseUrl, $path)
+    protected function url($baseUrl, $destination, $path)
     {
         if ($path === '') {
             return $baseUrl;
@@ -85,8 +81,10 @@ class GenerateSitemap
 
         $url = $baseUrl.$path;
 
-        // Don't add a slash if it's a file (has an extension like .xml, .txt, .html, etc.)
-        if (preg_match('/\.\w+$/', $path)) {
+        // Only directories get a trailing slash. Testing the filesystem beats
+        // sniffing for an extension, which misreads a slug such as
+        // 'upgrading-to-v2.0' as a filename.
+        if (! is_dir(rtrim($destination.'/'.ltrim($path, '/'), '/'))) {
             return $url;
         }
 
@@ -100,7 +98,7 @@ class GenerateSitemap
      * that would restamp every URL on every build and teach crawlers to ignore
      * the field. An absent lastmod is better than a false one.
      */
-    protected function lastModified($path, $postDates)
+    protected function lastModified(Jigsaw $jigsaw, $path, $postDates)
     {
         $key = trim($path, '/');
 
@@ -108,7 +106,7 @@ class GenerateSitemap
             return $postDates[$key];
         }
 
-        return $this->lastCommitTimestamp($key);
+        return $this->lastCommitTimestamp($jigsaw, $key);
     }
 
     /** Post paths mapped to their `updated_at` timestamp. */
@@ -127,9 +125,9 @@ class GenerateSitemap
      *
      * Requires full history; the deploy workflow checks out with fetch-depth 0.
      */
-    protected function lastCommitTimestamp($key)
+    protected function lastCommitTimestamp(Jigsaw $jigsaw, $key)
     {
-        $source = $this->sourceFile($key);
+        $source = $this->sourceFile($jigsaw, $key);
 
         if (! $source) {
             return null;
@@ -137,19 +135,26 @@ class GenerateSitemap
 
         if (! array_key_exists($source, $this->gitTimestamps)) {
             $output = @shell_exec('git log -1 --format=%ct -- '.escapeshellarg($source).' 2>/dev/null');
-            $this->gitTimestamps[$source] = is_numeric(trim((string) $output)) ? (int) trim($output) : null;
+            $timestamp = is_numeric(trim((string) $output)) ? (int) trim($output) : null;
+
+            if ($timestamp === null) {
+                echo "\nWarning: could not read a commit date for {$source}; its sitemap entry will have no lastmod.\n";
+            }
+
+            $this->gitTimestamps[$source] = $timestamp;
         }
 
         return $this->gitTimestamps[$source];
     }
 
     /** Best-effort mapping of an output path back to the source file that produced it. */
-    protected function sourceFile($key)
+    protected function sourceFile(Jigsaw $jigsaw, $key)
     {
         $base = $key === '' ? 'index' : $key;
+        $sourcePath = rtrim($jigsaw->getSourcePath(), '/');
 
         foreach (['.blade.php', '.md', '.html'] as $extension) {
-            foreach (["source/{$base}{$extension}", "source/{$base}/index{$extension}"] as $candidate) {
+            foreach (["{$sourcePath}/{$base}{$extension}", "{$sourcePath}/{$base}/index{$extension}"] as $candidate) {
                 if (file_exists($candidate)) {
                     return $candidate;
                 }

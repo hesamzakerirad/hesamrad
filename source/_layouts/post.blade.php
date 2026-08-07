@@ -1,12 +1,8 @@
 @extends('_layouts.main')
 
-@php
-    $page->type = 'article';
-@endphp
-
 @section('title', $page->title)
 
-@section('description', $page->description ?: $page->getExcerpt(160))
+@section('description', $page->description ?: ($page->getExcerpt(160) ?: $page->siteDescription))
 
 @section('body')
     <div class="post">

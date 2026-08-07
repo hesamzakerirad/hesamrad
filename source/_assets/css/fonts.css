@@ -1,7 +1,7 @@
 /*
- * The .woff2 files are generated from the .ttf sources kept alongside them:
- * subset to the Latin + Latin-Extended ranges, with Noto Sans' unused `wdth`
- * axis pinned to 100. Regenerate with fonttools if a source font is updated.
+ * The .woff2 files are generated from the .ttf sources kept alongside them by
+ * ./build_fonts.sh — run that after updating a source font. It documents the
+ * exact ranges; do not hand-edit the .woff2 files.
  */
 
 @font-face {

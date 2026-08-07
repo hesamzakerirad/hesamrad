@@ -2,12 +2,18 @@
 <html lang="{{ $page->getLanguage() }}" dir="{{ $page->getDirection() }}">
 
 @php
+    // Blade's inline `@section('name', $value)` runs the value through e()
+    // before storing it, so yieldContent() hands back already-escaped text.
+    // Decode it once here and let each consumer escape for its own context —
+    // otherwise {{ }} double-encodes and JSON-LD ships HTML entities.
+    $yield = fn ($section) => html_entity_decode(trim($__env->yieldContent($section)), ENT_QUOTES, 'UTF-8');
+
     $titlePrefix = $page->disableTitlePrefix ? '' : $page->siteName . ' - ';
-    $title = $titlePrefix . trim($__env->yieldContent('title'));
-    $description = trim($__env->yieldContent('description'));
+    $title = $titlePrefix . $yield('title');
+    $description = $yield('description');
     $favicon = $page->baseUrl . '/favicon.ico';
-    $thumbnail = $page->baseUrl . $page->thumbnail;
-    $pageUrl = $page->isHomePage() ? $page->baseUrl : $page->getUrlWithTrailingSlash();
+    $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : null;
+    $pageUrl = $page->getCanonicalUrl();
 @endphp
 
 <head>
@@ -30,7 +36,7 @@
     </script>
 
     <meta property="og:title" content="{{ $title }}">
-    <meta property="og:type" content="{{ $page->type ?? 'website' }}">
+    <meta property="og:type" content="{{ $page->isPost($page) ? 'article' : 'website' }}">
     <meta property="og:url" content="{{ $pageUrl }}">
     <meta property="og:site_name" content="{{ $page->siteName }}">
     <meta property="og:description" content="{{ $description }}">

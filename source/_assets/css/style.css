@@ -106,8 +106,9 @@ a {
 
 a[target=_blank]::after {
     content: url('../svg/external-link.svg');
-    margin-left: 1px;
-    margin-right: 0;
+    /* Logical properties so the icon stays after the link text under RTL. */
+    margin-inline-start: 1px;
+    margin-inline-end: 0;
 }
 
 hr {
