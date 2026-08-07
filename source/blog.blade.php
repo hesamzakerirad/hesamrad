@@ -1,5 +1,11 @@
 @extends('_layouts.page')
 
+@php
+    // An empty listing is thin content. Keep it out of the index until there is
+    // something to list; the sitemap follows the robots meta automatically.
+    $page->robots = $posts->isEmpty() ? 'noindex,follow' : 'index,follow';
+@endphp
+
 @section('title', 'Blog')
 
 @section('description', 'Thoughts on software engineering, books and life by ' . $page->siteAuthor . '.')
