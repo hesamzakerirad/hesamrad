@@ -7,17 +7,13 @@
     .next svg {
         display: none;
     }
-
-    footer>section {
-        flex-direction: column-reverse;
-    }
 }
 
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
     :root {
         --line-height: 30px;
-        --word-spacing: 0.8px
+        --word-spacing: 0.8px;
     }
 
     h1 {
@@ -41,7 +37,6 @@
     h4 {
         font-size: 1.215rem;
         font-weight: 500 !important;
-
     }
 
     h5 {
@@ -59,23 +54,13 @@
     .post-preview {
         flex-direction: column-reverse;
         align-items: start;
-        margin-bottom: calc(var(--space) * 0.5)
+        margin-bottom: calc(var(--space) * 0.5);
     }
 }
 
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
-    .post-navigation {
-        flex-direction: column;
-    }
-
     img {
         width: 100% !important;
     }
 }
-
-/* Large devices (desktops, less than 1200px) */
-@media (max-width: 1199.98px) {}
-
-/* X-Large devices (large desktops, less than 1400px) */
-@media (max-width: 1399.98px) {}

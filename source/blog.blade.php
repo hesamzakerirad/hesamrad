@@ -8,7 +8,7 @@
     <div class="container blog mt-3 mb-3">
         @include('_components.backlink')
 
-        @if ($posts->where('isPublished', true))
+        @if ($posts->isEmpty())
             <p>No posts have been published yet.</p>
         @endif
 

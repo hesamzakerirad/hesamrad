@@ -1,33 +1,30 @@
-@import 'fonts.css';
-
 :root {
-	--primary-color: #ff4d00;
+    --primary-color: #ff4d00;
 
-	--space: 1rem;
-	--font-family: 'Noto Sans', 'Open Sans', sans-serif;
-	--header-font-family: 'Noto Sans', 'Open Sans', sans-serif;
-	--monospace-font-family: 'JetBrains Mono', monospace;
-	--default-font-size: 1rem;
-	--word-spacing: 0;
-	--line-height: 2rem;
-	--border-radius: 0px;
-	--container-size: 750px;
+    --space: 1rem;
+    --font-family: 'Noto Sans', 'Open Sans', sans-serif;
+    --header-font-family: 'Noto Sans', 'Open Sans', sans-serif;
+    --monospace-font-family: 'JetBrains Mono', monospace;
+    --word-spacing: 0;
+    --line-height: 2rem;
+    --border-radius: 0px;
+    --container-size: 750px;
 }
 
 html {
-	--background-color: #ffffff;
-	--box-background-color: color-mix(in srgb, var(--background-color), black 1%);
-	--text-color: #333333;
-	--header-color: #222221;
-	--border-color: #e2e1de;
+    --background-color: #ffffff;
+    --box-background-color: color-mix(in srgb, var(--background-color), black 1%);
+    --text-color: #333333;
+    --header-color: #222221;
+    --border-color: #e2e1de;
 }
 
 @media (prefers-color-scheme: dark) {
-	html {
-		--background-color: #131313;
-		--box-background-color: color-mix(in srgb, var(--background-color), white 1%);
-		--text-color: #8e8e93;
-		--header-color: #ffffff;
-		--border-color: #31312e;
-	}
+    html {
+        --background-color: #131313;
+        --box-background-color: color-mix(in srgb, var(--background-color), white 1%);
+        --text-color: #8e8e93;
+        --header-color: #ffffff;
+        --border-color: #31312e;
+    }
 }
