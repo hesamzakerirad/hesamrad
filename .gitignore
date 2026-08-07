@@ -3,4 +3,5 @@
 /source/assets/build/
 /vendor/
 .DS_Store
-/cache/.claude/
+/cache/
+/.claude/

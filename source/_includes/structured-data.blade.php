@@ -25,10 +25,14 @@
     $pageNode = [
         '@id' => $pageUrl . '#webpage',
         'url' => $pageUrl,
-        'description' => $description,
         'inLanguage' => $page->getLanguage(),
         'isPartOf' => ['@id' => $websiteId],
     ];
+
+    // An empty string is a worse claim than an absent property.
+    if ($description !== '') {
+        $pageNode['description'] = $description;
+    }
 
     if ($page->isPost($page)) {
         // A post's own title, not the prefixed document title: `name` and
@@ -41,7 +45,6 @@
             'dateModified' => $page->getUpdatedAtObject()->format('c'),
             'author' => ['@id' => $person['@id']],
             'publisher' => ['@id' => $person['@id']],
-            'mainEntityOfPage' => ['@id' => $pageUrl . '#webpage'],
         ]);
 
         if ($thumbnail) {

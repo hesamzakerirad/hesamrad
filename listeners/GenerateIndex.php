@@ -8,15 +8,21 @@ class GenerateIndex
 {
     public function handle(Jigsaw $jigsaw)
     {
-        $data = collect($jigsaw->getCollection('posts')->map(function ($page) use ($jigsaw) {
+        $data = collect($jigsaw->getCollection('posts')->map(function ($page) {
             return [
                 'title' => $page->title,
                 'categories' => $page->categories,
-                'link' => rightTrimPath($jigsaw->getConfig('baseUrl')).$page->getPath(),
-                'snippet' => $page->getExcerpt(),
+                // The same URL and summary every other surface advertises —
+                // building them here separately drifted from the canonical form
+                // and ignored both `permalink` and an author-set description.
+                'link' => $page->getCanonicalUrl(),
+                'snippet' => $page->getSummary(),
             ];
         })->values());
 
-        file_put_contents($jigsaw->getDestinationPath().'/index.json', json_encode($data));
+        file_put_contents(
+            $jigsaw->getDestinationPath().'/index.json',
+            json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
+        );
     }
 }

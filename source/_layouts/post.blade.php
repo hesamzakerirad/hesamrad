@@ -60,7 +60,7 @@
         @if ($next = $page->getNext())
             <section>
                 <div class="container">
-                    <a href="{{ $next->getUrlWithTrailingSlash() }}">
+                    <a href="{{ $next->getCanonicalUrl() }}">
                         <div class="box next" role="navigation">
                             <p>نوشته بعدی: {{ $next->title }}</p>
                             <i class="fa-solid fa-arrow-left mr-05"></i>

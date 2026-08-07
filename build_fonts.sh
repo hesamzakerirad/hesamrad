@@ -7,24 +7,32 @@
 #   python3 -m venv .venv && .venv/bin/pip install fonttools brotli
 #   PYTHON=.venv/bin/python ./build_fonts.sh
 #
-# Note on reproducibility: fontTools' varLib.instancer is not byte-stable —
-# repeated runs on identical input emit slightly different files. So this
-# script compares the *glyph coverage* of what it just built against what is
-# already committed and keeps the committed file when the two match. Rerunning
-# it therefore leaves a clean working tree unless a source font really changed.
+# Note on reproducibility: fontTools' varLib.instancer is not byte-stable, so
+# rebuilding an unchanged font would produce a different file every run and
+# dirty the working tree for no reason. Rather than diffing the output, this
+# records a fingerprint of each source font plus the subset ranges in
+# fonts.manifest and rebuilds only when that fingerprint changes.
 
 set -euo pipefail
-shopt -s nullglob
+
+script_dir=$(cd -- "$(dirname -- "$0")" && pwd)
+cd -- "$script_dir"
 
 PYTHON="${PYTHON:-python3}"
-cd "$(dirname "$(readlink -f "$0" 2>/dev/null || echo "$0")")"
+FONT_ROOT='source/_assets/fonts'
+MANIFEST="$FONT_ROOT/fonts.manifest"
 
 if ! "$PYTHON" -c 'import fontTools, brotli' 2>/dev/null; then
     echo "fonttools and brotli are required. See the header of this script." >&2
     exit 1
 fi
 
-work="$(mktemp -d 2>/dev/null || mktemp -d -t fonts)"
+if [[ ! -d "$FONT_ROOT" ]]; then
+    echo "No $FONT_ROOT directory — run this from a checkout of the site." >&2
+    exit 1
+fi
+
+work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
 # Google's latin + latin-ext + vietnamese ranges, plus the combining diacritics
@@ -37,46 +45,80 @@ RANGES='U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0300-0
 # box drawing, arrows and math operators.
 MONO_EXTRA='U+2190-21FF,U+2200-22FF,U+2500-257F'
 
-# Prints the sorted codepoint list of a font, so two builds can be compared
-# without depending on byte equality.
-coverage() {
-    "$PYTHON" - "$1" <<'PY'
-import sys
-from fontTools.ttLib import TTFont
-codepoints = set()
-for table in TTFont(sys.argv[1])['cmap'].tables:
-    codepoints.update(table.cmap.keys())
-print(','.join(map(str, sorted(codepoints))))
-PY
+fingerprint() {
+    local source="$1" ranges="$2"
+    printf '%s %s' "$(shasum -a 256 <"$source" | cut -d' ' -f1)" "$(printf '%s' "$ranges" | shasum -a 256 | cut -d' ' -f1)"
 }
 
-# Replaces $2 with $1 only when their glyph coverage differs.
-install_if_changed() {
-    local built="$1" output="$2"
+recorded_fingerprint() {
+    [[ -f "$MANIFEST" ]] || return 0
+    awk -v key="$1" '$1 == key { $1 = ""; sub(/^ /, ""); print }' "$MANIFEST"
+}
 
-    if [[ -f "$output" ]] && [[ "$(coverage "$built")" == "$(coverage "$output")" ]]; then
-        printf '%-40s unchanged\n' "$(basename "$output")"
+record_fingerprint() {
+    local key="$1" value="$2" kept=''
+    [[ -f "$MANIFEST" ]] && kept=$(grep -v "^${key} " "$MANIFEST" || true)
+    printf '%s\n' "$kept" | grep -v '^$' >"$work/manifest" || true
+    printf '%s %s\n' "$key" "$value" >>"$work/manifest"
+    sort "$work/manifest" >"$MANIFEST"
+}
+
+# $1 source .ttf, $2 subset ranges, $3 "pin" to also pin the wdth axis
+build_font() {
+    local source="$1" ranges="$2" pin="${3:-}"
+    local output="${source%.ttf}.woff2"
+    local key="${output#"$FONT_ROOT"/}"
+    local want
+    want=$(fingerprint "$source" "$ranges")
+
+    if [[ -f "$output" && "$(recorded_fingerprint "$key")" == "$want" ]]; then
+        printf '%-40s up to date\n' "$(basename "$output")"
         return
     fi
 
-    local before after
-    before=$(wc -c <"$output" 2>/dev/null || echo 0)
-    mv "$built" "$output"
-    after=$(wc -c <"$output")
-    printf '%-40s %6dK -> %5dK\n' "$(basename "$output")" $((before / 1024)) $((after / 1024))
+    local subset_input="$source"
+
+    if [[ "$pin" == 'pin' ]]; then
+        # Noto Sans ships a wdth axis whose default already equals its maximum
+        # and which no stylesheet varies; pinning it roughly halves the file.
+        if ! "$PYTHON" -m fontTools.varLib.instancer "$source" wdth=100 \
+            -o "$work/pinned.ttf" >"$work/log" 2>&1; then
+            cat "$work/log" >&2
+            echo "Failed to pin the wdth axis of $source" >&2
+            exit 1
+        fi
+        subset_input="$work/pinned.ttf"
+    fi
+
+    if ! "$PYTHON" -m fontTools.subset "$subset_input" \
+        --output-file="$work/out.woff2" --flavor=woff2 --unicodes="$ranges" >"$work/log" 2>&1; then
+        cat "$work/log" >&2
+        echo "Failed to subset $source" >&2
+        exit 1
+    fi
+
+    local before=0
+    [[ -f "$output" ]] && before=$(wc -c <"$output")
+    mv "$work/out.woff2" "$output"
+    record_fingerprint "$key" "$want"
+    printf '%-40s %6dK -> %5dK\n' "$(basename "$output")" $((before / 1024)) $(( $(wc -c <"$output") / 1024 ))
 }
 
-for font in source/_assets/fonts/Noto-Sans/*.ttf; do
-    # Noto Sans ships a wdth axis whose default already equals its maximum and
-    # which no stylesheet varies; pinning it roughly halves the file.
-    "$PYTHON" -m fontTools.varLib.instancer "$font" wdth=100 -o "$work/pinned.ttf" >/dev/null 2>&1
-    "$PYTHON" -m fontTools.subset "$work/pinned.ttf" \
-        --output-file="$work/out.woff2" --flavor=woff2 --unicodes="$RANGES" 2>/dev/null
-    install_if_changed "$work/out.woff2" "${font%.ttf}.woff2"
+built=0
+
+for font in "$FONT_ROOT"/Noto-Sans/*.ttf; do
+    [[ -e "$font" ]] || continue
+    build_font "$font" "$RANGES" pin
+    built=$((built + 1))
 done
 
-for font in source/_assets/fonts/JetBrains-Mono/*.ttf; do
-    "$PYTHON" -m fontTools.subset "$font" \
-        --output-file="$work/out.woff2" --flavor=woff2 --unicodes="${RANGES},${MONO_EXTRA}" 2>/dev/null
-    install_if_changed "$work/out.woff2" "${font%.ttf}.woff2"
+for font in "$FONT_ROOT"/JetBrains-Mono/*.ttf; do
+    [[ -e "$font" ]] || continue
+    build_font "$font" "${RANGES},${MONO_EXTRA}"
+    built=$((built + 1))
 done
+
+if [[ "$built" -eq 0 ]]; then
+    echo "No .ttf sources found under $FONT_ROOT — nothing to do." >&2
+    exit 1
+fi
