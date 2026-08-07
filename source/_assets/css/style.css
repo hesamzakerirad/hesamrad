@@ -161,6 +161,7 @@ code {
 
 code.hljs {
     border: 1px solid var(--border-color);
+    margin: var(--space) 0;
 }
 
 code,
@@ -226,13 +227,13 @@ table td {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(345deg, black, transparent 40%);
+    background: linear-gradient(6deg, black, transparent 40%);
     pointer-events: none;
 }
 
 .thumbnail .copyright {
     position: absolute;
-    right: calc(1.2 * var(--space));
+    left: calc(1.2 * var(--space));
     bottom: calc(0.7 * var(--space));
     z-index: 2;
 }

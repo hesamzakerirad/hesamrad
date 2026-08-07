@@ -16,7 +16,6 @@
         'fa' => [
             'backToBlog' => 'بازگشت به وبلاگ',
             'readTime' => 'خواندن در :minutes دقیقه',
-            'updatedAt' => 'آخرین بروزرسانی در',
             'copyUrl' => 'کپی آدرس',
             'copied' => 'کپی شد!',
             'nextPost' => 'نوشته بعدی:',
@@ -27,7 +26,6 @@
         'en' => [
             'backToBlog' => 'Back to blog',
             'readTime' => ':minutes min read',
-            'updatedAt' => 'Last updated',
             'copyUrl' => 'Copy URL',
             'copied' => 'Copied!',
             'nextPost' => 'Next post:',
@@ -47,8 +45,8 @@
 @section('body')
     <div class="post">
         <header>
-            <div class="container">
-                <div class="mb-1">
+            <div>
+                <div class="mb-1 text-sm">
                     <a href="{{ $page->baseUrl }}/blog/" rel="home" aria-label="{{ $t['backToBlog'] }}">
                         <i class="fa-solid {{ $isRtl ? 'fa-arrow-right' : 'fa-arrow-left' }} me-2"></i>
                         {{ $t['backToBlog'] }}
@@ -56,21 +54,9 @@
                 </div>
 
                 <h1>{{ $page->title }}</h1>
-                <span>{{ str_replace(':minutes', $page->getReadTime(), $t['readTime']) }}</span>
-                <span class="mx-1">-</span>
-                <span>{{ $t['updatedAt'] }}
+                <span>
                     <time datetime="{{ $page->getUpdatedAtDate() }}">{{ $t['date']($page) }}</time>
                 </span>
-                <span class="mx-1">-</span>
-                <span id="copy-url-btn" class="copy-url-button">
-                    <span class="copy-text">
-                        <i class="fa-regular fa-copy me-2"></i>
-                        <span>{{ $t['copyUrl'] }}</span>
-                    </span>
-                    <span class="copied-text" style="display: none;">
-                        <i class="fa-solid fa-check me-2"></i>
-                        <span>{{ $t['copied'] }}</span>
-                    </span>
                 </span>
             </div>
         </header>
@@ -94,14 +80,14 @@
         @endif
 
         <article>
-            <div class="container">
+            <div>
                 @yield('content')
             </div>
         </article>
 
         @if ($next = $page->getNext())
             <section>
-                <div class="container">
+                <div>
                     <a href="{{ $next->getCanonicalUrl() }}">
                         <div class="box next" role="navigation">
                             <p>{{ $t['nextPost'] }} {{ $next->title }}</p>

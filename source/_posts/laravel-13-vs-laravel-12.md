@@ -15,8 +15,8 @@ robots:
     - follow
 created_at: 2026-08-07
 updated_at: 2026-08-07
-thumbnail:
-thumbnailCopyRightSource:
+thumbnail: '/assets/build/images/laravel-13-vs-laravel-12.jpg'
+thumbnailCopyRightSource: 'https://unsplash.com/photos/two-elephants-walking-on-grass-covered-ground-BuQ1RZckYW4'
 readTime: 8
 source: 'https://laravel.com/docs/13.x/releases'
 isFeatured: false
