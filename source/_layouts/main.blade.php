@@ -11,19 +11,9 @@
 @endphp
 
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H516TJZR2S"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-H516TJZR2S');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $title }}</title>
     <meta name="copyright" content="{{ $page->getAuthor() }}">
     <meta name="language" content="{{ $page->getLanguage() }}">
     <meta name="theme-color" content="#ff4d00">
@@ -33,7 +23,6 @@
     @unless ($page->disableCanonical)
         <link rel="canonical" href="{{ $pageUrl }}">
     @endunless
-    <title>{{ $title }}</title>
 
     <script>
         (function() {
@@ -72,6 +61,18 @@
     <link rel="icon" href="{{ $favicon }}">
     @viteRefresh()
     <link rel="stylesheet" href="{{ vite('source/_assets/css/main.css') }}">
+
+    {{-- Analytics last: nothing above it should wait on a third-party request. --}}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H516TJZR2S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-H516TJZR2S');
+    </script>
 </head>
 
 <body>
