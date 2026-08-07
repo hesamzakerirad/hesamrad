@@ -16,7 +16,7 @@
             'url' => $page->baseUrl,
             'name' => $page->siteName,
             'description' => $description,
-            'inLanguage' => $page->language,
+            'inLanguage' => $page->getLanguage(),
             'publisher' => ['@id' => $person['@id']],
         ],
     ];
@@ -30,7 +30,7 @@
             'url' => $pageUrl,
             'datePublished' => $page->getCreatedAtDateObject()->format('c'),
             'dateModified' => $page->getUpdatedAtObject()->format('c'),
-            'inLanguage' => $page->language,
+            'inLanguage' => $page->getLanguage(),
             'image' => $page->thumbnail ? $thumbnail : null,
             'keywords' => $page->tags ? implode(', ', $page->tags) : null,
             'author' => ['@id' => $person['@id']],
@@ -44,7 +44,7 @@
             'url' => $pageUrl,
             'name' => $title,
             'description' => $description,
-            'inLanguage' => $page->language,
+            'inLanguage' => $page->getLanguage(),
             'isPartOf' => ['@id' => $page->baseUrl . '/#website'],
             'about' => ['@id' => $person['@id']],
         ];

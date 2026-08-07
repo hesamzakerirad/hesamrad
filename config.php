@@ -6,8 +6,12 @@ return [
     'siteName' => 'Hesam Rad',
     'siteDescription' => 'Software Engineer',
     'siteAuthor' => 'Hesam Rad',
-    'locale' => 'en_US',
-    'language' => 'en',
+    // Defaults. Individual pages override these via `locale`/`language` front
+    // matter; posts fall back to the post-specific pair below.
+    'defaultLocale' => 'en_US',
+    'defaultLanguage' => 'en',
+    'postLocale' => 'fa_IR',
+    'postLanguage' => 'fa',
 
     'socialProfiles' => [
         'https://linkedin.com/in/hesamrad',
@@ -88,6 +92,18 @@ return [
         }
 
         return 'index,follow';
+    },
+
+    'getLanguage' => function ($page) {
+        return $page->language ?? ($page->isPost($page) ? $page->postLanguage : $page->defaultLanguage);
+    },
+
+    'getLocale' => function ($page) {
+        return $page->locale ?? ($page->isPost($page) ? $page->postLocale : $page->defaultLocale);
+    },
+
+    'getDirection' => function ($page) {
+        return in_array($page->getLanguage(), ['fa', 'ar', 'he', 'ur']) ? 'rtl' : 'ltr';
     },
 
     'getAuthor' => function ($page) {

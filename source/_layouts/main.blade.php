@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $page->language }}">
+<html lang="{{ $page->getLanguage() }}" dir="{{ $page->getDirection() }}">
 
 @php
     $titlePrefix = $page->disableTitlePrefix ? '' : $page->siteName . ' - ';
@@ -25,7 +25,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="{{ $page->getAuthor() }}">
-    <meta name="language" content="{{ $page->language }}">
+    <meta name="language" content="{{ $page->getLanguage() }}">
     <meta name="theme-color" content="#ff4d00">
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="{{ $page->getAuthor() }}">
@@ -47,7 +47,7 @@
     <meta property="og:url" content="{{ $pageUrl }}">
     <meta property="og:site_name" content="{{ $page->siteName }}">
     <meta property="og:description" content="{{ $description }}">
-    <meta property="og:locale" content="{{ $page->locale }}">
+    <meta property="og:locale" content="{{ $page->getLocale() }}">
     <meta name="twitter:title" content="{{ $title }}">
     <meta name="twitter:description" content="{{ $description }}">
     <meta name="twitter:site" content="@hesamzakerirad">
