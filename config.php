@@ -38,11 +38,17 @@ return [
      *
      * Symfony YAML coerces an unquoted `2025-01-01` to an integer, so anything
      * else — a quoted string, a float, whitespace — is an authoring mistake.
-     * is_numeric alone is too loose: it accepts values that createFromFormat('U')
-     * then rejects, which fatals on the callers' `: DateTime` return type.
+     * is_numeric is too loose (it accepts floats and padding that
+     * createFromFormat('U') then rejects, fatalling on the callers' `: DateTime`
+     * return type) but ctype_digit is too strict: any date before 1970 is a
+     * negative integer, and so is a Jalali year written as `1403-05-16`.
      */
     'getTimestamp' => function ($page, $value) {
-        return ctype_digit((string) $value) ? (int) $value : null;
+        if (is_int($value)) {
+            return $value;
+        }
+
+        return is_string($value) && preg_match('/^-?\d+$/', $value) ? (int) $value : null;
     },
 
     'getCreatedAtDateObject' => function ($page): DateTime {
@@ -57,10 +63,14 @@ return [
         return Datetime::createFromFormat('U', (string) $timestamp);
     },
 
-    // updated_at is optional; a post that has never been revised falls back to
-    // its creation date. Returning false here would be a fatal TypeError.
+    /**
+     * updated_at is optional; a post that has never been revised falls back to
+     * its creation date. Shares getLastModified's later-of-the-two rule so that
+     * `dateModified` can never precede `datePublished`, which is a structured
+     * data validation error.
+     */
     'getUpdatedAtObject' => function ($page): DateTime {
-        $timestamp = $page->getTimestamp($page->updated_at);
+        $timestamp = $page->getLastModified();
 
         return $timestamp === null
             ? $page->getCreatedAtDateObject()
@@ -118,7 +128,11 @@ return [
         // the resulting invalid UTF-8 makes json_encode() fail outright.
         $truncated = mb_substr($cleaned, 0, $length);
 
-        return rtrim(preg_replace('/\s+\S*$/u', '', $truncated) ?: $truncated).'…';
+        // `??`, not `?:` — a trimmed result of "0" is a valid summary, and
+        // treating it as failure would fall back to the untrimmed cut.
+        $trimmed = preg_replace('/\s+\S*$/u', '', $truncated) ?? $truncated;
+
+        return rtrim($trimmed === '' ? $truncated : $trimmed).'…';
     },
 
     /**
@@ -133,12 +147,13 @@ return [
             return $page->toSummaryText($page->excerpt, $length);
         }
 
+        // A <!-- more --> marker chooses where the body is cut, but the caller's
+        // budget still applies — these summaries land in fixed-size meta tags.
         $content = preg_split('/<!-- more -->/m', $page->getContent(), 2);
         $body = preg_replace(['/<pre>[\w\W]*?<\/pre>/', '/<h\d>[\w\W]*?<\/h\d>/'], '', $content[0]);
         $text = html_entity_decode(strip_tags((string) $body), ENT_QUOTES, 'UTF-8');
 
-        // An explicit <!-- more --> marker is the author choosing the cut.
-        return $page->toSummaryText($text, count($content) > 1 ? null : $length);
+        return $page->toSummaryText($text, $length);
     },
 
     /**
@@ -149,9 +164,11 @@ return [
      * silently rewrite their words.
      */
     'getSummary' => function ($page, $length = 255) {
-        return $page->description
-            ? $page->toSummaryText($page->description, $length)
-            : $page->getExcerpt($length);
+        // Compare against '' rather than testing truthiness: a description of
+        // "0" is something the author wrote and must not be thrown away.
+        $description = $page->toSummaryText($page->description, $length);
+
+        return $description !== '' ? $description : $page->getExcerpt($length);
     },
 
     'getRobotsStatus' => function ($page) {
@@ -160,9 +177,17 @@ return [
         // would emit a JSON array as the directive. A list of blank entries —
         // the shape the post template ships — filters down to nothing, so the
         // default has to be applied after the filter, not before it.
-        $directives = is_array($page->robots) || $page->robots instanceof Traversable
-            ? collect($page->robots)->filter()->implode(',')
-            : trim((string) $page->robots);
+        $robots = $page->robots;
+
+        if (is_array($robots) || $robots instanceof Traversable) {
+            $directives = collect($robots)->filter()->implode(',');
+        } elseif (is_string($robots)) {
+            $directives = trim($robots);
+        } else {
+            // A YAML bool or number is not a directive; `robots: true` would
+            // otherwise stringify to the meaningless content="1".
+            $directives = '';
+        }
 
         return $directives !== '' ? $directives : 'index,follow';
     },

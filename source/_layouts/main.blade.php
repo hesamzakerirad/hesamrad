@@ -24,7 +24,7 @@
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="{{ $page->getAuthor() }}">
     {{-- An empty description tag is worse than none: omit rather than assert nothing. --}}
-    @if ($description)
+    @if ($description !== '')
         <meta name="description" content="{{ $description }}">
     @endif
     @unless ($page->disableCanonical)
@@ -44,7 +44,7 @@
     <meta property="og:site_name" content="{{ $page->siteName }}">
     <meta property="og:locale" content="{{ $page->getLocale() }}">
     <meta name="twitter:title" content="{{ $title }}">
-    @if ($description)
+    @if ($description !== '')
         <meta property="og:description" content="{{ $description }}">
         <meta name="twitter:description" content="{{ $description }}">
     @endif

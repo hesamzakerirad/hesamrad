@@ -45,22 +45,45 @@ RANGES='U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0300-0
 # box drawing, arrows and math operators.
 MONO_EXTRA='U+2190-21FF,U+2200-22FF,U+2500-257F'
 
-fingerprint() {
-    local source="$1" ranges="$2"
-    printf '%s %s' "$(shasum -a 256 <"$source" | cut -d' ' -f1)" "$(printf '%s' "$ranges" | shasum -a 256 | cut -d' ' -f1)"
+sha256() {
+    if command -v sha256sum >/dev/null 2>&1; then
+        sha256sum | cut -d' ' -f1
+    else
+        shasum -a 256 | cut -d' ' -f1
+    fi
 }
 
+# Fingerprints the inputs: the source font and the exact ranges asked for.
+fingerprint() {
+    local source="$1" ranges="$2"
+    printf '%s %s' "$(sha256 <"$source")" "$(printf '%s' "$ranges" | sha256)"
+}
+
+# The manifest is TAB-separated so a key may contain spaces or regex
+# metacharacters — both of which silently broke a whitespace-split lookup.
 recorded_fingerprint() {
     [[ -f "$MANIFEST" ]] || return 0
-    awk -v key="$1" '$1 == key { $1 = ""; sub(/^ /, ""); print }' "$MANIFEST"
+    awk -F'\t' -v key="$1" '$1 == key { print $2 }' "$MANIFEST"
 }
 
 record_fingerprint() {
-    local key="$1" value="$2" kept=''
-    [[ -f "$MANIFEST" ]] && kept=$(grep -v "^${key} " "$MANIFEST" || true)
-    printf '%s\n' "$kept" | grep -v '^$' >"$work/manifest" || true
-    printf '%s %s\n' "$key" "$value" >>"$work/manifest"
-    sort "$work/manifest" >"$MANIFEST"
+    local key="$1" value="$2"
+
+    if [[ -f "$MANIFEST" ]]; then
+        awk -F'\t' -v key="$key" 'NF == 2 && $1 != key' "$MANIFEST" >"$work/manifest"
+    else
+        : >"$work/manifest"
+    fi
+
+    printf '%s\t%s\n' "$key" "$value" >>"$work/manifest"
+    # Fixed collation so the committed order does not depend on the developer.
+    LC_ALL=C sort "$work/manifest" >"$MANIFEST"
+}
+
+# The manifest records inputs, so it cannot notice a truncated or corrupted
+# output. Check the woff2 signature and a plausible size before trusting one.
+is_valid_woff2() {
+    [[ -f "$1" ]] && [[ "$(head -c 4 "$1")" == 'wOF2' ]] && [[ "$(wc -c <"$1")" -gt 1024 ]]
 }
 
 # $1 source .ttf, $2 subset ranges, $3 "pin" to also pin the wdth axis
@@ -71,7 +94,7 @@ build_font() {
     local want
     want=$(fingerprint "$source" "$ranges")
 
-    if [[ -f "$output" && "$(recorded_fingerprint "$key")" == "$want" ]]; then
+    if is_valid_woff2 "$output" && [[ "$(recorded_fingerprint "$key")" == "$want" ]]; then
         printf '%-40s up to date\n' "$(basename "$output")"
         return
     fi
@@ -104,21 +127,22 @@ build_font() {
     printf '%-40s %6dK -> %5dK\n' "$(basename "$output")" $((before / 1024)) $(( $(wc -c <"$output") / 1024 ))
 }
 
-built=0
+# Each family is counted separately: a single total would hide one directory
+# going empty for as long as the other still had sources.
+build_family() {
+    local dir="$1" ranges="$2" pin="${3:-}" built=0 font
 
-for font in "$FONT_ROOT"/Noto-Sans/*.ttf; do
-    [[ -e "$font" ]] || continue
-    build_font "$font" "$RANGES" pin
-    built=$((built + 1))
-done
+    for font in "$FONT_ROOT/$dir"/*.ttf; do
+        [[ -e "$font" ]] || continue
+        build_font "$font" "$ranges" "$pin"
+        built=$((built + 1))
+    done
 
-for font in "$FONT_ROOT"/JetBrains-Mono/*.ttf; do
-    [[ -e "$font" ]] || continue
-    build_font "$font" "${RANGES},${MONO_EXTRA}"
-    built=$((built + 1))
-done
+    if [[ "$built" -eq 0 ]]; then
+        echo "No .ttf sources found in $FONT_ROOT/$dir — nothing to regenerate." >&2
+        exit 1
+    fi
+}
 
-if [[ "$built" -eq 0 ]]; then
-    echo "No .ttf sources found under $FONT_ROOT — nothing to do." >&2
-    exit 1
-fi
+build_family Noto-Sans "$RANGES" pin
+build_family JetBrains-Mono "${RANGES},${MONO_EXTRA}"

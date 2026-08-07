@@ -104,7 +104,11 @@ class GenerateSitemap
         // never matches, and the lookup would silently miss.
         $page = $jigsaw->getPages()[$path] ?? null;
 
-        if ($page && $date = $page->getLastModified()) {
+        // Compare against null, not truthiness: a created_at of 1970-01-01 is a
+        // legitimate timestamp of 0 that getLastModified deliberately preserves.
+        $date = $page?->getLastModified();
+
+        if ($date !== null) {
             return $date;
         }
 

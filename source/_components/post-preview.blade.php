@@ -6,7 +6,7 @@
             <h2>{{ $post->title }}</h2>
         </header>
     </a>
-    <p>{{ $post->description }}</p>
+    <p>{{ $post->getSummary(160) }}</p>
     <small>
         <time datetime="{{ $post->getUpdatedAtDate() }}">{{ $post->getUpdatedJalaliDate() }}</time>
     </small>
