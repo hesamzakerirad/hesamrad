@@ -3,6 +3,9 @@ extends: _layouts.post
 section: content
 title: 
 description: 
+# Defaults to fa/fa_IR; set both when writing a post in another language.
+language: 
+locale: 
 tags:
     - 
 robots: 

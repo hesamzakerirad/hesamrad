@@ -1,13 +1,17 @@
-@extends('_layouts.main')
+@extends('_layouts.page')
 
 @php
-    $page->title = $page->siteDescription;
+    // An empty listing is thin content. Keep it out of the index until there is
+    // something to list; the sitemap follows the robots meta automatically.
+    $page->robots = $posts->isEmpty() ? 'noindex,follow' : 'index,follow';
 @endphp
 
-@section('body')
-    <div class="container blog mt-3 mb-3">
-        @include('_components.backlink')
+@section('title', 'Blog')
 
+@section('description', 'Thoughts on software engineering, books and life by ' . $page->siteAuthor . '.')
+
+@section('content')
+    <div class="container blog mt-3 mb-3">
         @if ($posts->isEmpty())
             <p>No posts have been published yet.</p>
         @endif

@@ -6,26 +6,26 @@
 
 @section('content')
     <p>I love open-source projects and contributing to the developer community. Over the years of working with
-        <a href="https://laravel.com" target="_blank">Laravel</a>, I have come across some ideas that I keep implementing on
+        <a href="https://laravel.com" target="_blank" rel="noopener noreferrer">Laravel</a>, I have come across some ideas that I keep implementing on
         every project. To avoid that, I have
         created usable packages to be pulled into any Laravel project. Here are a few of them:
     </p>
 
     <ul class="list-disc list-inside space-y-3">
         <li class="list-item">
-            <a href="https://github.com/hesamzakerirad/laravel-wallet" target="_blank">Laravel Wallet</a> is a minimalistic
+            <a href="https://github.com/hesamzakerirad/laravel-wallet" target="_blank" rel="noopener noreferrer">Laravel Wallet</a> is a minimalistic
             wallet
             for
             any Laravel application allowing logging and concurrency.
         </li>
         <li class="list-item">
-            <a href="https://github.com/hesamzakerirad/laravel-sql-logger" target="_blank">Laravel SQL Logger</a> is
+            <a href="https://github.com/hesamzakerirad/laravel-sql-logger" target="_blank" rel="noopener noreferrer">Laravel SQL Logger</a> is
             a lightweight package to log SQL queries in your Laravel
             application
         </li>
-        <li class="list-item"><a href="https://github.com/hesamzakerirad/laravel-flashlight" target="_blank">Laravel
+        <li class="list-item"><a href="https://github.com/hesamzakerirad/laravel-flashlight" target="_blank" rel="noopener noreferrer">Laravel
                 Flashlight</a> is a highly customizable Laravel package to log HTTP requests</li>
-        <li class="list-item"><a href="https://github.com/hesamzakerirad/laravel-api-debugger" target="_blank">Laravel Api
+        <li class="list-item"><a href="https://github.com/hesamzakerirad/laravel-api-debugger" target="_blank" rel="noopener noreferrer">Laravel Api
                 Debugger</a> is a Laravel package to ease the process of debugging JSON APIs</li>
     </ul>
 
@@ -35,7 +35,7 @@
 
         <ul class="list-disc list-inside space-y-3">
             <li class="list-item">
-                <a href="https://pvnd.io" target="_blank">Peyvand</a> is a free url shortener, QR-code and profile
+                <a href="https://pvnd.io" target="_blank" rel="noopener noreferrer">Peyvand</a> is a free url shortener, QR-code and profile
                 generator. (Project is in active development.)
             </li>
         </ul>

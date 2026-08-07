@@ -1,8 +1,8 @@
 @extends('_layouts.main')
 
-@php
-    $page->type = 'article';
-@endphp
+@section('title', $page->title)
+
+@section('description', $page->description ?: ($page->getExcerpt(160) ?: $page->siteDescription))
 
 @section('body')
     <div class="post">
@@ -44,7 +44,7 @@
                 @if ($page->thumbnailCopyRightSource)
                     <small class="copyright">
                         <i class="fa-regular fa-copyright ml-05"></i>
-                        نگاره از <a href="{{ $page->thumbnailCopyRightSource }}" target="_blank">اینجا</a> به امانت گرفته
+                        نگاره از <a href="{{ $page->thumbnailCopyRightSource }}" target="_blank" rel="noopener noreferrer">اینجا</a> به امانت گرفته
                         شده است.
                     </small>
                 @endif

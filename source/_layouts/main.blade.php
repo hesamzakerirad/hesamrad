@@ -1,16 +1,74 @@
 <!DOCTYPE html>
-<html lang="{{ $page->language }}">
+<html lang="{{ $page->getLanguage() }}" dir="{{ $page->getDirection() }}">
 
 @php
+    // Blade's inline `@section('name', $value)` runs the value through e()
+    // before storing it, so yieldContent() hands back already-escaped text.
+    // Decode it once here and let each consumer escape for its own context —
+    // otherwise {{ }} double-encodes and JSON-LD ships HTML entities.
+    $yield = fn ($section) => html_entity_decode(trim($__env->yieldContent($section)), ENT_QUOTES, 'UTF-8');
+
     $titlePrefix = $page->disableTitlePrefix ? '' : $page->siteName . ' - ';
-    $title = $titlePrefix . trim($__env->yieldContent('title'));
-    $description = trim($__env->yieldContent('description'));
+    $title = $titlePrefix . $yield('title');
+    $description = $yield('description');
     $favicon = $page->baseUrl . '/favicon.ico';
-    $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : $favicon;
-    $pageUrl = $page->isHomePage() ? $page->baseUrl : $page->getUrlWithTrailingSlash();
+    $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : null;
+    $pageUrl = $page->getCanonicalUrl();
 @endphp
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $title }}</title>
+    <meta name="theme-color" content="#ff4d00">
+    <meta name="robots" content="{{ $page->getRobotsStatus() }}">
+    <meta name="author" content="{{ $page->getAuthor() }}">
+    <meta name="description" content="{{ $description }}">
+    @unless ($page->disableCanonical)
+        <link rel="canonical" href="{{ $pageUrl }}">
+    @endunless
+
+    <script>
+        (function() {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('theme', isDark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:type" content="{{ $page->isPost($page) ? 'article' : 'website' }}">
+    <meta property="og:url" content="{{ $pageUrl }}">
+    <meta property="og:site_name" content="{{ $page->siteName }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:locale" content="{{ $page->getLocale() }}">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:site" content="@hesamzakerirad">
+    <meta name="twitter:creator" content="@hesamzakerirad">
+
+    @if ($page->thumbnail)
+        <link rel="preload" as="image" href="{{ $thumbnail }}">
+        <meta property="og:image" content="{{ $thumbnail }}">
+        <meta property="og:image:alt" content="{{ $title }}">
+        <meta property="og:image:width" content="850">
+        <meta property="og:image:height" content="470">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="{{ $thumbnail }}">
+        <meta name="twitter:image:alt" content="{{ $title }}">
+    @else
+        <meta name="twitter:card" content="summary">
+    @endif
+
+    @include('_includes.structured-data')
+
+    <link rel="home" href="{{ $page->baseUrl }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ $page->siteName }}"
+        href="{{ $page->baseUrl }}/feed.xml">
+    <link rel="icon" href="{{ $favicon }}">
+    @viteRefresh()
+    <link rel="stylesheet" href="{{ vite('source/_assets/css/main.css') }}">
+
+    {{-- Analytics last: nothing above it should wait on a third-party request. --}}
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H516TJZR2S"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -21,56 +79,6 @@
         gtag('js', new Date());
         gtag('config', 'G-H516TJZR2S');
     </script>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="copyright" content="{{ $page->getAuthor() }}">
-    <meta name="language" content="{{ $page->language }}">
-    <meta name="theme-color" content="#ff4d00">
-    <meta name="robots" content="{{ $page->getRobotsStatus() }}">
-    <meta name="author" content="{{ $page->getAuthor() }}">
-    <meta name="description" content="{{ $description }}">
-    <link rel="canonical" href="{{ $pageUrl }}">
-    <title>{{ $title }}</title>
-
-    <script>
-        (function() {
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('theme', isDark ? 'dark' : 'light');
-        })();
-    </script>
-
-    @if ($page->isPost($page))
-        <link rel="preload" as="image" href="{{ $thumbnail }}">
-        <meta property="og:title" content="{{ $title }}">
-        <meta property="og:type" content="{{ $page->type ?? 'website' }}">
-        <meta property="og:url" content="{{ $pageUrl }}">
-        <meta property="og:site_name" content="{{ $page->siteName }}">
-        <meta property="og:description" content="{{ $description }}">
-        <meta property="og:locale" content="{{ $page->locale }}">
-        <meta property="og:image" content="{{ $thumbnail }}">
-        <meta property="og:image:alt" content="{{ $title }}">
-        {{-- <meta property="article:published_time" content="{{ $page->getCreatedAtDate() }}">
-        <meta property="article:modified_time" content="{{ $page->getUpdatedAtDate() }}"> --}}
-        <meta property="og:image:width" content="850">
-        <meta property="og:image:height" content="470">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="{{ $title }}">
-        <meta name="twitter:description" content="{{ $description }}">
-        <meta name="twitter:image" content="{{ $thumbnail }}">
-        <meta name="twitter:image:alt" content="{{ $title }}">
-        <meta name="twitter:site" content="@hesamzakerirad">
-        <meta name="twitter:creator" content="@hesamzakerirad">
-    @endif
-
-    <link rel="home" href="{{ $page->baseUrl }}">
-    <link rel="icon" href="{{ $favicon }}">
-    @viteRefresh()
-    <link rel="stylesheet" href="{{ vite('source/_assets/css/main.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
 </head>
 
 <body>
