@@ -4,6 +4,10 @@
     $page->type = 'article';
 @endphp
 
+@section('title', $page->title)
+
+@section('description', $page->description ?: $page->getExcerpt(160))
+
 @section('body')
     <div class="post">
         <header>
