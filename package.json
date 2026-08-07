@@ -9,12 +9,9 @@
     "devDependencies": {
         "@tailwindcss/vite": "^4.3.0",
         "@tighten/jigsaw-vite-plugin": "^2.0.0",
-        "alpinejs": "^3.14.1",
         "autoprefixer": "^10.5.0",
-        "axios": "^0.21.1",
         "browser-sync": "^2.27.4",
         "fast-glob": "^3.2.12",
-        "fuse.js": "^6.4.6",
         "highlight.js": "^11.7.0",
         "postcss": "^8.5.14",
         "postcss-import": "^14.1.0",

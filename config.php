@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 return [
     'baseUrl' => 'http://localhost:8000',
     'production' => false,
@@ -21,14 +19,6 @@ return [
         ],
         'pages' => [
             'path' => '{filename}/',
-        ],
-        'categories' => [
-            'path' => '/blog/categories/{filename}/',
-            'posts' => function ($page, $allPosts) {
-                return $allPosts->filter(function ($post) use ($page) {
-                    return $post->categories ? in_array($page->getFilename(), $post->categories, true) : false;
-                });
-            },
         ],
     ],
 
@@ -84,10 +74,6 @@ return [
             : $cleaned;
     },
 
-    'isActive' => function ($page, $path) {
-        return Str::endsWith(trimPath($page->getPath()), trimPath($path));
-    },
-
     'getRobotsStatus' => function ($page) {
         if ($page->robots) {
             return is_array($page->robots) ?
@@ -125,5 +111,5 @@ return [
 
     'getMyYearsOfExperience' => function () {
         return date('Y') - 2018;
-    }
+    },
 ];

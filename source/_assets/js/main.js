@@ -1,12 +1,3 @@
-window.axios = require('axios');
-import Alpine from "alpinejs";
-import Fuse from "fuse.js";
-
-window.Fuse = Fuse;
-window.Alpine = Alpine;
-
-Alpine.start();
-
 import hljs from 'highlight.js/lib/core';
 
 // Syntax highlighting
@@ -26,29 +17,14 @@ document.querySelectorAll('pre code').forEach((block) => {
 
 // Dark mode logic
 document.addEventListener('DOMContentLoaded', function () {
-    const html = document.documentElement;
-    const lightCss = document.getElementById('hljs-light');
-    const darkCss = document.getElementById('hljs-dark');
-    
     function applyTheme(isOsDark) {
-        const theme = isOsDark ? 'dark' : 'light';
-        html.setAttribute('theme', theme);
-        
-        if (lightCss && darkCss) {
-            if (theme === 'dark') {
-                lightCss.disabled = true;
-                darkCss.disabled = false;
-            } else {
-                lightCss.disabled = false;
-                darkCss.disabled = true;
-            }
-        }
+        document.documentElement.setAttribute('theme', isOsDark ? 'dark' : 'light');
     }
-    
+
     // Get initial OS theme preference
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     applyTheme(darkModeMediaQuery.matches);
-    
+
     // Listen for OS theme changes
     darkModeMediaQuery.addEventListener('change', function (e) {
         applyTheme(e.matches);
@@ -56,20 +32,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // copy to clipboard logic
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const copyBtn = document.getElementById('copy-url-btn');
     if (!copyBtn) return;
 
-    copyBtn.addEventListener('click', function() {
-        const postUrl = window.location.href;
-        
-        navigator.clipboard.writeText(postUrl).then(() => {
+    copyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText(window.location.href).then(() => {
             const copyText = copyBtn.querySelector('.copy-text');
             const copiedText = copyBtn.querySelector('.copied-text');
-            
+
             copyText.style.display = 'none';
             copiedText.style.display = 'inline';
-            
+
             setTimeout(() => {
                 copyText.style.display = 'inline';
                 copiedText.style.display = 'none';
@@ -78,4 +52,4 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Failed to copy: ', err);
         });
     });
-}); 
+});
