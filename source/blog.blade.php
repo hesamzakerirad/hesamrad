@@ -1,13 +1,11 @@
-@extends('_layouts.main')
+@extends('_layouts.page')
 
-@php
-    $page->title = $page->siteDescription;
-@endphp
+@section('title', 'Blog')
 
-@section('body')
+@section('description', 'Thoughts on software engineering, books and life by ' . $page->siteAuthor . '.')
+
+@section('content')
     <div class="container blog mt-3 mb-3">
-        @include('_components.backlink')
-
         @if ($posts->isEmpty())
             <p>No posts have been published yet.</p>
         @endif
