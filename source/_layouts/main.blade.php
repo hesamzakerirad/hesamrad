@@ -58,6 +58,8 @@
     @include('_includes.structured-data')
 
     <link rel="home" href="{{ $page->baseUrl }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ $page->siteName }}"
+        href="{{ $page->baseUrl }}/feed.xml">
     <link rel="icon" href="{{ $favicon }}">
     @viteRefresh()
     <link rel="stylesheet" href="{{ vite('source/_assets/css/main.css') }}">
