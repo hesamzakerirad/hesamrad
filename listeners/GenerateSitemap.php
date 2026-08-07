@@ -34,8 +34,8 @@ class GenerateSitemap
         $postDates = $this->postDates($jigsaw);
 
         collect($jigsaw->getOutputPaths())
-            ->reject(function ($path) {
-                return $this->isExcluded($path);
+            ->reject(function ($path) use ($jigsaw) {
+                return $this->isExcluded($path) || $this->isNoIndex($jigsaw, $path);
             })
             ->each(function ($path) use ($baseUrl, $sitemap, $postDates) {
                 $sitemap->addItem(
@@ -50,6 +50,31 @@ class GenerateSitemap
     public function isExcluded($path)
     {
         return Str::is($this->exclude, $path);
+    }
+
+    /**
+     * Whether the rendered page asks robots not to index it.
+     *
+     * Listing a noindex URL in the sitemap sends crawlers two opposite
+     * instructions, so the page's own robots meta is the single source of
+     * truth and this stays in sync with it automatically.
+     */
+    public function isNoIndex(Jigsaw $jigsaw, $path)
+    {
+        $file = rtrim($jigsaw->getDestinationPath().'/'.ltrim($path, '/'), '/');
+
+        if (! preg_match('/\.\w+$/', $file)) {
+            $file .= '/index.html';
+        }
+
+        if (! is_file($file) || ! str_ends_with($file, '.html')) {
+            return false;
+        }
+
+        return (bool) preg_match(
+            '/<meta\s+name=["\']robots["\']\s+content=["\'][^"\']*noindex/i',
+            file_get_contents($file)
+        );
     }
 
     protected function url($baseUrl, $path)
