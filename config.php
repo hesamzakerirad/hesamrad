@@ -6,6 +6,7 @@ return [
     'siteName' => 'Hesam Rad',
     'siteDescription' => 'Software Engineer',
     'siteAuthor' => 'Hesam Rad',
+    'email' => 'hesamrad.dev@gmail.com',
     // Defaults. Individual pages override these via `locale`/`language` front
     // matter; posts fall back to the post-specific pair below.
     'defaultLocale' => 'en_US',

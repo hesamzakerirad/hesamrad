@@ -316,3 +316,97 @@ header h1 {
 .next p {
     margin: 0;
 }
+
+/* Contact call to action. It opens on the same hairline `hr` uses instead of
+   sitting in a box, so it reads as the closing note of the page rather than an
+   advert pasted onto it. */
+.hero {
+    margin-top: calc(4 * var(--space));
+    padding-top: calc(3 * var(--space));
+    border-top: 1px solid var(--border-color);
+}
+
+.hero-overline {
+    font-size: 0.889rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: calc(0.5 * var(--space)) !important;
+}
+
+.hero-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    margin-inline-end: 0.6em;
+    vertical-align: middle;
+    animation: hero-pulse 3s ease-in-out infinite;
+}
+
+.hero-title {
+    margin-bottom: calc(0.5 * var(--space)) !important;
+    text-wrap: balance;
+}
+
+.hero-body {
+    /* A shorter measure than the body copy: the eye should land on the button. */
+    max-width: 32em;
+    margin-bottom: calc(1.5 * var(--space)) !important;
+    text-wrap: pretty;
+}
+
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: calc(0.6 * var(--space)) calc(1.4 * var(--space));
+    background-color: var(--primary-color);
+    /* Wins over the blanket `a { color: var(--primary-color) }` above. */
+    color: var(--header-color) !important;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    line-height: 1.6;
+    transition: background-color 0.2s ease;
+}
+
+.hero-cta:hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 12%);
+}
+
+.hero-cta:focus-visible {
+    outline: 2px solid var(--header-color);
+    outline-offset: 3px;
+}
+
+.hero-arrow {
+    transition: transform 0.2s ease;
+}
+
+.hero-cta:hover .hero-arrow {
+    transform: translateX(3px);
+}
+
+/* The glyph points at the end of the line, so under RTL it leans the other way. */
+[dir='rtl'] .hero-cta:hover .hero-arrow {
+    transform: translateX(-3px);
+}
+
+@keyframes hero-pulse {
+    50% {
+        opacity: 0.35;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-dot,
+    .hero-arrow {
+        animation: none;
+        transition: none;
+    }
+
+    .hero-cta:hover .hero-arrow {
+        transform: none;
+    }
+}

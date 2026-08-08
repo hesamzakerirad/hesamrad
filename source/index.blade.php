@@ -5,7 +5,7 @@
 @section('description', 'Software Engineer with ' . $page->getMyYearsOfExperience() . '+ years of experience in building products for the internet.')
 
 @section('content')
-    <p class="mb-3">Hello, I am Hesam.</p>
+    <p class="mb-3 hero-overline">Hello, I am Hesam.</p>
     <h1>I build software.</h1>
 
     <p>I have been building web-based software since 2017 when I was still in college. Every once in a while, I
@@ -14,7 +14,9 @@
         is spent reading books.</p>
 
     <p>I mindfully employ digital minimalism in my life; but you can still reach me by sending an <a
-            href="mailto:hesamrad.dev@gmail.com">email</a> or visiting my <a href="https://linkedin.com/in/hesamrad"
+            href="mailto:{{ $page->email }}">email</a> or visiting my <a href="https://linkedin.com/in/hesamrad"
             target="_blank" rel="noopener noreferrer">LinkedIn</a> or <a href="https://github.com/hesamzakerirad" target="_blank" rel="noopener noreferrer">GitHub</a>
         page.</p>
+
+    @include('_components.hero')
 @endsection
