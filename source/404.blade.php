@@ -2,7 +2,6 @@
 title: Not Found!
 permalink: /404.html
 robots: noindex,follow
-disableCanonical: true
 ---
 
 @extends('_layouts.page')
