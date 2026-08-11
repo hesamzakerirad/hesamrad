@@ -1,10 +1,12 @@
-<span id="copy-url-btn" class="flex-1 bg-transparent text-primary-500 border border-primary-500 py-3 px-6 block text-center cursor-pointer">
-    <span class="copy-text">
-        <span>Copy URL</span>
-        <i class="fa-regular fa-copy ml-2"></i>
+<button class="btn btn--ghost" type="button" data-copy-url>
+    <span data-copy-idle>
+        @include('_components.icon', ['name' => 'copy', 'class' => 'btn__icon'])
+        <span>{{ $copyLabel ?? 'Copy URL' }}</span>
     </span>
-    <span class="copied-text" style="display: none;">
-        <span>Copied!</span>
-        <i class="fa-solid fa-check ml-2"></i>
+    {{-- `hidden` rather than a CSS class: the button must read correctly to
+         assistive tech before the script has swapped the states. --}}
+    <span data-copy-done hidden>
+        @include('_components.icon', ['name' => 'check', 'class' => 'btn__icon'])
+        <span>{{ $copiedLabel ?? 'Copied' }}</span>
     </span>
-</span>
+</button>
