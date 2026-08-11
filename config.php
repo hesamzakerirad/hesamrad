@@ -1,19 +1,89 @@
 <?php
 
+/*
+ * Hoisted out of the array below because the case-studies collection filter
+ * needs to close over it, and a PHP array literal cannot reference its own
+ * keys. Flip this to true once there are real case studies to show.
+ */
+$workIsPublic = true;
+
 return [
     'baseUrl' => 'http://localhost:8000',
     'production' => false,
     'siteName' => 'Hesam Rad',
-    'siteDescription' => 'Software Engineer',
+    // Reused as the JSON-LD `jobTitle`, so it has to stay a job title. The feed
+    // and anywhere else that wants a sentence uses `siteTagline` instead.
+    'siteDescription' => 'Independent software engineer',
+    'siteTagline' => 'Notes from the work: whatever I am building, using, or working out at the time.',
     'siteAuthor' => 'Hesam Rad',
+    // One source of truth for the address. It appears in the footer, in the
+    // contact form's fallback, on the thank-you page and in the structured
+    // data — six places that must never disagree about where mail goes.
     'email' => 'hesamrad.dev@gmail.com',
     // Defaults. Individual pages override these via `locale`/`language` front
     // matter; posts fall back to the post-specific pair below.
+    //
+    // The site is English. The Persian/RTL machinery below stays wired up — a
+    // post can still opt in with `language: fa` front matter — but it is no
+    // longer what an unmarked post gets by default.
     'defaultLocale' => 'en_US',
     'defaultLanguage' => 'en',
-    'postLocale' => 'fa_IR',
-    'postLanguage' => 'fa',
+    'postLocale' => 'en_US',
+    'postLanguage' => 'en',
     'rtlLanguages' => ['fa', 'ar', 'he', 'iw', 'ur'],
+
+    // Drives the nav entry, the listing page's robots directive, and whether
+    // sample case studies are generated at all. Set at the top of this file.
+    'workIsPublic' => $workIsPublic,
+
+    // The contact form posts to a Cloudflare Worker (see worker/), because the
+    // site is static and has no server of its own. Both of these are public by
+    // design — the Turnstile *secret* and every API key live as Worker secrets
+    // and never enter this repository.
+    'formEndpoint' => 'https://hello.hesamrad.com',
+    'turnstileSiteKey' => '0x4AAAAAAEMSHcNbdcoTgz3f',
+
+    /*
+     * Recommendations, quoted from LinkedIn.
+     *
+     * Real ones only. These are the strongest thing on the site precisely
+     * because a visitor can click through and find the person who wrote them,
+     * which stops working the moment one of them is invented.
+     *
+     * `url` should point at the recommendation or the author's profile — a
+     * quote somebody can verify is worth several they cannot.
+     *
+     * `avatar` is optional. It takes any image URL, but do not leave a
+     * LinkedIn one there: media.licdn.com serves signed URLs that expire,
+     * usually within weeks, and blocks cross-origin embedding. Save the file
+     * into source/_assets/images/ and point at that instead — then it is
+     * permanent, fast, and not a request to somebody else's server on every
+     * page load. If the image ever fails, the initials underneath show
+     * through on their own.
+     *
+     * Worth asking before using someone's photograph. Quoting a public
+     * recommendation is ordinary; putting their face on a commercial page is
+     * a step further, and people generally say yes when asked.
+     */
+    'testimonials' => [
+        [
+            'quote' => 'I had the privilege of working alongside Hesam from my very first day as an intern, and I can confidently say he played a pivotal role in shaping my growth as a developer. As a backend developer, Hesam combines deep technical expertise with a rare quality—genuine patience in mentoring others. What sets Hesam apart isn\'t just his technical skill; it\'s his willingness to stop what he\'s doing to explain a concept, debug an issue together, or share the why behind a decision—not just the how. Many of the habits and best practices I rely on today were shaped by his guidance. Beyond his technical abilities, Hesam is the kind of teammate every engineering team needs: reliable, collaborative, and genuinely invested in the success of those around him. Any team would be lucky to have him.',
+            'name' => 'Shahin Behzad Rad',
+            'role' => 'Full-Stack Developer',
+            'relationship' => 'Colleague',
+            'url' => 'https://www.linkedin.com/in/shahin-behzadrad',
+            'avatar' => null,
+        ],
+
+        [
+            'quote' => 'After working with Hesam for about 1 year, I can confidently say that you will have a compassionate friend and strong character in your team.',
+            'name' => 'Ramin Kheradmand',
+            'role' => 'Front-end Developer',
+            'relationship' => 'Colleague',
+            'url' => 'https://www.linkedin.com/in/ramin-kheradmand-5733b4199',
+            'avatar' => null
+        ],
+    ],
 
     'socialProfiles' => [
         'https://linkedin.com/in/hesamrad',
@@ -27,8 +97,24 @@ return [
             'author' => 'Hesam Rad',
             'sort' => '-created_at',
             'path' => 'blog/{filename}/',
-            'filter' => fn ($post) => $post->isPublished === true,
+            'filter' => fn($post) => $post->isPublished === true,
         ],
+        /*
+         * One file per case study, so each gets a page with room for the whole
+         * story rather than a slot in a shared list.
+         *
+         * The filter is the guard, and it is deliberately here rather than in a
+         * template: a sample is not merely hidden when the site goes public, it
+         * is never generated. There is no URL to leak, nothing in the sitemap,
+         * and no page to reach by guessing the address.
+         */
+        'caseStudies' => [
+            'path' => 'work/{filename}/',
+            'sort' => '-year',
+            'filter' => fn ($study) => ($study->published === true)
+                && ! (($study->sample ?? false) && $workIsPublic),
+        ],
+
         'pages' => [
             'path' => '{filename}/',
         ],
@@ -49,7 +135,7 @@ return [
             return $value;
         }
 
-        return is_string($value) && preg_match('/^-?\d+$/', $value) ? (int) $value : null;
+        return is_string($value) && preg_match('/^-?\d+$/', $value) ? (int)$value : null;
     },
 
     'getCreatedAtDateObject' => function ($page): DateTime {
@@ -61,7 +147,7 @@ return [
             );
         }
 
-        return Datetime::createFromFormat('U', (string) $timestamp);
+        return Datetime::createFromFormat('U', (string)$timestamp);
     },
 
     /**
@@ -75,7 +161,7 @@ return [
 
         return $timestamp === null
             ? $page->getCreatedAtDateObject()
-            : Datetime::createFromFormat('U', (string) $timestamp);
+            : Datetime::createFromFormat('U', (string)$timestamp);
     },
 
     /**
@@ -90,7 +176,7 @@ return [
         $dates = array_filter([
             $page->getTimestamp($page->created_at),
             $page->getTimestamp($page->updated_at),
-        ], fn ($timestamp) => $timestamp !== null);
+        ], fn($timestamp) => $timestamp !== null);
 
         return $dates ? max($dates) : null;
     },
@@ -118,7 +204,7 @@ return [
     'toSummaryText' => function ($page, $text, $length = null) {
         // preg_replace returns null on malformed UTF-8; keeping the original is
         // better than silently collapsing the whole summary to an empty string.
-        $collapsed = preg_replace('/\s+/u', ' ', (string) $text) ?? (string) $text;
+        $collapsed = preg_replace('/\s+/u', ' ', (string)$text) ?? (string)$text;
         $cleaned = trim($collapsed);
 
         if ($length === null || mb_strlen($cleaned) <= $length) {
@@ -133,7 +219,7 @@ return [
         // treating it as failure would fall back to the untrimmed cut.
         $trimmed = preg_replace('/\s+\S*$/u', '', $truncated) ?? $truncated;
 
-        return rtrim($trimmed === '' ? $truncated : $trimmed).'…';
+        return rtrim($trimmed === '' ? $truncated : $trimmed) . '…';
     },
 
     /**
@@ -152,7 +238,7 @@ return [
         // budget still applies — these summaries land in fixed-size meta tags.
         $content = preg_split('/<!-- more -->/m', $page->getContent(), 2);
         $body = preg_replace(['/<pre>[\w\W]*?<\/pre>/', '/<h\d>[\w\W]*?<\/h\d>/'], '', $content[0]);
-        $text = html_entity_decode(strip_tags((string) $body), ENT_QUOTES, 'UTF-8');
+        $text = html_entity_decode(strip_tags((string)$body), ENT_QUOTES, 'UTF-8');
 
         return $page->toSummaryText($text, $length);
     },
@@ -196,12 +282,12 @@ return [
     // Front matter wins when set. `??` alone is not enough: a blank `language:`
     // key parses as an empty string, not null, and would emit lang="".
     'getLanguage' => function ($page) {
-        return trim((string) $page->language)
+        return trim((string)$page->language)
             ?: ($page->isPost($page) ? $page->postLanguage : $page->defaultLanguage);
     },
 
     'getLocale' => function ($page) {
-        return trim((string) $page->locale)
+        return trim((string)$page->locale)
             ?: ($page->isPost($page) ? $page->postLocale : $page->defaultLocale);
     },
 
@@ -234,15 +320,15 @@ return [
 
     'isHomePage' => function ($page) {
         return $page->getPath() === '' ||
-               $page->getPath() === '/' ||
-               $page->getPath() === 'index';
+            $page->getPath() === '/' ||
+            $page->getPath() === 'index';
     },
 
     // Override URL generator (safety net)
     'getUrlWithTrailingSlash' => function ($page) {
-        $url = rtrim($page->getBaseUrl(), '/').'/'.ltrim($page->getPath(), '/');
+        $url = rtrim($page->getBaseUrl(), '/') . '/' . ltrim($page->getPath(), '/');
 
-        return $url.(str_ends_with($url, '/') ? '' : '/');
+        return $url . (str_ends_with($url, '/') ? '' : '/');
     },
 
     /**
@@ -253,15 +339,113 @@ return [
      * would otherwise advertise a directory URL that the build never emits.
      */
     'getCanonicalUrl' => function ($page) {
+        // With the trailing slash, because that is the URL the host actually
+        // serves. Advertising the bare origin as canonical while every request
+        // resolves to "/" points the canonical at a URL that redirects, and
+        // every other page on the site ends in a slash.
         if ($page->isHomePage()) {
-            return $page->getBaseUrl();
+            return rtrim($page->getBaseUrl(), '/') . '/';
         }
 
         if ($page->permalink) {
-            return rtrim($page->getBaseUrl(), '/').'/'.ltrim($page->permalink, '/');
+            return rtrim($page->getBaseUrl(), '/') . '/' . ltrim($page->permalink, '/');
         }
 
         return $page->getUrlWithTrailingSlash();
+    },
+
+    /**
+     * A case study's cover, normalised to [src, alt, caption].
+     *
+     * Front matter writes this two ways — `cover: 'https://…'` when there is
+     * nothing to say about the picture, and a map with `src`/`alt`/`caption`
+     * when there is. The templates only ever read the map form, so a study
+     * using the string silently rendered no image at all: no error, no
+     * placeholder, just a card that quietly ignored its own cover.
+     *
+     * Both shapes are valid authoring, so the fix belongs here rather than in
+     * a rule about which one to type. Returns null when there is no cover.
+     */
+    'getCover' => function ($page) {
+        $cover = $page->cover;
+
+        if (is_string($cover)) {
+            return trim($cover) === '' ? null : ['src' => trim($cover), 'alt' => '', 'caption' => ''];
+        }
+
+        // An IterableObject on a page, a plain array on a collection item.
+        if (is_array($cover) || $cover instanceof Traversable) {
+            $cover = collect($cover)->all();
+            $src = trim((string) ($cover['src'] ?? ''));
+
+            // A map with no src is the deliberate "there will be a picture
+            // here one day" marker the placeholder renders for.
+            return [
+                'src' => $src === '' ? null : $src,
+                'alt' => (string) ($cover['alt'] ?? ''),
+                'caption' => (string) ($cover['caption'] ?? ''),
+            ];
+        }
+
+        return null;
+    },
+
+    /**
+     * The trail from the home page to this one, as [name, url, current].
+     *
+     * One source of truth on purpose: the visible breadcrumbs and the
+     * BreadcrumbList in the JSON-LD are the same list rendered twice, and
+     * Google treats a mismatch between the two as a reason to ignore the
+     * markup. Deriving both from here means they cannot drift.
+     *
+     * Empty on the home page — a one-item trail is not a trail.
+     *
+     * $labels lets a caller localise the fixed words; a Persian post needs a
+     * Persian "Home" in the same way it already needs a Persian "Back to blog".
+     */
+    'getBreadcrumbs' => function ($page, array $labels = []) {
+        if ($page->isHomePage()) {
+            return [];
+        }
+
+        $segments = array_values(array_filter(explode('/', trim($page->getPath(), '/'))));
+
+        if ($segments === []) {
+            return [];
+        }
+
+        $base = rtrim($page->getBaseUrl(), '/');
+
+        // Section names rather than slugs: "Open source", not "projects". A URL
+        // segment is an address, and addresses make poor labels.
+        $names = array_merge([
+            'home' => 'Home',
+            'blog' => 'Blog',
+            'work' => 'Work',
+            'projects' => 'Open source',
+        ], $labels);
+
+        $humanise = fn ($segment) => $names[$segment]
+            ?? ucfirst(str_replace('-', ' ', $segment));
+
+        $crumbs = [['name' => $names['home'], 'url' => $base . '/', 'current' => false]];
+        $trail = '';
+
+        foreach ($segments as $index => $segment) {
+            $trail .= '/' . $segment;
+            $isLast = $index === count($segments) - 1;
+
+            $crumbs[] = [
+                // The leaf is named by the page itself. `title` is front matter
+                // on every page that has a trail, so this is authoritative
+                // rather than reconstructed from the address.
+                'name' => $isLast ? ($page->title ?: $humanise($segment)) : $humanise($segment),
+                'url' => $base . $trail . '/',
+                'current' => $isLast,
+            ];
+        }
+
+        return $crumbs;
     },
 
     'getMyYearsOfExperience' => function () {

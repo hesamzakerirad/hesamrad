@@ -74,8 +74,12 @@ class GenerateSitemap
 
     protected function url($baseUrl, $destination, $path)
     {
+        // With the trailing slash, to match what the home page declares as its
+        // own canonical. A sitemap that lists the bare origin while the page it
+        // points at names "/" as canonical hands a crawler two spellings of one
+        // URL and makes it choose.
         if ($path === '') {
-            return $baseUrl;
+            return rtrim($baseUrl, '/').'/';
         }
 
         $url = $baseUrl.$path;
