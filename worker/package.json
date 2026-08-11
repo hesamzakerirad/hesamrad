@@ -1,0 +1,18 @@
+{
+    "name": "hesamrad-contact-worker",
+    "private": true,
+    "type": "module",
+    "description": "Cloudflare Worker that receives the hesamrad.com contact form, stores it in D1 and sends the notifications.",
+    "scripts": {
+        "test": "node test.mjs",
+        "dev": "wrangler dev",
+        "deploy": "wrangler deploy",
+        "tail": "wrangler tail",
+        "db:schema": "wrangler d1 execute hesamrad-enquiries --remote --file=./schema.sql",
+        "db:recent": "wrangler d1 execute hesamrad-enquiries --remote --command \"SELECT received_at, name, email, source_page FROM enquiries ORDER BY id DESC LIMIT 10\"",
+        "db:columns": "wrangler d1 execute hesamrad-enquiries --remote --command \"PRAGMA table_info(enquiries)\""
+    },
+    "devDependencies": {
+        "wrangler": "^4.0.0"
+    }
+}
