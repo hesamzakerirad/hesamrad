@@ -19,6 +19,13 @@ thumbnail: '/assets/build/images/laravel-13-vs-laravel-12.jpg'
 thumbnailCopyRightSource: 'https://unsplash.com/photos/two-elephants-walking-on-grass-covered-ground-BuQ1RZckYW4'
 readTime: 8
 source: 'https://laravel.com/docs/13.x/releases'
+# This post's reader is a developer, not a business owner, so the default
+# end-of-post pitch would be aimed at the wrong person entirely.
+ctaTitle: 'Sitting on an upgrade nobody has time for?'
+ctaBody: 'Framework upgrades, the PHP version underneath them, and the test coverage that makes either safe to attempt. Describe what you are running and I will tell you what it would take.'
+ctaAction: 'Describe your application'
+ctaSecondary: '/projects/'
+ctaSecondaryLabel: 'My open-source packages'
 isFeatured: false
 isPublished: true
 ---
@@ -218,5 +225,3 @@ If you are still on PHP 8.2, treat that as the real work and Laravel 13 as the r
 ---
 
 **Further reading:** the [Laravel 13 release notes](https://laravel.com/docs/13.x/releases) and the [upgrade guide](https://laravel.com/docs/13.x/upgrade) are both short and worth reading end to end before you start.
-
-If you build things with Laravel, I have a few open-source packages on [my projects page](/projects/) that you might find useful.
