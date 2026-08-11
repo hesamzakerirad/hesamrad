@@ -144,5 +144,8 @@ build_family() {
     fi
 }
 
-build_family Noto-Sans "$RANGES" pin
+# No `pin`: that path exists only because Noto Sans shipped a redundant `wdth`
+# axis. Inter's `opsz` axis is kept on purpose — it is what tightens the display
+# sizes, and browsers apply it for free via the default `font-optical-sizing`.
+build_family Inter "$RANGES"
 build_family JetBrains-Mono "${RANGES},${MONO_EXTRA}"
