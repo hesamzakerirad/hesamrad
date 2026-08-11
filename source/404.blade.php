@@ -5,10 +5,45 @@ robots: noindex,follow
 disableCanonical: true
 ---
 
-@extends('_layouts.page')
+@extends('_layouts.main')
 
-@section('title', 'Not Found!')
+@section('title', 'Not Found')
 
-@section('content')
-    <p>Sorry, the page you are looking for does not exist. Why don't we head back <a href="{{ $page->baseUrl }}">home</a>?</p>
+@section('description', 'That page is not here. The work, the services and the writing all still are — links to each of them are below.')
+
+@section('body')
+    <div class="shell section page-head">
+        {{-- The same mark as the favicon, saying something. A 404 is the one
+             page nobody is evaluating you on: the visitor is already lost, and
+             is the only reader on the site who has nothing to lose by being
+             shown something for its own sake. --}}
+        @include('_components.pixel-mark', [
+            'class' => 'pixel-mark--404',
+            'label' => '404',
+            'pixels' => [
+                '#...#.#.###.#.#..##',
+                '.#..#.#.#.#.#.#..##',
+                '..#.###.#.#.###..##',
+                '.#....#.#.#...#..##',
+                '#.....#.###...#..##',
+            ],
+        ])
+
+        <h1>This page does not exist.</h1>
+        <p class="lead prose">Either the address is wrong or I moved something without leaving a redirect. Both are
+            fixable &mdash; here are the places worth trying.</p>
+
+        <div class="btn-row">
+            <a class="btn btn--primary" href="{{ $page->baseUrl }}">
+                <span>Home</span>
+                @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+            </a>
+            <a class="btn btn--ghost" href="{{ $page->baseUrl }}/services/">
+                <span>Services</span>
+            </a>
+            <a class="btn btn--ghost" href="{{ $page->baseUrl }}/projects/">
+                <span>Open source</span>
+            </a>
+        </div>
+    </div>
 @endsection
