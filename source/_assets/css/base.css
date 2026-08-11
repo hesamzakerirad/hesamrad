@@ -1,0 +1,287 @@
+/*
+ * Element-level defaults: the document, typography, links, and the handful of
+ * raw tags that markdown emits. Anything with a class lives in components.css.
+ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /*
+     * Derived from the header rather than hard-coded: the header is 5rem on
+     * desktop and 4rem on mobile, so a fixed 6rem dropped every anchor target
+     * a centimetre below where it belonged on one of them.
+     */
+    scroll-padding-top: calc(var(--header-height) + var(--space-md));
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+    /* The default is a translucent blue flash that belongs to no design
+       system on earth. The elements below draw their own pressed states. */
+    -webkit-tap-highlight-color: transparent;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    background-color: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    z-index: var(--z-content);
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--selection-bg);
+    color: var(--selection-text);
+}
+
+/*
+ * One family, three weights, and all the hierarchy from scale. Headings sit at
+ * 600 rather than 700 — semibold is the Apple weight, and true bold at these
+ * sizes reads as shouting.
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 var(--space-sm);
+    color: var(--heading);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+}
+
+h2 {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-tight);
+}
+
+h3 {
+    font-size: var(--text-xl);
+}
+
+h4 {
+    font-size: var(--text-lg);
+}
+
+h5,
+h6 {
+    font-size: var(--text-base);
+    letter-spacing: 0;
+}
+
+p {
+    margin: 0 0 var(--space-md);
+    text-wrap: pretty;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+small {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+}
+
+b,
+strong {
+    color: var(--heading);
+    font-weight: 600;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+/*
+ * `outline` rather than a box-shadow ring: it follows the element's own border
+ * radius and is not clipped by an ancestor's `overflow`, which a shadow is.
+ * `:focus-visible` only — a mouse click on a button should not light up.
+ */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+hr {
+    height: var(--hairline);
+    margin: var(--space-lg) 0;
+    border: 0;
+    /* A hairline that fades at both ends reads as drawn rather than as a
+       browser default. */
+    background: linear-gradient(90deg, transparent, var(--line-strong) 20%, var(--line-strong) 80%, transparent);
+}
+
+ul,
+ol {
+    margin: 0 0 var(--space-md);
+    padding-left: 1.25rem;
+}
+
+li {
+    margin-bottom: var(--space-xs);
+}
+
+li::marker {
+    color: var(--text-faint);
+}
+
+blockquote {
+    margin: var(--space-md) 0;
+    padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+    border-left: 2px solid var(--line-strong);
+    color: var(--text-dim);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+figure {
+    margin: var(--space-md) 0;
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    direction: ltr;
+}
+
+/* Inline code only — `pre code` is reset back in the syntax sheet. */
+:not(pre) > code {
+    padding: 0.15em 0.4em;
+    background: var(--surface);
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--heading);
+}
+
+table {
+    width: 100%;
+    margin: var(--space-md) 0;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+th,
+td {
+    padding: 0.7em 0.9em;
+    border-bottom: var(--hairline) solid var(--line);
+    text-align: left;
+}
+
+th {
+    color: var(--heading);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius);
+}
+
+svg {
+    vertical-align: middle;
+}
+
+/* Form controls do not inherit the document font on their own — left alone,
+   every input on the site quietly renders in the browser's default Arial. */
+input,
+select,
+textarea {
+    font: inherit;
+    letter-spacing: inherit;
+}
+
+/*
+ * Interactive targets get a floor of 24x24 (WCAG 2.2 SC 2.5.8). The header
+ * controls are pushed to 44 separately: they are the only things on the page
+ * a thumb has to find while holding a phone one-handed.
+ */
+a,
+button,
+label,
+summary {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+/*
+ * One global kill switch for motion. Nothing here loops or plays on its own —
+ * the only motion on the site is the one-shot scroll reveal in components.css
+ * and the hover/focus transitions, and this zeroes both.
+ */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    /*
+     * Delays are zeroed as well as durations. The mobile nav holds `visibility`
+     * for the length of its fade so the panel does not vanish mid-transition —
+     * `transition: visibility 0s linear var(--duration)`. Zeroing only the
+     * duration made the fade instant while leaving that 300ms delay intact, so
+     * a closed menu stayed invisible and still hit-testable over the page:
+     * dismiss it, tap what was underneath, and the tap lands on a menu link.
+     */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+        scroll-behavior: auto !important;
+    }
+}

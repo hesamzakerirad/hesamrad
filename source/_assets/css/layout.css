@@ -1,0 +1,597 @@
+/*
+ * The page shell: skip link, header, section rhythm, prose column, footer.
+ */
+
+:root {
+    /* Lives on the root, not on `.site-header`, because `.page-main` needs it
+       to reserve space for the fixed header and is not inside it. */
+    --header-height: 5rem;
+
+    /* The colour the current section is painted with. Overridden by
+       .section--band; everything else inherits the page. */
+    --section-bg: var(--bg);
+}
+
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: var(--z-overlay);
+    padding: var(--space-xs) var(--space-md);
+    background: var(--heading);
+    color: var(--bg);
+    font-size: var(--text-sm);
+    transform: translate(-50%, -110%);
+    transition: transform var(--duration) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+    color: var(--bg);
+    transform: translate(-50%, 0);
+}
+
+.shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+/* The reading column. Narrower than the shell on purpose: line length is a
+   legibility constraint, not a layout one. */
+.prose {
+    max-width: var(--measure);
+}
+
+/*
+ * Articles get a narrower shell instead of a narrow column inside a wide one.
+ * Otherwise the text sits in the left third of a 1140px page with the feature
+ * image running past it, which reads as a broken grid rather than a layout.
+ */
+.shell--article {
+    max-width: 52rem;
+}
+
+.shell--article .rich-text {
+    max-width: none;
+}
+
+.section {
+    padding-block: var(--space-section);
+}
+
+
+/*
+ * Sections no longer carry a dividing rule. With filled, rounded surfaces
+ * inside them the structure is already legible, and a hairline between every
+ * one of them reads as a table.
+ *
+ * Without that rule, though, two stacked sections pool their padding into one
+ * enormous void. The second drops its top padding so the gap between two plain
+ * sections is a single `--space-section`, not two. A band is excluded at both
+ * ends: its padding sits inside the tint and is what makes it read as a block.
+ */
+.section:not(.section--band) + .section:not(.section--band) {
+    padding-top: 0;
+}
+
+/*
+ * A full-bleed tint that runs edge to edge while its content stays on the
+ * shell — the device that gives the page rhythm when there is no photography
+ * to break it up. It keeps its own padding on both sides: that padding is what
+ * makes the tint read as a block rather than as a stripe.
+ */
+.section--band {
+    background: var(--surface);
+    /* Anything that needs to paint *as* the section it sits in reads this
+       rather than guessing at --bg. See .steps > li::before. */
+    --section-bg: var(--surface);
+}
+
+.page-main {
+    /* Clears the fixed header. */
+    padding-top: var(--header-height);
+}
+
+/*
+ * `<main>` carries tabindex="-1" so the skip link can actually move focus, not
+ * just the scroll position. It is a container rather than a control, and it is
+ * only ever focused as the destination of the visitor's own skip — a ring
+ * around the entire page would say nothing useful about where they are.
+ */
+.page-main:focus,
+.page-main:focus-visible {
+    outline: none;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-header);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    transition: background-color var(--duration) var(--ease-out),
+        border-color var(--duration) var(--ease-out);
+    border-bottom: var(--hairline) solid transparent;
+}
+
+/*
+ * `is-stuck` is set by the scroll listener rather than by a scroll-driven
+ * CSS animation, because the header also needs the same state for the mobile
+ * menu — an open menu over a transparent header is unreadable.
+ */
+/*
+ * `saturate` alongside the blur is what separates frosted glass from grey
+ * gauze: blur alone averages the colour behind it towards flat, and pushing
+ * saturation back up keeps whatever is scrolling underneath looking like
+ * itself. The opacity is a touch higher than it was so small text over a busy
+ * section stays legible rather than merely visible.
+ */
+.site-header.is-stuck,
+.site-header.is-open {
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom-color: var(--line);
+}
+
+/*
+ * Flex with space-between put the nav 23px left of centre on a 1280px screen,
+ * because it centres the *gaps* and the brand is wider than the controls
+ * opposite it. Three columns with the outer two at 1fr centre the nav against
+ * the viewport instead, whatever sits either side of it.
+ *
+ * Mobile keeps flex: there the nav is position:fixed, so it is not a grid item
+ * at all, and the actions would slide into the middle column.
+ */
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .site-header__inner {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+    }
+
+    .header-actions {
+        justify-self: end;
+    }
+}
+
+/* The name alone is the mark. An accent square and a tracked-out job title
+   beside it were two more things competing with the nav. */
+.brand {
+    display: inline-flex;
+    align-items: baseline;
+    color: var(--heading);
+    font-weight: 600;
+    font-size: var(--text-base);
+    letter-spacing: var(--tracking-tight);
+}
+
+.brand:hover {
+    color: var(--heading);
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+/*
+ * Hover and current state are the same device at two intensities — a filled
+ * capsule — rather than a tint for one and a rule for the other. Two
+ * mechanisms in six items read as two ideas; one reads as a control.
+ *
+ * The fill is the surface colour, so on a transparent header it is barely
+ * there until the pointer is on it. That restraint is the point: the nav
+ * should answer where you are without competing with the page.
+ */
+/*
+ * No fill on a nav link, in any state.
+ *
+ * These are links; the toggles beside them are buttons. Giving both the same
+ * capsule made the header consistent at the cost of saying two different
+ * things the same way — and a capsule is the wrong one of the two for a word
+ * you click to go somewhere.
+ *
+ * The padding stays: it is the hit target, and it is what keeps the row
+ * clearing the 24px minimum. The radius went with the fill, since a corner
+ * radius on a transparent box draws nothing.
+ */
+.site-nav__link {
+    padding: 0.45rem 0.8rem;
+    color: var(--text-dim);
+    font-size: var(--text-sm);
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.site-nav__link:hover {
+    color: var(--heading);
+}
+
+/*
+ * The current page is weight, not a fill and not only a colour.
+ *
+ * Three states on one axis each: dim at rest, heading colour on hover, heading
+ * colour and 600 for the page you are on. Weight is the signal that survives
+ * greyscale, low brightness and a bad screen — and it is a non-colour channel,
+ * which is what WCAG asks for when state is being communicated.
+ */
+.site-nav__link.is-active,
+.site-nav__link.is-active:hover {
+    color: var(--heading);
+    font-weight: 600;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+/*
+ * 2.75rem = 44px. These are the only controls a one-handed thumb has to find,
+ * so they get the full AAA target size rather than the 24px AA floor.
+ *
+ * No border. A ringed circle was the heaviest mark in the header — heavier
+ * than the name — and it was the only element drawing its own outline. It
+ * lights up on hover exactly like the nav capsules do, so the whole bar now
+ * has one idea of what "interactive" looks like.
+ */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-pill);
+    color: var(--text-dim);
+    transition: color var(--duration-fast) var(--ease-out),
+        background-color var(--duration-fast) var(--ease-out);
+}
+
+.theme-toggle:hover {
+    color: var(--heading);
+    background: var(--surface);
+}
+
+/* Each glyph is present in the markup; the theme decides which one shows, so
+   the button is correct even before the toggle script runs. */
+.theme-toggle__icon {
+    --icon-size: 1rem;
+    display: none;
+}
+
+[theme='dark'] .theme-toggle__icon--sun,
+[theme='light'] .theme-toggle__icon--moon {
+    display: block;
+}
+
+.nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-pill);
+    color: var(--text-dim);
+    transition: color var(--duration-fast) var(--ease-out),
+        background-color var(--duration-fast) var(--ease-out);
+}
+
+.nav-toggle:hover {
+    color: var(--heading);
+    background: var(--surface);
+}
+
+.nav-toggle__icon {
+    --icon-size: 1.1rem;
+}
+
+/* The glyph follows the panel state, so the control always shows the action
+   it performs rather than the state it is in. */
+.nav-toggle__icon--close,
+.site-header.is-open .nav-toggle__icon--open {
+    display: none;
+}
+
+.site-header.is-open .nav-toggle__icon--close {
+    display: block;
+}
+
+/* ── Hero ───────────────────────────────────────────────────────────── */
+
+/*
+ * No `min-height`: the hero is sized by what it says, not padded out to fill a
+ * viewport. Centred, because with no product photography the headline is the
+ * hero, and a centred statement reads as a claim rather than as the start of a
+ * paragraph.
+ */
+.hero {
+    position: relative;
+    /* A stacking context of its own, so the grid can sit at a negative index —
+       behind the hero's own content, still in front of the page. */
+    isolation: isolate;
+    padding-block: clamp(4.5rem, 11vw, 9rem) var(--space-section);
+    text-align: center;
+}
+
+/*
+ * Width and height are explicit rather than implied by insets. An <svg> is a
+ * replaced element: with `width: auto` it takes its intrinsic 300x150 and
+ * ignores the opposite inset entirely, so `left: 0; right: 0` silently sized
+ * the field to 300px at every breakpoint.
+ *
+ * It stops at the shell rather than reaching into the gutters. Extending it
+ * looked better on a wide screen and overflowed the viewport on a narrow one,
+ * where the shell already spans the full width — and the fade is a ring that
+ * reaches zero before the edge anyway, so there is no seam to hide.
+ *
+ * No 100vw anywhere: that unit includes the scrollbar, so a full-viewport child
+ * inside a scrolling page is the classic way to cause the scrollbar it is then
+ * measured against.
+ */
+.dot-grid {
+    position: absolute;
+    /*
+     * Pulled up behind the header rather than starting under it.
+     *
+     * `.page-main` reserves --header-height at the top of the page, so a field
+     * that begins at the hero's own top edge begins exactly on the header's
+     * bottom — a straight horizontal line across the full width, with the mask
+     * still two-thirds opaque there, so the dots do not fade in, they start.
+     * It read as the header casting a clean strip onto the page.
+     *
+     * Extending it up means the field simply continues behind the bar. The
+     * header is transparent at the top of the page, so there is nothing to see
+     * but dots, and once it sticks its own blur takes them — which is what
+     * frosted glass is supposed to do to whatever is behind it.
+     */
+    top: calc(-1 * var(--header-height));
+    left: 0;
+    width: 100%;
+    height: calc(100% + var(--header-height));
+    z-index: -1;
+    color: var(--dot);
+    pointer-events: none;
+}
+
+/*
+ * A kicker, not a heading — it sits above a headline and is deliberately quiet
+ * enough not to compete with it.
+ *
+ * Shared rather than scoped to the hero: the same device answers "what is
+ * this?" above the home page's headline and above a page whose title is a name
+ * rather than a description.
+ */
+.eyebrow {
+    margin-bottom: var(--space-xs);
+    color: var(--text-dim);
+    font-size: var(--text-sm);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/*
+ * 24ch, not 15: the headline is two sentences now, and the tighter measure
+ * pushed it to four lines that filled the viewport before the buttons.
+ * `text-wrap: balance` evens the lines out instead of leaving a short last one
+ * — it applies to headings only, which is exactly what it is for, and browsers
+ * without it simply wrap as before.
+ */
+.hero__title {
+    max-width: 24ch;
+    text-wrap: balance;
+    margin-inline: auto;
+    margin-bottom: var(--space-md);
+    font-size: var(--text-display);
+    font-weight: 600;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+}
+
+.hero__lede {
+    max-width: 34rem;
+    margin-inline: auto;
+    font-size: var(--text-lg);
+    line-height: var(--leading-lede);
+    color: var(--text-dim);
+}
+
+.hero .btn-row {
+    justify-content: center;
+}
+
+/* The escape hatch for anyone who does not recognise themselves in either
+   button. Quiet on purpose — it is a third option, not a third call to
+   action. */
+.hero__route {
+    margin-top: var(--space-md);
+    color: var(--text-dim);
+    font-size: var(--text-sm);
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────── */
+
+.site-footer {
+    margin-top: var(--space-section);
+    border-top: var(--hairline) solid var(--line);
+    padding-block: var(--space-xl) var(--space-lg);
+    font-size: var(--text-sm);
+}
+
+/*
+ * A directory rather than a single row of links. `auto-fit` with a wide brand
+ * column means groups can be added without touching the CSS — which is the
+ * point, since the whole reason for the rewrite was that the old footer had
+ * nowhere to put anything.
+ */
+.site-footer__top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+    .site-footer__top {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+}
+
+/* The brand block earns roughly twice the width of a link column, and leads
+   the row on wide screens. */
+@media (min-width: 900px) {
+    .site-footer__top {
+        grid-template-columns: minmax(16rem, 2fr) repeat(auto-fit, minmax(9rem, 1fr));
+        gap: var(--space-xl);
+    }
+}
+
+.site-footer__brand {
+    max-width: 24rem;
+}
+
+.site-footer__name {
+    margin-bottom: var(--space-2xs);
+    color: var(--heading);
+    font-size: var(--text-base);
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+}
+
+.site-footer__pitch {
+    margin-bottom: var(--space-sm);
+    color: var(--text-dim);
+}
+
+/*
+ * A <p> rather than a heading. Four real <h2>s in the footer would land in the
+ * outline of every page on the site; the group's <nav> carries the accessible
+ * name instead, which is what a screen reader actually navigates by.
+ */
+.footer-group__title {
+    margin-bottom: var(--space-xs);
+    color: var(--heading);
+    font-weight: 600;
+}
+
+.footer-group__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-group__list li {
+    margin: 0;
+}
+
+/* Padded to clear the 24px minimum target size (WCAG 2.2 SC 2.5.8) — a bare
+   line box of small text is a miss waiting to happen on a phone. */
+.footer-group__list a {
+    display: inline-block;
+    padding-block: 0.3rem;
+    color: var(--text-dim);
+}
+
+.footer-group__list a:hover {
+    color: var(--heading);
+}
+
+.site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-md);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: var(--hairline) solid var(--line);
+    color: var(--text-dim);
+}
+
+.site-footer__bottom p {
+    margin: 0;
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 767.98px) {
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .brand {
+        white-space: nowrap;
+    }
+
+    .site-nav {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        /*
+         * The gutter minus the row's own inset, so the words still start on the
+         * page's left edge while the capsule behind them extends past it. Pad
+         * the nav the full gutter and every label sits 0.9rem further in than
+         * the brand above it, which is exactly the kind of near-miss that makes
+         * a menu feel unconsidered.
+         */
+        padding: var(--space-xs) calc(var(--gutter) - 0.9rem) var(--space-md);
+        background: var(--bg-elevated);
+        border-bottom: var(--hairline) solid var(--line);
+        /*
+         * `visibility` rather than `display: none`, so the panel can transition
+         * and is still taken out of the accessibility tree while closed.
+         *
+         * The switch is stepped, not eased, and the delay only applies while
+         * closing — it holds the panel visible until the fade finishes. Easing
+         * `visibility` over the full duration (which is what this used to do)
+         * kept its computed value `hidden` for the whole opening transition, so
+         * the first link could not be focused and the keyboard was left
+         * stranded outside a panel that was plainly on screen.
+         */
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-0.5rem);
+        transition: opacity var(--duration) var(--ease-out),
+            transform var(--duration) var(--ease-out),
+            visibility 0s linear var(--duration);
+    }
+
+    .site-header.is-open .site-nav {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity var(--duration) var(--ease-out),
+            transform var(--duration) var(--ease-out),
+            visibility 0s;
+    }
+
+    /*
+     * Full-width capsules rather than rows divided by hairlines. Five rules
+     * across a short menu read as a table of contents; the fill says the same
+     * thing about which row you are on without drawing four extra lines to say
+     * it, and it is the device the desktop nav already uses.
+     */
+    .site-nav__link {
+        padding: 0.85rem 0.9rem;
+        font-size: var(--text-base);
+    }
+}
