@@ -3,8 +3,19 @@
 {{-- The headline is the hook; the title is what somebody types into a search
      box. They do not have to be the same sentence, and here they should not be:
      "Your business has a back office" is nobody's search query, and at 70
-     characters it would be cut off in the result anyway. --}}
-@section('title', 'Independent software engineer')
+     characters it would be cut off in the result anyway.
+
+     Name first, and only on this page. Every other page leads with what the
+     page is and lets the brand trail, because that is where a searcher's eye
+     goes. The home page inverts it for two reasons: a tab bar shows about
+     twelve characters, and "Independent…" identifies nothing while "Hesam
+     Rad…" identifies the tab; and the query that actually reaches this page is
+     the name, not "independent software engineer", which is a generic term
+     this site will never rank for.
+
+     The layout appends no suffix here — it drops it when the title already
+     contains the site name, which this one does. --}}
+@section('title', 'Hesam Rad — Independent software engineer')
 
 @section('description', 'Independent software engineer. I build the system your business actually runs on — and the website in front of it. One person, start to finish.')
 
