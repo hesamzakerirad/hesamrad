@@ -14,6 +14,8 @@ updated_at: 2026-08-12
 readTime: 8
 isFeatured: true
 isPublished: true
+thumbnail: "https://images.unsplash.com/photo-1584670508996-c3144057a8d0?q=80&w=2371&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+thumbnailCopyRightSource: "https://unsplash.com/photos/brown-wooden-plank-near-white-and-blue-textile-frZt8AVYdI0"
 ---
 
 Almost everyone who asks me this frames it as a cost question. The agency quoted
@@ -25,9 +27,12 @@ two options do not fail in the same way, and you are really choosing which kind
 of failure you would rather be exposed to. Once you see it that way the decision
 gets easier, and it stops depending on which quote is smaller.
 
-I should say plainly that I am an independent engineer, so I have a side in
-this. I have tried to write the version I would want to read if I were the one
-signing the cheque.
+I am an independent engineer, so one of these answers pays me — worth knowing
+before you read the rest. I have stuck to things you can check: every figure
+here is sourced, the statistic that would have helped my case most is one I
+threw out, and the cases where an agency is the right answer are set out in
+full. You should finish this knowing exactly what you are choosing, rather than
+knowing what I would prefer.
 
 ## Where the rate actually goes
 
