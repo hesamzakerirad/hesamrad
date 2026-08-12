@@ -1,78 +1,18 @@
-/*
- * Design tokens.
- *
- * Every colour the site paints goes through a token here, and both themes
- * define the same set — nothing downstream may reach for a literal hex or
- * branch on the colour scheme itself.
- *
- * The theme is chosen by the `theme` attribute on <html>, not by a bare
- * `prefers-color-scheme` query: the header carries a manual toggle, and a
- * media query cannot be overridden by a click. The inline script in the
- * layout head sets that attribute before first paint, so the OS preference
- * still wins by default.
- *
- * The reference is Apple's interface system: aggressively neutral greys, one
- * blue spent almost nowhere, generous radii, and type that does the work
- * through scale and weight rather than through ornament. Nothing here is warm
- * — warmth reads as print, and print reads as dated on a screen.
- */
-
 :root {
-    /* One family for the whole interface. Inter is the closest open face to
-       SF Pro, and its `opsz` axis is what tightens the large sizes the way
-       Apple's display cut does — browsers apply it for free via the default
-       `font-optical-sizing: auto`. JetBrains Mono renders code and nothing
-       else. There is no serif on this site by design. */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-    /* Type scale. Body sits at 17px — Apple's reading size, not the 16px
-       default — and the display step is deliberately enormous, because with no
-       product photography the headline is the only thing carrying the page. */
     --text-xs: 0.8125rem;
     --text-sm: 0.875rem;
     --text-base: 1.0625rem;
     --text-lg: clamp(1.1875rem, 0.35vw + 1.1rem, 1.3125rem);
     --text-xl: clamp(1.375rem, 0.7vw + 1.2rem, 1.75rem);
     --text-2xl: clamp(1.75rem, 2vw + 1.25rem, 3rem);
-    /*
-     * Inner-page h1s. Lowered with --text-display, which it was scaled against
-     * — at 60px a post headline ran to three lines over a measure the body text
-     * matched exactly, so the heading was as wide as the paragraph under it and
-     * three times the height.
-     *
-     * The 3.25rem cap is deliberate: --text-2xl tops out at 3rem, and taking
-     * this to 3rem would leave an h1 and an h2 the same size on every page.
-     */
+
     --text-3xl: clamp(2rem, 2.4vw + 1.4rem, 3.25rem);
-    /*
-     * Sized for the headline that is actually written, not the shortest one a
-     * site could have. At 6rem this was tuned for four words; the home page
-     * headline is now two sentences, and 86px ran it to three lines and pushed
-     * the buttons under the fold on a phone.
-     *
-     * Both terms had to move. Lowering the cap alone changes nothing below
-     * about 900px, where the middle term governs and the cap never applies.
-     *
-     * The floor is deliberately above --text-3xl's 2.25rem. Take it lower and
-     * the home page's headline ends up smaller on a phone than the heading on
-     * the blog index, which inverts the one hierarchy the whole page rests on.
-     */
+
     --text-display: clamp(2.5rem, 5vw + 1.25rem, 4.5rem);
-    /*
-     * Headline figures — the stats panel and the Zero to One prices. Not a
-     * heading size: a figure is read as a quantity, and it sits beside a
-     * heading rather than under one.
-     *
-     * The floor matters as much as the cap. At 1.75rem it met --text-2xl's own
-     * floor, so on a phone the figures and the headings were both 28px and the
-     * hierarchy collapsed at exactly the width with least room to spare.
-     *
-     * The prices used --text-2xl and so came out 45.6px against the stats'
-     * 43.2px — two of the same object, 2.4px apart, which is close enough to
-     * look like a mistake and far enough not to be one. It also put "$1,500"
-     * at exactly the size of the "What it costs." heading above it.
-     */
+
     --text-figure: clamp(1.5rem, 2vw + 1.1rem, 2.75rem);
 
     --leading-display: 1.05;
@@ -80,22 +20,9 @@
     --leading-snug: 1.14;
     --leading-lede: 1.38;
     --leading-body: 1.5;
-    /*
-     * Small text that runs to several lines. Below the body size a reader's eye
-     * has a harder time finding the start of the next line, so the leading
-     * opens up rather than scaling down with the type.
-     *
-     * This value was already in the stylesheet four times as a literal 1.6,
-     * always on 14px explanatory prose, and once more as 1.65 on code. It was a
-     * decision the design had already made and never written down. Labels and
-     * short values keep --leading-body: they rarely wrap, and tighter reads as
-     * more deliberate in a compact panel.
-     */
+
     --leading-relaxed: 1.6;
 
-    /* Tracking tightens as the type grows. Inter's optical axis does most of
-       this on its own, so these are gentle corrections rather than the heavy
-       negative tracking a static face would need. */
     --tracking-display: -0.022em;
     --tracking-tight: -0.014em;
     --tracking-body: -0.011em;
@@ -113,17 +40,12 @@
     --measure-wide: 72ch;
     --gutter: clamp(1.375rem, 5vw, 3.5rem);
 
-    /* Rounded, and rounded generously. Sharp corners read as ink on paper;
-       every physical thing Apple makes has a radius, and so does every surface
-       on its site. */
     --radius-sm: 8px;
     --radius: 12px;
     --radius-lg: 18px;
     --radius-pill: 980px;
     --hairline: 1px;
 
-    /* Motion. One easing curve, used everywhere — Apple's is a slow-out cubic
-       that never overshoots. */
     --ease-out: cubic-bezier(0.28, 0.11, 0.32, 1);
     --duration-fast: 150ms;
     --duration: 300ms;
@@ -134,82 +56,43 @@
     --z-overlay: 100;
 }
 
-/*
- * Light is the reference theme. The greys are Apple's own and are perfectly
- * neutral — no hue at all, which is what stops the page reading as paper.
- *
- * The ratios in the comments are WCAG relative luminance, computed rather than
- * estimated. If a checker disagrees, a value was mistyped.
- */
 :root,
 [theme='light'] {
     color-scheme: light;
 
     --bg: #ffffff;
     --bg-elevated: #ffffff;
-    /* One step above a --surface band, so a card sitting on one is raised in
-       both themes rather than only in the one where white happens to differ
-       from grey. See .quote. */
+
     --surface-raised: #ffffff;
-    /* Also the alternating full-bleed section band — the device that gives the
-       page rhythm when there are no images to break it up. */
+
     --surface: #f5f5f7;
     --surface-hover: #ebebed;
     --line: #d2d2d7;
     --line-strong: #86868b;
-    /*
-     * The hero's dot grid, and the only token whose two values are picked to
-     * *match* rather than to invert. Reusing --line looks like one rule but is
-     * not one result: #d2d2d7 sits 1.51 from white while #424245 sits 2.10
-     * from black, so the same grid comes out 40% heavier on dark. These two
-     * land at 1.51 and 1.47 — the same dot, on either page.
-     */
-    --dot: #d2d2d7; /* 1.51 on --bg */
-    /*
-     * A control's border is its only affordance, so it owes 3:1 (WCAG 1.4.11)
-     * — `--line` is 1.5:1 and would fail on its own. Softened from #86868b,
-     * which read as a hard outline against the pale callout the form sits in,
-     * to the lightest value that still clears the bar with a little room.
-     * There is very little room. The bar has to be cleared against *both*
-     * adjacent colours — the input's own white fill inside, and the --surface
-     * callout the form sits in outside — and the callout is the tighter of the
-     * two. #919196 measures 3.14 on white but only 2.88 on the callout, so it
-     * fails where it matters. This is the lightest value that clears 3:1 on
-     * both, and it is genuinely near the floor rather than a cautious choice.
-     */
-    --line-control: #8c8c91; /* 3.35 on --bg, 3.08 on --surface */
 
-    --heading: #1d1d1f; /* 17.04 on --bg */
-    --text: #424245; /*  9.85 on --bg,  9.16 on --surface */
-    --text-dim: #6e6e73; /*  5.07 on --bg,  4.72 on --surface */
-    /* Below 4.5:1 on purpose — decoration adjacent to the text it labels. */
-    --text-faint: #86868b; /*  3.62 */
+    --dot: #d2d2d7;
 
-    /*
-     * Apple's own #0071e3 clears 4.5:1 on white but only reaches 4.31 on the
-     * `--surface` grey — and links appear inside cards, case panels and the
-     * callout constantly. Deepened just enough to pass on both surfaces.
-     */
-    --accent: #0066cc; /*  5.57 on --bg, 5.06 on --surface */
-    --accent-hover: #004f9e; /*  8.04 on --bg */
-    --accent-solid: #0066cc; /* filled-button background */
-    --accent-contrast: #ffffff; /*  5.57 on --accent-solid */
+    --line-control: #8c8c91;
 
-    /* Only ever an error state. Clears 4.5:1 as text and 3:1 as a border. */
-    --danger: #d70015; /*  6.07 on --bg */
-    /* Only ever the availability dot. Decorative — the text beside it says the
-       same thing — so it is tuned to look right rather than to carry meaning. */
+    --heading: #1d1d1f;
+    --text: #424245;
+    --text-dim: #6e6e73;
+
+    --text-faint: #86868b;
+
+    --accent: #0066cc;
+    --accent-hover: #004f9e;
+    --accent-solid: #0066cc;
+    --accent-contrast: #ffffff;
+
+    --danger: #d70015;
+
     --positive: #248a3d;
 
     --selection-bg: rgba(0, 113, 227, 0.2);
     --selection-text: #1d1d1f;
 }
 
-/*
- * Dark is Apple's dark mode, not an inversion of the above: the page goes to
- * true black and surfaces lift by fill rather than by shadow, because a shadow
- * on black is invisible.
- */
 [theme='dark'] {
     color-scheme: dark;
 
@@ -220,22 +103,20 @@
     --surface-hover: #262629;
     --line: #424245;
     --line-strong: #6e6e73;
-    --dot: #2a2a2d; /* 1.47 on --bg */
-    --line-control: #86868b; /*  5.80 on --bg */
+    --dot: #2a2a2d;
+    --line-control: #86868b;
 
-    --heading: #f5f5f7; /* 18.44 on --bg */
-    --text: #d2d2d7; /* 13.16 on --bg, 10.09 on --surface */
-    --text-dim: #a1a1a6; /*  8.16 on --bg,  6.26 on --surface */
-    --text-faint: #86868b; /*  5.80 on --bg */
+    --heading: #f5f5f7;
+    --text: #d2d2d7;
+    --text-dim: #a1a1a6;
+    --text-faint: #86868b;
 
-    /* Links get the brighter blue; the filled button keeps the darker one so
-       white text on it still clears 4.5:1. #2997ff would not. */
-    --accent: #2997ff; /*  6.96 on --bg */
+    --accent: #2997ff;
     --accent-hover: #52aaff;
     --accent-solid: #0071e3;
-    --accent-contrast: #ffffff; /*  4.70 on --accent-solid */
+    --accent-contrast: #ffffff;
 
-    --danger: #ff6961; /*  6.62 on --bg */
+    --danger: #ff6961;
     --positive: #30d158;
 
     --selection-bg: rgba(41, 151, 255, 0.32);

@@ -1,23 +1,9 @@
-/*
- * Reusable pieces. Everything here is class-driven and theme-agnostic —
- * colours come from tokens.css, motion from the same duration/easing pair.
- *
- * Hierarchy comes from scale, weight and whitespace — one typeface, no
- * ornament. Surfaces are filled and generously rounded; the accent is spent
- * only on links and the single primary button, and nowhere else.
- */
-
-/* ── Text utilities ─────────────────────────────────────────────────── */
-
-/* Small metadata that sits beside content and must not compete with it:
-   read times, dates, credits. */
 .meta {
     font-size: var(--text-sm);
     color: var(--text-dim);
     font-variant-numeric: tabular-nums;
 }
 
-/* Numerals share a width so stacked figures line up. */
 .tabular {
     font-variant-numeric: tabular-nums;
 }
@@ -32,13 +18,6 @@
     color: var(--text-dim);
 }
 
-/* ── Page and section headers ───────────────────────────────────────── */
-
-/*
- * The old monospace eyebrow above every h1 duplicated both the heading and the
- * nav's active state. The heading carries it alone now, at a size that makes
- * the point on its own.
- */
 .page-head h1 {
     max-width: 16ch;
     margin-bottom: var(--space-md);
@@ -49,11 +28,6 @@
     max-width: var(--measure);
 }
 
-/*
- * A section head is a centred statement, not a labelled row. The numbered
- * margin marks that used to sit beside these were a print device — precisely
- * the thing that made the page read as a journal rather than as software.
- */
 .section-head {
     max-width: 44rem;
     margin-inline: auto;
@@ -72,24 +46,14 @@
     line-height: var(--leading-lede);
 }
 
-/*
- * The zero above is what keeps a single lede from adding space before the grid
- * or the button row that follows — but it also welded stacked paragraphs
- * together, and four section heads on two pages stack them. The gap is put back
- * between siblings only, so the last paragraph still sits flush.
- */
 .section-head p + p {
     margin-top: var(--space-sm);
 }
 
-/* A call to action inside a centred head has to be centred too, or it hangs
-   off the left edge of a block that is otherwise symmetrical. */
 .section-head .btn-row {
     justify-content: center;
 }
 
-/* Inside a two-column block the heading is one half of a pair, so it reads
-   from the left like the column beside it. */
 .section-head--start {
     max-width: none;
     margin-inline: 0;
@@ -100,19 +64,6 @@
     justify-content: flex-start;
 }
 
-/*
- * The message that stands in for a list with nothing in it yet.
- *
- * It has to take the alignment of the head above it. Under a centred
- * .section-head, a left-aligned paragraph and a left-aligned button read as a
- * layout that has come apart — which is exactly what Zero to One did once its
- * businesses list was empty. Under the left-aligned page heads on /work/ and
- * /blog/ the default is already right, so this is a modifier rather than a
- * base rule.
- *
- * The measure still applies; it is centred rather than widened, because a
- * centred block of 90 characters is no easier to read than a left-aligned one.
- */
 .empty-state {
     text-align: center;
 }
@@ -125,12 +76,6 @@
     justify-content: center;
 }
 
-/*
- * Availability. A quiet line rather than a banner: it is meant to answer a
- * question the visitor already has, not to manufacture urgency. The dot is
- * decorative — the words beside it carry the whole meaning — so it is not
- * doing any accessibility work and does not need to.
- */
 .availability {
     display: inline-flex;
     align-items: center;
@@ -155,8 +100,6 @@
     margin-bottom: var(--space-md);
 }
 
-/* ── Buttons ────────────────────────────────────────────────────────── */
-
 .btn {
     display: inline-flex;
     align-items: center;
@@ -180,12 +123,6 @@
     transform: translateY(1px);
 }
 
-/*
- * In-flight. `aria-disabled` rather than the `disabled` property, so the
- * button keeps focus while the request runs (see initContactForm); the styling
- * is what tells everyone else the control is busy, since a button that looks
- * exactly the same as it did before invites a second press.
- */
 .btn[aria-disabled='true'] {
     opacity: 0.55;
     cursor: default;
@@ -220,8 +157,6 @@
     color: var(--accent-contrast);
 }
 
-/* Apple's secondary action is a text link with a chevron, not a bordered box.
-   The ghost button keeps a border only because some of these sit alone. */
 .btn--ghost {
     border-color: var(--line);
     background: var(--bg-elevated);
@@ -234,8 +169,6 @@
     color: var(--heading);
 }
 
-/* The copy button swaps two inline-flex states. `display` on the class would
-   beat the `hidden` attribute, so the hidden case is restated. */
 [data-copy-idle],
 [data-copy-done] {
     display: inline-flex;
@@ -255,8 +188,6 @@
     margin-top: var(--space-lg);
 }
 
-/* ── Text links ─────────────────────────────────────────────────────── */
-
 .link-arrow {
     display: inline-flex;
     align-items: center;
@@ -275,7 +206,6 @@
     transform: translateX(4px);
 }
 
-/* Prose links get a hairline that grows from the leading edge on hover. */
 .prose a:not(.btn):not(.link-arrow),
 .rich-text a:not(.btn):not(.link-arrow) {
     background-image: linear-gradient(currentColor, currentColor);
@@ -291,28 +221,10 @@
     background-size: 100% 1px;
 }
 
-/* ── Cards ──────────────────────────────────────────────────────────── */
-
-/*
- * A filled, generously rounded surface. On light it is Apple's #f5f5f7 band
- * colour; on dark it lifts by fill rather than by shadow, because a shadow on
- * true black is invisible.
- */
-/*
- * --surface-raised, not --surface. A card filled with --surface sitting inside
- * a --surface band is the same colour as the thing behind it, and in light
- * mode that made every card on this page invisible — the same fault the quote
- * card had, in a component used on four pages.
- *
- * Raised plus a hairline works in all four combinations: on the page or on a
- * band, in either theme. The hairline is what carries it where the fill cannot
- * — a white card on a white page reads as an outline, which is honest.
- */
 .card {
     display: flex;
     flex-direction: column;
-    /* These are full-width rows now, not tiles in a grid — the inset that
-       suited a 17rem box reads mean across a thousand pixels. */
+
     padding: clamp(1.5rem, 2.5vw, 2.25rem);
     background: var(--surface-raised);
     border: var(--hairline) solid var(--line);
@@ -322,12 +234,6 @@
         transform var(--duration) var(--ease-out);
 }
 
-/*
- * `--text-dim`, not `--text-faint`. The faint value only reaches 3.33:1 on the
- * card's own surface, and while these numerals are close to decorative they
- * are still rendered text somebody may be trying to read. The dim value is
- * still recessive and clears 4.5:1.
- */
 .card__index {
     margin-bottom: var(--space-sm);
     color: var(--text-dim);
@@ -346,8 +252,6 @@
     color: var(--text);
 }
 
-/* A card with two paragraphs in it ran them together as one block, because
-   the reset zeroes every margin and nothing put it back. */
 .card__body + .card__body {
     margin-top: var(--space-sm);
 }
@@ -357,8 +261,6 @@
     padding-top: var(--space-md);
 }
 
-/* A dash-led list inside a card. The marker is a pseudo-element rather than a
-   list-style so it can take its own colour. */
 .card__list {
     list-style: none;
     margin: var(--space-md) 0 0;
@@ -380,26 +282,6 @@
     color: var(--text-faint);
 }
 
-/*
- * Lists that carry a verdict.
- *
- * `--yes` for things delivered or included, `--no` for things that got in the
- * way or are ruled out. A list with no modifier keeps the em dash: most lists
- * are just lists, and a marker that means something everywhere means nothing
- * anywhere.
- *
- * Drawn rather than typed. U+2713 and U+2717 are outside the font subset, so a
- * text glyph would fall out of Inter into whatever the system supplies —
- * a different weight on every platform, and an emoji on some of them.
- *
- * A mask rather than a background image, so the mark takes --text-faint from
- * the same declaration the dash uses. There is no green and no red here: the
- * heading above each list already says which kind it is, and colour would be
- * carrying meaning that the words are carrying better.
- *
- * The box is one line tall so the mark centres against the first line of an
- * item that wraps, rather than floating beside the middle of the paragraph.
- */
 .card__list--yes li::before,
 .card__list--no li::before {
     content: '';
@@ -419,8 +301,6 @@
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M4 4l8 8M12 4l-8 8'/%3E%3C/svg%3E");
 }
 
-/* An anchor wrapping a whole card should not inherit the accent colour; the
-   affordance is the title underlining, not the surface tinting. */
 a.card,
 a.card:hover {
     color: inherit;
@@ -438,19 +318,12 @@ a.card:hover .card__title {
     color: var(--accent);
 }
 
-/* ── Grids ──────────────────────────────────────────────────────────── */
-
 .grid {
     display: grid;
-    /* Even gaps. Filled cards define their own edges, so they no longer need
-       the extra vertical air that hairline-topped text columns did. */
+
     gap: var(--space-md);
 }
 
-/* `auto-fit` with a min track keeps every grid responsive without a single
-   media query; the min is the narrowest width the card text stays readable at. */
-/* 20rem rather than 15rem: at the shell width 15rem fitted three across and
-   left the fourth card orphaned on its own row. */
 .grid--cards {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
 }
@@ -459,16 +332,6 @@ a.card:hover .card__title {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
 }
 
-/* ── Stats ──────────────────────────────────────────────────────────── */
-
-/*
- * Two columns, then four. Never three.
- *
- * `auto-fit` with a min width did whatever the arithmetic said, which at 600px
- * was three columns — so the fourth figure sat alone on its own row, and the
- * squeeze made one caption wrap while its neighbours did not. Four items only
- * divide evenly by two and four, so those are the only counts offered.
- */
 .stat-row {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -481,18 +344,6 @@ a.card:hover .card__title {
     }
 }
 
-/*
- * The panel variant, used on the home page.
- *
- * The dividers are the container showing through a one-pixel gap, not borders
- * on the cells: every rule is then complete, none are doubled where two cells
- * meet, and the grid can rewrap from four columns to two without a single
- * :nth-child rule keeping the edges tidy. `overflow: hidden` is what lets the
- * corner radius clip the cells rather than the cells square off the corners.
- *
- * The plain .stat-row keeps its per-column rules — the case study results row
- * uses it on an open page where a panel would be one box too many.
- */
 .stat-row--panel {
     gap: var(--hairline);
     background: var(--line);
@@ -501,39 +352,17 @@ a.card:hover .card__title {
     overflow: hidden;
 }
 
-/*
- * Padding is asymmetric on purpose. The crowding is vertical — four figures in
- * a shallow box — but it is the *horizontal* padding that narrows the column
- * and decides whether a caption wraps. Raising both together buys air at the
- * cost of breaking every caption onto a second line, so only the vertical
- * grows.
- */
 .stat-row--panel .stat {
     padding: clamp(1.5rem, 2.4vw, 2rem) clamp(1.25rem, 2vw, 1.75rem);
     background: var(--surface);
     border-top: 0;
 }
 
-/*
- * A rule over each figure, the way a table of figures is set in print.
- *
- * It is per-column rather than one line across the row, so the columns are
- * legible as columns and the rules reflow with them — two up on a phone, four
- * across on a desktop — without a single :nth-child rule deciding which item
- * starts a row. A single full-width rule would have needed one, and would have
- * been wrong the moment the grid rewrapped.
- */
 .stat {
     padding-top: var(--space-sm);
     border-top: var(--hairline) solid var(--line);
 }
 
-/*
- * Deliberately smaller than a section heading. At --text-3xl these figures
- * rendered 52px against an h2 of 45.6px, so the loudest type on the home page
- * was four supporting numbers rather than anything they support. Large is the
- * point of a figure; larger than the headings is an inversion.
- */
 .stat__value {
     display: block;
     color: var(--heading);
@@ -546,19 +375,12 @@ a.card:hover .card__title {
 
 .stat__label {
     display: block;
-    /* No max-width. Capping it at 18ch broke three of the four captions onto a
-       second line inside a column with room for thirty characters — the cap
-       was doing the wrapping the column should do, and it made the row raggeder
-       than it was before. The captions are evened out in the copy instead. */
-    /* A figure and its caption are one unit, but they were touching.
-       Half a line of air reads as a pair rather than a collision. */
+
     margin-top: var(--space-xs);
     color: var(--text-dim);
     font-size: var(--text-sm);
     line-height: var(--leading-body);
 }
-
-/* ── Ordered process / timeline ─────────────────────────────────────── */
 
 .steps {
     list-style: none;
@@ -587,11 +409,7 @@ a.card:hover .card__title {
     left: 0;
     transform: translateX(-50%);
     padding-block: 0.15rem;
-    /*
-     * The chip exists to punch a hole in the rule running behind it, so it has
-     * to be whatever the section is painted with — not --bg. On a band those
-     * differ, and the number sat in a white lozenge on a grey stripe.
-     */
+
     background: var(--section-bg);
     color: var(--text-faint);
     font-size: var(--text-sm);
@@ -608,13 +426,9 @@ a.card:hover .card__title {
     color: var(--text-dim);
 }
 
-/* As in .section-head: the zero keeps the last paragraph flush against the next
-   step, and costs the gap between stacked ones. Put back between siblings. */
 .steps p + p {
     margin-top: var(--space-sm);
 }
-
-/* ── Definition rows (work history, spec tables) ────────────────────── */
 
 .rows {
     border-top: var(--hairline) solid var(--line);
@@ -644,9 +458,6 @@ a.card:hover .card__title {
     margin-bottom: 0;
 }
 
-
-/* ── Tags ───────────────────────────────────────────────────────────── */
-
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -667,25 +478,12 @@ a.card:hover .card__title {
     white-space: nowrap;
 }
 
-/* ── Blog ───────────────────────────────────────────────────────────── */
-
 .post-list {
     display: flex;
     flex-direction: column;
     border-top: var(--hairline) solid var(--line);
 }
 
-/*
- * A single column now the date has gone. The two-column rule reserved 9rem for
- * a date and gave the title the rest, which left an eighth of every row empty
- * once the date came out — and the title had no reason to be indented past the
- * page's own left edge.
- */
-/*
- * A listing of five posts is a short list. The rows were packed tightly enough
- * that the hairlines were doing the separating on their own — with room around
- * each one, the rule is confirming a gap the eye has already found.
- */
 .post-card {
     position: relative;
     padding-block: clamp(1.75rem, 3vw, 2.75rem);
@@ -701,8 +499,6 @@ a.card:hover .card__title {
     color: var(--heading);
 }
 
-/* The whole row is the hit target; the anchor's ::after covers it so the
-   markup keeps a single, honest link rather than nesting anchors. */
 .post-card__title a::after {
     content: '';
     position: absolute;
@@ -713,20 +509,12 @@ a.card:hover .card__title {
     color: var(--accent);
 }
 
-/*
- * Bounded to the reading measure. Unbounded it ran the full 1008px of the
- * shell — about 120 characters a line, roughly twice what anybody finishes,
- * and the single biggest reason the list read as dense rather than as five
- * separate things.
- */
 .post-card__excerpt {
     max-width: var(--measure);
     margin-bottom: var(--space-md);
     color: var(--text-dim);
 }
 
-/* The element is in the markup now — see post-preview.blade.php. This only
-   styles it. */
 .post-card__flag {
     margin-bottom: 0.35rem;
     color: var(--text-dim);
@@ -734,8 +522,6 @@ a.card:hover .card__title {
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
-
-/* ── Article ────────────────────────────────────────────────────────── */
 
 .article-header {
     padding-block: var(--space-xl) var(--space-lg);
@@ -756,47 +542,20 @@ a.card:hover .card__title {
     font-variant-numeric: tabular-nums;
 }
 
-/* `--text-faint` is below 4.5:1 and this is real punctuation between two
-   pieces of metadata, not decoration, so it takes the dim value. */
 .article-meta__sep {
     color: var(--text-dim);
 }
 
-/*
- * `break-word`, not `anywhere`: it breaks a word only when there is no other
- * way to fit it, and unlike `anywhere` it does not feed back into min-content
- * sizing. Markdown bodies take whatever an author types, and a long inline
- * `code` span or an unhyphenated identifier otherwise paints straight out of
- * the column and off the side of a phone, where `overflow-x: hidden` on <body>
- * removes it rather than letting anyone scroll to it.
- */
 .rich-text {
     max-width: var(--measure);
     overflow-wrap: break-word;
 }
 
-/* Code blocks are the exception: they scroll on purpose, and wrapping a
-   sample changes what it says. */
 .rich-text pre,
 .rich-text pre code {
     overflow-wrap: normal;
 }
 
-/*
- * Headings inside an article are set from a different scale than headings on
- * the marketing pages, and they have to be.
- *
- * A `.section-head h2` is the loudest thing in its band and is sized to carry
- * a whole screen on its own. An `h2` in a post is a signpost *under* the
- * article title. Sharing one size made the h1 52px and the h2 45.6px — a ratio
- * of 1.14, and 1.08 on a wide screen, where --text-2xl reaches its 48px cap
- * while --text-3xl is already pinned at 52. A page of eleven h2s read as
- * eleven titles.
- *
- * The article scale is 52 / 28 / 21 / 17: each step a clear drop, and the h2
- * now matches the one in the call to action at the foot of the same page,
- * which was already 28 and disagreed with the body above it.
- */
 .rich-text h2 {
     margin-top: var(--space-lg);
     font-size: var(--text-xl);
@@ -829,19 +588,12 @@ a.card:hover .card__title {
     object-fit: cover;
 }
 
-/* A placeholder fills the same frame as the picture it stands in for. */
 .thumbnail .ph {
     display: block;
     width: 100%;
     aspect-ratio: 16 / 9;
 }
 
-/*
- * Only enough gradient to seat the credit line, not a decorative vignette —
- * so it is drawn only when there is a credit line to seat. Unconditionally it
- * darkened the foot of every header image, including the placeholders, which
- * have nothing sitting over them at all.
- */
 .thumbnail--credited::after {
     content: '';
     position: absolute;
@@ -900,32 +652,12 @@ a.card:hover .card__title {
     transform: translateX(4px);
 }
 
-/* ── Callout / contact band ─────────────────────────────────────────── */
-
-/* A rounded panel on the band colour — the same surface as a card, scaled up
-   to hold the enquiry form. */
-/*
- * The clamp floor is deliberately low. This box carries the contact form, and
- * Turnstile renders a fixed 300px-wide iframe inside it — every rem of padding
- * on a narrow screen comes straight out of the one control a visitor cannot
- * skip.
- */
 .callout {
     padding: clamp(1.25rem, 5vw, 4rem);
     background: var(--surface);
     border-radius: var(--radius-lg);
 }
 
-/*
- * On a narrow screen the callout gives up its own inset and runs edge to edge,
- * taking the page gutter as its padding instead.
- *
- * Two nested paddings left the form 291px wide on a 375px phone — narrower
- * than the fixed 300px iframe Turnstile puts inside it, so the bot check a
- * visitor cannot skip was partly off the edge of its box. This buys back both
- * insets while leaving the content line exactly where it sits on every other
- * section of the page.
- */
 @media (max-width: 29.99rem) {
     .callout {
         margin-inline: calc(-1 * var(--gutter));
@@ -943,48 +675,17 @@ a.card:hover .card__title {
     color: var(--text-dim);
 }
 
-/* ── Testimonials ───────────────────────────────────────────────────── */
-
-/*
- * Stacked full-width rows rather than a grid of equal cards.
- *
- * Side by side, cards had to be the same height, and every way of achieving
- * that was worse than the problem: a fixed text height padded short quotes out
- * so they looked unfinished, and scaling the type to fill made two quotes sit
- * at two different sizes for no reason a reader can see. Stacking means no
- * card is ever measured against another, so each is simply as tall as what it
- * says — and opening one moves the ones below rather than resizing anything.
- */
 .quotes {
     display: grid;
     gap: var(--space-md);
 }
 
-/* Centred under the stack, matching the section head above it rather than the
-   left edge of the cards — the link belongs to the section, not to the last
-   quote in it. */
 .quotes__more {
     margin-top: var(--space-lg);
     margin-bottom: 0;
     text-align: center;
 }
 
-/*
- * The card sat on a --surface band and was filled with --bg-elevated. In light
- * that is #ffffff on #f5f5f7 — a raised white card. In dark both are #1d1d1f,
- * the same colour, and --shadow-sm is `none` there by design because shadows
- * do not read on black. So the cards were completely invisible in dark mode:
- * no fill difference, no shadow, no border.
- *
- * The real fault was that the two themes were separating the card by two
- * different devices and only one of them existed in both. Now the fill is one
- * step above the band in either theme, and a hairline draws the edge — which
- * is what every other elevated surface here already does (.tag, the form
- * controls, the mobile nav panel). This was the only one that did not.
- *
- * No box-shadow. It was the single shadow on the site and it is null in dark,
- * so keeping it would have left the themes structurally different again.
- */
 .quote {
     margin: 0;
     padding: clamp(1.5rem, 3vw, var(--space-lg));
@@ -993,15 +694,6 @@ a.card:hover .card__title {
     border-radius: var(--radius-lg);
 }
 
-/*
- * The attribution moves into a margin column once there is room for one — the
- * same 12rem measure `.row` uses elsewhere, so the section sits on the page's
- * existing rhythm instead of inventing a second one.
- *
- * Placement is explicit rather than by source order: the markup keeps the
- * semantic order a <figure> wants, quotation first and attribution second,
- * while the eye gets the attribution on the left.
- */
 @media (min-width: 768px) {
     .quote {
         display: grid;
@@ -1030,14 +722,6 @@ a.card:hover .card__title {
     position: relative;
 }
 
-/*
- * A real typographic quote mark, oversized and set behind the opening line. It
- * reads as a printer's mark rather than an ornament, and it is what stops the
- * block looking like a paragraph that happens to be indented.
- *
- * Anchored to the quote rather than the card, so it stays with the words when
- * the attribution moves into its own column.
- */
 .quote__body::before {
     content: '\201C';
     position: absolute;
@@ -1051,8 +735,6 @@ a.card:hover .card__title {
 }
 
 .quote__text {
-    /* Bounded even in a wide card: a quote running the full width of a
-       1120px shell is a line length nobody finishes. */
     max-width: var(--measure);
     margin: 0;
     padding: 0;
@@ -1063,12 +745,6 @@ a.card:hover .card__title {
     letter-spacing: var(--tracking-tight);
 }
 
-/*
- * The clamp is applied by main.js, and only to quotes that actually overflow.
- * Authoring it here would hide the end of every long recommendation from
- * anyone whose JavaScript failed — the one thing on this page that must not
- * happen, since these quotes are the whole reason the section exists.
- */
 .quote.is-clamped .quote__text {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -1099,7 +775,6 @@ a.card:hover .card__title {
     margin-top: var(--space-md);
 }
 
-/* In its own column the attribution reads down rather than across. */
 @media (min-width: 768px) {
     .quote__author {
         flex-direction: column;
@@ -1109,11 +784,6 @@ a.card:hover .card__title {
     }
 }
 
-/*
- * Initials rather than a photograph, because there may not be one. Tinted with
- * the accent at low alpha — the one place on the site colour is used
- * decoratively, and what stops the section reading as monochrome furniture.
- */
 .quote__avatar {
     position: relative;
     display: grid;
@@ -1124,20 +794,13 @@ a.card:hover .card__title {
     border-radius: 50%;
     overflow: hidden;
     background: color-mix(in srgb, var(--accent) 12%, transparent);
-    /* The hover value, not the base one: these initials are 14px at 600, so
-       they owe 4.5:1, and the base accent only reaches 4.68 against its own
-       12% tint. The deeper blue clears it with room to spare in both themes. */
+
     color: var(--accent-hover);
     font-size: var(--text-sm);
     font-weight: 600;
     letter-spacing: 0.02em;
 }
 
-/*
- * Layered over the initials rather than replacing them. A signed LinkedIn URL
- * expires; when it does the image stops covering them and the circle still
- * reads as a person rather than going blank.
- */
 .quote__photo {
     position: absolute;
     inset: 0;
@@ -1159,12 +822,6 @@ a.card:hover .card__title {
     font-weight: 600;
 }
 
-/*
- * The name links to the profile the quote came from, and it is a standalone
- * control rather than a link inside a sentence — so it owes the 24px minimum
- * target (WCAG 2.2, 2.5.8) rather than qualifying for the inline exception. It
- * measured 17px. Padded rather than enlarged, so the type stays where it is.
- */
 .quote__name a {
     display: inline-block;
     padding-block: 0.25rem;
@@ -1174,28 +831,11 @@ a.card:hover .card__title {
     color: var(--text-dim);
 }
 
-/* How they know him carries more than a job title does, so it is set apart
-   rather than run on. */
 .quote__relationship {
     color: var(--text-dim);
     font-style: italic;
 }
 
-/* ── FAQ ────────────────────────────────────────────────────────────── */
-
-/*
- * Deliberately not an accordion. Collapsing these would hide the answers from
- * exactly the anxious reader they exist to reassure, and make them invisible
- * to search — the whole point is that the objection is answered before it has
- * to be asked out loud.
- */
-/* ── FAQ ────────────────────────────────────────────────────────────────
- *
- * Stacked rather than a two-column grid: five open answers side by side was
- * a wall of prose in the middle of a page somebody is skimming. Collapsed,
- * the five questions read as a list of the things they were already
- * wondering, and they open the one they care about.
- */
 .faq {
     max-width: var(--measure-wide);
     margin-inline: auto;
@@ -1206,16 +846,6 @@ a.card:hover .card__title {
     border-bottom: var(--hairline) solid var(--line);
 }
 
-/*
- * The whole row is the control. `list-style: none` plus the -webkit- marker
- * rule removes the native triangle — the chevron replaces it, and unlike the
- * triangle it can be positioned and rotated.
- */
-/*
- * The whole row is the control, and it is given room. Five questions in a
- * column is a short list; crowding them saves space the page does not need and
- * costs the calm that makes a list of five feel like five rather than a form.
- */
 .faq__q {
     display: flex;
     align-items: center;
@@ -1242,14 +872,6 @@ a.card:hover .card__title {
     color: inherit;
 }
 
-/*
- * A plus that becomes a minus.
- *
- * Two rules, one horizontal and one stood on end. Opening rotates the upright
- * one flat so the pair overlap — the mark is a plus, then a minus, and at no
- * point in between is it a shape that means nothing. Two icons swapped on
- * state would have a frame where both or neither are drawn.
- */
 .faq__mark {
     position: relative;
     flex: none;
@@ -1293,18 +915,6 @@ a.card:hover .card__title {
     color: var(--text-dim);
 }
 
-/*
- * The drop-down itself.
- *
- * Height cannot normally animate to `auto`, which is why this needs
- * `interpolate-size` — and why it is gated. Both features are recent, so a
- * browser without them opens the answer instantly. That is a fine outcome:
- * the disclosure works, it simply does not glide.
- *
- * `transition-behavior: allow-discrete` is what keeps the content visible for
- * the length of the closing transition; without it the answer disappears on
- * the first frame and the height animates against nothing.
- */
 @supports selector(::details-content) and (interpolate-size: allow-keywords) {
     .faq {
         interpolate-size: allow-keywords;
@@ -1323,8 +933,6 @@ a.card:hover .card__title {
     }
 }
 
-/* The rotation and the reveal are both movement a visitor asked for, but
-   asked-for movement is still movement. */
 @media (prefers-reduced-motion: reduce) {
     .faq__mark::after,
     .faq__item::details-content {
@@ -1332,27 +940,11 @@ a.card:hover .card__title {
     }
 }
 
-/* ── Case studies: the listing ──────────────────────────────────────── */
-
 .work-list {
     display: grid;
     gap: var(--space-md);
 }
 
-/*
- * Each card is its own tinted surface rather than a grey box, so two studies
- * do not look like two rows of the same table. `--card-tint` comes from the
- * study's front matter and is the only thing that differs between them.
- *
- * The card is dark in both themes. That is deliberate: a scrim dark enough to
- * carry white text over an arbitrary photograph cannot also be light, and
- * flipping the treatment per theme would mean tuning contrast twice against a
- * cover image nobody has seen yet. One treatment, checked once.
- *
- * `isolation` creates a stacking context so the background layers can sit at
- * negative z-index — behind the text, still inside the card — without escaping
- * to sit behind the page.
- */
 .work-card {
     position: relative;
     isolation: isolate;
@@ -1362,25 +954,6 @@ a.card:hover .card__title {
     border-radius: var(--radius-lg);
 }
 
-/*
- * The scrim is lighter on a light page.
- *
- * It cannot be light *coloured* — the text on these cards is white, and white
- * needs something dark behind it whatever the page is doing. What it can be is
- * less heavy: at 74% the card was a black slab on a white page, which is a
- * different thing from a dark card.
- *
- * The summary is what stops it going lighter still. At 82% white it needs the
- * scrim at 0.61 or darker to clear 4.5:1 against a white cover; at 92% it
- * clears the same bar at 0.575. So the text brightens a little and the scrim
- * lifts ten points, which is the trade that actually buys the lighter card.
- *
- * `--card-base` is only ever seen on a study with no cover yet. It is chosen
- * so that base × (1 − scrim) lands on the same mid grey in both themes,
- * rather than being the same colour in both and coming out black on one.
- *
- * Following tokens.css: light is the unprefixed default, dark is the override.
- */
 :root .work-card,
 :root .biz-card,
 [theme='light'] .work-card,
@@ -1388,11 +961,7 @@ a.card:hover .card__title {
     --scrim-near: 0.66;
     --scrim-hold: 0.6;
     --scrim-far: 0.06;
-    /* The narrow-screen wash is set, not derived from the pair above. Deriving
-       it with a calc offset produced a value that happened to fail: the wash
-       has to stay dark at the far end because the text runs to 94% there,
-       while the wide gradient is free to fall away at 100%. Two different
-       jobs, so two sets of numbers. */
+
     --scrim-wash-near: 0.7;
     --scrim-wash-far: 0.62;
     --card-base: #a2a2aa;
@@ -1412,12 +981,6 @@ a.card:hover .card__title {
     --card-rule: rgba(255, 255, 255, 0.22);
 }
 
-/*
- * The cover, when there is one. Blurred because it is a backdrop and not the
- * subject — a legible photograph behind text competes with the text — and
- * scaled past the edges because blurring samples beyond them and would
- * otherwise leave a pale rim inside the card's own corners.
- */
 .work-card__bg {
     position: absolute;
     inset: 0;
@@ -1429,33 +992,12 @@ a.card:hover .card__title {
     transform: scale(1.15);
 }
 
-/*
- * The scrim. Diagonal so the corner behind the title is the darkest part of
- * the card and the opposite corner keeps some of the tint — a flat wash would
- * make the whole thing one colour and undo the point of having a cover at all.
- *
- * It sits above the image and below the text, and it is what guarantees the
- * contrast ratios hold whatever photograph is dropped in later.
- */
 .work-card::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
-    /*
-     * Black at varying alpha, and nothing else. An earlier version mixed a
-     * per-study colour into this, which tinted the photograph underneath —
-     * a warm cast over a blue screenshot is a different picture, not a
-     * darker one. Neutral black only changes the value, so the blurred
-     * cover still reads as the image it came from.
-     *
-     * The fade runs across the card rather than over it, because the text
-     * does not fill the card: the summary is bounded to a reading measure and
-     * stops around 63% of the width. So the scrim holds its weight over that
-     * column and falls away to the right, where there is nothing to read and
-     * the cover can simply be seen. Lowering the opacity evenly would have
-     * bought the same visibility by taking contrast off the words.
-     */
+
     background: linear-gradient(100deg,
         rgba(0, 0, 0, var(--scrim-near)) 0%,
         rgba(0, 0, 0, var(--scrim-hold)) 76%,
@@ -1463,19 +1005,10 @@ a.card:hover .card__title {
     transition: opacity var(--duration) var(--ease-out);
 }
 
-/* Lifts a little on hover, so the cover comes forward rather than the card
-   changing colour. */
 .work-card:hover::before {
     opacity: 0.88;
 }
 
-/*
- * Bounded to the same measure as the summary. The scrim only holds its weight
- * across the left 65% of the card, so nothing readable may cross that line —
- * and a title is the one thing here with no natural limit on its length. The
- * two titles today are short enough that this changes nothing; the third one
- * is what it is for.
- */
 .work-card__title {
     max-width: var(--measure);
     margin-bottom: var(--space-sm);
@@ -1483,13 +1016,10 @@ a.card:hover .card__title {
     letter-spacing: var(--tracking-tight);
 }
 
-/* Fixed light values rather than tokens: these sit on the scrim, not on the
-   page, so they must not follow the theme. */
 .work-card__title a {
     color: #ffffff;
 }
 
-/* The whole card is the hit target, so the markup keeps a single link. */
 .work-card__title a::after {
     content: '';
     position: absolute;
@@ -1510,14 +1040,9 @@ a.card:hover .card__title {
     border-top: var(--hairline) solid var(--card-rule);
 }
 
-/* The accent blue is tuned for a white page and fails on the scrim, so the
-   link takes the same white as the title and earns its affordance from the
-   rule under it and the arrow beside it. */
 .work-card__more .link-arrow {
     color: #ffffff;
 }
-
-/* ── Case studies: the page ─────────────────────────────────────────── */
 
 .study__head {
     max-width: var(--measure-wide);
@@ -1553,11 +1078,6 @@ a.card:hover .card__title {
     font-size: var(--text-sm);
 }
 
-/*
- * Narrative left, facts right. The aside is pinned so that on a long page the
- * answers to "who was this for, how long did it take" stay in view instead of
- * being something the reader has to scroll back up for.
- */
 .study__body {
     display: grid;
     gap: var(--space-xl);
@@ -1572,7 +1092,7 @@ a.card:hover .card__title {
 
     .study__aside {
         position: sticky;
-        /* Clears the fixed header, plus a little air. */
+
         top: calc(var(--header-height) + var(--space-md));
     }
 }
@@ -1635,8 +1155,6 @@ a.card:hover .card__title {
     font-style: normal;
 }
 
-/* The facts panel. A definition list because that is exactly what it is —
-   labelled values, not a table and not a paragraph pretending to be one. */
 .study__facts {
     padding: var(--space-md);
     background: var(--surface);
@@ -1665,16 +1183,6 @@ a.card:hover .card__title {
     margin-bottom: 0;
 }
 
-/*
- * The client's own site, and the only outbound link a sceptical reader is
- * likely to want — so it owes the 24px minimum target of WCAG 2.2 SC 2.5.8.
- * It does not get the inline exception: it stands alone in a field of a
- * definition list, not inside a sentence whose line-height constrains it. At
- * --text-sm it was 17px tall.
- *
- * Padded rather than enlarged: the type stays where the layout wants it, and
- * `inline-block` is what lets the vertical padding count towards the box.
- */
 .case__meta a,
 .study__facts dd a {
     display: inline-block;
@@ -1692,13 +1200,6 @@ a.card:hover .card__title {
     border-color: transparent;
 }
 
-/* ── Case study imagery ─────────────────────────────────────────────── */
-
-/*
- * Every slot is aspect-ratio locked and cropped to fill, so a screenshot
- * exported at whatever size it happened to be never changes the layout —
- * the usual reason portfolio grids look untidy.
- */
 .case__gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
@@ -1719,19 +1220,12 @@ a.card:hover .card__title {
     border: var(--hairline) solid var(--line);
 }
 
-/*
- * A phone screenshot keeps its own proportions and a phone's corner radius.
- * Cropping one into a 4:3 slot throws away most of the screen, which on a
- * mobile-first product is the half worth showing.
- */
 .shot--mobile img,
 .shot--mobile .ph {
     aspect-ratio: 9 / 19.5;
     border-radius: var(--radius-lg);
 }
 
-/* Two phones sit side by side in the space one desktop shot takes, so a
-   gallery can mix the two without one dwarfing the other. */
 .shot--mobile {
     max-width: 15rem;
 }
@@ -1753,23 +1247,12 @@ a.card:hover .card__title {
     font-size: var(--text-sm);
 }
 
-/* The separator trails its own item rather than leading the next one, so a
-   wrapped line never begins with a stray interpunct. */
 .case__meta > *:not(:last-child)::after {
     content: '·';
     margin-left: 0.75rem;
     color: var(--text-faint);
 }
 
-/*
- * Below 30rem the row stacks and drops the separators entirely.
- *
- * A separated list that wraps has no good answer: the interpunct is either
- * orphaned at the end of a line or widowed at the start of the next one, and
- * trailing — the lesser of the two — still left "Mahdi Rasaei · Hospitality
- * software ·" hanging on a phone, which reads as text that has been cut off.
- * Stacking removes the condition rather than choosing between two bad ends.
- */
 @media (max-width: 29.99rem) {
     .case__meta {
         flex-direction: column;
@@ -1782,11 +1265,6 @@ a.card:hover .card__title {
     }
 }
 
-/*
- * A decision, its reason and its cost. Set on the page colour so each reads as
- * a discrete argument rather than a bullet — these are the part of a case
- * study a sceptical reader actually stops on.
- */
 .decision {
     padding: var(--space-md);
     background: var(--surface);
@@ -1805,8 +1283,6 @@ a.card:hover .card__title {
     line-height: var(--leading-relaxed);
 }
 
-/* The cost is the honest half. Set apart rather than run on, because a
-   trade-off buried at the end of a paragraph reads as a caveat nobody meant. */
 .decision__cost {
     margin-bottom: 0;
     color: var(--text-dim);
@@ -1814,10 +1290,6 @@ a.card:hover .card__title {
     line-height: var(--leading-relaxed);
 }
 
-/*
- * Sample markers. Deliberately the loudest thing on the page — they exist to
- * make invented placeholder content impossible to mistake for real work.
- */
 .sample-notice {
     margin-bottom: var(--space-lg);
     padding: var(--space-sm) var(--space-md);
@@ -1842,9 +1314,6 @@ a.card:hover .card__title {
     font-weight: 600;
 }
 
-/* The wireframe placeholder. Tuned to read as scaffolding rather than as a
-   design — if it looked like a real screenshot it would be doing exactly the
-   thing this page is careful not to do. */
 .ph__bg {
     fill: var(--bg);
 }
@@ -1876,11 +1345,6 @@ a.card:hover .card__title {
     font-size: 26px;
 }
 
-/*
- * The article variant is a frame, not a wireframe, so it needs a field to read
- * as one — the others get their edges from browser chrome. On --bg the glyph
- * floated in the page with no boundary and looked like a stray icon.
- */
 .ph--article .ph__bg,
 .ph--portrait .ph__bg {
     fill: var(--surface);
@@ -1890,13 +1354,9 @@ a.card:hover .card__title {
     font-size: 30px;
 }
 
-/* The portrait's viewBox is half the width of the article's, so an identical
-   font-size would draw at twice the apparent scale. */
 .ph--portrait .ph__label {
     font-size: 34px;
 }
-
-/* ── Forms ──────────────────────────────────────────────────────────── */
 
 .form {
     max-width: 34rem;
@@ -1915,17 +1375,12 @@ a.card:hover .card__title {
     font-weight: 600;
 }
 
-/* Every field here is required, so per-field asterisks would just be four
-   identical marks. One line at the top of the form says it once instead. */
 .form__note {
     margin-bottom: var(--space-md);
     color: var(--text-dim);
     font-size: var(--text-sm);
 }
 
-/* Shown only inside <noscript>: the bot check cannot render without
-   JavaScript, so this is the one case where the form genuinely will not work
-   and the visitor needs to be told rather than left guessing. */
 .form__note--warning {
     padding: var(--space-sm) var(--space-md);
     background: var(--surface);
@@ -1934,26 +1389,12 @@ a.card:hover .card__title {
     color: var(--text);
 }
 
-/*
- * Turnstile injects an iframe of its own size — a fixed 300px wide, which is
- * more than the form gets on a 320px screen. `overflow-x: auto` keeps the
- * shortfall inside this box: without it the widget is clipped by the
- * `overflow-x: hidden` on <body>, and the part of it that is cut off cannot be
- * scrolled to at all. The min-height just gives it the same rhythm as the
- * fields above it before it has rendered.
- */
 .cf-turnstile {
     min-height: 65px;
     max-width: 100%;
     overflow-x: auto;
 }
 
-/*
- * `--line-control`, not `--line`: a field's border is the only thing marking
- * where it is, so it owes 3:1 against the page under WCAG 1.4.11. Never let
- * the font-size fall below 16px either — smaller triggers iOS Safari's
- * zoom-on-focus, which is a real defect on a form people are trying to send.
- */
 .field__input {
     width: 100%;
     padding: 0.75rem 0.9rem;
@@ -1969,11 +1410,6 @@ textarea.field__input {
     min-height: 8rem;
 }
 
-/*
- * `:user-invalid`, not `:invalid`: the latter marks every required field red
- * before the visitor has typed a character. This only fires once they have
- * actually interacted with the field and left it wrong.
- */
 .field__input:user-invalid {
     border-color: var(--danger);
 }
@@ -1993,11 +1429,6 @@ textarea.field__input {
     font-size: var(--text-sm);
 }
 
-/*
- * Always in the DOM — see the note in _components/contact-form.blade.php. An
- * empty block box has no height of its own, so dropping the margin is all it
- * takes for the idle state to occupy nothing.
- */
 .form__status {
     margin-top: var(--space-md);
     font-size: var(--text-sm);
@@ -2011,9 +1442,6 @@ textarea.field__input {
     color: var(--heading);
 }
 
-/* `--danger`, not `--accent`. A failed submission was being painted in the
-   same blue as every link on the page, which reads as a link rather than as a
-   problem — and made success and failure differ only in how dark they were. */
 .form__status.is-error {
     color: var(--danger);
 }
@@ -2023,14 +1451,6 @@ textarea.field__input {
     font-size: var(--text-sm);
 }
 
-/* ── Scroll reveal ──────────────────────────────────────────────────── */
-
-/*
- * `.reveal` is applied by main.js, never authored in the markup: if the script
- * fails to load, nothing was ever hidden. A short rise and fade, once per
- * element, at section granularity — the restraint is the point. Anything
- * longer or staggered starts to feel like a slideshow.
- */
 .reveal {
     opacity: 0;
     transform: translateY(12px);
@@ -2044,15 +1464,11 @@ textarea.field__input {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    /* base.css already collapses the transition; this makes sure an element
-       that is never observed still ends up visible. */
     .reveal {
         opacity: 1;
         transform: none;
     }
 }
-
-/* ── Utility ────────────────────────────────────────────────────────── */
 
 .cluster {
     display: flex;
@@ -2061,19 +1477,11 @@ textarea.field__input {
     gap: var(--space-sm);
 }
 
-/* ── Breadcrumbs ────────────────────────────────────────────────────── */
-
 .breadcrumbs {
     margin-bottom: var(--space-md);
     font-size: var(--text-sm);
 }
 
-/*
- * One line that never wraps. A trail that folds onto two lines stops reading
- * as a path and starts reading as a paragraph of links — so the ancestors keep
- * their full width and the leaf gives way instead, which is the item a reader
- * least needs to read in full because they are already on that page.
- */
 .breadcrumbs__list {
     display: flex;
     align-items: center;
@@ -2084,12 +1492,6 @@ textarea.field__input {
     list-style: none;
 }
 
-/*
- * Ancestors never shrink; only the leaf does. `min-width: 0` on every item let
- * flexbox take width off "Home" and "Blog" as well, and since their text is
- * nowrap they were clipped into their own separators on a narrow screen —
- * "Home› Blog›" with the words running under the chevrons.
- */
 .breadcrumbs__item {
     display: flex;
     align-items: center;
@@ -2102,12 +1504,6 @@ textarea.field__input {
     min-width: 0;
 }
 
-/*
- * The separator is a chevron drawn between items, not inside them, so it is
- * never part of a link's hit area or its accessible name. `content` is fine
- * here precisely because it is decoration: it carries no meaning the <ol>
- * does not already encode, which is why it is also hidden from the a11y tree.
- */
 .breadcrumbs__item + .breadcrumbs__item::before {
     content: '\203A';
     flex: none;
@@ -2119,8 +1515,6 @@ textarea.field__input {
     content: '\2039';
 }
 
-/* Padded to clear the 24px minimum target (WCAG 2.2 SC 2.5.8): these are
-   standalone navigation controls, not links inside a sentence. */
 .breadcrumbs__link {
     display: block;
     padding-block: 0.35rem;
@@ -2133,11 +1527,6 @@ textarea.field__input {
     color: var(--accent);
 }
 
-/*
- * The current page. Quieter than the links around it rather than louder — it
- * is the one item you cannot go to, and the page's own <h1> is directly
- * underneath saying the same thing at forty times the size.
- */
 .breadcrumbs__current {
     display: block;
     min-width: 0;
@@ -2149,20 +1538,12 @@ textarea.field__input {
     text-overflow: ellipsis;
 }
 
-/*
- * Sizing goes through a custom property rather than width/height directly.
- * Several modifiers live in layout.css, which is imported first, so an
- * equal-specificity rule here would silently win over all of them — which is
- * exactly what used to happen.
- */
 .icon {
     width: var(--icon-size, 1em);
     height: var(--icon-size, 1em);
     flex: none;
 }
 
-/* External links get a small mark, drawn in CSS so it inherits the current
-   colour instead of shipping a fixed-colour SVG. */
 .rich-text a[target='_blank']::after,
 .prose a[target='_blank']::after {
     content: '↗';
@@ -2192,11 +1573,6 @@ textarea.field__input {
     white-space: nowrap;
 }
 
-/*
- * The end-of-post ask. Sits between the article and the next-post link, with
- * enough space above it that it reads as a change of voice rather than as the
- * last paragraph of what was being said.
- */
 .post-cta {
     margin-top: var(--space-xl);
 }
@@ -2210,10 +1586,6 @@ textarea.field__input {
     margin-top: var(--space-md);
 }
 
-/*
- * Post tags. Not links — there are no tag archives, and something that looks
- * clickable and is not costs more trust than the affordance buys.
- */
 .tag-row {
     display: flex;
     flex-wrap: wrap;
@@ -2229,11 +1601,6 @@ textarea.field__input {
     font-size: var(--text-sm);
 }
 
-/*
- * The read-time and the read-more affordance share the row's last line: two
- * quiet pieces of metadata, one on each end, rather than a stack that adds
- * height to every row in the list.
- */
 .post-card__foot {
     display: flex;
     align-items: center;
@@ -2242,9 +1609,6 @@ textarea.field__input {
     margin: 0;
 }
 
-/* Accent-coloured because it is the row's call to action, even though the row
-   itself is the link. The arrow moves on hovering the card, not this span —
-   the pointer is never actually over it when the row is clicked. */
 .post-card__more {
     display: inline-flex;
     align-items: center;
@@ -2263,8 +1627,6 @@ textarea.field__input {
     transform: translateX(4px);
 }
 
-/* The portrait sits in its own frame beside the prose rather than filling the
-   grid cell, so a tall photograph cannot outrun the text next to it. */
 .about__portrait {
     max-width: 22rem;
     border-radius: var(--radius-lg);
@@ -2279,8 +1641,6 @@ textarea.field__input {
     object-fit: cover;
 }
 
-/* Stands in for the cover a study will never have. Quiet, and sized like the
-   figcaption it replaces rather than like the summary above it. */
 .study__cover-note {
     margin: var(--space-lg) 0 0;
     max-width: var(--measure);
@@ -2288,18 +1648,6 @@ textarea.field__input {
     font-size: var(--text-sm);
 }
 
-/*
- * The fading gradient only works where the card is wide enough that the text
- * genuinely leaves a column empty, and that is a property of the card, not of
- * the phone. The text stops at a fixed reading measure while the card grows
- * with the viewport, so the proportion moves: at 1280 the summary ends around
- * 68% of the card, at 1024 around 73%, and at 768 it runs to 94% — right
- * through the transparent end of the gradient.
- *
- * 64rem is where that stays comfortably inside the 76% hold. Below it the
- * scrim goes back to an even wash and the cover reads as tone rather than as
- * picture, which is the honest trade when there is nowhere to put it.
- */
 @media (max-width: 63.99rem) {
     .work-card::before {
         background: linear-gradient(160deg,
@@ -2308,13 +1656,6 @@ textarea.field__input {
     }
 }
 
-/* ── Price panel ────────────────────────────────────────────────────────
- *
- * The figures and the terms that qualify them, in one object. Apart, the
- * numbers are a claim and the terms are small print underneath something
- * else; together they are an offer with its conditions attached, which is
- * what a buyer is actually reading.
- */
 .price {
     margin-top: var(--space-lg);
     background: var(--surface-raised);
@@ -2329,8 +1670,6 @@ textarea.field__input {
     padding: clamp(1.5rem, 3vw, var(--space-lg));
 }
 
-/* Divided by rules rather than gaps once they sit in a row: three figures
-   floating in a panel read as one sentence broken in three places. */
 @media (min-width: 40rem) {
     .price__figures {
         grid-template-columns: repeat(3, 1fr);
@@ -2361,8 +1700,6 @@ textarea.field__input {
     letter-spacing: var(--tracking-display);
 }
 
-/* The unit rides with the number rather than dropping into the label, so
-   "$50" is never read as a one-off next to a "$1,500" that is. */
 .price__unit {
     font-size: var(--text-lg);
     font-weight: 500;
@@ -2376,11 +1713,6 @@ textarea.field__input {
     line-height: var(--leading-body);
 }
 
-/*
- * The terms sit on the tinted half of the panel. The change of surface is what
- * says "these are the conditions on the figures above" without a heading
- * having to say it.
- */
 .price__terms {
     display: grid;
     gap: var(--space-md);
@@ -2411,8 +1743,6 @@ textarea.field__input {
     line-height: var(--leading-relaxed);
 }
 
-/* A card's kicker. Same device as .eyebrow, scoped so it can sit tight against
-   the title it labels. */
 .card__label {
     margin-bottom: var(--space-2xs);
     color: var(--text-dim);
@@ -2421,48 +1751,19 @@ textarea.field__input {
     text-transform: uppercase;
 }
 
-/* ── Businesses ─────────────────────────────────────────────────────────
- *
- * The case study card's treatment, at the size a list of twenty-five can be.
- * The same object with less said about it: a cover behind a scrim, white type
- * over the top, and one link out.
- *
- * A cover here is the obvious thing — every business on this list has a
- * website by definition, so a screenshot of it is exactly what belongs in the
- * slot. Until one exists the card is the flat tinted fill a coverless case
- * study gets, which is why it shares --card-base rather than defining its own.
- *
- * It uses the even wash rather than the fading gradient: these cards are a
- * quarter the width of a case study row, so the text fills them and there is
- * no empty column to fade towards — the same reason the work card drops to a
- * wash below 64rem.
- */
-/* Stacked, like the case study list. Side by side these were three narrow
-   boxes crowding each other, and the name of a business — the only thing on
-   the card anybody is scanning for — had the least room of anything. */
 .biz-list {
     display: grid;
     gap: var(--space-md);
     margin-top: var(--space-lg);
 }
 
-/*
- * Two states, because the scrim has exactly one job: making white type
- * readable over a photograph nobody has chosen. Without a cover there is
- * nothing to darken, and applying it anyway rendered a coverless card at
- * rgb(49,49,51) — near black on a white page.
- *
- * So a card with no screenshot is an ordinary surface with ordinary text, and
- * only .biz-card--covered takes the case study treatment.
- */
 .biz-card {
     position: relative;
     isolation: isolate;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* These are full-width rows now, not tiles in a grid — the inset that
-       suited a 17rem box reads mean across a thousand pixels. */
+
     padding: clamp(1.5rem, 2.5vw, 2.25rem);
     background: var(--surface-raised);
     border: var(--hairline) solid var(--line);
@@ -2517,8 +1818,6 @@ textarea.field__input {
     font-size: var(--text-lg);
 }
 
-/* Fixed light values: these sit on the scrim, not on the page, so they must
-   not follow the theme. */
 .biz-card__name a {
     color: var(--heading);
 }
@@ -2527,8 +1826,6 @@ textarea.field__input {
     color: var(--accent);
 }
 
-/* Fixed light values on a covered card: they sit on the scrim, not on the
-   page, so they must not follow the theme. */
 .biz-card--covered .biz-card__name a,
 .biz-card--covered:hover .biz-card__name a {
     color: #ffffff;
@@ -2543,34 +1840,18 @@ textarea.field__input {
     border-top-color: var(--card-rule);
 }
 
-/* The whole card is the target; the name keeps the only link. */
 .biz-card__name a::after {
     content: '';
     position: absolute;
     inset: 0;
 }
 
-/*
- * The gap above the rule lives here, not on the foot. The foot's `margin-top:
- * auto` only produces space when the card has been stretched taller than its
- * contents — on a card this short it resolves to zero, and the rule sat flat
- * against the trade with no air at all. This guarantees the minimum; the auto
- * margin still adds to it when a row stretches one card to match another.
- */
 .biz-card__trade {
     margin: 0 0 var(--space-md);
     color: var(--text-dim);
     font-size: var(--text-sm);
 }
 
-/* Pushed to the foot so cards with different name lengths still line their
-   metadata up with each other. */
-/*
- * `margin-top: auto` rather than a fixed height. The grid stretches every card
- * in a row to the tallest, so without it a card with a one-line trade puts its
- * rule higher than its neighbour with two — this pins every rule to the bottom
- * of its own card and they line up across the row.
- */
 .biz-card__foot {
     display: flex;
     align-items: baseline;
@@ -2583,26 +1864,10 @@ textarea.field__input {
     font-size: var(--text-sm);
 }
 
-/*
- * The link matches the case study card's: same .link-arrow, same underline.
- * The only difference is the glyph, and that one is deliberate — this link
- * leaves the site and that one does not.
- */
-/* On the scrim the accent blue fails, so the link takes the same white as the
-   title and earns its affordance from the rule under it — exactly as it does
-   on a covered case study card. */
 .biz-card--covered .link-arrow {
     color: #ffffff;
 }
 
-
-/* ── Pixel mark ─────────────────────────────────────────────────────────
- *
- * The one place on the site with a decorative mark. It is confined to the 404
- * and the favicon on purpose: a visitor deciding whether to hire somebody is
- * reading a page that argues by having nothing on it that is not earning its
- * place, and this would be the first thing that was not.
- */
 .pixel-mark {
     display: block;
     height: auto;

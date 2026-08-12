@@ -1,22 +1,3 @@
-/*
- * Code blocks and a bespoke highlight.js theme.
- *
- * This replaces the two vendored GitHub themes. They could only be scoped
- * with `@import ... (prefers-color-scheme: ...)`, which a manual theme toggle
- * cannot override — flipping to light while the OS is dark left GitHub Dark's
- * near-white text on a near-white block. Keying the palette off the same
- * `theme` attribute as everything else removes that whole class of bug, and
- * lets the syntax colours be tuned against this site's surfaces rather than
- * GitHub's.
- */
-
-/*
- * Bare `:root` is the light palette, matching tokens.css. The two sheets used
- * to disagree — tokens mapped `:root` to light and this one mapped it to dark
- * — which only ever showed when the inline theme script in the head could not
- * run. With JavaScript blocked no `theme` attribute is ever set, so the page
- * rendered light with dark code blocks inside it.
- */
 :root,
 [theme='light'] {
     --code-bg: #fafbfc;
@@ -58,30 +39,17 @@ pre code,
 code.hljs {
     display: block;
     padding: var(--space-md);
-    /* Long lines scroll inside the block; the page itself must never gain a
-       horizontal scrollbar because of a code sample. */
+
     overflow-x: auto;
     background: transparent;
     border: 0;
     color: var(--code-text);
-    /*
-     * Inherit the 0.9em the <pre> already carries rather than resetting to an
-     * absolute size. --text-sm put block code at 14px while inline code sat at
-     * 15.3px, so a name written between sentences was larger than the same name
-     * in the sample below it. One size for code, whichever way it is set.
-     */
+
     font-size: 1em;
     line-height: var(--leading-relaxed);
     tab-size: 4;
 }
 
-/*
- * A block whose content is wider than the page is a scroll container, and a
- * browser makes those keyboard-focusable so they can be scrolled without a
- * mouse. The global focus ring is drawn 3px outside the element, which puts it
- * beyond the `overflow: hidden` on the <pre> and clips it away entirely —
- * leaving a tab stop with no visible indicator. Drawn inside instead.
- */
 pre code:focus-visible,
 code.hljs:focus-visible {
     outline-offset: -3px;

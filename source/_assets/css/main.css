@@ -1,8 +1,3 @@
-/*
- * Import order is load-bearing: tokens define the variables every later sheet
- * reads, base sets element defaults that components override, and responsive
- * comes last so its breakpoint overrides win.
- */
 @import 'tokens.css';
 @import 'fonts.css';
 @import 'base.css';

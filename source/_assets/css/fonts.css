@@ -1,14 +1,3 @@
-/*
- * The .woff2 files are generated from the .ttf sources kept alongside them by
- * ./build_fonts.sh — run that after updating a source font. It documents the
- * exact ranges; do not hand-edit the .woff2 files.
- *
- * Two families, both self-hosted, neither from a CDN. Inter sets the entire
- * interface; JetBrains Mono renders code and nothing else. Only Inter's
- * upright face is preloaded in the layout head — the italic is rare and the
- * mono is below the fold on the one page that has any.
- */
-
 @font-face {
     font-family: "Inter";
     src: url("../fonts/Inter/Inter-Variable.woff2") format("woff2");

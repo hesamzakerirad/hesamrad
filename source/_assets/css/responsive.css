@@ -1,17 +1,7 @@
-/*
- * Breakpoint overrides only.
- *
- * Most of the layout is intrinsically responsive — fluid `clamp()` type and
- * `auto-fit` grids — so this file is deliberately short. Anything that can be
- * solved without a breakpoint belongs in the sheet that owns the component.
- */
-
-/* Small devices (landscape phones and below) */
 @media (max-width: 767.98px) {
     :root {
         --header-height: 4rem;
-        /* Still more air than the old desktop value: the whitespace is the
-           design, and it is the first thing a cramped breakpoint eats. */
+
         --space-section: 5rem;
     }
 
@@ -32,7 +22,6 @@
     }
 }
 
-/* X-Small devices (portrait phones) */
 @media (max-width: 575.98px) {
     .btn {
         width: 100%;
