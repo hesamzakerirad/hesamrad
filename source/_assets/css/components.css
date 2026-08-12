@@ -840,6 +840,38 @@ a.card:hover .card__title {
     border-top: var(--hairline) solid var(--line);
 }
 
+/*
+ * The label above a run of questions on /faq/. Deliberately smaller than the
+ * questions are loud — a group heading is a signpost, and at the base h2 size
+ * it competed with the questions it was introducing.
+ *
+ * The top margin is what separates one group from the last question of the
+ * one before, which otherwise butt together across a hairline.
+ */
+.faq-group {
+    max-width: var(--measure-wide);
+    margin-inline: auto;
+}
+
+.faq-group + .faq-group {
+    margin-top: var(--space-xl);
+}
+
+.faq-group .faq {
+    max-width: none;
+    margin-inline: 0;
+}
+
+.faq__group {
+    margin-bottom: var(--space-sm);
+    color: var(--text-dim);
+    font-size: var(--text-base);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+
 .faq__item {
     border-bottom: var(--hairline) solid var(--line);
 }

@@ -235,7 +235,7 @@ for both:
    sides can see the edges — [Zero to One states its exclusions on the page](/zero-to-one/) for exactly that reason.
 
 It would be a poor article that asked you to interrogate everyone but me. My
-answers to all five are [in the FAQ under what I take on](/services/) — ownership, what
+answers to all five are [on the questions page](/faq/) — ownership, what
 happens if I am unavailable, how the work runs, and what I will not take on.
 
 ## The two columns, side by side
