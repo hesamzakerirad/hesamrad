@@ -186,6 +186,16 @@ td {
     text-align: left;
 }
 
+th:first-child,
+td:first-child {
+    padding-left: 0;
+}
+
+th:last-child,
+td:last-child {
+    padding-right: 0;
+}
+
 th {
     color: var(--heading);
     font-family: var(--font-sans);

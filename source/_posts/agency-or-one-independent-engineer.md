@@ -213,6 +213,24 @@ for both:
 5. **What is explicitly not included?** A fixed price only stays fixed if both
    sides can see the edges.
 
+## The two columns, side by side
+
+Everything above, in one place. Some of these rows favour an agency and some
+favour me; that is the point.
+
+| | An agency | One independent engineer |
+| --- | --- | --- |
+| Who you talk to | Usually an account manager | The person writing the code |
+| Who writes it | Whoever is assigned that month | The person you hired |
+| Communication paths | Ten, across a team of five | One |
+| If they leave | Someone else picks it up, often without telling you | The work stops until you find someone |
+| If they are ill | Absorbed by the team | Your dates move |
+| Several disciplines at once | Yes — brand, app, campaign | No |
+| Adding people mid-project | Yes | No |
+| Who remembers why a decision was made | The process, not a person | The person |
+| What the rate covers | The work, plus the hours nobody bills | The work |
+| Best when | The job is large, urgent, or many-sided | One system has to be right and stay right |
+
 ## The short version
 
 You are not choosing between expensive and cheap. You are choosing between
