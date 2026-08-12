@@ -152,9 +152,7 @@ Hiring one engineer concentrates every risk into one human being. They can get
 ill in week three. They can take a job. They can turn out to be worse than they
 seemed. They can simply stop replying — I have taken over from developers who
 did exactly that, and the client's position was genuinely awful: no access to
-anything, no documentation, and a system earning money that nobody could change. [Two of those handovers are
-written up here](/work/), including what was wrong and what it took to make
-the system safe to change again.
+anything, no documentation, and a system earning money that nobody could change.
 
 An agency is, among other things, an insurance policy against that. If your
 developer leaves, someone else picks it up. You may not even find out. That is a
@@ -194,6 +192,10 @@ The direction is not really in doubt, though. Over a two-year relationship, the
 chance that the person who understands your system is still the person working
 on it is not high. With an agency you have bought a process that survives that.
 What you have not bought is anyone who remembers why the decision was made.
+
+That is the part I would point at in my own work. [Both projects I have written
+up](/work/) were one engineer on one system for years — five, in one case — and
+the value in year four was mostly knowing why year two had gone the way it did.
 
 ## When an agency is genuinely the right answer
 
