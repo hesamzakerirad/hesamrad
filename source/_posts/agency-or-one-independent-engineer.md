@@ -4,8 +4,6 @@ section: content
 title: 'Agency or one independent engineer: the honest comparison'
 description: 'The comparison people make is cost. The one that decides the outcome is risk — and an agency''s risks are the opposite of an independent engineer''s.'
 tags:
-    - Hiring
-    - Small business
 robots:
     - index
     - follow
@@ -22,17 +20,18 @@ Almost everyone who asks me this frames it as a cost question. The agency quoted
 $60,000, the freelancer quoted $25,000, and the question is whether the
 freelancer is a bargain or a warning sign.
 
-It is the wrong comparison. Not because cost does not matter, but because the
-two options do not fail in the same way, and you are really choosing which kind
-of failure you would rather be exposed to. Once you see it that way the decision
-gets easier, and it stops depending on which quote is smaller.
+It is the wrong comparison. Cost matters, obviously. But the two options do not
+fail in the same way, and that is the thing you are really picking between:
+which kind of failure you would rather live with. Once you see it that way, the
+decision stops hanging on which quote is smaller.
 
-I am an independent engineer, so one of these answers pays me — worth knowing
-before you read the rest. I have stuck to things you can check: every figure
-here is sourced, the statistic that would have helped my case most is one I
-threw out, and the cases where an agency is the right answer are set out in
-full. You should finish this knowing exactly what you are choosing, rather than
-knowing what I would prefer.
+I am an independent engineer, so one of these answers pays me. Worth knowing
+before you read the rest.
+
+So I have stuck to things you can check. Every figure here is sourced. The one
+statistic that would have helped me most is the one I threw out. The cases where
+an agency is the better answer are set out in full. You should finish this
+knowing what you are choosing, not knowing what I would prefer.
 
 ## Where the rate actually goes
 
@@ -44,11 +43,12 @@ It is not greed, and it is mostly not profit. It is arithmetic about time.
 A developer on $75,000 a year is available for about 2,080 working hours. They
 will not bill 2,080 hours. They take holiday, they get ill, they sit in internal
 meetings, they write timesheets, they help with a pitch that does not land, they
-spend a week between projects with nothing assigned. What is left is the
-*billable* hours, and across the industry agencies plan for that number to land
-somewhere between 70% and 80% of the total — [Asana's benchmark
+spend a week between projects with nothing assigned.
+
+What is left is the *billable* hours. Agencies plan for that to land between 70%
+and 80% of the total. [Asana's benchmark
 data](https://asana.com/resources/utilization-rate) puts software and IT
-services at 75–80%, and most agency finance guidance uses similar figures.
+services at 75–80%, and most agency finance guidance lands in the same range.
 
 Call it 1,500 billable hours. Now the arithmetic does something uncomfortable:
 
@@ -64,18 +64,17 @@ So the 500 unbilled hours are not free. They are paid for by the 1,500 billed
 ones. That is the single most useful thing to understand about an agency rate,
 and it explains the shape of the invoice better than any argument about value.
 
-None of this is a scandal. It is what it costs to run an organisation that can
-survive one client leaving. But it does mean that when you buy agency hours, a
-material share of what you pay funds the coordination of the agency rather than
-the making of your software.
+None of this is a scandal. It is what it costs to run a company that can survive
+losing a client. But it does mean one thing plainly: part of every hour you buy
+pays for the agency, not for your software.
 
 ## The statistic everyone quotes, and why I am not going to use it
 
 If you search this question you will hit the Standish Group's CHAOS report
-within about two clicks. Its numbers are irresistible: [roughly 31% of software
-projects succeed](https://opencommons.org/CHAOS_Report_on_IT_Project_Outcomes),
-about half are "challenged", the rest fail outright — and small projects succeed
-around 90% of the time while large ones manage under 10%.
+within about two clicks. The numbers are irresistible. [Roughly 31% of software
+projects succeed](https://opencommons.org/CHAOS_Report_on_IT_Project_Outcomes).
+About half are "challenged" and the rest fail outright. Small projects succeed
+around 90% of the time. Large ones manage under 10%.
 
 That last pair would be a gift to someone arguing my side of this. I am not
 going to lean on it, because the report does not hold up.
@@ -83,15 +82,19 @@ going to lean on it, because the report does not hold up.
 CHAOS has been picked apart in the peer-reviewed literature for twenty years.
 Jørgensen and Moløkken's review in *Communications of the ACM* asked directly
 [whether it describes a software crisis at
-all](https://dl.acm.org/doi/10.1145/1145287.1145301), and a follow-up in *IEEE
-Software* titled ["The Rise and Fall of the Chaos Report
-Figures"](https://dl.acm.org/doi/10.1109/MS.2009.154) concluded the figures were
-exaggerated. The recurring objections are basic ones: the sampling method is not
-disclosed, the criteria for which projects were included are not published, and
-"success" is defined purely as hitting the original estimates of cost, time and
-scope. By that definition a project that shipped something better than planned,
-late, counts as a failure. A project that delivered exactly what was specified —
-and the specification was wrong — counts as a success.
+all](https://dl.acm.org/doi/10.1145/1145287.1145301). A follow-up in *IEEE
+Software*, ["The Rise and Fall of the Chaos Report
+Figures"](https://dl.acm.org/doi/10.1109/MS.2009.154), concluded the numbers were
+exaggerated.
+
+The objections are basic ones. The sampling method is not disclosed. The rule for
+which projects got included is not published. And "success" means nothing more
+than hitting the original estimates of cost, time and scope.
+
+Think about what that definition does. A project that shipped something better
+than planned, two weeks late, counts as a failure. A project that delivered
+exactly what was specified, when the specification was wrong, counts as a
+success.
 
 I mention it for two reasons. One, you will see those numbers quoted at you by
 somebody selling something, and you should know they are soft. Two, if I quoted
@@ -152,19 +155,21 @@ anything.
 The agency risk is quieter, and I think it is the one people underestimate.
 
 You are not buying a person. You are buying a slot, and the person filling it
-changes. The developer who spent four months learning why your pricing rules are
-strange gets moved to another account, and the person who replaces them starts
-from nothing — except now nobody tells you that happened, because the account
-manager is still the same and continuity is the thing you were sold.
+changes.
+
+The developer who spent four months learning why your pricing rules are strange
+gets moved to another account. Someone new starts from nothing. And nobody tells
+you it happened, because the account manager is the same as last month, and
+continuity is exactly what you thought you were paying for.
 
 The churn is not hypothetical. The US Bureau of Labor Statistics puts [median
 tenure across all wage and salary
 workers](https://www.bls.gov/news.release/pdf/tenure.pdf) at 3.9 years as of
 January 2024, down from 4.1 two years earlier. Software is commonly reported to
 run shorter still — figures around two years get quoted a lot, though I would
-treat those with the same suspicion I applied to CHAOS, since BLS does not
-publish a developer-specific number and most of the two-year claims trace back
-to surveys rather than payroll data.
+treat those with the same suspicion I applied to CHAOS. BLS publishes no
+developer-specific number, and most of the two-year claims trace back to surveys
+rather than payroll data.
 
 The direction is not really in doubt, though. Over a two-year relationship, the
 chance that the person who understands your system is still the person working
@@ -184,10 +189,9 @@ cannot do that, and a person who claims they can is telling you something.
 regulatory date, a funding round. Capacity you can scale is worth paying for,
 and one engineer with flu is a single point of failure you cannot absorb.
 
-**When the work is genuinely large.** Past a certain size a project needs
-coordination as a discipline in its own right, and paying someone whose whole
-job is that coordination stops being overhead and starts being the thing that
-saves you.
+**When the work is genuinely large.** Past a certain size, coordination becomes a
+job in itself. Paying someone to do it full time stops being overhead and starts
+being the thing that saves you.
 
 **When your own governance requires it.** Some boards, insurers and procurement
 processes will not sign off on a sole supplier. That is a constraint, not a
@@ -203,7 +207,7 @@ for both:
 2. **What do I own on the last day?** Domain, repository, hosting accounts,
    analytics, everything. Get the answer in writing before money moves.
 3. **What happens when the person who knows this leaves?** Both models have an
-   answer. Neither answer should be "that won't happen."
+   answer. Neither answer should be "that will not happen."
 4. **What does the first deliverable look like, and when?** If nothing is
    visible for two months, that is a warning regardless of who you hired.
 5. **What is explicitly not included?** A fixed price only stays fixed if both
@@ -215,11 +219,10 @@ You are not choosing between expensive and cheap. You are choosing between
 paying for coordination and continuity, or paying for directness and accepting
 that it rests on one person.
 
-If your project is large, multi-disciplinary or deadline-critical, buy the
-coordination. If it is one system that has to be right and stay right, the
-distance between you and the person building it is the thing worth protecting —
-and every layer you add is a layer that will, eventually, pass something on
-slightly wrong.
+If your project is large, spans several disciplines, or has a deadline you cannot
+move, buy the coordination. If it is one system that has to be right and stay
+right, protect the distance between you and the person building it. Every layer
+you add is one more place where something gets passed on slightly wrong.
 
 Either way, ask the five questions. The people who answer them plainly are the
 ones to hire.
