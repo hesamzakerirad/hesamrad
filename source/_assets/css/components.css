@@ -596,15 +596,33 @@ a.card:hover .card__title {
     text-transform: uppercase;
 }
 
+/*
+ * Two columns. The longest entry is 302px against a 690px column, so a single
+ * list left 56% of the width empty and ran to nine rows — a tall block of
+ * mostly nothing, before the article had said anything.
+ *
+ * Back to one column on a narrow screen, where two would give each entry about
+ * 150px and wrap most of them.
+ */
 .contents__list {
     margin: 0;
     padding-left: 1.25em;
     color: var(--text-dim);
     font-size: var(--text-sm);
+    columns: 2;
+    column-gap: var(--space-xl);
 }
 
 .contents__list li {
     margin-bottom: 0.4rem;
+    /* An entry split across the column break would read as two entries. */
+    break-inside: avoid;
+}
+
+@media (max-width: 40rem) {
+    .contents__list {
+        columns: 1;
+    }
 }
 
 .contents__list li::marker {
