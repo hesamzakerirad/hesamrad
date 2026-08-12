@@ -77,13 +77,19 @@ npm run dev
 In the second terminal, start the PHP server:
 
 ```bash
-./vendor/bin/jigsaw serve
+./vendor/bin/jigsaw serve --router=router.php
 ```
 
 Then open `http://localhost:8000`.
 
 Vite watches the CSS and the JavaScript. Jigsaw rebuilds the HTML when you
 change a template. The browser reloads without your help.
+
+Always use `--router=router.php`. Without it, PHP's built-in server answers an
+address it cannot find with the home page and a 200 status. Every typo then
+looks like the home page loading correctly, and you cannot open the 404 page
+to look at it. The router does what GitHub Pages does: an address that does
+not exist gets `404.html` and a 404 status. It changes nothing else.
 
 To make a build that is the same as the deployed build:
 
