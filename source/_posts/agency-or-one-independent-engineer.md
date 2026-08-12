@@ -12,6 +12,22 @@ updated_at: 2026-08-12
 readTime: 8
 isFeatured: true
 isPublished: true
+ctaTitle: 'Not sure which one you need?'
+ctaBody: 'Describe the project in a paragraph and I will tell you honestly which way to go — including the times the answer is an agency, or a developer you hire outright. No pitch attached.'
+ctaAction: 'Tell me about it'
+ctaSecondary: '/work/'
+ctaSecondaryLabel: 'See what I have built'
+faq:
+    - q: 'Who writes the code, and will I meet them?'
+      a: 'If the people in the pitch are not the people on the work, ask who is. At an agency the developer assigned to you can change between projects; with one engineer the person you meet is the person who writes it.'
+    - q: 'What do I own on the last day?'
+      a: 'Domain, repository, hosting accounts, analytics, everything. Get the answer in writing before money moves.'
+    - q: 'What happens when the person who knows this leaves?'
+      a: 'Both models have an answer. An agency absorbs it and someone else picks the work up. An independent engineer has to have handed over documentation and access as they went. Neither answer should be that it will not happen.'
+    - q: 'What does the first deliverable look like, and when?'
+      a: 'If nothing is visible for two months, that is a warning regardless of who you hired.'
+    - q: 'What is explicitly not included?'
+      a: 'A fixed price only stays fixed if both sides can see the edges. Ask for the exclusions in writing.'
 thumbnail: /assets/build/images/agency-or-one-independent-engineer.jpg
 thumbnailAlt: 'A single keyboard and trackpad on a wooden desk, lit from one side'
 thumbnailCopyRightSource: "https://unsplash.com/photos/brown-wooden-plank-near-white-and-blue-textile-frZt8AVYdI0"
@@ -127,7 +143,7 @@ disputed report to support it. It is why the honest version of my pitch is not
 "I am better than an agency" but "there is less distance between you and the
 work."
 
-## The risk you are taking with one person
+## The risk you are taking with a freelancer
 
 Now the other side, because a comparison that only lists the other option's
 problems is an advertisement.
@@ -136,7 +152,9 @@ Hiring one engineer concentrates every risk into one human being. They can get
 ill in week three. They can take a job. They can turn out to be worse than they
 seemed. They can simply stop replying — I have taken over from developers who
 did exactly that, and the client's position was genuinely awful: no access to
-anything, no documentation, and a system earning money that nobody could change.
+anything, no documentation, and a system earning money that nobody could change. [Two of those handovers are
+written up here](/work/), including what was wrong and what it took to make
+the system safe to change again.
 
 An agency is, among other things, an insurance policy against that. If your
 developer leaves, someone else picks it up. You may not even find out. That is a
@@ -212,7 +230,11 @@ for both:
 4. **What does the first deliverable look like, and when?** If nothing is
    visible for two months, that is a warning regardless of who you hired.
 5. **What is explicitly not included?** A fixed price only stays fixed if both
-   sides can see the edges.
+   sides can see the edges — [Zero to One states its exclusions on the page](/zero-to-one/) for exactly that reason.
+
+It would be a poor article that asked you to interrogate everyone but me. My
+answers to all five are [in the FAQ under what I take on](/services/) — ownership, what
+happens if I am unavailable, how the work runs, and what I will not take on.
 
 ## The two columns, side by side
 

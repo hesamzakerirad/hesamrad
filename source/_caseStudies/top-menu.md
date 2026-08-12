@@ -63,22 +63,10 @@ cover:
     alt: 'the menu a diner sees after scanning the QR code on the table'
     caption: 'What a diner gets: scan the code on the table, and the menu opens. No app, no account.'
 gallery:
-    - src: null
-      ratio: mobile
-      alt: 'the menu on a phone'
-      caption: 'The menu as customers see it, which is on a phone, on café wifi, almost always.'
-    - src: null
-      ratio: mobile
-      alt: 'placing an order from the table'
-      caption: 'Ordering from the table — switched on only at venues that wanted it.'
-    - src: null
-      ratio: tall
-      alt: 'the business dashboard'
-      caption: 'The dashboard a venue runs itself: menu, prices, staff and their access levels.'
-    - src: null
-      ratio: tall
-      alt: 'the reporting screens'
-      caption: 'Income, sales and walk-in reports, read by owners rather than analysts.'
+    # - src: null
+    #   ratio: mobile
+    #   alt: 'the menu on a phone'
+    #   caption: 'The menu as customers see it, which is on a phone, on café wifi, almost always.'
 stack:
     - Laravel
     - PHP

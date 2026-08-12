@@ -179,4 +179,29 @@
             </nav>
         @endif
     </article>
+
+{{-- A post that carries a `faq:` block describes it for machines too. The
+     questions here mirror the ones visible in the body, which is the condition
+     Google puts on this markup — schema for answers a reader cannot see is
+     the thing it is meant to catch. --}}
+@if ($page->faq)
+    @push('scripts')
+        <script type="application/ld+json">
+            {!! json_encode([
+                '@context' => 'https://schema.org',
+                '@type' => 'FAQPage',
+                '@id' => $page->getCanonicalUrl() . '#faq',
+                'mainEntity' => collect($page->faq)->map(fn ($item) => [
+                    '@type' => 'Question',
+                    'name' => $item['q'],
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text' => html_entity_decode(strip_tags($item['a']), ENT_QUOTES, 'UTF-8'),
+                    ],
+                ])->all(),
+            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+        </script>
+    @endpush
+@endif
+
 @endsection
