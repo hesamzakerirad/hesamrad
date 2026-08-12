@@ -1545,7 +1545,9 @@ textarea.field__input {
 }
 
 .rich-text a[target='_blank']::after,
-.prose a[target='_blank']::after {
+.prose a[target='_blank']::after,
+.rich-text a[href^='http']:not([href*='hesamrad.com'])::after,
+.prose a[href^='http']:not([href*='hesamrad.com'])::after {
     content: '↗';
     margin-inline-start: 0.15em;
     font-size: 0.8em;
