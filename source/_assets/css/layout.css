@@ -358,38 +358,106 @@
         white-space: nowrap;
     }
 
+    /*
+     * A surface rather than a dropdown, revealed downward from under the
+     * header.
+     *
+     * position is absolute, not fixed, and that is the whole bug fix. The panel
+     * lives inside .site-header, and .site-header takes a backdrop-filter as
+     * soon as it is open or stuck. A filtered ancestor becomes the containing
+     * block for its fixed-position descendants, so `inset: <header> 0 0`
+     * resolved against the 4rem header rather than the viewport and the panel
+     * collapsed to 108px — nothing to see, in every browser that honours
+     * backdrop-filter. Positioning against the header deliberately is stable
+     * either way: the header is full-width and pinned to the top, so
+     * top:100% / left:0 / right:0 is exactly the viewport below it.
+     */
     .site-nav {
-        position: fixed;
-        top: var(--header-height);
+        position: absolute;
+        top: 100%;
         left: 0;
         right: 0;
+        height: calc(100vh - var(--header-height));
+        /* dvh so the panel is not cut off by mobile browser chrome. */
+        height: calc(100dvh - var(--header-height));
+
         flex-direction: column;
         align-items: stretch;
+        justify-content: flex-start;
         gap: 0;
 
-        padding: var(--space-xs) calc(var(--gutter) - 0.9rem) var(--space-md);
-        background: var(--bg-elevated);
-        border-bottom: var(--hairline) solid var(--line);
+        padding: var(--space-md) var(--gutter) var(--space-xl);
+        background: var(--bg);
+        overflow-y: auto;
+        overscroll-behavior: contain;
 
+        /*
+         * The reveal is a clip that opens downward, so the surface reads as
+         * coming out from behind the header rather than fading in on the spot.
+         * Clipping rather than sliding keeps the text still while it arrives —
+         * a panel that translates drags its own words down the screen.
+         *
+         * visibility is deliberately not transitioned. The usual trick —
+         * `visibility 0s linear <duration>` — leaves it stuck on `visible`
+         * here, and so does giving it a real duration; measured both. A closed
+         * panel that stays visible is still in the tab order, so a keyboard
+         * user would walk into five invisible links.
+         *
+         * So the reveal is held open by a class instead: .is-closing keeps the
+         * panel visible for exactly as long as the clip takes, and the script
+         * drops it afterwards. Keep that timeout and this duration in step.
+         */
         visibility: hidden;
-        opacity: 0;
-        transform: translateY(-0.5rem);
-        transition: opacity var(--duration) var(--ease-out),
-            transform var(--duration) var(--ease-out),
-            visibility 0s linear var(--duration);
+        clip-path: inset(0 0 100% 0);
+        transition: clip-path 260ms var(--ease-out);
+    }
+
+    .site-header.is-open .site-nav,
+    .site-header.is-closing .site-nav {
+        visibility: visible;
     }
 
     .site-header.is-open .site-nav {
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0);
-        transition: opacity var(--duration) var(--ease-out),
-            transform var(--duration) var(--ease-out),
-            visibility 0s;
+        clip-path: inset(0 0 0 0);
+        /* Opening is given more time than closing. A menu should arrive
+           deliberately and get out of the way promptly. */
+        transition: clip-path 420ms var(--ease-out);
     }
 
     .site-nav__link {
-        padding: 0.85rem 0.9rem;
-        font-size: var(--text-base);
+        padding-block: var(--space-sm);
+        padding-inline: 0;
+        font-size: var(--text-xl);
+        letter-spacing: var(--tracking-tight);
+
+        /*
+         * Each line settles down into place a beat after the one above it,
+         * following the reveal rather than fighting it. The distance is small
+         * on purpose — enough to read as arriving, not enough to read as an
+         * effect. The global reduced-motion rule flattens both the movement
+         * and the stagger.
+         */
+        opacity: 0;
+        transform: translateY(-0.5rem);
+        transition: opacity 220ms var(--ease-out),
+            transform 220ms var(--ease-out);
     }
+
+    .site-header.is-open .site-nav__link {
+        opacity: 1;
+        transform: none;
+    }
+
+    .site-header.is-open .site-nav__link:nth-child(1) { transition-delay: 60ms; }
+    .site-header.is-open .site-nav__link:nth-child(2) { transition-delay: 100ms; }
+    .site-header.is-open .site-nav__link:nth-child(3) { transition-delay: 140ms; }
+    .site-header.is-open .site-nav__link:nth-child(4) { transition-delay: 180ms; }
+    .site-header.is-open .site-nav__link:nth-child(5) { transition-delay: 220ms; }
+    .site-header.is-open .site-nav__link:nth-child(n + 6) { transition-delay: 260ms; }
+
+
+    .site-nav__link.is-active {
+        color: var(--heading);
+    }
+
 }

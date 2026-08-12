@@ -110,6 +110,7 @@ function initHeader() {
     if (!toggle) return;
 
     const nav = header.querySelector('.site-nav');
+    let closing;
 
     /*
      * The panel sits before the toggle in the DOM, so opening it and leaving
@@ -120,6 +121,27 @@ function initHeader() {
     const setOpen = (open, { moveFocus = false } = {}) => {
         header.classList.toggle('is-open', open);
         toggle.setAttribute('aria-expanded', String(open));
+
+        // The panel fills the screen now, so the page behind it has to stop
+        // scrolling while it is up.
+        document.documentElement.classList.toggle('is-nav-open', open);
+
+        /*
+         * Keeps the panel visible while it fades out. visibility cannot be
+         * transitioned reliably — it stays on `visible` and leaves a closed
+         * menu in the tab order — so the class does that job and is dropped
+         * once the fade has finished.
+         */
+        clearTimeout(closing);
+
+        if (open) {
+            header.classList.remove('is-closing');
+        } else {
+            header.classList.add('is-closing');
+            // Matches the closing clip-path duration in layout.css. Shorter and
+            // the panel is cut to hidden part-way through the reveal.
+            closing = setTimeout(() => header.classList.remove('is-closing'), 260);
+        }
 
         if (open && moveFocus && nav) {
             /*

@@ -237,6 +237,16 @@ button {
     cursor: pointer;
 }
 
+/*
+ * While the nav covers the screen, the article behind it must not scroll. The
+ * panel has overscroll-behavior of its own; this stops the page moving when
+ * the gesture starts outside it.
+ */
+html.is-nav-open,
+html.is-nav-open body {
+    overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
