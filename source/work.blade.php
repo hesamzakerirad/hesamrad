@@ -29,7 +29,7 @@ title: Work
 
         <h1>What I have built, and what changed.</h1>
         <p class="lead prose">Each of these is a real project: the problem the business had, what I built for it, and
-            the difference it made once it was live. Numbers rather than adjectives, wherever I have them.</p>
+            the difference it made once it was live. Numbers wherever I have them, adjectives where I don't.</p>
 
         {{-- The list lives inside the page head, the same way the blog's does.
              Both pages are a heading followed straight by the thing the page is
@@ -38,8 +38,8 @@ title: Work
              between the lede and the first card. --}}
         @if ($studies->isEmpty())
             <div class="mt-lg">
-                <p class="lead prose dim">I am writing these up now. Until they are here, the fastest way to find out
-                    whether I have built something like yours is to ask.</p>
+                <p class="lead prose dim">I'm writing these up now. Until they're here, the fastest way to find out
+                    whether I've built something like yours is to ask.</p>
 
                 <div class="btn-row">
                     <a class="btn btn--primary" href="{{ $page->baseUrl }}/#contact">
@@ -113,9 +113,9 @@ title: Work
 
     <div class="shell section" id="contact">
         <div class="callout">
-            <h2>Tell me what you are trying to build.</h2>
-            <p>A paragraph is enough. You will get an honest answer about whether I am the right person for it,
-                including the times when I am not.</p>
+            <h2>Tell me what you're trying to build.</h2>
+            <p>A paragraph is enough. I'll tell you whether I've done something like it before, and whether I'm the
+                right person for this one.</p>
 
             @include('_components.contact-form')
         </div>

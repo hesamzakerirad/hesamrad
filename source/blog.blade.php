@@ -15,15 +15,15 @@ title: Blog
 
 @section('title', 'Blog')
 
-@section('description', 'Notes from the work: whatever I am building, using or working out at the time. Written for people who pay for software, not only those who write it.')
+@section('description', 'Notes from the work: whatever I\'m building, using or working out at the time. Written for people who pay for software, not only those who write it.')
 
 @section('body')
     <div class="shell section page-head">
         @include('_components.breadcrumbs')
 
         <h1>Notes from the work.</h1>
-        <p class="lead prose">Whatever I am building, using, or working out at the time. Written to be read by people
-            who pay for software, not only by people who write it.</p>
+        <p class="lead prose">Whatever I'm building, using, or working out at the time. Written to be read by people
+            who pay for software, not only by the people who write it.</p>
 
         {{-- The empty state replaces the list rather than sitting inside it.
              .post-list carries a border-top to close the top edge of the first

@@ -30,7 +30,7 @@
      Kept under 120 characters on purpose. A phone cuts the snippet around
      there, and "one man, start to finish" is the whole position in five words
      — it is the last thing that should fall off the end. --}}
-@section('description', 'I craft the software behind a growing business, and the website in front of it — one man, start to finish.')
+@section('description', 'I build the software behind a growing business, and the website in front of it — one man, start to finish.')
 
 @section('body')
     {{-- The section runs the full width of the page and the shell inside it
@@ -72,7 +72,7 @@
             <h1 class="hero__title">Your business has a back office. Somebody has to build it.</h1>
 
             <p class="lead hero__lede">
-                Not an agency, not a template, not a platform you rent. One engineer who builds the thing, and is still reachable when it needs changing.
+                There's no agency here and no template. One engineer who builds the thing, and who's still around when it needs changing.
             </p>
 
             {{-- Two doors, because two very different people arrive here and the
@@ -90,7 +90,7 @@
                 </a>
             </div>
 
-            <p class="hero__route">Not sure which? <a href="#contact">Describe it in a paragraph</a> and I will tell you.</p>
+            <p class="hero__route">Not sure which? <a href="#contact">Describe it in a paragraph</a> and I'll tell you.</p>
         </div>
     </section>
 
@@ -142,29 +142,29 @@
     <section class="shell section">
         <div class="section-head">
             <h2>Most of what an agency charges for is the agency.</h2>
-            <p>An account manager briefing a project manager briefing a developer &mdash; layers whose job is
-                coordinating the other layers, billed to you. You get one person for the part that has to be correct
-                and stay correct: the system, the data, the releases, and the day-to-day of keeping it up. Nothing
-                falls between three suppliers, because there are not three suppliers.</p>
+            <p>An account manager briefs a project manager, who briefs a developer. You pay for all three, and two of
+                them exist to coordinate the third. What you get here is one person for the part that has to be right
+                and stay right: the system, the data, and the day-to-day of keeping it running. Nothing falls between
+                three suppliers, because there aren't three suppliers.</p>
         </div>
 
         @php
             $capabilities = [
                 [
                     'title' => 'A product built from nothing',
-                    'body' => 'You have a business and an idea, and nothing built yet. I turn it into something your customers can sign up to and use: the website or app they see, the accounts, the payments, and the admin screens you run it from.',
+                    'body' => 'You\'ve got a business and an idea, and nothing built yet. I turn that into something your customers can sign up to and use — the site or app they see, plus the accounts, the payments and the admin screens you run it from.',
                 ],
                 [
                     'title' => 'Pages that load in under a second',
-                    'body' => 'If your site or app has got slow as it has grown, that is usually a matter of weeks to fix, not months. Faster pages mean fewer people give up before they buy.',
+                    'body' => 'If your site has got slower as it\'s grown, that\'s usually weeks of work to fix rather than months. Faster pages mean fewer people give up before they buy.',
                 ],
                 [
                     'title' => 'Software nobody is looking after',
-                    'body' => 'The developer who built it has gone, or the agency moved on. I take it over, make it safe to change again, and write down how it works — so you are never in this position twice.',
+                    'body' => 'The developer who built it has gone, or the agency moved on. I take it over, make it safe to change again, and write down how it works, so you\'re never stuck like this twice.',
                 ],
                 [
                     'title' => 'Software that keeps working',
-                    'body' => 'Automatic checks, a release process that takes a minute, and documentation written in plain English. So a change made on a Friday afternoon does not take the business down on Saturday.',
+                    'body' => 'Automatic checks, a release that takes about a minute, and documentation in plain English. A change made on a Friday afternoon shouldn\'t take the business down on Saturday.',
                 ],
             ];
         @endphp
@@ -181,10 +181,10 @@
         <div class="shell">
             <div class="section-head">
                 <h2>Start with a call. Keep the plan either way.</h2>
-                <p>Thirty minutes to understand your business and what you are trying to build. You get back a written
-                    plan: what I would build, in what order, what it would cost, and what I think could go wrong.</p>
-                <p>It is yours to keep &mdash; including to take to another developer. And if I am not the right person
-                    for the job, I will tell you on that call rather than three weeks in.</p>
+                <p>Thirty minutes to understand your business and what you're trying to build. You get back a written
+                    plan: what I'd build, in what order, what it would cost, and what I think could go wrong.</p>
+                <p>It's yours to keep, including to take to another developer. And if I'm not the right person for the
+                    job, I'll say so on that call instead of three weeks in.</p>
 
                 <div class="btn-row">
                     <a class="btn btn--primary" href="#contact">
@@ -207,11 +207,11 @@
          moment. --}}
     <section class="shell section">
         <div class="section-head">
-            <h2>There is a person behind this.</h2>
-            <p>Eight years building web software, five of them looking after one system for the same client. A
-                literary background as well as an engineering one, and a master's in English literature in progress
-                &mdash; which turns out to matter, because most of this job is explaining a complicated thing
-                clearly.</p>
+            <h2>There's a person behind this.</h2>
+            <p>Eight years building web software, five of them looking after one system for the same client. I have a
+                literary background as well as an engineering one, and I'm partway through a master's in English
+                literature. That matters more than it sounds like it should, because most of this job is explaining
+                something complicated to someone who has no reason to be patient with you.</p>
 
             <p class="mt-md">
                 <a class="link-arrow" href="{{ $page->baseUrl }}/about/">
@@ -226,9 +226,9 @@
 
     <section class="shell section" id="contact">
         <div class="callout">
-            <h2>Tell me what you are trying to build.</h2>
-            <p>A paragraph is enough. You will get an honest answer about whether I am the right person for it,
-                including the times when I am not.</p>
+            <h2>Tell me what you're trying to build.</h2>
+            <p>A paragraph is enough. I'll tell you whether I'm the right person for it, including the times I'm
+                not.</p>
 
             @include('_components.contact-form')
         </div>

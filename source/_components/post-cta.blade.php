@@ -13,7 +13,7 @@
      * a developer read a pitch about booking a shop online.
      */
     $ctaTitle = $page->ctaTitle ?: 'Is this your business?';
-    $ctaBody = $page->ctaBody ?: 'Describe what you are trying to do in a paragraph. You will get an honest answer about what it would take, and whether I am the right person for it.';
+    $ctaBody = $page->ctaBody ?: 'Describe what you\'re trying to do in a paragraph. I\'ll tell you what it would take, and whether I\'m the right person for it.';
     $ctaAction = $page->ctaAction ?: 'Tell me what you need';
 
     /*

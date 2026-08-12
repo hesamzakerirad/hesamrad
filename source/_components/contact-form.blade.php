@@ -28,12 +28,12 @@
     <input type="hidden" name="page" value="{{ $page->getCanonicalUrl() }}">
 
     <noscript>
-        <p class="form__note form__note--warning">This form needs JavaScript to check you are not a bot. Email me
-            directly at <a href="mailto:{{ $page->email }}">{{ $page->email }}</a> and I will pick it up
+        <p class="form__note form__note--warning">This form needs JavaScript to check you're not a bot. Email me
+            directly at <a href="mailto:{{ $page->email }}">{{ $page->email }}</a> and I'll pick it up
             there.</p>
     </noscript>
 
-    <p class="form__note">Three fields. No budget question &mdash; we can work that out on the call.</p>
+    <p class="form__note">Three fields, and no budget question. We can work that out on the call.</p>
 
     <div class="field">
         <label class="field__label" for="contact-name">Your name</label>
@@ -52,7 +52,7 @@
         <textarea class="field__input" id="contact-message" name="message" rows="6" maxlength="5000" required
             aria-describedby="contact-message-hint"></textarea>
         <p class="field__hint" id="contact-message-hint">A paragraph is plenty. What the business does, and what you
-            want to be true that is not true today.</p>
+            want to be true that isn't true today.</p>
     </div>
 
     {{-- Turnstile renders itself into this and writes a token into a hidden
@@ -76,7 +76,7 @@
     <p class="form__status" data-form-status role="status" aria-live="polite" tabindex="-1"></p>
 
     <p class="form__fallback dim">
-        I use what you send here to reply, and nothing else &mdash; you are not added to any list. Or email me directly
+        I use what you send here to reply, and nothing else. You're not added to any list. Or email me directly
         at <a href="mailto:{{ $page->email }}">{{ $page->email }}</a>.
     </p>
 </form>

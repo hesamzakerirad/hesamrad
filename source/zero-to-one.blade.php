@@ -71,7 +71,7 @@ title: Zero to One
      work for somebody who has never seen the page. --}}
 @section('title', 'Zero to One — a website in about a week')
 
-@section('description', 'Taking ' . $target . ' businesses from no website at all to one that works — a fixed price, about a week, and the whole thing handled for you.')
+@section('description', 'Taking ' . $target . ' businesses from no website at all to one that works. A fixed price, about a week, and the whole thing handled for you.')
 
 @section('body')
     <div class="shell section page-head">
@@ -82,12 +82,12 @@ title: Zero to One
              and it does not need saying twice. --}}
         <h1>Zero to One.</h1>
 
-        <p class="lead prose">Zero to One is a campaign with one aim: get {{ $target }} businesses that have no
-            website online, properly. Yours is built around what you actually do, at a fixed price, in about a week
-            &mdash; and I handle every part of it, including writing the words.</p>
+        <p class="lead prose">Zero to One is a campaign with one aim: get {{ $target }} businesses that have no website
+            online, properly. Yours is built around what you do, at a fixed price, in about a week. I handle every part
+            of it, including writing the words.</p>
 
-        <p class="lead prose">Plenty of good businesses still have none. Usually not because they decided against one,
-            but because it is one more thing to sort out and it never quite gets to the top of the list.</p>
+        <p class="lead prose">Plenty of good businesses still don't have one. Usually it isn't that they decided against
+            it — it's one more thing to sort out, and it never quite gets to the top of the list.</p>
 
         @if ($showTally)
             <p class="mt-md"><span class="availability">{{ $launched->count() }} of {{ $target }} online so far</span></p>
@@ -107,26 +107,26 @@ title: Zero to One
         <div class="shell">
             <div class="section-head">
                 <h2>What you get.</h2>
-                <p>The same list every time. That is what keeps it quick and keeps it {{ $page->priceSetup() }} instead of five.</p>
+                <p>The same list every time. That's what keeps it quick, and what keeps it {{ $page->priceSetup() }} instead of five.</p>
             </div>
 
             @php
                 $included = [
                     [
                         'title' => 'A website, with the pages you need',
-                        'body' => 'Built for your business, in your colours and with your photographs. It works properly on a phone, because that is where most of your customers will see it.',
+                        'body' => 'Built for your business, in your colours and with your photographs. It works properly on a phone, because that\'s where most of your customers will see it.',
                     ],
                     [
                         'title' => 'I write the words',
-                        'body' => 'We talk for half an hour about what you do, and I write the site from that. You do not have to sit down and compose anything — that is the step that stalls most websites for months.',
+                        'body' => 'We talk for half an hour about what you do, and I write the site from that. You don\'t have to sit down and write anything yourself. That\'s the step that stalls most websites for months.',
                     ],
                     [
                         'title' => 'The domain, hosting and security',
-                        'body' => 'Bought, set up and pointed at the right place. You never have to learn what any of those words mean. It is registered to you, not to me.',
+                        'body' => 'Bought, set up and pointed at the right place. You never have to learn what any of those words mean. The domain is registered to you, not to me.',
                     ],
                     [
                         'title' => 'Findable on Google',
-                        'body' => 'Your Google Business Profile set up or cleaned up, so you turn up in the map when someone nearby searches for what you do. Usually this matters more than the website itself.',
+                        'body' => 'Your Google Business Profile set up or cleaned up, so you turn up in the map when someone nearby searches for what you do. For a lot of businesses this matters more than the website itself.',
                     ],
                 ];
             @endphp
@@ -166,14 +166,12 @@ title: Zero to One
                 <div class="price__term">
                     <dt>What the {{ $page->priceMonthly() }} covers</dt>
                     <dd>Hosting, the domain renewal, security updates, backups, and small changes when you need
-                        them &mdash; new opening hours, a price change, a few new photos. Email me and it gets
-                        done.</dd>
+                        them: new opening hours, a price change, a few new photos. Email me and it gets done.</dd>
                 </div>
                 <div class="price__term">
                     <dt>If you want to stop</dt>
-                    <dd>Then stop. There is no minimum term. The domain is registered to you and I will hand over
-                        everything so you or anyone else can take it on. You will not be held anywhere by the
-                        paperwork.</dd>
+                    <dd>Then stop. There's no minimum term. The domain is registered to you, and I'll hand over
+                        everything so you or anyone else can pick it up. Nothing in the paperwork keeps you here.</dd>
                 </div>
             </dl>
         </div>
@@ -191,7 +189,7 @@ title: Zero to One
                     <li>
                         <h3>A half-hour call</h3>
                         <p>You tell me what the business does, who your customers are, and what you want people to do
-                            when they find you. That is the only homework there is.</p>
+                            when they find you. That's the only homework there is.</p>
                     </li>
                     <li>
                         <h3>I build it</h3>
@@ -200,8 +198,8 @@ title: Zero to One
                     </li>
                     <li>
                         <h3>You tell me what is wrong</h3>
-                        <p>One round of changes, and it needs to be honest &mdash; if a photo is bad or a sentence is
-                            not how you would say it, say so.</p>
+                        <p>One round of changes, and I'd rather you were blunt about it. If a photo is bad or a
+                            sentence isn't how you'd say it, tell me.</p>
                     </li>
                     <li>
                         <h3>It goes live</h3>
@@ -215,7 +213,7 @@ title: Zero to One
     <section class="shell section">
         <div class="section-head">
             <h2>What is not in it.</h2>
-            <p>Said out loud, because a fixed price only stays fixed if everyone knows where the edges are.</p>
+            <p>Written down, because a fixed price only stays fixed if everyone can see where the edges are.</p>
         </div>
 
         {{-- Two cards rather than two rows of a list, because these are not two
@@ -226,20 +224,20 @@ title: Zero to One
             <article class="card">
                 <p class="card__label">Not included</p>
                 <h3 class="card__title">The things a fixed price cannot carry</h3>
-                <p class="card__body">A visual identity invented from scratch. The site is built for your business,
-                    but the look is not designed from nothing &mdash; that is a separate job at a separate price.
-                    Logos, branding and photography are not part of it either. If you have a logo I will use it; if
-                    you do not, the site works fine without one.</p>
+                <p class="card__body">A visual identity invented from scratch. The site is built for your business, but
+                    the look isn't designed from nothing — that's a separate job at a separate price. Logos, branding
+                    and photography aren't part of it either. If you have a logo I'll use it; if you don't, the site
+                    works fine without one.</p>
             </article>
 
             <article class="card">
                 <p class="card__label">Possible, priced separately</p>
                 <h3 class="card__title">Bigger things are still on the table</h3>
-                <p class="card__body">Taking payments, online ordering, a booking system, a customer login,
-                    something built around how your business actually runs &mdash; I do all of that. It is real work
-                    rather than a box to tick, so it is not part of the {{ $page->priceSetup() }}.</p>
-                <p class="card__body">Tell me what you have in mind on the call and I will give you a proper number.
-                    Sometimes the answer is that you do not need it yet, and I will say that too.</p>
+                <p class="card__body">Taking payments, online ordering, a booking system, a customer login, something
+                    built around how your business runs — I do all of that. It's proper work rather than a box to tick,
+                    so it sits outside the {{ $page->priceSetup() }}.</p>
+                <p class="card__body">Tell me what you have in mind on the call and I'll give you a real number.
+                    Sometimes the answer is that you don't need it yet, and I'll say that too.</p>
             </article>
         </div>
     </section>
@@ -253,7 +251,7 @@ title: Zero to One
         @if ($launched->isEmpty())
             {{-- Centred, because the head above it is. --}}
             <div class="empty-state">
-                <p class="lead prose dim">The first businesses are being set up now, and each one is listed here as it goes live. If you want yours to be among them, the form below is the whole application.</p>
+                <p class="lead prose dim">The first businesses are being set up now, and each one gets listed here as it goes live. If you want yours among them, the form below is the whole application.</p>
 
                 <div class="btn-row">
                     <a class="btn btn--primary" href="#contact">
@@ -324,8 +322,8 @@ title: Zero to One
     <section class="shell section" id="contact">
         <div class="callout">
             <h2>Tell me about the business.</h2>
-            <p>A couple of sentences is plenty &mdash; what you do and roughly where. I will tell you whether Zero to
-                One is right for you, and if it is not, what would be.</p>
+            <p>A couple of sentences is plenty: what you do and roughly where. I'll tell you whether Zero to One is
+                right for you, and if it isn't, what would be.</p>
 
             @include('_components.contact-form')
         </div>

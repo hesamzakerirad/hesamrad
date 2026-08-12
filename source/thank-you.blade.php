@@ -16,9 +16,9 @@ robots: noindex,follow
     <section class="shell section page-head">
         <h1>That reached me.</h1>
 
-        <p class="lead prose">I read everything and reply to everything, usually within a day. If you do not hear back,
-            the message went astray somewhere &mdash; email me at
-            <a href="mailto:{{ $page->email }}">{{ $page->email }}</a> and I will pick it up there.</p>
+        <p class="lead prose">I read everything and reply to everything, usually within a day. If you don't hear back,
+            the message went astray somewhere. Email me at
+            <a href="mailto:{{ $page->email }}">{{ $page->email }}</a> and I'll pick it up there.</p>
 
         <div class="btn-row">
             <a class="btn btn--ghost" href="{{ $page->baseUrl }}">

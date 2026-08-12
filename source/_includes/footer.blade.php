@@ -48,7 +48,7 @@
         <div class="site-footer__top">
             <div class="site-footer__brand">
                 <p class="site-footer__name">{{ $page->siteName }}</p>
-                <p class="site-footer__pitch">I am an independent software engineer and I build complete products for businesses.</p>
+                <p class="site-footer__pitch">I'm an independent software engineer. I build complete products for businesses.</p>
                 <p><span class="availability">Available for new projects</span></p>
             </div>
 
