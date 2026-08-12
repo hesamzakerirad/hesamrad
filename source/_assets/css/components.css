@@ -206,8 +206,7 @@
     transform: translateX(4px);
 }
 
-.prose a:not(.btn):not(.link-arrow),
-.rich-text a:not(.btn):not(.link-arrow) {
+.prose a:not(.btn):not(.link-arrow) {
     background-image: linear-gradient(currentColor, currentColor);
     background-size: 0% 1px;
     background-position: 0 100%;
@@ -216,8 +215,7 @@
         color var(--duration-fast) var(--ease-out);
 }
 
-.prose a:not(.btn):not(.link-arrow):hover,
-.rich-text a:not(.btn):not(.link-arrow):hover {
+.prose a:not(.btn):not(.link-arrow):hover {
     background-size: 100% 1px;
 }
 
