@@ -76,7 +76,8 @@ title: Services
                 <h3 class="card__title">{{ $service['title'] }}</h3>
                 <p class="card__body dim">{{ $service['for'] }}</p>
 
-                <ul class="card__list">
+                {{-- What the engagement includes: a yes-list. --}}
+                <ul class="card__list card__list--yes">
                         @foreach ($service['includes'] as $item)
                             <li>{{ $item }}</li>
                         @endforeach

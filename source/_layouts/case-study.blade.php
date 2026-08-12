@@ -101,7 +101,9 @@
                 @if ($page->constraints)
                     <section class="study__section">
                         <h2>What made it awkward</h2>
-                        <ul class="card__list">
+                        {{-- Obstacles, so these are crossed. The heading
+                             is what says so; the mark only agrees. --}}
+                        <ul class="card__list card__list--no">
                             @foreach ($page->constraints as $item)
                                 <li>{{ $item }}</li>
                             @endforeach
@@ -112,7 +114,7 @@
                 @if ($page->built)
                     <section class="study__section">
                         <h2>What I built</h2>
-                        <ul class="card__list">
+                        <ul class="card__list card__list--yes">
                             @foreach ($page->built as $item)
                                 <li>{{ $item }}</li>
                             @endforeach

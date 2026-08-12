@@ -360,6 +360,45 @@
     color: var(--text-faint);
 }
 
+/*
+ * Lists that carry a verdict.
+ *
+ * `--yes` for things delivered or included, `--no` for things that got in the
+ * way or are ruled out. A list with no modifier keeps the em dash: most lists
+ * are just lists, and a marker that means something everywhere means nothing
+ * anywhere.
+ *
+ * Drawn rather than typed. U+2713 and U+2717 are outside the font subset, so a
+ * text glyph would fall out of Inter into whatever the system supplies —
+ * a different weight on every platform, and an emoji on some of them.
+ *
+ * A mask rather than a background image, so the mark takes --text-faint from
+ * the same declaration the dash uses. There is no green and no red here: the
+ * heading above each list already says which kind it is, and colour would be
+ * carrying meaning that the words are carrying better.
+ *
+ * The box is one line tall so the mark centres against the first line of an
+ * item that wraps, rather than floating beside the middle of the paragraph.
+ */
+.card__list--yes li::before,
+.card__list--no li::before {
+    content: '';
+    width: 0.95em;
+    height: calc(1em * var(--leading-relaxed));
+    background-color: var(--text-faint);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 0.95em 0.95em;
+}
+
+.card__list--yes li::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5 6.5 12 13 4.5'/%3E%3C/svg%3E");
+}
+
+.card__list--no li::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M4 4l8 8M12 4l-8 8'/%3E%3C/svg%3E");
+}
+
 /* An anchor wrapping a whole card should not inherit the accent colour; the
    affordance is the title underlining, not the surface tinting. */
 a.card,
