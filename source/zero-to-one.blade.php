@@ -113,7 +113,7 @@ title: Zero to One
             @php
                 $included = [
                     [
-                        'title' => 'A website, up to five pages',
+                        'title' => 'A website, with the pages you need',
                         'body' => 'Built for your business, in your colours and with your photographs. It works properly on a phone, because that is where most of your customers will see it.',
                     ],
                     [
