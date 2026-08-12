@@ -263,9 +263,9 @@ paying for coordination and continuity, or paying for directness and accepting
 that it rests on one person.
 
 If your project is large, spans several disciplines, or has a deadline you cannot
-move, buy the coordination. If it is one system that has to be right and stay
-right, protect the distance between you and the person building it. Every layer
+move, buy the coordination and go with an agency. If it is one system that has to be right and stay
+right, protect the distance between you and the person building it and go with a freelancer. Every layer
 you add is one more place where something gets passed on slightly wrong.
 
-Either way, ask the five questions. The people who answer them plainly are the
+Either way, ask the five questions mentioned above. The people who answer them plainly are the
 ones to hire.
