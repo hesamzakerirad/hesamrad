@@ -239,11 +239,6 @@
     font-size: var(--text-base);
     color: var(--accent);
     border-bottom: 1px solid currentColor;
-    transition: border-width var(--duration-fast) var(--ease-out);
-}
-
-.link-arrow:hover {
-    border-bottom-width: 2px;
 }
 
 .link-arrow svg {
@@ -1497,10 +1492,6 @@ a.card:hover .card__title {
     color: #ffffff;
 }
 
-.work-card:hover .work-card__more .link-arrow {
-    border-bottom-width: 2px;
-}
-
 /* ── Case studies: the page ─────────────────────────────────────────── */
 
 .study__head {
@@ -2568,14 +2559,10 @@ textarea.field__input {
 }
 
 /*
- * The link matches the case study card's: same .link-arrow, same underline,
- * same thickening on hover. The only difference is the glyph, and that one is
- * deliberate — this link leaves the site and that one does not.
+ * The link matches the case study card's: same .link-arrow, same underline.
+ * The only difference is the glyph, and that one is deliberate — this link
+ * leaves the site and that one does not.
  */
-.biz-card:hover .link-arrow {
-    border-bottom-width: 2px;
-}
-
 /* On the scrim the accent blue fails, so the link takes the same white as the
    title and earns its affordance from the rule under it — exactly as it does
    on a covered case study card. */
