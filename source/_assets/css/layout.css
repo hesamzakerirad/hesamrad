@@ -37,15 +37,8 @@
     max-width: 52rem;
 }
 
-.shell--article .rich-text {
-    max-width: none;
-}
-
+.shell--article .rich-text,
 .shell--article .rich-text > * {
-    max-width: var(--measure);
-}
-
-.shell--article .rich-text > :is(pre, figure, table, img, hr, .thumbnail) {
     max-width: none;
 }
 
