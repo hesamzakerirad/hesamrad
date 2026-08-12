@@ -134,12 +134,17 @@ title: Services
              /faq/ renders in full. That page carries the FAQPage schema;
              two pages both claiming it leaves neither treated as one. --}}
         @include('_components.faq-list', [
-            'items' => collect($page->faq)->filter(fn ($q) => $q['services'] ?? false)->values(),
+            'items' => collect($page->faq)
+                ->filter(fn ($q) => $q['services'] ?? false)
+                ->sortBy('services')
+                ->values(),
         ])
 
-        <p class="faq__link mt-lg">
+        {{-- Its own class rather than .faq__link, which is the left-aligned
+             link inside an answer. --}}
+        <p class="faq__more">
             <a class="link-arrow" href="{{ $page->baseUrl }}/faq/">
-                <span>Every question, answered</span>
+                <span>The other sixteen questions</span>
                 @include('_components.icon', ['name' => 'arrow-right'])
             </a>
         </p>

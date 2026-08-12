@@ -1918,3 +1918,13 @@ textarea.field__input {
 .faq__link {
     margin-top: var(--space-md);
 }
+
+/*
+ * The link out to the full set. Centred under the list, which is itself
+ * centred in the shell, so the two share an axis. Distinct from .faq__link,
+ * which sits inside an answer and reads from the left with the prose.
+ */
+.faq__more {
+    margin-top: var(--space-lg);
+    text-align: center;
+}

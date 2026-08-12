@@ -122,7 +122,7 @@ return [
         [
             'group' => 'Before we start',
             'q' => 'What if I do not know exactly what I want yet?',
-            'services' => true,
+            'services' => 3,
             'a' => [
                 'That is the normal case, and it is what the first call is for. You do not need a specification written. You need to be able to describe what is wrong today and what you want to be true instead — working out what that means in software is part of the job, not a prerequisite for starting it.',
             ],
@@ -156,7 +156,7 @@ return [
         [
             'group' => 'What it costs',
             'q' => 'What does it cost?',
-            'services' => true,
+            'services' => 1,
             'open' => true,
             'a' => [
                 'The cheapest way in is Zero to One: a fixed website for ' . $pricing['symbol'] . number_format($pricing['setup']) . ', plus ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month to keep it running. For a lot of businesses that is the whole answer.',
@@ -192,7 +192,7 @@ return [
         [
             'group' => 'How long it takes',
             'q' => 'How long does it take?',
-            'services' => true,
+            'services' => 2,
             'a' => [
                 'Most projects run two to six weeks from the plan being agreed to something your customers can use. Bigger builds go longer, and I will say so in the plan rather than discover it halfway through.',
             ],
@@ -211,7 +211,6 @@ return [
         [
             'group' => 'What I build',
             'q' => 'What do you actually build?',
-            'services' => true,
             'a' => [
                 'Web applications that work as well on a phone as on a laptop. I build both halves — what your customers see and the system running behind it — so there is no seam between them and nobody to coordinate with.',
                 'Where a client already has a designer or a front-end team, I take the half they cannot do and stay out of the way of the half they can. That is usually the cheaper arrangement for the client.',
@@ -229,7 +228,6 @@ return [
         [
             'group' => 'What I build',
             'q' => 'What will you not take on?',
-            'services' => true,
             'a' => [
                 'Brand and logo design, apps written natively for iPhone and Android (I build web apps that work properly on a phone instead), and anything where the plan is to skip testing to hit a date. I will say so on the first call rather than three weeks in.',
             ],
@@ -248,7 +246,6 @@ return [
         [
             'group' => 'What you own',
             'q' => 'Do I own what you build?',
-            'services' => true,
             'a' => [
                 'All of it, from the first day. The code lives in your repository, it runs on your hosting account, and the domain stays registered to you. I work inside your accounts rather than mine, so there is nothing to prise loose at the end and nothing of yours sitting in my name.',
             ],
@@ -266,7 +263,6 @@ return [
         [
             'group' => 'Working together',
             'q' => 'How do we work together?',
-            'services' => true,
             'a' => [
                 'Remotely, and I have worked this way for most of my career rather than fallen into it. My clients are across Europe and North America and I arrange my day around whichever of those you are in, so there are hours every day when you can reach me directly rather than take a queue position.',
                 'Most people settle into a short call once a week plus email in between. If you would rather have more or less than that, say so and we will do that instead.',
@@ -275,7 +271,7 @@ return [
         [
             'group' => 'Working together',
             'q' => 'What happens if you are unavailable?',
-            'services' => true,
+            'services' => 4,
             'a' => [
                 'I am one person, so let me answer that properly rather than wave it away. There is no second developer waiting in the wings.',
                 'What there is: you own every account and every line of code from day one, and I write things down as I go — a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you would not be locked out of anything, and someone competent could carry on from what is written.',
@@ -296,7 +292,6 @@ return [
         [
             'group' => 'After it launches',
             'q' => 'What happens after it launches?',
-            'services' => true,
             'a' => [
                 'There is an agreed period where anything I built that turns out to be broken gets fixed at no extra cost. After that some people want a monthly arrangement for changes and monitoring, and some take it in-house — which is what all the documentation is for. Both are fine, and neither is assumed.',
             ],
