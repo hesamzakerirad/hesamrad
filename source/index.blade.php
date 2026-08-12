@@ -17,7 +17,20 @@
      contains the site name, which this one does. --}}
 @section('title', 'Hesam Rad — Independent software engineer')
 
-@section('description', 'Independent software engineer. I build the system your business actually runs on — and the website in front of it. One person, start to finish.')
+{{-- This is the search snippet and the card under a shared link, so it is ad
+     copy, not a summary. It does not open on "Independent software engineer"
+     because the title tag sitting directly above it in a result already says
+     that, and repeating it spends the most valuable line in the snippet on
+     words the reader has just read.
+
+     "Behind" and "in front of" are load-bearing. They state the two halves of
+     the offer as one shape rather than two claims joined by an "and" — the
+     part a customer never sees, and the part they judge the business on.
+
+     Kept under 120 characters on purpose. A phone cuts the snippet around
+     there, and "one man, start to finish" is the whole position in five words
+     — it is the last thing that should fall off the end. --}}
+@section('description', 'I craft the software behind a growing business, and the website in front of it — one man, start to finish.')
 
 @section('body')
     {{-- The section runs the full width of the page and the shell inside it
