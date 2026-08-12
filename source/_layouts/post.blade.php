@@ -133,8 +133,56 @@
             @endif
         </div>
 
+        @php
+            /*
+             * Headings and their anchors are derived from the rendered body
+             * rather than written twice. A contents list typed by hand goes
+             * stale the first time a heading is reworded, and this post has
+             * already had one reworded.
+             *
+             * The markdown parser emits bare <h2> with no id, so the ids are
+             * added in the same pass that collects them — one walk, and the
+             * list cannot name a heading the anchor does not reach.
+             */
+            $body = $__env->yieldContent('content');
+            $contents = [];
+
+            $body = preg_replace_callback('/<h2([^>]*)>(.*?)<\/h2>/s', function ($match) use (&$contents) {
+                $text = trim(html_entity_decode(strip_tags($match[2]), ENT_QUOTES, 'UTF-8'));
+
+                $slug = trim(preg_replace('/-+/', '-', preg_replace('/[^a-z0-9]+/', '-', mb_strtolower($text))), '-');
+
+                // Two headings could slugify the same; the anchor has to stay unique.
+                $base = $slug;
+                $n = 2;
+                while (in_array($slug, array_column($contents, 'id'), true)) {
+                    $slug = $base . '-' . $n++;
+                }
+
+                $contents[] = ['id' => $slug, 'text' => $text];
+
+                return '<h2 id="' . $slug . '"' . $match[1] . '>' . $match[2] . '</h2>';
+            }, $body);
+
+            // Below four headings a contents list is longer than the scanning
+            // it saves, so short posts simply do not get one.
+            $showContents = count($contents) >= 4;
+        @endphp
+
+        @if ($showContents)
+            <nav class="contents" aria-labelledby="contents-label">
+                <p class="contents__label" id="contents-label">Contents</p>
+
+                <ol class="contents__list">
+                    @foreach ($contents as $entry)
+                        <li><a href="#{{ $entry['id'] }}">{{ $entry['text'] }}</a></li>
+                    @endforeach
+                </ol>
+            </nav>
+        @endif
+
         <div class="rich-text">
-            @yield('content')
+            {!! $body !!}
         </div>
 
         {{-- Authored on every post and, until now, read only by the JSON-LD
