@@ -529,7 +529,7 @@ a.card:hover .card__title {
 
 .article-header h1 {
     margin-bottom: var(--space-sm);
-    font-size: clamp(2rem, 2.4vw + 1.4rem, 2.75rem);
+    font-size: var(--text-2xl);
 }
 
 .article-meta {
