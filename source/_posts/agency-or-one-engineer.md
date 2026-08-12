@@ -1,7 +1,7 @@
 ---
 extends: _layouts.post
 section: content
-title: 'Agency or one engineer: what you are choosing between'
+title: 'Hiring an agency or one independent engineer: the honest comparison'
 description: 'The comparison people make is cost. The one that decides the outcome is risk — and an agency''s risks are the opposite of an independent engineer''s.'
 tags:
     - Hiring
