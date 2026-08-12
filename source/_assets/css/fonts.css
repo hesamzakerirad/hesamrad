@@ -1,8 +1,18 @@
-/*
- * The .woff2 files are generated from the .ttf sources kept alongside them by
- * ./build_fonts.sh — run that after updating a source font. It documents the
- * exact ranges; do not hand-edit the .woff2 files.
- */
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter/Inter-Variable.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter/Inter-Italic-Variable.woff2") format("woff2");
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+}
 
 @font-face {
     font-family: "JetBrains Mono";
@@ -17,21 +27,5 @@
     src: url("../fonts/JetBrains-Mono/JetBrainsMono-Italic-Variable.woff2") format("woff2");
     font-style: italic;
     font-weight: 100 800;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Noto Sans";
-    src: url("../fonts/Noto-Sans/NotoSans-Variable.woff2") format("woff2");
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Noto Sans";
-    src: url("../fonts/Noto-Sans/NotoSans-Italic-Variable.woff2") format("woff2");
-    font-style: italic;
-    font-weight: 100 900;
     font-display: swap;
 }

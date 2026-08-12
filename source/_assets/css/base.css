@@ -1,0 +1,265 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+
+    scroll-padding-top: calc(var(--header-height) + var(--space-md));
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+
+    -webkit-tap-highlight-color: transparent;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    background-color: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    z-index: var(--z-content);
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--selection-bg);
+    color: var(--selection-text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 var(--space-sm);
+    color: var(--heading);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+}
+
+h2 {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-tight);
+}
+
+h3 {
+    font-size: var(--text-xl);
+}
+
+h4 {
+    font-size: var(--text-lg);
+}
+
+h5,
+h6 {
+    font-size: var(--text-base);
+    letter-spacing: 0;
+}
+
+p {
+    margin: 0 0 var(--space-md);
+    text-wrap: pretty;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+small {
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+}
+
+b,
+strong {
+    color: var(--heading);
+    font-weight: 600;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+hr {
+    height: var(--hairline);
+    margin: var(--space-lg) 0;
+    border: 0;
+
+    background: linear-gradient(90deg, transparent, var(--line-strong) 20%, var(--line-strong) 80%, transparent);
+}
+
+ul,
+ol {
+    margin: 0 0 var(--space-md);
+    padding-left: 1.25rem;
+}
+
+li {
+    margin-bottom: var(--space-xs);
+}
+
+li::marker {
+    color: var(--text-faint);
+}
+
+blockquote {
+    margin: var(--space-md) 0;
+    padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+    border-left: 2px solid var(--line-strong);
+    color: var(--text-dim);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+figure {
+    margin: var(--space-md) 0;
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    direction: ltr;
+}
+
+:not(pre) > code {
+    padding: 0.15em 0.4em;
+    background: var(--surface);
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--heading);
+}
+
+table {
+    width: 100%;
+    margin: var(--space-md) 0;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+th,
+td {
+    padding: 0.7em 0.9em;
+    border-bottom: var(--hairline) solid var(--line);
+    text-align: left;
+}
+
+th:first-child,
+td:first-child {
+    padding-left: 0;
+}
+
+th:last-child,
+td:last-child {
+    padding-right: 0;
+}
+
+th {
+    color: var(--heading);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius);
+}
+
+svg {
+    vertical-align: middle;
+}
+
+input,
+select,
+textarea {
+    font: inherit;
+    letter-spacing: inherit;
+}
+
+a,
+button,
+label,
+summary {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+/*
+ * While the nav covers the screen, the article behind it must not scroll. The
+ * panel has overscroll-behavior of its own; this stops the page moving when
+ * the gesture starts outside it.
+ */
+html.is-nav-open,
+html.is-nav-open body {
+    overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+        scroll-behavior: auto !important;
+    }
+}

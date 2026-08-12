@@ -1,13 +1,7 @@
-@import 'fontawesome/fontawesome.min.css';
-@import 'fontawesome/solid.min.css';
-/* Both themes style bare `.hljs*` selectors, so importing them unscoped just
-   lets the second one win everywhere. Gate each on the same media query the
-   rest of the theming uses, or light mode gets GitHub Dark's near-white
-   foreground on the near-white code background style.css forces. */
-@import 'highlight/github.min.css' screen and (prefers-color-scheme: light);
-@import 'highlight/github-dark.min.css' screen and (prefers-color-scheme: dark);
-
-@import 'variables.css';
+@import 'tokens.css';
 @import 'fonts.css';
-@import 'style.css';
+@import 'base.css';
+@import 'syntax.css';
+@import 'layout.css';
+@import 'components.css';
 @import 'responsive.css';

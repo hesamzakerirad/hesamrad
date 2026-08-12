@@ -1,45 +1,110 @@
-@extends('_layouts.page')
+---
+title: Open source
+---
 
-@section('title', 'Projects')
+@extends('_layouts.main')
 
-@section('description', 'I enjoy pushing interesting ideas into reality! Take a look at a few of them here.')
+@section('title', 'Open source')
 
-@section('content')
-    <p>I love open-source projects and contributing to the developer community. Over the years of working with
-        <a href="https://laravel.com" target="_blank" rel="noopener noreferrer">Laravel</a>, I have come across some ideas that I keep implementing on
-        every project. To avoid that, I have
-        created usable packages to be pulled into any Laravel project. Here are a few of them:
-    </p>
+@section('description', 'Small open-source tools I built for my own work and published for anyone to use, plus a free URL shortener run as a non-profit.')
 
-    <ul class="list-disc list-inside space-y-3">
-        <li class="list-item">
-            <a href="https://github.com/hesamzakerirad/laravel-wallet" target="_blank" rel="noopener noreferrer">Laravel Wallet</a> is a minimalistic
-            wallet
-            for
-            any Laravel application allowing logging and concurrency.
-        </li>
-        <li class="list-item">
-            <a href="https://github.com/hesamzakerirad/laravel-sql-logger" target="_blank" rel="noopener noreferrer">Laravel SQL Logger</a> is
-            a lightweight package to log SQL queries in your Laravel
-            application
-        </li>
-        <li class="list-item"><a href="https://github.com/hesamzakerirad/laravel-flashlight" target="_blank" rel="noopener noreferrer">Laravel
-                Flashlight</a> is a highly customizable Laravel package to log HTTP requests</li>
-        <li class="list-item"><a href="https://github.com/hesamzakerirad/laravel-api-debugger" target="_blank" rel="noopener noreferrer">Laravel Api
-                Debugger</a> is a Laravel package to ease the process of debugging JSON APIs</li>
-    </ul>
+@section('body')
+    <div class="shell section page-head">
+        @include('_components.breadcrumbs')
 
-    <div class="mt-6">
-        <p>I also develop non-profit software that are specifically designed to make a positive
-            impact in the internet:</p>
+        <h1>Code I gave away.</h1>
+        <p class="lead prose">Small tools I built for my own work and published for anyone to use. They are here as
+            evidence of how I work &mdash; not as products to buy, and not something you need to understand to hire
+            me.</p>
+    </div>
 
-        <ul class="list-disc list-inside space-y-3">
-            <li class="list-item">
-                <a href="https://pvnd.io" target="_blank" rel="noopener noreferrer">Peyvand</a> is a free url shortener, QR-code and profile
-                generator. (Project is in active development.)
-            </li>
-        </ul>
+    <div class="shell section">
+        <div class="section-head">
+            <h2>Laravel packages.</h2>
+        </div>
 
-        <p class="mb-0 mt-3">Apart from these, my mind is filled with a lot more ideas and I only hope I am lucky enough to bring them into life 🤞</p>
+        @php
+            $packages = [
+                [
+                'name' => 'Laravel Wallet',
+                'url' => 'https://github.com/hesamzakerirad/laravel-wallet',
+                'body' => 'A minimalistic wallet for any Laravel application, with logging and concurrency handled properly.',
+                'tags' => ['Laravel', 'Payments'],
+                ],
+                [
+                'name' => 'Laravel SQL Logger',
+                'url' => 'https://github.com/hesamzakerirad/laravel-sql-logger',
+                'body' => 'A lightweight package for logging the SQL queries your Laravel application actually runs.',
+                'tags' => ['Laravel', 'Debugging'],
+                ],
+                [
+                'name' => 'Laravel Flashlight',
+                'url' => 'https://github.com/hesamzakerirad/laravel-flashlight',
+                'body' => 'A highly customisable package for logging incoming HTTP requests.',
+                'tags' => ['Laravel', 'Observability'],
+                ],
+                [
+                'name' => 'Laravel API Debugger',
+                'url' => 'https://github.com/hesamzakerirad/laravel-api-debugger',
+                'body' => 'Takes the tedium out of debugging JSON APIs during development.',
+                'tags' => ['Laravel', 'APIs'],
+                ],
+            ];
+        @endphp
+
+        <div class="grid grid--cards mt-lg">
+            @foreach ($packages as $index => $package)
+                <a class="card" href="{{ $package['url'] }}" target="_blank" rel="noopener noreferrer">
+                <p class="card__index tabular">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</p>
+                <h3 class="card__title">{{ $package['name'] }}</h3>
+                <p class="card__body">{{ $package['body'] }}</p>
+
+                <div class="card__footer cluster">
+                        <ul class="tags">
+                            @foreach ($package['tags'] as $tag)
+                                <li class="tag">{{ $tag }}</li>
+                            @endforeach
+                        </ul>
+                        <span class="link-arrow">
+                            <span class="visually-hidden">Open {{ $package['name'] }} on GitHub</span>
+                            @include('_components.icon', ['name' => 'external'])
+                        </span>
+                </div>
+                </a>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="shell section">
+        <div class="grid grid--halves">
+            <div class="section-head section-head--start">
+                <h2>Software with no business model.</h2>
+                <p class="dim">Some things should just exist on the internet without a pricing page attached.</p>
+            </div>
+
+            <div class="card">
+                <p class="card__index">Active development</p>
+                <h3 class="card__title">
+                <a href="https://pvnd.io" target="_blank" rel="noopener noreferrer">Peyvand</a>
+                </h3>
+                <p class="card__body">A free URL shortener, QR-code generator and profile builder. No account walls, no
+                tracking pixels, no plans to add either.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="shell section">
+        <div class="callout">
+            <h2>The list is longer than the shipped part.</h2>
+            <p>There are a lot more ideas queued up than there are hours to build them. If one of these is useful to you,
+                issues and pull requests are welcome.</p>
+
+            <div class="btn-row">
+                <a class="btn btn--ghost" href="https://github.com/hesamzakerirad" target="_blank"
+                rel="noopener noreferrer">
+                <span>GitHub profile</span>
+                </a>
+            </div>
+        </div>
     </div>
 @endsection

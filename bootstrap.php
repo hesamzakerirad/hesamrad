@@ -1,6 +1,5 @@
 <?php
 
-use App\Listeners\GenerateIndex;
 use App\Listeners\GenerateSitemap;
 
 // @var $container \Illuminate\Container\Container
@@ -18,4 +17,3 @@ use App\Listeners\GenerateSitemap;
  */
 
 $events->afterBuild(GenerateSitemap::class);
-$events->afterBuild(GenerateIndex::class);

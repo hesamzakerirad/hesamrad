@@ -18,7 +18,7 @@ permalink: /feed.xml
     <channel>
         <title>{{ $page->siteName }} — Blog</title>
         <link>{{ $page->baseUrl }}/blog/</link>
-        <description>{{ $page->siteDescription }}</description>
+        <description>{{ $page->siteTagline }}</description>
         <language>{{ $page->postLanguage }}</language>
         <atom:link href="{{ $page->baseUrl }}/feed.xml" rel="self" type="application/rss+xml" />
         @if ($lastUpdated !== null)

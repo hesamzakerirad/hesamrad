@@ -1,0 +1,131 @@
+:root,
+[theme='light'] {
+    --code-bg: #fafbfc;
+    --code-text: #232830;
+    --code-comment: #656e7d;
+    --code-keyword: #9a5518;
+    --code-string: #1a7f4b;
+    --code-number: #a35200;
+    --code-function: #1d4ed8;
+    --code-variable: #7c3aed;
+    --code-type: #0e7490;
+    --code-punctuation: #6b7280;
+    --code-deleted: #b91c1c;
+}
+
+[theme='dark'] {
+    --code-bg: #0c0e11;
+    --code-text: #c7cedb;
+    --code-comment: #7c879c;
+    --code-keyword: #e0a26f;
+    --code-string: #7bd88f;
+    --code-number: #f0a05a;
+    --code-function: #6cb6ff;
+    --code-variable: #d7b3ff;
+    --code-type: #5ed4d4;
+    --code-punctuation: #7d879b;
+    --code-deleted: #ff8792;
+}
+
+pre {
+    margin: var(--space-md) 0;
+    padding: 0;
+    background: var(--code-bg);
+    border: var(--hairline) solid var(--line);
+    overflow: hidden;
+}
+
+pre code,
+code.hljs {
+    display: block;
+    padding: var(--space-md);
+
+    overflow-x: auto;
+    background: transparent;
+    border: 0;
+    color: var(--code-text);
+
+    font-size: 1em;
+    line-height: var(--leading-relaxed);
+    tab-size: 4;
+}
+
+pre code:focus-visible,
+code.hljs:focus-visible {
+    outline-offset: -3px;
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: var(--code-comment);
+    font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-name,
+.hljs-tag {
+    color: var(--code-keyword);
+}
+
+.hljs-string,
+.hljs-addition,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-bullet {
+    color: var(--code-string);
+}
+
+.hljs-number,
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+    color: var(--code-number);
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-section,
+.hljs-selector-id,
+.hljs-built_in {
+    color: var(--code-function);
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-template-tag,
+.hljs-selector-class,
+.hljs-property {
+    color: var(--code-variable);
+}
+
+.hljs-type,
+.hljs-attr,
+.hljs-attribute,
+.hljs-class .hljs-title,
+.hljs-params {
+    color: var(--code-type);
+}
+
+.hljs-punctuation,
+.hljs-operator,
+.hljs-subst {
+    color: var(--code-punctuation);
+}
+
+.hljs-deletion {
+    color: var(--code-deleted);
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: 600;
+}
+
+.hljs-link {
+    text-decoration: underline;
+}

@@ -1,0 +1,57 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "hesamrad-contact",
+	"main": "src/index.js",
+	"compatibility_date": "2026-08-01",
+	// The form posts here. A Custom Domain (rather than a route) is what lets
+	// this live on hello.hesamrad.com without the apex being proxied through
+	// Cloudflare — the site itself stays on GitHub Pages, untouched.
+	"routes": [
+		{
+			"pattern": "hello.hesamrad.com",
+			"custom_domain": true
+		}
+	],
+	"observability": {
+		"enabled": true
+	},
+	// Non-secret configuration. Anything here is readable by anyone with the
+	// repo, which is fine for these — see the secrets note below.
+	"vars": {
+		// Where the no-JS redirect and the error page point back to. Set this
+		// to http://localhost:8000 when running against a local Jigsaw build.
+		"SITE_URL": "https://hesamrad.com",
+		"NOTIFY_TO": "hesamrad.dev@gmail.com",
+		// Must be on a domain verified in Resend. `noreply@` because replies
+		// to the auto-reply should go to NOTIFY_TO via reply_to, not here.
+		"FROM_EMAIL": "Hesam Rad <noreply@hesamrad.com>",
+		// Exact origins allowed to POST. No wildcard: a blanket `*` would let
+		// any site on the internet submit through this endpoint.
+		"ALLOWED_ORIGINS": "https://hesamrad.com,https://www.hesamrad.com,"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "hesamrad-enquiries",
+			// Replace with the id printed by `wrangler d1 create`.
+			"database_id": "417e3d99-3416-425e-bce0-a033d6b55c0d"
+		},
+		{
+			"binding": "hesamrad_enquiries",
+			"database_name": "hesamrad-enquiries",
+			"database_id": "417e3d99-3416-425e-bce0-a033d6b55c0d",
+			"remote": true
+		}
+	]
+	/*
+     * Secrets are NOT in this file and must never be. Set them with:
+     *
+     *   wrangler secret put RESEND_API_KEY
+     *   wrangler secret put TURNSTILE_SECRET_KEY
+     *   wrangler secret put TELEGRAM_BOT_TOKEN
+     *   wrangler secret put TELEGRAM_CHAT_ID
+     *
+     * For local development put the same keys in worker/.dev.vars, which is
+     * gitignored.
+     */
+}
