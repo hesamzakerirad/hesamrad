@@ -85,7 +85,7 @@ None of this is a scandal. It is what it costs to run a company that can survive
 losing a client. But it does mean one thing plainly: part of every hour you buy
 pays for the agency, not for your software.
 
-## The statistic everyone quotes, and why I am not going to use it
+## Why I will not use the statistic everyone quotes
 
 If you search this question you will hit the Standish Group's CHAOS report
 within about two clicks. The numbers are irresistible. [Roughly 31% of software
