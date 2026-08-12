@@ -41,13 +41,23 @@ title: Zero to One
      * should not be able to pass for a real client list either.
      */
     $placeholders = [
-        ['name' => 'Sample Bakery', 'trade' => 'Bakery and coffee shop', 'town' => 'Sampleton', 'url' => '#', 'launched' => '2026-08'],
-        ['name' => 'Sample Joinery', 'trade' => 'Carpentry and fitted furniture', 'town' => 'Exampleford', 'url' => '#', 'launched' => '2026-08'],
-        ['name' => 'Sample Dental', 'trade' => 'Dental practice', 'town' => 'Placeholderton', 'url' => '#', 'launched' => '2026-09'],
+        // ['name' => 'Sample Bakery', 'trade' => 'Bakery and coffee shop', 'town' => 'Sampleton', 'url' => '#', 'launched' => '2026-08'],
+        // ['name' => 'Sample Joinery', 'trade' => 'Carpentry and fitted furniture', 'town' => 'Exampleford', 'url' => '#', 'launched' => '2026-08'],
+        // ['name' => 'Sample Dental', 'trade' => 'Dental practice', 'town' => 'Placeholderton', 'url' => '#', 'launched' => '2026-09'],
     ];
 
     $launched = collect($businesses);
-    $showingPlaceholders = ! $page->production && $launched->isEmpty();
+
+    /*
+     * "Are placeholders on the page", not "would we use them if we had any".
+     * Without the last condition, emptying $placeholders left the notice
+     * announcing invented businesses listed below while the empty state sat
+     * underneath it saying there are none yet — a blue block describing
+     * something that is not there, contradicting the message beneath it.
+     */
+    $showingPlaceholders = ! $page->production
+        && $launched->isEmpty()
+        && $placeholders !== [];
 
     if ($showingPlaceholders) {
         $launched = $launched->concat($placeholders);
@@ -240,13 +250,16 @@ title: Zero to One
         </div>
 
         @if ($launched->isEmpty())
-            <p class="lead prose dim">The first businesses are being set up now, and each one is listed here as it goes live. If you want yours to be among them, the form below is the whole application.</p>
+            {{-- Centred, because the head above it is. --}}
+            <div class="empty-state">
+                <p class="lead prose dim">The first businesses are being set up now, and each one is listed here as it goes live. If you want yours to be among them, the form below is the whole application.</p>
 
-            <div class="btn-row">
-                <a class="btn btn--primary" href="#contact">
-                    <span>Be the first</span>
-                    @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
-                </a>
+                <div class="btn-row">
+                    <a class="btn btn--primary" href="#contact">
+                        <span>Be the first</span>
+                        @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+                    </a>
+                </div>
             </div>
         @else
             {{-- Cards rather than a date-keyed list. These are the proof the

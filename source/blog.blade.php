@@ -25,14 +25,18 @@ title: Blog
         <p class="lead prose">Whatever I am building, using, or working out at the time. Written to be read by people
             who pay for software, not only by people who write it.</p>
 
-        <div class="post-list mt-lg">
-            @if ($ordered->isEmpty())
-                <p class="dim mt-lg">No posts have been published yet.</p>
-            @endif
-
-            @foreach ($ordered as $post)
-                @include('_components.post-preview')
-            @endforeach
-        </div>
+        {{-- The empty state replaces the list rather than sitting inside it.
+             .post-list carries a border-top to close the top edge of the first
+             card, so an empty one drew a rule across the page with nothing
+             underneath — the top of a table with no rows. --}}
+        @if ($ordered->isEmpty())
+            <p class="dim mt-lg">No posts have been published yet.</p>
+        @else
+            <div class="post-list mt-lg">
+                @foreach ($ordered as $post)
+                    @include('_components.post-preview')
+                @endforeach
+            </div>
+        @endif
     </div>
 @endsection

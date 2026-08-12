@@ -101,6 +101,31 @@
 }
 
 /*
+ * The message that stands in for a list with nothing in it yet.
+ *
+ * It has to take the alignment of the head above it. Under a centred
+ * .section-head, a left-aligned paragraph and a left-aligned button read as a
+ * layout that has come apart — which is exactly what Zero to One did once its
+ * businesses list was empty. Under the left-aligned page heads on /work/ and
+ * /blog/ the default is already right, so this is a modifier rather than a
+ * base rule.
+ *
+ * The measure still applies; it is centred rather than widened, because a
+ * centred block of 90 characters is no easier to read than a left-aligned one.
+ */
+.empty-state {
+    text-align: center;
+}
+
+.empty-state > p {
+    margin-inline: auto;
+}
+
+.empty-state .btn-row {
+    justify-content: center;
+}
+
+/*
  * Availability. A quiet line rather than a banner: it is meant to answer a
  * question the visitor already has, not to manufacture urgency. The dot is
  * decorative — the words beside it carry the whole meaning — so it is not

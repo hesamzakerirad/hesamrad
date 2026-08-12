@@ -147,7 +147,17 @@ return [
             'author' => 'Hesam Rad',
             'sort' => '-created_at',
             'path' => 'blog/{filename}/',
-            'filter' => fn($post) => $post->isPublished === true,
+            /*
+             * template.md is a scaffold for writing a post, not a post. It sat
+             * in the collection with nothing but `isPublished: false` keeping
+             * it out, so inverting this filter published it — an empty title
+             * wrapping an empty link, pointing at a blank page.
+             *
+             * Excluded by name as well, because what keeps a scaffold out of
+             * the site should not be a flag inside the scaffold.
+             */
+            'filter' => fn($post) => $post->isPublished === true
+                && $post->getFilename() !== 'template',
         ],
         /*
          * One file per case study, so each gets a page with room for the whole
