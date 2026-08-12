@@ -529,7 +529,6 @@ a.card:hover .card__title {
 
 .article-header h1 {
     margin-bottom: var(--space-sm);
-    max-width: 22ch;
 }
 
 .article-meta {
