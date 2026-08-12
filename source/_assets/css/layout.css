@@ -205,10 +205,16 @@
     display: block;
 }
 
-.hero {
+/* Holds the hero and the figures under it, so the dot field can span both.
+   isolation makes it the stacking context the field's negative z-index is
+   measured against; without it the field would escape upward and sit behind
+   the page rather than behind these two sections. */
+.hero-field {
     position: relative;
-
     isolation: isolate;
+}
+
+.hero {
     padding-block: clamp(4.5rem, 11vw, 9rem) var(--space-section);
     text-align: center;
 }

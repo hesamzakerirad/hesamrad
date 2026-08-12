@@ -103,7 +103,19 @@
     --surface-hover: #262629;
     --line: #424245;
     --line-strong: #6e6e73;
-    --dot: #2a2a2d;
+
+    /* The light dot measures 1.51 against white. Parity is the wrong target for
+       the dark one: a light mark on a dark field blooms in a way a dark mark on
+       a white field does not, so matching the number overshoots the eye. This
+       value measures 1.66, which is above the light theme rather than below it.
+
+       The other end is worth knowing before reaching for it. 1.00 is the dot
+       being the background colour exactly, and much under 1.10 the field stops
+       surviving cheap panels and daylight — missing for a good share of
+       visitors rather than subtle for them. If it ever needs to be quieter
+       than that, drop the field in dark mode instead of painting something
+       only some people can see. */
+    --dot: #333;
     --line-control: #86868b;
 
     --heading: #f5f5f7;

@@ -38,12 +38,28 @@
          cannot get there from inside a 1120px box — nor by being pulled out of
          one with negative offsets, which overflows the viewport at the widths
          where the shell already spans it. --}}
-    <section class="hero">
+    {{-- The dot field spans the hero and the figures under it, so it lives on a
+         wrapper around both rather than inside the hero. At z-index -1 inside
+         this stacking context it paints under the content of both sections; put
+         back inside the hero it would overflow downward and paint on top of the
+         figures instead, because the hero is a positioned stacking context and
+         the section below it is not. --}}
+    <div class="hero-field">
         {{-- Behind the headline, and deliberately not behind the words: the
              fade is a ring, so the middle of the hero — where every line of
-             type sits — is clean ground. --}}
-        @include('_components.dot-grid')
+             type sits — is clean ground. The tail then thins the dots out on
+             the way down, so the field carries past the figures as tone rather
+             than as pattern and stops without an edge. --}}
+        @include('_components.dot-grid', [
+            'centre' => 42,
+            'clear' => 22,
+            'peak' => 52,
+            'tail' => 42,
+            'knee' => 76,
+            'floor' => 0.14,
+        ])
 
+    <section class="hero">
         <div class="shell">
             <p><span class="availability">Available for new projects</span></p>
 
@@ -80,8 +96,9 @@
 
     {{-- A panel on the shell rather than a full-bleed band. The figures read as
          one object this way — a thing lifted onto the page — instead of a
-         stripe the page happens to pass through. It also gives the dot field
-         above it a clean edge to end against. --}}
+         stripe the page happens to pass through. The panel is opaque, so the
+         dot field behind it shows only in the margins around it, which is
+         precisely where the tail has thinned it out. --}}
     <section class="shell section">
             @php
                 /*
@@ -120,6 +137,7 @@
             @endforeach
         </div>
     </section>
+    </div>{{-- /.hero-field --}}
 
     <section class="shell section">
         <div class="section-head">
