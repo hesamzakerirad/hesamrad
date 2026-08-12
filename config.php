@@ -65,7 +65,25 @@ return [
      * recommendation is ordinary; putting their face on a commercial page is
      * a step further, and people generally say yes when asked.
      */
+    /*
+     * Where the full set lives. The section quotes a few; this is the door to
+     * the rest, and to the fact that they are on somebody else's site under
+     * their own names — which is the part that makes them worth anything.
+     *
+     * Set to null to drop the link without touching the component.
+     */
+    'testimonialsUrl' => 'https://www.linkedin.com/in/hesamrad/details/recommendations/',
+
     'testimonials' => [
+        [
+            'quote' => 'I can confidently say that Hesam is one of the most disciplined person I have ever had the opportunity to work with. His leadership skills are excellent and he always ensures that his team is performing at its best. His commitment to delivering high-quality results shows in every project he handles. If you\'re looking for a Back-end development role, I highly recommend Hesam who makes a positive impact on any team he joins.',
+            'name' => 'Amir Sorayaei',
+            'role' => 'Senior Front-end Developer',
+            'relationship' => 'Colleague and Co-founder of a startup',
+            'url' => 'https://www.linkedin.com/in/amir-sorayaei',
+            'avatar' => null,
+        ],
+
         [
             'quote' => 'I had the privilege of working alongside Hesam from my very first day as an intern, and I can confidently say he played a pivotal role in shaping my growth as a developer. As a backend developer, Hesam combines deep technical expertise with a rare quality—genuine patience in mentoring others. What sets Hesam apart isn\'t just his technical skill; it\'s his willingness to stop what he\'s doing to explain a concept, debug an issue together, or share the why behind a decision—not just the how. Many of the habits and best practices I rely on today were shaped by his guidance. Beyond his technical abilities, Hesam is the kind of teammate every engineering team needs: reliable, collaborative, and genuinely invested in the success of those around him. Any team would be lucky to have him.',
             'name' => 'Shahin Behzad Rad',
@@ -73,6 +91,15 @@ return [
             'relationship' => 'Colleague',
             'url' => 'https://www.linkedin.com/in/shahin-behzadrad',
             'avatar' => null,
+        ],
+
+        [
+            'quote' => 'The most disciplined coworker I’ve ever had. Hesam is extremely focused and giving up is not an option for him. He’s actually the man who gets things done no matter what it takes. His enthusiasm to learn new things is unbelievable. He’s the one you can get inspired by.',
+            'name' => 'Sina Nakhaei',
+            'role' => 'Android Developer',
+            'relationship' => 'Colleague',
+            'url' => 'https://www.linkedin.com/in/sina-nakhaei',
+            'avatar' => null
         ],
 
         [
@@ -111,8 +138,8 @@ return [
         'caseStudies' => [
             'path' => 'work/{filename}/',
             'sort' => '-year',
-            'filter' => fn ($study) => ($study->published === true)
-                && ! (($study->sample ?? false) && $workIsPublic),
+            'filter' => fn($study) => ($study->published === true)
+                && !(($study->sample ?? false) && $workIsPublic),
         ],
 
         'pages' => [
@@ -376,14 +403,14 @@ return [
         // An IterableObject on a page, a plain array on a collection item.
         if (is_array($cover) || $cover instanceof Traversable) {
             $cover = collect($cover)->all();
-            $src = trim((string) ($cover['src'] ?? ''));
+            $src = trim((string)($cover['src'] ?? ''));
 
             // A map with no src is the deliberate "there will be a picture
             // here one day" marker the placeholder renders for.
             return [
                 'src' => $src === '' ? null : $src,
-                'alt' => (string) ($cover['alt'] ?? ''),
-                'caption' => (string) ($cover['caption'] ?? ''),
+                'alt' => (string)($cover['alt'] ?? ''),
+                'caption' => (string)($cover['caption'] ?? ''),
             ];
         }
 
@@ -425,7 +452,7 @@ return [
             'projects' => 'Open source',
         ], $labels);
 
-        $humanise = fn ($segment) => $names[$segment]
+        $humanise = fn($segment) => $names[$segment]
             ?? ucfirst(str_replace('-', ' ', $segment));
 
         $crumbs = [['name' => $names['home'], 'url' => $base . '/', 'current' => false]];

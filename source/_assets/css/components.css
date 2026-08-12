@@ -940,6 +940,15 @@ a.card:hover .card__title {
     gap: var(--space-md);
 }
 
+/* Centred under the stack, matching the section head above it rather than the
+   left edge of the cards — the link belongs to the section, not to the last
+   quote in it. */
+.quotes__more {
+    margin-top: var(--space-lg);
+    margin-bottom: 0;
+    text-align: center;
+}
+
 /*
  * The card sat on a --surface band and was filled with --bg-elevated. In light
  * that is #ffffff on #f5f5f7 — a raised white card. In dark both are #1d1d1f,

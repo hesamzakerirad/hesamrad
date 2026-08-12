@@ -133,6 +133,28 @@
                     </figure>
                 @endforeach
             </div>
+
+            {{-- Not shown while the placeholders are: sending someone to the
+                 real recommendations from under three invented ones would make
+                 the invented ones look endorsed. --}}
+            @if (! $showingPlaceholders && $page->testimonialsUrl)
+                <p class="quotes__more">
+                    {{-- Deliberately not "Read the rest": the toggle on a long
+                         quote says exactly that a few pixels above, and it
+                         expands the card in place. Two controls that read the
+                         same and do different things is worse than a longer
+                         label.
+
+                         The external glyph rather than the arrow, on the same
+                         reasoning as the case study cards: this link does
+                         something they do not, which is leave the site. --}}
+                    <a class="link-arrow" href="{{ $page->testimonialsUrl }}"
+                        target="_blank" rel="noopener noreferrer">
+                        <span>See all recommendations on LinkedIn</span>
+                        @include('_components.icon', ['name' => 'external'])
+                    </a>
+                </p>
+            @endif
         </div>
     </section>
 @endif
