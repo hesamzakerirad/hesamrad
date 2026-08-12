@@ -61,8 +61,8 @@
                         'serviceType' => 'Website design and development',
                         'url' => $page->baseUrl . '/zero-to-one/',
                     ],
-                    'price' => '1500',
-                    'priceCurrency' => 'USD',
+                    'price' => (string) $page->pricing['setup'],
+                    'priceCurrency' => $page->pricing['currency'],
                 ],
                 [
                     '@type' => 'Offer',
@@ -75,7 +75,7 @@
                     ],
                     // No price: custom work is quoted after a plan, and a
                     // number here would be a claim the site does not make.
-                    'priceCurrency' => 'USD',
+                    'priceCurrency' => $page->pricing['currency'],
                 ],
             ],
         ],

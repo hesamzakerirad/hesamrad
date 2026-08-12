@@ -66,6 +66,29 @@ return [
      * a step further, and people generally say yes when asked.
      */
     /*
+     * Zero to One's numbers.
+     *
+     * These were written out in eight places across three files — the price
+     * panel, twice in the prose around it, the term list, the services FAQ and
+     * the structured data. A price that appears eight times gets raised in
+     * seven, and the one left behind is the one a client reads first.
+     *
+     * Amounts are integers, so the comma in "$1,500" is derived rather than
+     * typed and cannot drift from the figure. `currency` is the ISO code the
+     * structured data needs; `symbol` is what a reader sees.
+     *
+     * `turnaround` is display text rather than a number: it is a promise about
+     * a range, and "~1 week" is doing work that "7" would not.
+     */
+    'pricing' => [
+        'setup' => 1500,
+        'monthly' => 50,
+        'turnaround' => '~1 week',
+        'symbol' => '$',
+        'currency' => 'USD',
+    ],
+
+    /*
      * Where the full set lives. The section quotes a few; this is the door to
      * the rest, and to the fact that they are on somebody else's site under
      * their own names — which is the part that makes them worth anything.
@@ -365,6 +388,19 @@ return [
      * about `permalink`, so a page that sets one (the 404 lives at /404.html)
      * would otherwise advertise a directory URL that the build never emits.
      */
+    /*
+     * The two money figures, formatted for reading. Structured data wants the
+     * bare integer and the ISO code, so it reaches into `pricing` directly
+     * rather than through these.
+     */
+    'priceSetup' => function ($page) {
+        return $page->pricing['symbol'] . number_format($page->pricing['setup']);
+    },
+
+    'priceMonthly' => function ($page) {
+        return $page->pricing['symbol'] . number_format($page->pricing['monthly']);
+    },
+
     'getCanonicalUrl' => function ($page) {
         // With the trailing slash, because that is the URL the host actually
         // serves. Advertising the bare origin as canonical while every request

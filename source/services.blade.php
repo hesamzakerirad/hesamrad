@@ -155,7 +155,7 @@ title: Services
                     // cost the page.
                     'open' => true,
                     'a' => [
-                        'The cheapest way in is Zero to One: a fixed website for $1,500, plus $50 a month to keep it running. For a lot of businesses that is the whole answer.',
+                        'The cheapest way in is Zero to One: a fixed website for ' . $page->priceSetup() . ', plus ' . $page->priceMonthly() . ' a month to keep it running. For a lot of businesses that is the whole answer.',
                         'Anything past that — payments, ordering, booking, a system built around how your business actually runs — is a fixed price for a defined project, or a monthly arrangement for ongoing work. Either way the number is quoted once the plan is written, so it reflects the real work rather than an hourly guess, and you have it before you commit to anything.',
                     ],
                     'link' => ['href' => '/zero-to-one/', 'label' => 'How Zero to One works'],

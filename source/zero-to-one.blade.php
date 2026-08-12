@@ -97,7 +97,7 @@ title: Zero to One
         <div class="shell">
             <div class="section-head">
                 <h2>What you get.</h2>
-                <p>The same thing every time. That is what keeps it quick and keeps it $1,500 instead of five.</p>
+                <p>The same thing every time. That is what keeps it quick and keeps it {{ $page->priceSetup() }} instead of five.</p>
             </div>
 
             @php
@@ -139,22 +139,22 @@ title: Zero to One
         <div class="price">
             <div class="price__figures">
                 <div class="price__figure">
-                    <span class="price__value tabular">$1,500</span>
+                    <span class="price__value tabular">{{ $page->priceSetup() }}</span>
                     <span class="price__label">Once, to build it and put it live</span>
                 </div>
                 <div class="price__figure">
-                    <span class="price__value tabular">$50<span class="price__unit">/mo</span></span>
+                    <span class="price__value tabular">{{ $page->priceMonthly() }}<span class="price__unit">/mo</span></span>
                     <span class="price__label">To host it, keep it safe and keep it current</span>
                 </div>
                 <div class="price__figure">
-                    <span class="price__value tabular">~1 week</span>
+                    <span class="price__value tabular">{{ $page->pricing['turnaround'] }}</span>
                     <span class="price__label">From our first call to being online</span>
                 </div>
             </div>
 
             <dl class="price__terms">
                 <div class="price__term">
-                    <dt>What the $50 covers</dt>
+                    <dt>What the {{ $page->priceMonthly() }} covers</dt>
                     <dd>Hosting, the domain renewal, security updates, backups, and small changes when you need
                         them &mdash; new opening hours, a price change, a few new photos. Email me and it gets
                         done.</dd>
@@ -226,7 +226,7 @@ title: Zero to One
                 <h3 class="card__title">Bigger things are still on the table</h3>
                 <p class="card__body">Taking payments, online ordering, a booking system, a customer login,
                     something built around how your business actually runs &mdash; I do all of that. It is real work
-                    rather than a box to tick, so it is not part of the $1,500.</p>
+                    rather than a box to tick, so it is not part of the {{ $page->priceSetup() }}.</p>
                 <p class="card__body">Tell me what you have in mind on the call and I will give you a proper number.
                     Sometimes the answer is that you do not need it yet, and I will say that too.</p>
             </article>
