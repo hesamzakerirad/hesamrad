@@ -12,7 +12,8 @@ updated_at: 2026-08-12
 readTime: 8
 isFeatured: true
 isPublished: true
-thumbnail: "https://images.unsplash.com/photo-1584670508996-c3144057a8d0?q=80&w=2371&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+thumbnail: /assets/build/images/agency-or-one-independent-engineer.jpg
+thumbnailAlt: 'A single keyboard and trackpad on a wooden desk, lit from one side'
 thumbnailCopyRightSource: "https://unsplash.com/photos/brown-wooden-plank-near-white-and-blue-textile-frZt8AVYdI0"
 ---
 
