@@ -347,6 +347,156 @@ function initCopyButtons() {
 /**
  * Year stamp in the footer, so a cached page can never show a stale range.
  */
+/*
+ * Marks the section the reader is in, in the contents rail.
+ *
+ * Position, not visibility. An IntersectionObserver alone answers "is this
+ * heading on screen", which is the wrong question — in the middle of a long
+ * section no heading is on screen at all and the rail would go blank. The
+ * observer is used only as a cheap trigger to recompute; the answer comes from
+ * which heading was the last one to pass the top of the viewport.
+ *
+ * Enhancement only. Without it the links still jump, and every entry simply
+ * stays the colour it already was.
+ */
+function initContents() {
+    const rail = document.querySelector('.post-toc');
+
+    if (!rail || !('IntersectionObserver' in window)) return;
+
+    const links = [...rail.querySelectorAll('a[href^="#"]')];
+    const headings = links.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+
+    // A rail that does not match its headings is a rail that would mark the
+    // wrong one, so it marks none.
+    if (!links.length || headings.some((heading) => !heading)) return;
+
+    let current = -1;
+
+    /*
+     * When the reader is inside a subsection, two entries matter: the h3 they
+     * are in and the h2 it belongs to. The h3 is marked; its parent is marked
+     * more quietly, so the rail says where you are without two entries
+     * competing to be the answer.
+     */
+    const parentOf = links.map((link) => {
+        const item = link.closest('li');
+        const outer = item && item.parentElement.closest('li');
+
+        return outer ? links.indexOf(outer.querySelector('a')) : -1;
+    });
+
+    const mark = (index) => {
+        if (index === current) return;
+
+        const within = index === -1 ? -1 : parentOf[index];
+
+        links.forEach((link, i) => {
+            link.classList.toggle('is-current', i === index);
+            link.classList.toggle('is-within', i === within);
+
+            // The rail is a nav, so the entry for the section being read is
+            // the current location within it.
+            if (i === index) {
+                link.setAttribute('aria-current', 'true');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+
+        current = index;
+    };
+
+    const update = () => {
+        /*
+         * The line the reader is judged to be at, and it sits a good way into
+         * the viewport rather than on the header's edge.
+         *
+         * Level with the landing point it was a knife edge: a click leaves the
+         * heading resting exactly on the boundary, and scrolling up three
+         * pixels marked the section above while section six still filled the
+         * screen. A quarter of the way down gives the reading position some
+         * room either side of a heading, which is what stops it flickering.
+         *
+         * The floor keeps a click correct on a short viewport, where a
+         * quarter of the height could otherwise land above where a jumped-to
+         * heading comes to rest.
+         */
+        const landing = parseFloat(getComputedStyle(headings[0]).scrollMarginTop) || 0;
+        const line = Math.max(landing + 40, window.innerHeight * 0.28);
+
+        let index = -1;
+
+        headings.forEach((heading, i) => {
+            if (heading.getBoundingClientRect().top <= line) index = i;
+        });
+
+        mark(index);
+    };
+
+    /*
+     * A click pins the entry it was on, and only the reader can unpin it.
+     *
+     * scroll-behavior is smooth, so a click starts an animation that can run
+     * for a second or more over a long article. Holding the mark for a fixed
+     * time was a guess, and it was wrong: the hold expired while the page was
+     * still moving, tracking resumed mid-flight, and the rail settled on the
+     * section above the one clicked. Clicking twice appeared to work only
+     * because the second click had nowhere to scroll to.
+     *
+     * So the pin is released by the reader taking over — a wheel, a drag, a
+     * key — rather than by a timer that has to outlast an animation whose
+     * length depends on how far the page moved.
+     */
+    let pinned = -1;
+
+    links.forEach((link, index) => {
+        link.addEventListener('click', () => {
+            mark(index);
+            pinned = index;
+        });
+    });
+
+    ['wheel', 'touchmove', 'keydown'].forEach((type) => {
+        window.addEventListener(type, () => { pinned = -1; }, { passive: true });
+    });
+
+    let queued = false;
+    let settling;
+
+    const run = () => {
+        if (pinned !== -1) return;
+        update();
+    };
+
+    const schedule = () => {
+        if (!queued) {
+            queued = true;
+            requestAnimationFrame(() => {
+                queued = false;
+                run();
+            });
+        }
+
+        /*
+         * The frame above is coalesced, which drops the last scroll event of a
+         * movement — so the final read can be a frame stale. This catches the
+         * position the page actually came to rest at.
+         */
+        clearTimeout(settling);
+        settling = setTimeout(run, 120);
+    };
+
+    const observer = new IntersectionObserver(schedule, { threshold: [0, 1] });
+
+    headings.forEach((heading) => observer.observe(heading));
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+
+    update();
+}
+
 function initYear() {
     document.querySelectorAll('[data-current-year]').forEach((element) => {
         element.textContent = String(new Date().getFullYear());
@@ -471,5 +621,6 @@ initHeader();
 initReveal();
 initQuotes();
 initCopyButtons();
+initContents();
 initYear();
 initContactForm();

@@ -33,12 +33,9 @@
     max-width: var(--measure);
 }
 
-.shell--article {
-    max-width: 52rem;
-}
-
-.shell--article .rich-text,
-.shell--article .rich-text > * {
+/* The article body fills its column; the column itself is what is measured. */
+.post-layout .rich-text,
+.post-layout .rich-text > * {
     max-width: none;
 }
 

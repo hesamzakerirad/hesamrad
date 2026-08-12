@@ -581,6 +581,53 @@ a.card:hover .card__title {
  * Numbered, because the sections are in an order and the list is also telling
  * you how far in each one is.
  */
+/*
+ * The two-column post, built on the same bones as a case study: the article
+ * sits in the ordinary .shell like every other page on the site, the head and
+ * the cover keep the reading measure, and only the body below them splits.
+ *
+ * The post used to sit in .shell--article at 52rem while every other page used
+ * the full 1120px shell, which is why it read as a narrower page than the rest
+ * of the site. It no longer does.
+ *
+ * Numbers taken from .study__body rather than invented: an 18rem rail, a
+ * space-xl gap, and the split starting at 900px. Mirrored, because the rail is
+ * on the left here.
+ */
+.post-layout__main {
+    min-width: 0;
+}
+
+/* Stacked, the body has no rail to make room for, so it keeps the measure
+   itself rather than running the full width of the shell. */
+.post-layout__body {
+    max-width: var(--measure-wide);
+}
+
+@media (min-width: 900px) {
+    .post-layout__body {
+        display: grid;
+        grid-template-columns: 18rem minmax(0, 1fr);
+        gap: var(--space-xl);
+        align-items: start;
+        max-width: none;
+    }
+
+    .post-toc {
+        position: sticky;
+
+        top: calc(var(--header-height) + var(--space-md));
+        margin-bottom: 0;
+        max-height: calc(100vh - var(--header-height) - var(--space-xl));
+        overflow-y: auto;
+    }
+
+    /* One column in the rail; two would give each entry about 120px. */
+    .post-toc .contents__list {
+        columns: 1;
+    }
+}
+
 .contents {
     margin-bottom: var(--space-lg);
     padding-left: var(--space-md);
@@ -638,8 +685,52 @@ a.card:hover .card__title {
     color: var(--accent);
 }
 
+/*
+ * The section being read. --heading rather than the accent: nine entries with
+ * one always lit would put a permanent spot of blue in the margin, and this is
+ * a position indicator rather than a link worth clicking. The weight carries
+ * it as much as the colour does, so it survives being looked at sideways.
+ */
+.contents__list a.is-current {
+    color: var(--heading);
+    font-weight: 600;
+}
+
+.contents__list li:has(a.is-current)::marker {
+    color: var(--text-dim);
+}
+
+/*
+ * A subsection list. Numbered with letters rather than digits so 6a reads as
+ * part of 6 rather than as a competing sequence, and dimmer than its parent
+ * because it is a detail of an entry the reader has already chosen.
+ */
+.contents__sub {
+    margin: 0.35rem 0 0.5rem;
+    padding-left: 1.1em;
+    list-style-type: lower-alpha;
+}
+
+.contents__sub li {
+    margin-bottom: 0.3rem;
+}
+
+.contents__sub a {
+    color: var(--text-dim);
+}
+
+/*
+ * The h2 an active h3 belongs to. Marked, but not as loudly as the h3 itself:
+ * two entries lit identically would leave the reader working out which one
+ * they are actually in.
+ */
+.contents__list a.is-within {
+    color: var(--heading);
+}
+
 /* Jumping to a heading must not put it under the fixed header. */
-.rich-text h2[id] {
+.rich-text h2[id],
+.rich-text h3[id] {
     scroll-margin-top: calc(var(--header-height) + var(--space-md));
 }
 

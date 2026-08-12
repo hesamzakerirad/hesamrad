@@ -202,19 +202,27 @@ the value in year four was mostly knowing why year two had gone the way it did.
 There are cases where I will tell you to go to an agency, and this is not
 modesty.
 
-**When you need several specialisms at once.** A brand identity, a mobile app, a
+### When you need several specialisms at once
+
+A brand identity, a mobile app, a
 web platform and a paid-media campaign, all in the same quarter. One person
 cannot do that, and a person who claims they can is telling you something.
 
-**When you have a hard external deadline and no slack.** A trade show, a
+### When you have a hard external deadline and no slack
+
+A trade show, a
 regulatory date, a funding round. Capacity you can scale is worth paying for,
 and one engineer with flu is a single point of failure you cannot absorb.
 
-**When the work is genuinely large.** Past a certain size, coordination becomes a
+### When the work is genuinely large
+
+Past a certain size, coordination becomes a
 job in itself. Paying someone to do it full time stops being overhead and starts
 being the thing that saves you.
 
-**When your own governance requires it.** Some boards, insurers and procurement
+### When your own governance requires it
+
+Some boards, insurers and procurement
 processes will not sign off on a sole supplier. That is a constraint, not a
 preference, and arguing with it is a waste of everybody's time.
 

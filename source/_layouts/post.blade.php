@@ -49,7 +49,63 @@
 @section('description', $page->getSummary(160))
 
 @section('body')
-    <article class="shell shell--article section">
+        @php
+            /*
+             * Headings and their anchors are derived from the rendered body
+             * rather than written twice. A contents list typed by hand goes
+             * stale the first time a heading is reworded, and this post has
+             * already had one reworded.
+             *
+             * The markdown parser emits bare <h2> with no id, so the ids are
+             * added in the same pass that collects them — one walk, and the
+             * list cannot name a heading the anchor does not reach.
+             */
+            $body = $__env->yieldContent('content');
+            $flat = [];
+
+            // h2 and h3 in one pass, in document order, so the nesting below
+            // can be built from the order rather than guessed at.
+            $body = preg_replace_callback('/<(h[23])\b([^>]*)>(.*?)<\/\1>/s', function ($match) use (&$flat) {
+                $tag = $match[1];
+                $text = trim(html_entity_decode(strip_tags($match[3]), ENT_QUOTES, 'UTF-8'));
+
+                $slug = trim(preg_replace('/-+/', '-', preg_replace('/[^a-z0-9]+/', '-', mb_strtolower($text))), '-');
+
+                // Two headings could slugify the same; the anchor has to stay unique.
+                $base = $slug ?: 'section';
+                $n = 2;
+                while (in_array($slug, array_column($flat, 'id'), true)) {
+                    $slug = $base . '-' . $n++;
+                }
+
+                $flat[] = ['id' => $slug, 'text' => $text, 'level' => (int) substr($tag, 1)];
+
+                return '<' . $tag . ' id="' . $slug . '"' . $match[2] . '>' . $match[3] . '</' . $tag . '>';
+            }, $body);
+
+            /*
+             * Nest the h3s under the h2 they follow. An h3 before any h2 —
+             * which is a malformed post rather than a shape to support —
+             * becomes a top-level entry rather than being dropped, so the list
+             * still names every heading on the page.
+             */
+            $contents = [];
+
+            foreach ($flat as $heading) {
+                if ($heading['level'] === 3 && $contents) {
+                    $contents[count($contents) - 1]['children'][] = $heading;
+                    continue;
+                }
+
+                $heading['children'] = [];
+                $contents[] = $heading;
+            }
+
+            $showContents = count($contents) >= 4;
+        @endphp
+
+    <article class="shell section post-layout">
+
         <header class="article-header">
             @include('_components.breadcrumbs', ['crumbLabels' => $t['crumbs']])
 
@@ -133,53 +189,35 @@
             @endif
         </div>
 
-        @php
-            /*
-             * Headings and their anchors are derived from the rendered body
-             * rather than written twice. A contents list typed by hand goes
-             * stale the first time a heading is reworded, and this post has
-             * already had one reworded.
-             *
-             * The markdown parser emits bare <h2> with no id, so the ids are
-             * added in the same pass that collects them — one walk, and the
-             * list cannot name a heading the anchor does not reach.
-             */
-            $body = $__env->yieldContent('content');
-            $contents = [];
+        {{-- The split starts below the cover, as it does on a case study:
+             the heading and the picture span the column, and only the reading
+             half of the page is narrowed to make room for the rail. --}}
+        <div class="post-layout__body">
+            @if ($showContents)
+                <nav class="contents post-toc" aria-labelledby="contents-label">
+                    <p class="contents__label" id="contents-label">Contents</p>
 
-            $body = preg_replace_callback('/<h2([^>]*)>(.*?)<\/h2>/s', function ($match) use (&$contents) {
-                $text = trim(html_entity_decode(strip_tags($match[2]), ENT_QUOTES, 'UTF-8'));
+                    <ol class="contents__list">
+                        @foreach ($contents as $entry)
+                            <li>
+                                <a href="#{{ $entry['id'] }}">{{ $entry['text'] }}</a>
 
-                $slug = trim(preg_replace('/-+/', '-', preg_replace('/[^a-z0-9]+/', '-', mb_strtolower($text))), '-');
+                                @if ($entry['children'])
+                                    <ol class="contents__sub">
+                                        @foreach ($entry['children'] as $child)
+                                            <li><a href="#{{ $child['id'] }}">{{ $child['text'] }}</a></li>
+                                        @endforeach
+                                    </ol>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ol>
+                </nav>
+            @endif
 
-                // Two headings could slugify the same; the anchor has to stay unique.
-                $base = $slug;
-                $n = 2;
-                while (in_array($slug, array_column($contents, 'id'), true)) {
-                    $slug = $base . '-' . $n++;
-                }
+            <div class="post-layout__main">
 
-                $contents[] = ['id' => $slug, 'text' => $text];
 
-                return '<h2 id="' . $slug . '"' . $match[1] . '>' . $match[2] . '</h2>';
-            }, $body);
-
-            // Below four headings a contents list is longer than the scanning
-            // it saves, so short posts simply do not get one.
-            $showContents = count($contents) >= 4;
-        @endphp
-
-        @if ($showContents)
-            <nav class="contents" aria-labelledby="contents-label">
-                <p class="contents__label" id="contents-label">Contents</p>
-
-                <ol class="contents__list">
-                    @foreach ($contents as $entry)
-                        <li><a href="#{{ $entry['id'] }}">{{ $entry['text'] }}</a></li>
-                    @endforeach
-                </ol>
-            </nav>
-        @endif
 
         <div class="rich-text">
             {!! $body !!}
@@ -226,6 +264,8 @@
                 </a>
             </nav>
         @endif
+        </div>
+        </div>
     </article>
 
 {{-- A post that carries a `faq:` block describes it for machines too. The
