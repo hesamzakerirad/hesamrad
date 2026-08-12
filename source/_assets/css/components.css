@@ -516,9 +516,9 @@ a.card:hover .card__title {
 }
 
 .post-card__flag {
-    margin-bottom: 0.35rem;
+    margin-bottom: var(--space-xs);
     color: var(--text-dim);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
