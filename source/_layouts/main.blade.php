@@ -40,8 +40,20 @@
      * bare text stub on LinkedIn, WhatsApp and X — which is precisely where
      * this site gets shared.
      */
-    $shareImage = $page->baseUrl . ($page->thumbnail ?: '/assets/build/images/og-default.png');
-    $thumbnail = $page->thumbnail ? $page->baseUrl . $page->thumbnail : null;
+    /*
+     * Only prefix a path that needs it. `thumbnail:` in front matter takes a
+     * site-relative path or a full URL, and blindly concatenating produced
+     * "https://hesamrad.comhttps://images.unsplash.com/..." — wrong in
+     * og:image, twitter:image, the preload hint and the BlogPosting node,
+     * while the visible <img> stayed right because it uses the raw value. The
+     * page looked correct and every share of it was broken.
+     */
+    $absoluteUrl = fn ($path) => preg_match('#^(https?:)?//#i', $path)
+        ? $path
+        : rtrim($page->baseUrl, '/') . '/' . ltrim($path, '/');
+
+    $shareImage = $absoluteUrl($page->thumbnail ?: '/assets/build/images/og-default.png');
+    $thumbnail = $page->thumbnail ? $absoluteUrl($page->thumbnail) : null;
     $pageUrl = $page->getCanonicalUrl();
 @endphp
 
