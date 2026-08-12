@@ -1,23 +1,17 @@
-{{-- The listing page is English but the posts it lists may not be, so each
-     preview declares its own language and direction.
-
-     No date. Four of the posts were published within weeks of each other, and a
-     column of near-identical dates was the loudest thing in each row while
-     telling a reader nothing they act on — they choose a post by its title. The
-     order still carries the chronology, since the collection sorts by
-     created_at, and the post itself still says when it was written. --}}
+{{-- The listing page is in English, but a post can be in a different language.
+     Therefore each preview gives its own `lang` and `dir`. --}}
 <article class="post-card {{ $post->isFeatured ? 'is-featured' : '' }}" lang="{{ $post->getLanguage() }}"
     dir="{{ $post->getDirection() }}">
-    {{-- Real markup, not a CSS ::before on the heading. "Featured" is content:
-         drawn from a stylesheet it exists nowhere in the document, and sitting
-         on the <h2> it became part of that heading's accessible name, so a
-         screen reader announced the heading as "Featured <title>". --}}
+    {{-- Keep "Featured" as markup. Do not draw it with a CSS ::before on the
+         <h2>. Content from a stylesheet is not in the document. Also, a
+         ::before on the <h2> becomes part of the accessible name of the
+         heading, and a screen reader then says "Featured <title>". --}}
     @if ($post->isFeatured)
         <p class="post-card__flag">Featured</p>
     @endif
 
-    {{-- The anchor's ::after covers the whole card, so this stays the one
-         link in the row rather than nesting a second one around it. --}}
+    {{-- The ::after of this anchor covers the full card. Keep this anchor as
+         the only link in the card. --}}
     <h2 class="post-card__title">
         <a href="{{ $post->getCanonicalUrl() }}">{{ $post->title }}</a>
     </h2>
@@ -29,15 +23,14 @@
             <span class="meta">{{ $readTime }} min read</span>
         @endif
 
-        {{-- A span, not a link. The title's anchor already covers the whole row
-             via its ::after, so a second anchor here would either sit under
-             that overlay and never be clickable, or be lifted above it and give
-             the row two links to the same page — which a screen reader reads
-             out twice and a keyboard stops at twice. This is the visible
-             affordance for a link that already exists.
+        {{-- Keep this element a <span>. Do not make it a link. The ::after of
+             the title anchor covers the full card. A second anchor stays below
+             that overlay and does not operate. Above the overlay, it gives the
+             card two links to the same page. A screen reader then speaks the
+             same target two times, and the keyboard stops two times.
 
-             Hidden from assistive tech for the same reason: the title is the
-             accessible name of the link, and "Read more" adds nothing to it. --}}
+             Keep `aria-hidden`. The title is the accessible name of the link,
+             and "Read more" adds nothing. --}}
         <span class="post-card__more" aria-hidden="true">
             Read more
             @include('_components.icon', ['name' => 'arrow-right'])

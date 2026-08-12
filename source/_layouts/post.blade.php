@@ -2,13 +2,13 @@
 
 @php
     /*
-     * The post chrome follows the post's own language, not the site's.
-     * `main` already flips `dir` from the post's front matter, so leaving this
-     * text hardcoded would drop Persian labels into a left-to-right document
-     * and point both arrows the wrong way.
+     * The post chrome uses the language of the post, not the language of the
+     * site. `main` sets `dir` from the front matter of the post. Do not
+     * hardcode this text. Hardcoded text puts Persian labels in a
+     * left-to-right document, and it points the arrows in the wrong direction.
      *
-     * Dates follow the same rule: a Persian post is dated in Jalali, everything
-     * else in the Gregorian calendar the rest of the site uses.
+     * A Persian post shows a Jalali date. All other posts show a Gregorian
+     * date.
      */
     $isRtl = $page->getDirection() === 'rtl';
 
@@ -51,27 +51,22 @@
 @section('body')
         @php
             /*
-             * Headings and their anchors are derived from the rendered body
-             * rather than written twice. A contents list typed by hand goes
-             * stale the first time a heading is reworded, and this post has
-             * already had one reworded.
-             *
-             * The markdown parser emits bare <h2> with no id, so the ids are
-             * added in the same pass that collects them — one walk, and the
-             * list cannot name a heading the anchor does not reach.
+             * The markdown parser makes <h2> and <h3> elements with no id.
+             * This code adds the ids and collects the headings in one pass.
+             * The contents list and the anchors thus always agree.
              */
             $body = $__env->yieldContent('content');
             $flat = [];
 
-            // h2 and h3 in one pass, in document order, so the nesting below
-            // can be built from the order rather than guessed at.
+            // This callback finds h2 and h3 in document order. The nesting
+            // code below uses this order.
             $body = preg_replace_callback('/<(h[23])\b([^>]*)>(.*?)<\/\1>/s', function ($match) use (&$flat) {
                 $tag = $match[1];
                 $text = trim(html_entity_decode(strip_tags($match[3]), ENT_QUOTES, 'UTF-8'));
 
                 $slug = trim(preg_replace('/-+/', '-', preg_replace('/[^a-z0-9]+/', '-', mb_strtolower($text))), '-');
 
-                // Two headings could slugify the same; the anchor has to stay unique.
+                // Two headings can make the same slug. Each anchor must be unique.
                 $base = $slug ?: 'section';
                 $n = 2;
                 while (in_array($slug, array_column($flat, 'id'), true)) {
@@ -84,10 +79,9 @@
             }, $body);
 
             /*
-             * Nest the h3s under the h2 they follow. An h3 before any h2 —
-             * which is a malformed post rather than a shape to support —
-             * becomes a top-level entry rather than being dropped, so the list
-             * still names every heading on the page.
+             * Each h3 goes below the h2 before it. An h3 that comes before all
+             * h2 elements becomes a top-level entry. The list must name every
+             * heading on the page.
              */
             $contents = [];
 
@@ -111,13 +105,6 @@
 
             <h1>{{ $page->title }}</h1>
 
-            {{-- Published and updated are now separate facts. The listing shows
-                 no date at all and orders by created_at, so this is the only
-                 place either appears — and conflating them, as this did, meant
-                 a post edited for a typo advertised itself as new.
-
-                 The updated line only appears when the two actually differ.
-                 "Published 7 August, updated 7 August" is noise. --}}
             <p class="article-meta">
                 <time datetime="{{ $page->getCreatedAtDate() }}">
                     {{ str_replace(':date', $t['published']($page), $t['publishedLabel']) }}
@@ -137,11 +124,6 @@
             </p>
         </header>
 
-        {{-- The frame is always drawn. A post without a picture yet gets a
-             stand-in rather than nothing, so the layout is the one it will have
-             once the picture exists — and dropping a real `thumbnail:` into
-             front matter replaces it with no other change to make and nothing
-             to remember to remove. --}}
         <div class="thumbnail {{ $page->thumbnail && $page->thumbnailCopyRightSource ? 'thumbnail--credited' : '' }}">
             @if (! $page->thumbnail)
                 @include('_components.image-placeholder', [
@@ -150,30 +132,29 @@
                     'note' => 'Image to come',
                 ])
             @else
-                {{-- The title, verbatim, was the alt text — and the <h1> saying
-                     the same words sits directly above it, so a screen reader
-                     read the headline twice. A post can describe its own
-                     picture with `thumbnailAlt`; without one the image is
-                     decorative, which is what these are. --}}
-                {{-- 16/9 in the attributes because that is what the CSS
-                     displays it at. 850x470 is 1.809, so the box the browser
-                     reserved before the image arrived was the wrong shape and
-                     the page shifted when it landed.
+                {{-- Do not use the post title as the alt text. The <h1> above
+                     the image has the same words, and a screen reader reads
+                     them two times. A post can describe its own image with
+                     `thumbnailAlt`. An image with no `thumbnailAlt` is
+                     decorative. --}}
+                {{-- The `width` and `height` attributes must keep the 16/9
+                     ratio, because the CSS shows the image at 16/9. A different
+                     ratio makes the browser reserve a box of the wrong shape,
+                     and the page moves when the image loads.
 
-                     fetchpriority high: this is the largest element above the
-                     fold on a post, and the browser's default guess for an
-                     image it has not laid out yet is "low". --}}
+                     `fetchpriority="high"` is necessary, because this image is
+                     the largest element above the fold. The default priority of
+                     the browser for an image is low. --}}
                 <img src="{{ $page->thumbnail }}" alt="{{ $page->thumbnailAlt ?? '' }}" width="1600" height="900"
                     fetchpriority="high">
 
                 @if ($page->thumbnailCopyRightSource)
                     @php
                         /*
-                         * The source's own host as the link text, falling back
-                         * to the generic word only if the URL has no host to
-                         * read. "Image borrowed from here" tells somebody
-                         * skimming a list of links on the page precisely
-                         * nothing, and that list is how a lot of people read.
+                         * The link text is the host of the source URL. A person
+                         * who reads only the links on the page gets no
+                         * information from a generic word. The generic word
+                         * applies only when the URL has no host.
                          */
                         $creditHost = parse_url($page->thumbnailCopyRightSource, PHP_URL_HOST);
                         $creditText = $creditHost ? preg_replace('/^www\./', '', $creditHost) : $t['imageCreditLink'];
@@ -189,9 +170,6 @@
             @endif
         </div>
 
-        {{-- The split starts below the cover, as it does on a case study:
-             the heading and the picture span the column, and only the reading
-             half of the page is narrowed to make room for the rail. --}}
         <div class="post-layout__body">
             @if ($showContents)
                 <nav class="contents post-toc" aria-labelledby="contents-label">
@@ -223,11 +201,8 @@
             {!! $body !!}
         </div>
 
-        {{-- Authored on every post and, until now, read only by the JSON-LD
-             keywords. `filter()` because the post template ships a blank entry,
-             and a list of one empty string is not a list. Plain text rather
-             than links: there are no tag archive pages, and a tag that looks
-             clickable and is not is worse than one that does not. --}}
+        {{-- `filter()` is necessary, because the post template has a blank
+             `tags:` entry. A list of one empty string is not a list. --}}
         @php($tags = collect($page->tags)->filter())
 
         @if ($tags->isNotEmpty())
@@ -246,9 +221,9 @@
             ])
         </div>
 
-        {{-- `cta: false` in front matter opts a post out. The comparison is
-             against false rather than falsy so an unset key still gets one —
-             the default has to be "ask", or posts will quietly stop asking. --}}
+        {{-- `cta: false` in the front matter removes the CTA from a post. The
+             comparison uses `!==` against false. A post with no `cta` key must
+             keep the CTA. --}}
         @if ($page->cta !== false)
             @include('_components.post-cta')
         @endif
@@ -268,10 +243,9 @@
         </div>
     </article>
 
-{{-- A post that carries a `faq:` block describes it for machines too. The
-     questions here mirror the ones visible in the body, which is the condition
-     Google puts on this markup — schema for answers a reader cannot see is
-     the thing it is meant to catch. --}}
+{{-- A `faq:` block in the front matter makes a FAQPage node. The same
+     questions and answers must also be visible in the body of the post. Google
+     gives this condition for the markup. --}}
 @if ($page->faq)
     @push('scripts')
         <script type="application/ld+json">

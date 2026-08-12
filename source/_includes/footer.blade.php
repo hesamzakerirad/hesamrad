@@ -1,16 +1,19 @@
 @php
     /*
-     * Footer link groups.
+     * Footer link groups. Each group makes one <nav> element.
      *
-     * Adding a page here is one line. Each group renders as its own <nav> with
-     * an accessible name taken from `title`, so a screen reader can skip a
-     * group wholesale — and so the titles do not land in the page's heading
-     * outline, which is what a real <h2> per column would do to every page on
-     * the site.
+     * Keys of a group:
+     * - `title`: the accessible name of the <nav>. A screen reader can then
+     *   skip the full group. Do not use an <h2> for this title, because it
+     *   changes the heading outline of each page.
+     * - `links`: the links in the group.
      *
-     * `when` is optional and gates a link, so /work/ appears here on exactly
-     * the same condition it appears in the header rather than on a second copy
-     * of the rule that can drift out of step.
+     * Keys of a link:
+     * - `label`: the visible text.
+     * - `href`: the target address.
+     * - `when`: optional. The link shows only when this value is true. The
+     *   /work/ link uses the same flag as the header.
+     * - `external`: optional. The link opens in a new tab.
      */
     $footerGroups = [
         [
@@ -54,7 +57,6 @@
 
             @foreach ($footerGroups as $group)
                 @php
-                    // `when` defaults to true, so most links need no flag at all.
                     $links = array_filter($group['links'], fn ($link) => $link['when'] ?? true);
                 @endphp
 
@@ -76,13 +78,9 @@
         </div>
 
         <div class="site-footer__bottom">
-            {{-- One line, not two. There was already a copyright here; the
-                 colophon sat beside it saying which static site generator built
-                 the page, which is a note to other developers on a site written
-                 for people buying software. The rights notice absorbs it.
-
-                 The year is stamped at build time and refreshed by the script,
-                 so a page cached across New Year's does not go stale. --}}
+            {{-- The build writes the year, and the script refreshes it. A page
+                 in a cache thus does not show an incorrect year after 1
+                 January. --}}
             <p>&copy; 2017&ndash;<span data-current-year>{{ date('Y') }}</span> {{ $page->siteName }}. All rights
                 reserved.</p>
         </div>

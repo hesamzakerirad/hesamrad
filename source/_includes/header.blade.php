@@ -1,8 +1,8 @@
 @php
     /*
-     * `getPath()` is '' on the home page and 'blog/{slug}' inside a post, so a
-     * prefix match on the first segment is what keeps "Blog" marked while an
-     * article is open.
+     * `getPath()` gives '' on the home page and 'blog/{slug}' in a post. A
+     * match on the first segment keeps the mark on "Blog" while a post is
+     * open.
      */
     $segment = strtok(trim($page->getPath(), '/'), '/');
 
@@ -10,26 +10,14 @@
         ['label' => 'Home', 'path' => '', 'href' => $page->baseUrl],
     ];
 
-    // Gated on the same flag that sets the page's robots directive, so the nav
-    // and the index can never disagree about whether /work/ is public.
+    // This link uses the same flag as the page's robots directive. The nav and
+    // the index thus always agree about /work/.
     if ($page->workIsPublic) {
         $links[] = ['label' => 'Work', 'path' => 'work', 'href' => $page->baseUrl . '/work/'];
     }
 
-    /*
-     * Open source now lives in the footer instead. It was taking a header slot
-     * that Work needs, and a business owner does not know what a Laravel
-     * package is — it was never going to earn a click from the audience this
-     * site is for.
-     */
     $links[] = ['label' => 'Zero to One', 'path' => 'zero-to-one', 'href' => $page->baseUrl . '/zero-to-one/'];
     $links[] = ['label' => 'Services', 'path' => 'services', 'href' => $page->baseUrl . '/services/'];
-    /*
-     * About is in the footer, not here, for the same reason Open source is.
-     * The header's job is the four things somebody can buy or look at before
-     * deciding; who I am is what they read once they are already interested,
-     * and it is reachable from the home page and every footer on the site.
-     */
     $links[] = ['label' => 'Blog', 'path' => 'blog', 'href' => $page->baseUrl . '/blog/'];
 @endphp
 
@@ -46,8 +34,9 @@
         </nav>
 
         <div class="header-actions">
-            {{-- Both glyphs ship; CSS shows the one matching the current theme,
-                 so the button is already correct before the script runs. --}}
+            {{-- The page contains both glyphs. CSS shows the glyph for the
+                 current theme. The button is thus correct before the script
+                 runs. --}}
             <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
                 <span class="visually-hidden">Toggle colour theme</span>
                 @include('_components.icon', ['name' => 'sun', 'class' => 'theme-toggle__icon theme-toggle__icon--sun'])

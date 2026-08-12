@@ -1,20 +1,19 @@
 {{--
-    An abstract stand-in for a screenshot that does not exist yet.
+    A shape that replaces a screenshot that does not exist.
 
-    Rendered inline rather than served as a file, so nothing ships to
-    production for the sake of a preview. It is deliberately a wireframe and
-    not a convincing mock: the point is to show how the layout behaves with
-    images in it, not to invent a product that was never built.
+    The SVG is inline. Therefore the build emits no file for a placeholder.
 
-    $label — what the real image will show
-    $ratio — 'wide' (16:9 cover), 'tall' (4:3 desktop shot), 'mobile' (phone),
-             'article' (16:9, for a post's header picture)
-    $note  — the caption drawn inside the shape, if not the default
+    Parameters:
+      $label — a description of the real image, for the accessible name
+      $ratio — the shape to draw                        (default 'wide')
+      $note  — the caption in the shape                 (a default is below)
 
-    'article' is deliberately not a wireframe. The others stand in for a
-    screenshot of something built, so browser chrome is the honest shape; a blog
-    post's header picture is a photograph or an illustration, and framing one in
-    a browser window would promise the wrong thing entirely.
+    Values for $ratio:
+      'wide'     — 16:9, a browser window
+      'tall'     — 4:3, a browser window
+      'mobile'   — a phone screen
+      'article'  — 16:9, a picture glyph for the header image of a post
+      'portrait' — 4:5, a person glyph
 --}}
 @php
     $ratio = $ratio ?? 'wide';
@@ -39,8 +38,6 @@
     <rect width="{{ $w }}" height="{{ $h }}" class="ph__bg" />
 
     @if ($isPortrait)
-        {{-- Head and shoulders: the avatar glyph, so the shape reads as "a
-             photograph of a person belongs here" and not as a missing image. --}}
         @php
             $pcx = $w / 2;
             $head = $h * 0.10;
@@ -56,8 +53,6 @@
             {{ $note }}
         </text>
     @elseif ($isArticle)
-        {{-- The horizon-and-sun glyph every image control has used for thirty
-             years. It says "a picture belongs here" without inventing one. --}}
         @php
             $cx = $w / 2;
             $cy = $h * 0.44;
@@ -84,14 +79,10 @@
             {{ $note }}
         </text>
     @elseif ($isPhone)
-        {{-- A status bar and a notch, so the shape reads as a phone rather than
-             a narrow browser. --}}
         <rect x="0" y="0" width="{{ $w }}" height="{{ $h * 0.055 }}" class="ph__chrome" />
         <rect x="{{ $w * 0.36 }}" y="{{ $h * 0.014 }}" width="{{ $w * 0.28 }}" height="{{ $h * 0.026 }}"
             rx="{{ $h * 0.013 }}" class="ph__bar" />
 
-        {{-- Title, two lines of text, then a stack of rows: the shape almost
-             every phone screen actually takes. --}}
         <rect x="{{ $w * 0.08 }}" y="{{ $h * 0.10 }}" width="{{ $w * 0.56 }}" height="{{ $h * 0.038 }}"
             rx="{{ $h * 0.008 }}" class="ph__block ph__block--strong" />
         <rect x="{{ $w * 0.08 }}" y="{{ $h * 0.16 }}" width="{{ $w * 0.78 }}" height="{{ $h * 0.018 }}"
@@ -102,7 +93,6 @@
                 rx="{{ $h * 0.012 }}" class="ph__block" />
         @endforeach
 
-        {{-- A bar at the foot, where a phone puts its primary action. --}}
         <rect x="{{ $w * 0.08 }}" y="{{ $h * 0.78 }}" width="{{ $w * 0.84 }}" height="{{ $h * 0.055 }}"
             rx="{{ $h * 0.028 }}" class="ph__block ph__block--strong" />
 
@@ -110,7 +100,6 @@
             {{ $note }}
         </text>
     @else
-        {{-- A browser bar, so the shape reads as a screen rather than a blank box. --}}
         <rect x="0" y="0" width="{{ $w }}" height="{{ $h * 0.09 }}" class="ph__chrome" />
         @foreach ([0.028, 0.048, 0.068] as $cx)
             <circle cx="{{ $w * $cx }}" cy="{{ $h * 0.045 }}" r="{{ $h * 0.014 }}" class="ph__dot" />

@@ -1,18 +1,14 @@
 {{--
-    Pixel art, drawn as SVG rather than shipped as an image.
+    Pixel art as an inline SVG. The SVG is sharp at each zoom level, and it uses
+    `currentColor`. Therefore one file is sufficient for the two themes.
 
-    A raster at this size would have to be served at several densities to stay
-    crisp and would still be a request; as geometry it is a few hundred bytes
-    inline, sharp at any zoom, and takes its colour from `currentColor` so it
-    follows the theme without a second file for dark mode.
+    Parameters:
+      $pixels — an array of strings of equal length; '#' is a filled cell
+      $label  — the accessible name       (default 'pixel mark')
+      $class  — an extra class on the <svg>  (optional)
 
-    $pixels — array of equal-length strings, '#' for a filled cell
-    $label  — what it says, for anyone who cannot see it
-    $class  — optional extra class on the <svg>
-
-    Runs of filled cells on a row are merged into one rect. Fifty-odd
-    single-cell rects would render identically, but this is the same picture in
-    a third of the markup, and the merge is four lines.
+    The loop below joins each run of filled cells in a row into one rect. The
+    result is the same picture with less markup.
 --}}
 @php
     $rows = $pixels ?? [];
@@ -43,9 +39,9 @@
 @endphp
 
 @if ($shapes)
-    {{-- `shape-rendering: crispEdges` is the whole point: without it a browser
-         antialiases the rect edges at fractional scales and the pixels acquire
-         soft grey fringes, which is the one thing pixel art must not have. --}}
+    {{-- Keep `shape-rendering="crispEdges"`. Without it, the browser
+         antialiases the edges of the rects at fractional scales, and each pixel
+         gets a soft grey edge. --}}
     <svg class="pixel-mark {{ $class ?? '' }}" viewBox="0 0 {{ $width }} {{ $height }}"
         role="img" aria-label="{{ $label ?? 'pixel mark' }}" shape-rendering="crispEdges"
         fill="currentColor" focusable="false">

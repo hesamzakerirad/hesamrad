@@ -13,10 +13,6 @@ disableCanonical: true
 
 @section('body')
     <div class="shell section page-head">
-        {{-- The same mark as the favicon, saying something. A 404 is the one
-             page nobody is evaluating you on: the visitor is already lost, and
-             is the only reader on the site who has nothing to lose by being
-             shown something for its own sake. --}}
         @include('_components.pixel-mark', [
             'class' => 'pixel-mark--404',
             'label' => '404',

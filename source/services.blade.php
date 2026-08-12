@@ -76,7 +76,6 @@ title: Services
                 <h3 class="card__title">{{ $service['title'] }}</h3>
                 <p class="card__body dim">{{ $service['for'] }}</p>
 
-                {{-- What the engagement includes: a yes-list. --}}
                 <ul class="card__list card__list--yes">
                         @foreach ($service['includes'] as $item)
                             <li>{{ $item }}</li>
@@ -130,9 +129,10 @@ title: Services
         </div>
 
 
-        {{-- The nine a buyer asks before committing, from the same data
-             /faq/ renders in full. That page carries the FAQPage schema;
-             two pages both claiming it leaves neither treated as one. --}}
+        {{-- This is the subset with a `services` key, sorted by its value.
+             /faq/ shows the same array in full. Do not add the FAQPage schema
+             to this page. Only /faq/ carries the schema. If two pages declare
+             the schema, a search engine accepts neither page. --}}
         @include('_components.faq-list', [
             'items' => collect($page->faq)
                 ->filter(fn ($q) => $q['services'] ?? false)
@@ -140,8 +140,8 @@ title: Services
                 ->values(),
         ])
 
-        {{-- Its own class rather than .faq__link, which is the left-aligned
-             link inside an answer. --}}
+        {{-- Use this class and do not use .faq__link. .faq__link is the
+             left-aligned link inside an answer. --}}
         <p class="faq__more">
             <a class="link-arrow" href="{{ $page->baseUrl }}/faq/">
                 <span>The other sixteen questions</span>
@@ -149,19 +149,6 @@ title: Services
             </a>
         </p>
     </div>
-
-    {{--
-        The same questions again, as structured data.
-
-        Generated from `$questions` rather than written out separately, so the
-        markup and the visible answers cannot drift apart — which matters here
-        beyond tidiness: Google will not show a rich result for an answer a
-        visitor cannot also read on the page, and marking up an answer that is
-        not there is a manual-action risk rather than a missed opportunity.
-
-        `strip_tags` is defensive. The answers are plain text today, but the
-        moment one of them gains a link, JSON-LD would carry the tag.
-    --}}
 
     @include('_components.testimonials', ['limit' => 2])
 

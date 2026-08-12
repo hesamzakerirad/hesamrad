@@ -19,9 +19,6 @@ title: Questions
     </div>
 
     <section class="shell section">
-        {{-- Grouped, because twenty questions in one column is a wall. The
-             groups are the order somebody actually worries in: what it costs
-             before what happens after it launches. --}}
         @include('_components.faq-list', ['items' => $page->faq, 'grouped' => true])
     </section>
 
@@ -36,9 +33,9 @@ title: Questions
     </section>
 
     {{-- This page carries the FAQPage schema for the whole site. /services/
-         repeats nine of these questions for a buyer who is already reading it,
-         but does not claim the markup — two pages both declaring themselves
-         the FAQ leaves neither of them treated as one. --}}
+         shows some of these questions again, but it does not declare the
+         schema. If two pages declare the schema, a search engine accepts
+         neither page. --}}
     @push('scripts')
         <script type="application/ld+json">
             {!! json_encode([

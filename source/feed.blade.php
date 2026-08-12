@@ -4,12 +4,14 @@ permalink: /feed.xml
 @php
     echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 
-    // lastBuildDate is the newest change of any kind. max('updated_at') is not
-    // enough: Collection::max skips posts with no updated_at, so a brand new
-    // post that has never been revised would not count. Map through property
-    // access rather than a column name — data_get() throws on a front-matter
-    // key that is present but blank.
-    // filter on null, not truthiness: a created_at of 1970-01-01 is a valid 0.
+    // lastBuildDate is the newest change of any type.
+    // max('updated_at') is not sufficient, because Collection::max ignores a
+    // post that has no updated_at. A new post with no revision would not count.
+    // Map through property access and do not use a column name, because
+    // data_get() causes an error on a front-matter key that is present but
+    // blank.
+    // Filter on null and do not filter on truthiness, because a created_at of
+    // 1970-01-01 gives a correct timestamp of 0.
     $lastUpdated = $posts->map(fn ($post) => $post->getLastModified())
         ->filter(fn ($timestamp) => $timestamp !== null)
         ->max();

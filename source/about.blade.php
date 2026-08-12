@@ -4,9 +4,6 @@ title: About
 
 @extends('_layouts.main')
 
-{{-- The name is the title, because the search that lands here is a person's
-     name — somebody who has been given a recommendation, or who has an email
-     from me open and is checking I am real before replying. --}}
 @section('title', 'About Hesam Rad')
 
 @section('description', 'Independent software engineer. Eight years building web software for businesses, five of them looking after a single system for one client.')
@@ -28,8 +25,8 @@ title: About
     <section class="shell section">
         <div class="grid grid--halves">
             <div class="about__portrait">
-                {{-- A frame with nothing in it yet. Replace the include with an
-                     <img> and the layout is already the one it will have. --}}
+                {{-- To add the photograph, replace this include with an <img>.
+                     The layout does not change. --}}
                 @include('_components.image-placeholder', [
                     'ratio' => 'portrait',
                     'label' => 'photograph of Hesam Rad',
@@ -83,9 +80,6 @@ title: About
         </div>
     </section>
 
-    {{-- Moved here from the home page, where it was the only human moment on a
-         page otherwise selling something, and had no room to be more than three
-         sentences. --}}
     <section class="shell section">
         <div class="grid grid--halves">
             <div class="section-head section-head--start">

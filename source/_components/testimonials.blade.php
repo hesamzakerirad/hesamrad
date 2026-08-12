@@ -1,23 +1,20 @@
 {{--
-    Recommendations, pulled from config.php so the same set can appear on more
-    than one page without being kept in step by hand.
+    Recommendations. The data comes from config.php, therefore more than one
+    page can show the same set.
 
-    Renders nothing at all when empty. An empty testimonials section is worse
-    than no section — it draws attention to the absence.
+    The component renders nothing when there are no quotes.
 
-    Optional:
-      $heading  — section heading (defaults below)
-      $limit    — show only the first N
+    Parameters:
+      $heading — section heading            (a default is below)
+      $limit   — show only the first N quotes
 --}}
 @php
     $quotes = collect($page->testimonials ?? []);
 
     /*
-     * Placeholders exist so the layout can be designed and judged with
-     * something in it. The guard is the build: `production` is false in
-     * config.php and true in config.production.php, so these render locally
-     * and are physically absent from anything `jigsaw build production`
-     * emits. The names are deliberately not plausible.
+     * The placeholder quotes show the layout in a local build. `production` is
+     * false in config.php and true in config.production.php. Therefore
+     * `jigsaw build production` does not emit these quotes.
      */
     $showingPlaceholders = ! $page->production && $quotes->isEmpty();
 
@@ -51,7 +48,6 @@
         $quotes = $quotes->take($limit);
     }
 
-    // Two letters is enough to read as a person without becoming a logo.
     $initials = fn ($name) => collect(preg_split('/\s+/', trim($name)))
         ->filter()
         ->take(2)
@@ -73,13 +69,6 @@
                 </p>
             @endif
 
-            {{-- Stacked, one per row, each sized to its own quote.
-                 Side by side, cards had to be equalised, which meant either
-                 padding short ones out or scaling their type up — the first
-                 looked unfinished and the second looked inconsistent. Stacking
-                 removes the comparison entirely: nothing sits beside anything,
-                 so nothing has to match, the type stays one size, and opening
-                 one leaves every other card exactly where it was. --}}
             <div class="quotes">
                 @foreach ($quotes as $index => $quote)
                     <figure class="quote">
@@ -89,9 +78,9 @@
                             </blockquote>
                         </div>
 
-                        {{-- Added by main.js only when the text actually
-                             overflows, so a short quote never grows a pointless
-                             control and nothing is hidden if the script fails. --}}
+                        {{-- Keep the `hidden` attribute. main.js removes it
+                             only when the quote text overflows. If the script
+                             does not run, no quote text becomes hidden. --}}
                         <button class="quote__toggle" type="button" data-quote-toggle
                             aria-controls="quote-text-{{ $index }}" aria-expanded="false" hidden>
                             <span data-quote-more>Read the rest</span>
@@ -99,11 +88,10 @@
                         </button>
 
                         <figcaption class="quote__author">
-                            {{-- The initials sit underneath the photo rather than
-                                 instead of it. A LinkedIn avatar URL is signed and
-                                 expires; when it does, the image simply stops
-                                 covering them and the circle still reads as a
-                                 person instead of going blank. --}}
+                            {{-- Keep the initials below the photo. A LinkedIn
+                                 avatar URL is signed and it expires. After it
+                                 expires, the image does not cover the initials,
+                                 and the circle still shows a person. --}}
                             <span class="quote__avatar" aria-hidden="true">
                                 {{ $initials($quote['name']) }}
                                 @if (!empty($quote['avatar']))
@@ -134,20 +122,8 @@
                 @endforeach
             </div>
 
-            {{-- Not shown while the placeholders are: sending someone to the
-                 real recommendations from under three invented ones would make
-                 the invented ones look endorsed. --}}
             @if (! $showingPlaceholders && $page->testimonialsUrl)
                 <p class="quotes__more">
-                    {{-- Deliberately not "Read the rest": the toggle on a long
-                         quote says exactly that a few pixels above, and it
-                         expands the card in place. Two controls that read the
-                         same and do different things is worse than a longer
-                         label.
-
-                         The external glyph rather than the arrow, on the same
-                         reasoning as the case study cards: this link does
-                         something they do not, which is leave the site. --}}
                     <a class="link-arrow" href="{{ $page->testimonialsUrl }}"
                         target="_blank" rel="noopener noreferrer">
                         <span>See all recommendations on LinkedIn</span>
