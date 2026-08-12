@@ -52,7 +52,31 @@
     max-width: 52rem;
 }
 
+/*
+ * The narrower shell was not narrow enough on its own. 52rem leaves 720px of
+ * text, which at 17px Inter is 77-82 characters a line — comfortably past the
+ * 45-75 a reader tracks without losing their place, and the longest measure
+ * anywhere on the site, on the one page built for sustained reading.
+ *
+ * So the measure comes back, but only for the things made of sentences. Code
+ * samples scroll rather than wrap, so narrowing one only means more scrolling,
+ * and an image gains nothing from being set to the width of a paragraph. Those
+ * keep the full column.
+ *
+ * Left edges still align — a figure runs past the text on the right only,
+ * which is the ordinary editorial breakout and reads as deliberate. The
+ * original worry, text stranded in the left third with an image sailing past
+ * it, was about a 1140px shell; inside 52rem the overhang is 91px.
+ */
 .shell--article .rich-text {
+    max-width: none;
+}
+
+.shell--article .rich-text > * {
+    max-width: var(--measure);
+}
+
+.shell--article .rich-text > :is(pre, figure, table, img, hr, .thumbnail) {
     max-width: none;
 }
 

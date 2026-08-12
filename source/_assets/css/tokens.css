@@ -59,12 +59,39 @@
      * the blog index, which inverts the one hierarchy the whole page rests on.
      */
     --text-display: clamp(2.5rem, 5vw + 1.25rem, 4.5rem);
+    /*
+     * Headline figures — the stats panel and the Zero to One prices. Not a
+     * heading size: a figure is read as a quantity, and it sits beside a
+     * heading rather than under one.
+     *
+     * The floor matters as much as the cap. At 1.75rem it met --text-2xl's own
+     * floor, so on a phone the figures and the headings were both 28px and the
+     * hierarchy collapsed at exactly the width with least room to spare.
+     *
+     * The prices used --text-2xl and so came out 45.6px against the stats'
+     * 43.2px — two of the same object, 2.4px apart, which is close enough to
+     * look like a mistake and far enough not to be one. It also put "$1,500"
+     * at exactly the size of the "What it costs." heading above it.
+     */
+    --text-figure: clamp(1.5rem, 2vw + 1.1rem, 2.75rem);
 
     --leading-display: 1.05;
     --leading-tight: 1.08;
     --leading-snug: 1.14;
     --leading-lede: 1.38;
     --leading-body: 1.5;
+    /*
+     * Small text that runs to several lines. Below the body size a reader's eye
+     * has a harder time finding the start of the next line, so the leading
+     * opens up rather than scaling down with the type.
+     *
+     * This value was already in the stylesheet four times as a literal 1.6,
+     * always on 14px explanatory prose, and once more as 1.65 on code. It was a
+     * decision the design had already made and never written down. Labels and
+     * short values keep --leading-body: they rarely wrap, and tighter reads as
+     * more deliberate in a compact panel.
+     */
+    --leading-relaxed: 1.6;
 
     /* Tracking tightens as the type grows. Inter's optical axis does most of
        this on its own, so these are gentle corrections rather than the heavy

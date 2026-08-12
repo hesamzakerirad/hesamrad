@@ -64,8 +64,14 @@ code.hljs {
     background: transparent;
     border: 0;
     color: var(--code-text);
-    font-size: var(--text-sm);
-    line-height: 1.65;
+    /*
+     * Inherit the 0.9em the <pre> already carries rather than resetting to an
+     * absolute size. --text-sm put block code at 14px while inline code sat at
+     * 15.3px, so a name written between sentences was larger than the same name
+     * in the sample below it. One size for code, whichever way it is set.
+     */
+    font-size: 1em;
+    line-height: var(--leading-relaxed);
     tab-size: 4;
 }
 

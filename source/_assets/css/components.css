@@ -350,7 +350,7 @@
     gap: 0.55rem;
     margin-bottom: 0.6rem;
     font-size: var(--text-sm);
-    line-height: 1.6;
+    line-height: var(--leading-relaxed);
     color: var(--text);
 }
 
@@ -478,14 +478,11 @@ a.card:hover .card__title {
 .stat__value {
     display: block;
     color: var(--heading);
-    /* The floor matters as much as the cap. At 1.75rem it met --text-2xl's own
-       floor, so on a phone the figures and the headings were both 28px and the
-       hierarchy collapsed at exactly the width with least room to spare. */
-    font-size: clamp(1.5rem, 2vw + 1.1rem, 2.75rem);
+    font-size: var(--text-figure);
     font-weight: 600;
     font-variant-numeric: tabular-nums;
     letter-spacing: var(--tracking-display);
-    line-height: 1.05;
+    line-height: var(--leading-display);
 }
 
 .stat__label {
@@ -499,7 +496,7 @@ a.card:hover .card__title {
     margin-top: var(--space-xs);
     color: var(--text-dim);
     font-size: var(--text-sm);
-    line-height: 1.5;
+    line-height: var(--leading-body);
 }
 
 /* ── Ordered process / timeline ─────────────────────────────────────── */
@@ -726,12 +723,34 @@ a.card:hover .card__title {
     overflow-wrap: normal;
 }
 
+/*
+ * Headings inside an article are set from a different scale than headings on
+ * the marketing pages, and they have to be.
+ *
+ * A `.section-head h2` is the loudest thing in its band and is sized to carry
+ * a whole screen on its own. An `h2` in a post is a signpost *under* the
+ * article title. Sharing one size made the h1 52px and the h2 45.6px — a ratio
+ * of 1.14, and 1.08 on a wide screen, where --text-2xl reaches its 48px cap
+ * while --text-3xl is already pinned at 52. A page of eleven h2s read as
+ * eleven titles.
+ *
+ * The article scale is 52 / 28 / 21 / 17: each step a clear drop, and the h2
+ * now matches the one in the call to action at the foot of the same page,
+ * which was already 28 and disagreed with the body above it.
+ */
 .rich-text h2 {
     margin-top: var(--space-lg);
+    font-size: var(--text-xl);
 }
 
 .rich-text h3 {
     margin-top: var(--space-md);
+    font-size: var(--text-lg);
+}
+
+.rich-text h4 {
+    margin-top: var(--space-md);
+    font-size: var(--text-base);
 }
 
 .rich-text > :first-child {
@@ -1575,7 +1594,7 @@ a.card:hover .card__title {
     margin: 0.1rem 0 var(--space-sm);
     color: var(--heading);
     font-size: var(--text-sm);
-    line-height: 1.5;
+    line-height: var(--leading-body);
 }
 
 .study__facts dd:last-of-type {
@@ -1657,7 +1676,7 @@ a.card:hover .card__title {
     margin-top: var(--space-xs);
     color: var(--text-dim);
     font-size: var(--text-sm);
-    line-height: 1.5;
+    line-height: var(--leading-body);
 }
 
 .case__meta {
@@ -1719,7 +1738,7 @@ a.card:hover .card__title {
     margin-bottom: var(--space-xs);
     color: var(--text);
     font-size: var(--text-sm);
-    line-height: 1.6;
+    line-height: var(--leading-relaxed);
 }
 
 /* The cost is the honest half. Set apart rather than run on, because a
@@ -1728,7 +1747,7 @@ a.card:hover .card__title {
     margin-bottom: 0;
     color: var(--text-dim);
     font-size: var(--text-sm);
-    line-height: 1.6;
+    line-height: var(--leading-relaxed);
 }
 
 /*
@@ -2272,9 +2291,9 @@ textarea.field__input {
 
 .price__value {
     color: var(--heading);
-    font-size: var(--text-2xl);
+    font-size: var(--text-figure);
     font-weight: 600;
-    line-height: 1;
+    line-height: var(--leading-display);
     letter-spacing: var(--tracking-display);
 }
 
@@ -2290,7 +2309,7 @@ textarea.field__input {
 .price__label {
     color: var(--text-dim);
     font-size: var(--text-sm);
-    line-height: 1.5;
+    line-height: var(--leading-body);
 }
 
 /*
@@ -2325,7 +2344,7 @@ textarea.field__input {
     margin: 0;
     color: var(--text-dim);
     font-size: var(--text-sm);
-    line-height: 1.6;
+    line-height: var(--leading-relaxed);
 }
 
 /* A card's kicker. Same device as .eyebrow, scoped so it can sit tight against
