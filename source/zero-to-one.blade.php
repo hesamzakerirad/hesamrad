@@ -82,12 +82,12 @@ title: Zero to One
              and it does not need saying twice. --}}
         <h1>Zero to One.</h1>
 
-        <p class="lead prose">From no website at all, to one that works. A fixed price, about a week, and I handle all
-            of it &mdash; including the part where somebody has to write the words.</p>
+        <p class="lead prose">Zero to One is a campaign with one aim: get {{ $target }} businesses that have no
+            website online, properly. Yours is built around what you actually do, at a fixed price, in about a week
+            &mdash; and I handle every part of it, including writing the words.</p>
 
         <p class="lead prose">Plenty of good businesses still have none. Usually not because they decided against one,
-            but because it is one more thing to sort out and it never quite gets to the top of the list. So I am
-            taking {{ $target }} of them online.</p>
+            but because it is one more thing to sort out and it never quite gets to the top of the list.</p>
 
         @if ($showTally)
             <p class="mt-md"><span class="availability">{{ $launched->count() }} of {{ $target }} online so far</span></p>
@@ -107,14 +107,14 @@ title: Zero to One
         <div class="shell">
             <div class="section-head">
                 <h2>What you get.</h2>
-                <p>The same thing every time. That is what keeps it quick and keeps it {{ $page->priceSetup() }} instead of five.</p>
+                <p>The same list every time. That is what keeps it quick and keeps it {{ $page->priceSetup() }} instead of five.</p>
             </div>
 
             @php
                 $included = [
                     [
                         'title' => 'A website, up to five pages',
-                        'body' => 'Built from a template I know inside out, in your colours, with your photos. It works properly on a phone, because that is where most of your customers will see it.',
+                        'body' => 'Built for your business, in your colours and with your photographs. It works properly on a phone, because that is where most of your customers will see it.',
                     ],
                     [
                         'title' => 'I write the words',
@@ -226,9 +226,10 @@ title: Zero to One
             <article class="card">
                 <p class="card__label">Not included</p>
                 <h3 class="card__title">The things a fixed price cannot carry</h3>
-                <p class="card__body">A design made from scratch &mdash; this is one template, dressed in your
-                    colours and your photos. Logos, branding and photography are not part of it either. If you have
-                    a logo I will use it; if you do not, the site works fine without one.</p>
+                <p class="card__body">A visual identity invented from scratch. The site is built for your business,
+                    but the look is not designed from nothing &mdash; that is a separate job at a separate price.
+                    Logos, branding and photography are not part of it either. If you have a logo I will use it; if
+                    you do not, the site works fine without one.</p>
             </article>
 
             <article class="card">
@@ -245,8 +246,8 @@ title: Zero to One
 
     <section class="shell section">
         <div class="section-head">
-            <h2>The businesses.</h2>
-            <p>Every one, as it goes live. No selective memory.</p>
+            <h2>From Zero to One</h2>
+            <p>Shops, workshops and practices — places with a front door. Open any of them and see.</p>
         </div>
 
         @if ($launched->isEmpty())
