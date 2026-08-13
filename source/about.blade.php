@@ -6,7 +6,9 @@ title: About
 
 @section('title', 'About Hesam Rad')
 
-@section('description', 'Independent software engineer. Eight years building web software for businesses, five of them looking after a single system for one client.')
+@section('description',
+    'Independent software engineer. Eight years building web software for businesses, five of them
+    looking after a single system for one client.')
 
 @section('body')
     <div class="shell section page-head">
@@ -15,39 +17,39 @@ title: About
 
         <h1>Hesam Rad.</h1>
 
-        <p class="lead prose">I build the software businesses run on, and I've been doing it since 2017. That started
-            while I was still a computer engineering student, and it's been full time on my own since late 2025.</p>
+        <p class="lead prose">I help businesses grow by building them software they can use and rely on
+            to move forward with their digital journey and I have been doing it since 2017.
+        </p>
 
-        <p class="lead prose">Most of what I do is the part customers never see: the system underneath, the data in it,
-            and the work of keeping both correct once real people depend on them.</p>
+        <p class="lead prose">Most of what I do is understanding what the problem is so I can build the right tool to fix it.
+        </p>
     </div>
 
+    {{-- The heading holds the left column and the prose holds the right one.
+         The heading stays beside the text it introduces, and the text keeps a
+         readable measure without a rule or a panel around it. --}}
     <section class="shell section">
-        <div class="grid grid--halves">
-            <div class="about__portrait">
-                {{-- To add the photograph, replace this include with an <img>.
-                     The layout does not change. --}}
-                @include('_components.image-placeholder', [
-                    'ratio' => 'portrait',
-                    'label' => 'photograph of Hesam Rad',
-                    'note' => 'Photograph to come',
-                ])
+        <div class="split">
+            <div class="split__aside">
+                <h2>How I ended up working alone.</h2>
             </div>
 
-            <div class="section-head section-head--start">
-                <h2>How I ended up working alone.</h2>
+            <div class="split__body">
 
-                <p class="dim">I spent five years as lead engineer on a digital menu platform, and most of another
-                    building a monitoring system for a brokerage. Both were the same shape of work: one engineer who
-                    knew the whole system, answerable for it, still there a year later.</p>
-
-                <p class="dim">That's the arrangement I kept choosing, so eventually I stopped pretending it needed a
-                    company around it. There's no agency here and no team to brief. The person you email is the person
-                    who writes the code, and the person who fixes it at eleven at night.</p>
-
-                <p class="dim">I take on the work I'm good at. When something isn't that, I say so on the first call
-                    instead of three weeks in. It costs me the occasional project and it has never once cost me a
-                    client.</p>
+                <p>
+                    In my experience as an employed engineer, the software an entire business relies on is often built and
+                    maintained by a handful of people who know it end to end. In my case, I was always one of those people,
+                    responsible not just for writing the code, but for understanding the system, making decisions, and
+                    keeping it running.
+                </p>
+                <p>
+                    Eventually, I realized I didn't need a company around me to take that responsibility seriously. I could
+                    work directly with a business, understand what it needs, and care about the software as deeply as the
+                    people who depend on it.
+                </p>
+                <p>
+                    So I started working independently in late 2025.
+                </p>
             </div>
         </div>
     </section>
@@ -55,70 +57,70 @@ title: About
     <section class="section section--band">
         <div class="shell">
             <div class="section-head">
-                <h2>What eight years taught me.</h2>
-                <p>Three things I didn't believe at the start and would now argue for at length.</p>
+                <h2>The software is only half the job.</h2>
+                <p>The other half is everything around it: how I work with you, what you can see while it happens,
+                    and what you're left holding at the end.</p>
             </div>
 
             @php
-                $beliefs = [
+                $risks = [
                     [
-                        'title' => 'The hard part is deciding, not building',
-                        'body' => 'Almost every project that goes badly went wrong before any code was written, in a conversation nobody had. I spend the first few days asking questions that sound obvious, because the alternative is building the wrong thing quickly.',
+                        'title' => 'Commitment',
+                        'body' =>
+                            'I take on a small number of projects and I stay with them. Your work isn\'t fitted around six other clients, and I\'m not gone the week after it goes live.',
                     ],
                     [
-                        'title' => 'Software you cannot change is already broken',
-                        'body' => 'Anything worth building gets changed. If a change is frightening, the system has failed you whether or not it happens to work today. That\'s why the tests, the release process and the documentation get treated as part of the job rather than as overhead.',
+                        'title' => 'Trust',
+                        'body' =>
+                            'You\'re handing over something the business depends on. One person is answerable for all of it, and when something goes wrong it gets fixed first and explained after.',
                     ],
                     [
-                        'title' => 'Explaining it plainly is part of the job',
-                        'body' => 'If you can\'t follow what I\'m telling you, you can\'t judge whether I\'m right, and you\'re back to trusting a stranger. Every technical decision here has a plain-English version, and I\'d rather give you that than sound clever.',
+                        'title' => 'Transparency',
+                        'body' =>
+                            'You always know where things stand. Progress is something you look at rather than something I report, and every decision comes with a reason in plain English.',
+                    ],
+                    [
+                        'title' => 'Ownership',
+                        'body' =>
+                            'The domain, the accounts and the code are in your name from day one. Nothing runs only on my laptop, so replacing me is never a rescue operation.',
                     ],
                 ];
             @endphp
 
-            @include('_components.card-grid', ['items' => $beliefs, 'grid' => 'cards'])
+            @include('_components.card-grid', ['items' => $risks, 'grid' => 'cards'])
         </div>
     </section>
 
-    <section class="shell section">
-        <div class="grid grid--halves">
-            <div class="section-head section-head--start">
-                <h2>There's a person behind this.</h2>
+    @php
+        // The collection filter in config.php removes each sample when the site
+        // is public, therefore this template does not test for samples again.
+        $selected = $caseStudies->sortByDesc('year')->take(2);
+    @endphp
 
-                <p class="dim">I have a literary background as well as an engineering one, and I'm reading for a
-                    master's in English literature. Most of the time I'm not writing code, I'm reading.</p>
-
-                <p class="dim">It's less of a detour than it sounds. Both jobs are mostly about saying a complicated
-                    thing clearly to somebody who has no reason to be patient with you.</p>
-
-                <p class="dim">I'm on very few platforms, by choice. Email reaches me faster than anything else
-                    does.</p>
+    @if ($page->workIsPublic && $selected->isNotEmpty())
+        <section class="shell section">
+            <div class="section-head">
+                <h2>Some of what I have built.</h2>
+                <p>Each one was a single engineer on a single system for years. The write-ups say what the business
+                    needed, what I built, and what changed.</p>
             </div>
 
-            <div class="rows">
-                <div class="row">
-                    <p class="row__key">Since 2017</p>
-                    <div class="row__value">
-                        <p>Building web software, starting while I was still a computer engineering student.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <p class="row__key">Where I work</p>
-                    <div class="row__value">
-                        <p>Remote, with clients across Europe and North America. I arrange my day around whichever
-                            of those you're in, so there are hours every day when you can reach me.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <p class="row__key">Open source</p>
-                    <div class="row__value">
-                        <p>Four small tools I kept needing and eventually published, plus a free URL shortener built as
-                            a non-profit. <a href="{{ $page->baseUrl }}/projects/">See the code</a>.</p>
-                    </div>
-                </div>
+            <div class="work-list mt-lg">
+                @foreach ($selected as $study)
+                    {{-- An <h2> introduces this list, therefore the card title
+                         is an <h3>. --}}
+                    @include('_components.work-card', ['study' => $study, 'titleLevel' => 3])
+                @endforeach
             </div>
-        </div>
-    </section>
+
+            <p class="work__more">
+                <a class="link-arrow" href="{{ $page->baseUrl }}/work/">
+                    <span>All case studies</span>
+                    @include('_components.icon', ['name' => 'arrow-right'])
+                </a>
+            </p>
+        </section>
+    @endif
 
     @include('_components.testimonials')
 

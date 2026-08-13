@@ -1848,18 +1848,46 @@ textarea.field__input {
     transform: translateX(4px);
 }
 
-.about__portrait {
-    max-width: 22rem;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+/*
+ * A heading in a narrow column beside the text it introduces.
+ *
+ * The aside column is fixed and the body column takes the rest, therefore the
+ * headings of two `.split` sections align with each other. `.grid--halves`
+ * gives each column half the width, which leaves a long heading beside a short
+ * measure of text.
+ *
+ * responsive.css makes this one column on a narrow screen.
+ */
+.split {
+    display: grid;
+    grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+    gap: var(--space-lg) var(--space-xl);
+    align-items: start;
 }
 
-.about__portrait .ph,
-.about__portrait img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
+.split__aside > :first-child {
+    margin-top: 0;
+}
+
+/* A section heading at its full size wraps to three lines in a 16rem column.
+   The heading is a label for the column beside it, therefore it takes the
+   step below. */
+.split__aside h2 {
+    font-size: var(--text-xl);
+    text-wrap: balance;
+}
+
+.split__body {
+    max-width: var(--measure);
+}
+
+.split__body > p {
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+}
+
+.split__body > p:last-child {
+    margin-bottom: 0;
 }
 
 .study__cover-note {
@@ -2115,5 +2143,12 @@ textarea.field__input {
  */
 .faq__more {
     margin-top: var(--space-lg);
+    text-align: center;
+}
+
+/* The section heading above this link is centred, therefore the link is too. */
+.work__more {
+    margin-top: var(--space-lg);
+    margin-bottom: 0;
     text-align: center;
 }
