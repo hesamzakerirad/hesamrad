@@ -62,7 +62,7 @@ cover:
     src: /assets/build/images/top-menu.jpg
     alt: 'printed menu boards mounted on the wall above a café counter'
     caption: 'What a diner gets: scan the code on the table, and the menu opens. No app, no account.'
-    credit: 'https://images.unsplash.com/photo-1568031813264-d394c5d474b9'
+    credit: 'https://unsplash.com/photos/black-and-brown-menu-display-5AMSZcgN_cM'
 gallery:
     # - src: null
     #   ratio: mobile

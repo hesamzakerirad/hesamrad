@@ -259,7 +259,7 @@ favour me; that's the point.
 | What the rate covers | The work, plus the hours nobody bills | The work |
 | Best when | The job is large, urgent, or many-sided | One system has to be right and stay right |
 
-## The short version
+## Summary
 
 You're not choosing between expensive and cheap. You're choosing between paying
 for coordination and continuity, or paying for directness and accepting that it
