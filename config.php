@@ -90,7 +90,7 @@ return [
             'q' => 'What happens on the first call?',
             'a' => [
                 'Thirty minutes, and you do the talking for most of it: what the business does, what isn\'t working, and what you want instead.',
-                'Afterwards you get a written plan — what I\'d build, in what order, what it would cost, and what I think could go wrong. It\'s free and it\'s yours to keep, including to take to another developer. If I\'m not the right person for the job, that\'s the call where I say so.',
+                'Afterwards you get a written plan: what I\'d build, in what order, what it would cost, and what I think could go wrong. It\'s free and it\'s yours to keep, including to take to another developer. If I\'m not the right person for the job, that\'s the call where I say so.',
             ],
             'link' => ['href' => '/services/', 'label' => 'How the work runs'],
         ],
@@ -118,7 +118,7 @@ return [
             'open' => true,
             'a' => [
                 'The cheapest way in is Zero to One: a fixed website for ' . $pricing['symbol'] . number_format($pricing['setup']) . ', plus ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month to keep it running. For a lot of businesses that\'s the whole answer.',
-                'Anything past that — payments, ordering, booking, a system built around how your business runs — is a fixed price for a defined project, or a monthly arrangement for ongoing work. Either way the number comes once the plan is written, so it reflects the work in front of us rather than an hourly guess, and you have it before you commit to anything.',
+                'Anything past that is a fixed price for a defined project, or a monthly arrangement for ongoing work. That covers payments, ordering, booking, and a system built around how your business runs. Either way the number comes once the plan is written, so it reflects the work in front of us rather than an hourly guess, and you have it before you commit to anything.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'How Zero to One works'],
         ],
@@ -159,7 +159,7 @@ return [
             'group' => 'How long it takes',
             'q' => 'Why is Zero to One about a week when other work takes months?',
             'a' => [
-                'Because it\'s the same defined list every time — a website, the words, the domain and hosting, and your Google listing — with one round of changes. The narrow scope is what makes a week possible. Nothing is being rushed to fit it.',
+                'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes a week possible. Nothing is being rushed to fit it.',
                 'The moment a business needs online ordering or a booking system, it\'s a different job with a different number, and I\'ll tell you that instead of squeezing it in.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'What is and is not included'],
@@ -170,7 +170,7 @@ return [
             'group' => 'What I build',
             'q' => 'What do you actually build?',
             'a' => [
-                'Web applications that work as well on a phone as on a laptop. I build both halves — what your customers see and the system running behind it — so there\'s no seam between them and nobody to coordinate with.',
+                'Web applications that work as well on a phone as on a laptop. I build both halves: what your customers see, and the system running behind it. There\'s no seam between them and nobody to coordinate with.',
                 'Where a client already has a designer or a front-end team, I take the half they can\'t do and stay out of the way of the half they can. That\'s usually the cheaper arrangement for them.',
             ],
             'link' => ['href' => '/work/', 'label' => 'Both projects ran that way'],
@@ -194,7 +194,7 @@ return [
             'group' => 'What I build',
             'q' => 'What is not included in Zero to One?',
             'a' => [
-                'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing — that\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
+                'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing. That\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
                 'Payments, online ordering, booking systems and customer logins are all proper work rather than a box to tick, so they\'re quoted separately.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'The full list'],
@@ -232,7 +232,7 @@ return [
             'services' => 4,
             'a' => [
                 'I\'m one person, so let me answer that properly instead of waving it away. There\'s no second developer waiting in the wings.',
-                'What there is: you own every account and every line of code from day one, and I write things down as I go — a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you wouldn\'t be locked out of anything, and someone competent could carry on from what\'s written.',
+                'What there is: you own every account and every line of code from day one, and I write things down as I go. That means a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you wouldn\'t be locked out of anything, and someone competent could carry on from what\'s written.',
                 'That\'s a smaller risk than being unable to reach the agency holding your source code. It isn\'t zero, and you should hear it from me rather than find it out later.',
             ],
         ],
@@ -609,18 +609,25 @@ return [
     },
 
     /**
-     * Returns the cover of a case study as [src, alt, caption], or null.
+     * Returns the cover of a case study as [src, alt, caption, credit], or
+     * null.
      *
      * Front matter can write a cover in two forms. `cover: 'https://…'` gives
-     * only the address. A map gives `src`, `alt` and `caption`. The templates
-     * read the map form only. This function converts the string form to a map.
-     * Without it, a study with the string form shows no image and no error.
+     * only the address. A map gives `src`, `alt`, `caption` and `credit`. The
+     * templates read the map form only. This function converts the string form
+     * to a map. Without it, a study with the string form shows no image and no
+     * error.
+     *
+     * `credit` is the address of the source of the image. The layout shows a
+     * credit on the image when this key has a value.
      */
     'getCover' => function ($page) {
         $cover = $page->cover;
 
         if (is_string($cover)) {
-            return trim($cover) === '' ? null : ['src' => trim($cover), 'alt' => '', 'caption' => ''];
+            return trim($cover) === ''
+                ? null
+                : ['src' => trim($cover), 'alt' => '', 'caption' => '', 'credit' => ''];
         }
 
         // An IterableObject on a page, a plain array on a collection item.
@@ -634,6 +641,7 @@ return [
                 'src' => $src === '' ? null : $src,
                 'alt' => (string)($cover['alt'] ?? ''),
                 'caption' => (string)($cover['caption'] ?? ''),
+                'credit' => trim((string)($cover['credit'] ?? '')),
             ];
         }
 

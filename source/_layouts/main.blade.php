@@ -19,7 +19,7 @@
      * - The full title becomes more than 60 characters.
      */
     $pageTitle = $yield('title');
-    $brandSuffix = ' — ' . $page->siteName;
+    $brandSuffix = ' · ' . $page->siteName;
     $titleLimit = 60;
     $needsBrand = ! $page->disableTitlePrefix
         && stripos($pageTitle, $page->siteName) === false
@@ -114,7 +114,13 @@
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="alternate" type="application/rss+xml" title="{{ $page->siteName }}"
         href="{{ $page->baseUrl }}/feed.xml">
-    <link rel="icon" href="{{ $favicon }}">
+    {{-- The .ico comes first, for a browser that reads no further. A browser
+         that supports an SVG icon takes the SVG, which stays sharp at each size
+         and follows the colour scheme of the reader. --}}
+    <link rel="icon" href="{{ $favicon }}" sizes="16x16 32x32 48x48">
+    {{-- A plain path. `viteStaticCopy` copies source/_assets/images verbatim,
+         therefore the file has no manifest key and `vite()` throws on it. --}}
+    <link rel="icon" type="image/svg+xml" href="{{ $page->baseUrl }}/assets/build/images/logo.svg">
     @viteRefresh()
     {{-- Preload only the upright face of Inter. It sets all the text above the
          fold. Do not preload the italic face or the mono face. They are rare,

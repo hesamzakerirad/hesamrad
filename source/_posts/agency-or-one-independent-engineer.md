@@ -73,9 +73,9 @@ Call it 1,500 billable hours. Now the arithmetic does something uncomfortable:
 
 That's the salary alone. It doesn't include employer taxes, pension, laptop,
 software licences, insurance, office, or recruitment fees. And it doesn't
-include the people at the agency who bill *nothing* — the account manager, the
+include the people at the agency who bill *nothing*: the account manager, the
 project manager, the finance person, the sales team. Their salaries come out of
-the same place: the hours the developers do bill.
+the same place, which is the hours the developers do bill.
 
 So the 500 unbilled hours aren't free. The 1,500 billed ones pay for them.
 That's the single most useful thing to understand about an agency rate, and it
@@ -149,7 +149,7 @@ problems is an advertisement.
 
 Hiring one engineer concentrates every risk into one human being. They can get
 ill in week three. They can take a job. They can turn out to be worse than they
-seemed. They can stop replying altogether — I've taken over from developers who
+seemed. They can stop replying altogether. I've taken over from developers who
 did exactly that, and the client's position was awful: no access to anything, no
 documentation, and a system earning money that nobody could change.
 
@@ -158,7 +158,7 @@ developer leaves, someone else picks it up. You may not even find out. That's a
 real thing to buy and it's worth real money.
 
 The mitigations exist, and you should demand them of anyone independent,
-including me. Everything in your name from day one — domain, hosting, code
+including me. Everything in your name from day one: domain, hosting, code
 repository, accounts. Documentation written as the work happens, not promised
 for the end. Nothing that only runs on one laptop. If a freelancer can't
 tell you what happens to your business the week after they're hit by a bus,
@@ -179,7 +179,7 @@ The churn isn't hypothetical. The US Bureau of Labor Statistics puts [median
 tenure across all wage and salary
 workers](https://www.bls.gov/news.release/pdf/tenure.pdf) at 3.9 years as of
 January 2024, down from 4.1 two years earlier. Software is commonly reported to
-run shorter still — figures around two years get quoted a lot, though I'd treat
+run shorter still. Figures around two years get quoted a lot, though I'd treat
 those with the same suspicion I applied to CHAOS. BLS publishes no
 developer-specific number, and most of the two-year claims trace back to surveys
 rather than payroll data.
@@ -190,8 +190,8 @@ on it is not high. With an agency you've bought a process that survives that.
 What you haven't bought is anyone who remembers why the decision was made.
 
 That's the part I'd point at in my own work. [Both projects I've written
-up](/work/) were one engineer on one system for years — five, in one case — and
-the value in year four was mostly knowing why year two had gone the way it did.
+up](/work/) were one engineer on one system for years, five in one case. The
+value in year four was mostly knowing why year two had gone the way it did.
 
 ## When an agency is the right answer
 
@@ -235,7 +235,7 @@ for both:
 4. **What does the first deliverable look like, and when?** If nothing is
    visible for two months, that's a warning regardless of who you hired.
 5. **What is explicitly not included?** A fixed price only stays fixed if both
-   sides can see the edges — [Zero to One states its exclusions on the page](/zero-to-one/) for exactly that reason.
+   sides can see the edges. [Zero to One states its exclusions on the page](/zero-to-one/) for exactly that reason.
 
 It would be a poor article that asked you to interrogate everyone but me. My
 answers to all five are [on the questions page](/faq/): ownership, what happens
@@ -253,7 +253,7 @@ favour me; that's the point.
 | Communication paths | Ten, across a team of five | One |
 | If they leave | Someone else picks it up, often without telling you | The work stops until you find someone else |
 | If they are ill | Absorbed by the team | Your dates move |
-| Several disciplines at once | Yes — brand, app, campaign | No |
+| Several disciplines at once | Yes: brand, app, campaign | No |
 | Adding people mid-project | Yes | No |
 | Who remembers why a decision was made | The process, not a person | The person |
 | What the rate covers | The work, plus the hours nobody bills | The work |

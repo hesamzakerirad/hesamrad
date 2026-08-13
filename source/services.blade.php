@@ -42,7 +42,7 @@ title: Services
                 'includes' => [
                         'A straight read on what is worth keeping and what is not',
                         'A plan to get it launched, with a date you can hold me to',
-                        'The missing pieces built — usually the unglamorous ones',
+                        'The missing pieces built, usually the unglamorous ones',
                         'Everything written down, so this cannot happen a second time',
                 ],
                 ],

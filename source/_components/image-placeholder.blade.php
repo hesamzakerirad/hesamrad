@@ -30,7 +30,7 @@
     $isPhone = $ratio === 'mobile';
     $isArticle = $ratio === 'article';
     $isPortrait = $ratio === 'portrait';
-    $note = $note ?? 'Placeholder — no screenshot yet';
+    $note = $note ?? 'Placeholder, no screenshot yet';
 @endphp
 
 <svg class="ph ph--{{ $ratio }}" viewBox="0 0 {{ $w }} {{ $h }}" role="img"

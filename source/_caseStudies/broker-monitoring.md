@@ -48,7 +48,10 @@ timeline:
 results: []
 quote: null
 differently: 'I started building before the measures were pinned down as tightly as they needed to be, assuming the details would settle as we went. They did settle, but some of them settled differently to how I''d built for, and I rewrote work that a longer conversation at the start would have got right the first time. On a system whose entire value is the precision of its definitions, the specification was the wrong place to move quickly.'
-cover: 'https://images.unsplash.com/photo-1651341050677-24dba59ce0fd?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+cover:
+    src: /assets/build/images/broker-monitoring.jpg
+    alt: ''
+    credit: 'https://images.unsplash.com/photo-1651341050677-24dba59ce0fd'
 coverNote: 'No screenshots. The client asked for confidentiality, and that''s worth more to them than it is to me.'
 gallery: []
 stack:

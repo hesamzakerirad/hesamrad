@@ -19,7 +19,7 @@ constraints:
     - 'The client isn''t technical, and running a platform of this size can''t depend on a developer being reachable. Anything routine had to be something he could do himself.'
     - 'It was live and earning from early on. Five years of change had to land underneath a product that venues were using during service.'
 built:
-    - 'A menu a diner opens by scanning the QR code on their table — no app to install, no account to make, and fast enough to be usable on a phone on café wifi.'
+    - 'A menu a diner opens by scanning the QR code on their table. No app to install, no account to make, and fast enough to be usable on a phone on café wifi.'
     - 'Ordering and payment on the same screen, so a table can order without waiting to catch someone''s eye. Switched on per venue, because plenty of them didn''t want it.'
     - 'A dashboard each business runs itself: menu and prices, staff accounts with access levels so a floor employee sees less than a manager, and reports on income, sales and walk-ins.'
     - 'A platform dashboard above all of it, so the client can onboard a venue, change what it is allowed to use, and see across the whole estate without opening a terminal or asking me.'
@@ -59,9 +59,10 @@ results:
 quote: null
 differently: 'I built the venue dashboard before the platform dashboard, which meant that for the first couple of years every new venue came through me. It felt like the right order, since it was the thing customers touch first, but it made me the bottleneck in someone else''s growth and I stayed that way longer than I should have. The administrative screens were the least interesting work in the project and would have been worth doing a year earlier than I did them.'
 cover:
-    src: 'https://images.unsplash.com/photo-1568031813264-d394c5d474b9?q=80&w=3538&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    alt: 'the menu a diner sees after scanning the QR code on the table'
+    src: /assets/build/images/top-menu.jpg
+    alt: 'printed menu boards mounted on the wall above a café counter'
     caption: 'What a diner gets: scan the code on the table, and the menu opens. No app, no account.'
+    credit: 'https://images.unsplash.com/photo-1568031813264-d394c5d474b9'
 gallery:
     # - src: null
     #   ratio: mobile

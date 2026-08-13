@@ -1,11 +1,11 @@
 @extends('_layouts.main')
 
 {{-- This title contains the site name, therefore the layout adds no suffix. --}}
-@section('title', 'Hesam Rad — Independent software engineer')
+@section('title', 'Hesam Rad · Independent software engineer')
 
 {{-- Keep this description below 120 characters. A phone cuts the search snippet
      at approximately that length. --}}
-@section('description', 'I build the software behind a growing business, and the website in front of it — one man, start to finish.')
+@section('description', 'I build the software behind a growing business, and the website in front of it. One man, start to finish.')
 
 @section('body')
     {{-- The dot field covers the hero and the figures below it. It must stay on
@@ -94,7 +94,7 @@
             $capabilities = [
                 [
                     'title' => 'A product built from nothing',
-                    'body' => 'You\'ve got a business and an idea, and nothing built yet. I turn that into something your customers can sign up to and use — the site or app they see, plus the accounts, the payments and the admin screens you run it from.',
+                    'body' => 'You\'ve got a business and an idea, and nothing built yet. I turn that into something your customers can sign up to and use: the site or app they see, plus the accounts, the payments and the admin screens you run it from.',
                 ],
                 [
                     'title' => 'Pages that load in under a second',

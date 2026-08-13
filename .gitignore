@@ -9,6 +9,8 @@
 /cache/
 /.claude/
 /.venv
+# Bytecode from the build_*.py scripts.
+__pycache__/
 
 # Cloudflare Worker (worker/)
 # .dev.vars holds the same secrets as `wrangler secret put` for local runs.

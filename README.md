@@ -249,11 +249,12 @@ when the fingerprint changes.
 Keep the `.ttf` files. The browser uses the `.woff2` files, but the script
 needs the `.ttf` files to make them.
 
-**To rebuild the favicon.** Run this after you change the pixel map in the
-script:
+**To rebuild the mark.** This writes both `source/_assets/images/logo.svg` and
+`source/favicon.ico` from one set of numbers. Run it after you change the
+geometry or a colour in the script:
 
 ```bash
-.venv/bin/python build_favicon.py
+.venv/bin/python build_mark.py
 ```
 
 **To rebuild the share card.** Run this after you change the headline or a

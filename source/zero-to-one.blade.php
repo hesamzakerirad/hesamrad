@@ -46,7 +46,7 @@ title: Zero to One
     $showTally = $launched->count() >= 3;
 @endphp
 
-@section('title', 'Zero to One — a website in about a week')
+@section('title', 'Zero to One: a website in about a week')
 
 @section('description', 'Taking ' . $target . ' businesses from no website at all to one that works. A fixed price, about a week, and the whole thing handled for you.')
 
@@ -60,8 +60,8 @@ title: Zero to One
             online, properly. Yours is built around what you do, at a fixed price, in about a week. I handle every part
             of it, including writing the words.</p>
 
-        <p class="lead prose">Plenty of good businesses still don't have one. Usually it isn't that they decided against
-            it — it's one more thing to sort out, and it never quite gets to the top of the list.</p>
+        <p class="lead prose">Plenty of good businesses still don't have one. Usually it isn't that they decided
+            against it. It's one more thing to sort out, and it never quite gets to the top of the list.</p>
 
         @if ($showTally)
             <p class="mt-md"><span class="availability">{{ $launched->count() }} of {{ $target }} online so far</span></p>
@@ -188,7 +188,7 @@ title: Zero to One
                 <p class="card__label">Not included</p>
                 <h3 class="card__title">The things a fixed price cannot carry</h3>
                 <p class="card__body">A visual identity invented from scratch. The site is built for your business, but
-                    the look isn't designed from nothing — that's a separate job at a separate price. Logos, branding
+                    the look isn't designed from nothing. That's a separate job at a separate price. Logos, branding
                     and photography aren't part of it either. If you have a logo I'll use it; if you don't, the site
                     works fine without one.</p>
             </article>
@@ -197,7 +197,7 @@ title: Zero to One
                 <p class="card__label">Possible, priced separately</p>
                 <h3 class="card__title">Bigger things are still on the table</h3>
                 <p class="card__body">Taking payments, online ordering, a booking system, a customer login, something
-                    built around how your business runs — I do all of that. It's proper work rather than a box to tick,
+                    built around how your business runs. I do all of that. It's proper work rather than a box to tick,
                     so it sits outside the {{ $page->priceSetup() }}.</p>
                 <p class="card__body">Tell me what you have in mind on the call and I'll give you a real number.
                     Sometimes the answer is that you don't need it yet, and I'll say that too.</p>
@@ -208,7 +208,7 @@ title: Zero to One
     <section class="shell section">
         <div class="section-head">
             <h2>From Zero to One</h2>
-            <p>Shops, workshops and practices — places with a front door. Open any of them and see.</p>
+            <p>Shops, workshops and practices: places with a front door. Open any of them and see.</p>
         </div>
 
         @if ($launched->isEmpty())

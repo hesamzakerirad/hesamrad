@@ -45,8 +45,8 @@ title: Work
         @else
             @if ($showingSamples)
                 <p class="sample-notice mt-lg" role="status">
-                    <strong>Preview only.</strong> Anything marked as a sample is invented &mdash; no such company,
-                    nobody said any of it. Samples are never generated once the site is public.
+                    <strong>Preview only.</strong> Anything marked as a sample is invented. No such company exists,
+                    and nobody said any of it. Samples are never generated once the site is public.
                 </p>
             @endif
 
@@ -70,7 +70,7 @@ title: Work
                         @endif
 
                         @if ($study->sample ?? false)
-                            <p class="case__flag">Invented sample &mdash; not real work</p>
+                            <p class="case__flag">Invented sample, not real work</p>
                         @endif
 
                         <h2 class="work-card__title">

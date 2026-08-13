@@ -1263,6 +1263,34 @@ a.card:hover .card__title {
     border: var(--hairline) solid var(--line);
 }
 
+.study__cover-frame {
+    position: relative;
+}
+
+.study__cover-frame--credited::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    pointer-events: none;
+}
+
+.study__cover-frame .copyright {
+    position: absolute;
+    left: var(--space-sm);
+    bottom: var(--space-xs);
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: var(--text-xs);
+}
+
+.study__cover-frame .copyright a {
+    color: #fff;
+    text-decoration: underline;
+}
+
 .study__cover figcaption {
     margin-top: var(--space-xs);
     color: var(--text-dim);

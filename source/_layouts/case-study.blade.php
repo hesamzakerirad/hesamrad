@@ -60,15 +60,49 @@
 
         @if ($cover)
             <figure class="study__cover">
-                @if ($cover['src'])
-                    <img src="{{ $cover['src'] }}" alt="{{ $cover['alt'] }}" loading="eager"
-                        decoding="async" width="1600" height="900">
-                @else
-                    @include('_components.image-placeholder', [
-                        'label' => $cover['alt'] ?: 'the finished product',
-                        'ratio' => 'wide',
-                    ])
-                @endif
+                {{-- The frame holds the credit above the image. It must have
+                     `position: relative`, because the credit uses
+                     `position: absolute`. --}}
+                <div class="study__cover-frame {{ $cover['src'] && $cover['credit'] ? 'study__cover-frame--credited' : '' }}">
+                    @if ($cover['src'])
+                        <img src="{{ $cover['src'] }}" alt="{{ $cover['alt'] }}" loading="eager"
+                            decoding="async" width="1600" height="900">
+                    @else
+                        @include('_components.image-placeholder', [
+                            'label' => $cover['alt'] ?: 'the finished product',
+                            'ratio' => 'wide',
+                        ])
+                    @endif
+
+                    @if ($cover['src'] && $cover['credit'])
+                        {{-- Use the block form. Do not use the inline form
+                             @php(...). The gallery below has a later @php
+                             block, and an inline @php matches forward to that
+                             @endphp. --}}
+                        @php
+                            /*
+                             * The link text is the host of the source address.
+                             * A person who reads only the links on the page
+                             * gets no information from a generic word. The
+                             * generic word applies only when the address has no
+                             * host.
+                             *
+                             * The pattern also removes a `www.` or `images.`
+                             * prefix. `credit` points to the image file, and
+                             * the host of an image file is frequently a CDN
+                             * name such as `images.unsplash.com`. The name of
+                             * the site is the necessary text.
+                             */
+                            $creditHost = parse_url($cover['credit'], PHP_URL_HOST);
+                            $creditText = $creditHost ? preg_replace('/^(www|images)\./', '', $creditHost) : 'here';
+                        @endphp
+
+                        <small class="copyright">
+                            Image borrowed from <a href="{{ $cover['credit'] }}" target="_blank"
+                                rel="noopener noreferrer">{{ $creditText }}</a>.
+                        </small>
+                    @endif
+                </div>
 
                 @if ($cover['caption'])
                     <figcaption>{{ $cover['caption'] }}</figcaption>
