@@ -2145,3 +2145,10 @@ textarea.field__input {
     margin-top: var(--space-lg);
     text-align: center;
 }
+
+/* The section heading above this link is centred, therefore the link is too. */
+.work__more {
+    margin-top: var(--space-lg);
+    margin-bottom: 0;
+    text-align: center;
+}

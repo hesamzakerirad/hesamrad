@@ -96,7 +96,7 @@ title: About
                 @endforeach
             </div>
 
-            <p class="mt-lg">
+            <p class="work__more">
                 <a class="link-arrow" href="{{ $page->baseUrl }}/work/">
                     <span>All case studies</span>
                     @include('_components.icon', ['name' => 'arrow-right'])
