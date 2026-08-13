@@ -88,7 +88,8 @@
                              * host.
                              *
                              * The pattern also removes a `www.` or `images.`
-                             * prefix. `credit` points to the image file, and
+                             * prefix. `credit` usually points to the page of
+                             * the image, but it accepts a direct address, and
                              * the host of an image file is frequently a CDN
                              * name such as `images.unsplash.com`. The name of
                              * the site is the necessary text.

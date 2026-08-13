@@ -51,7 +51,7 @@ differently: 'I started building before the measures were pinned down as tightly
 cover:
     src: /assets/build/images/broker-monitoring.jpg
     alt: ''
-    credit: 'https://images.unsplash.com/photo-1651341050677-24dba59ce0fd'
+    credit: 'https://unsplash.com/photos/graphical-user-interface-application-x07ELaNFt34'
 coverNote: 'No screenshots. The client asked for confidentiality, and that''s worth more to them than it is to me.'
 gallery: []
 stack:
