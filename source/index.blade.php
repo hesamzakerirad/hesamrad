@@ -117,7 +117,7 @@
     <section class="section section--band">
         <div class="shell">
             <div class="section-head">
-                <h2>Start with a call. Keep the plan either way.</h2>
+                <h2>Start with a call. <br> Keep the plan either way.</h2>
                 <p>Thirty minutes to understand your business and what you're trying to build. You get back a written
                     plan: what I'd build, in what order, what it would cost, and what I think could go wrong.</p>
                 <p>It's yours to keep, including to take to another developer. And if I'm not the right person for the
@@ -136,25 +136,9 @@
         </div>
     </section>
 
-    {{-- A short version. /about/ carries the full text. --}}
-    <section class="shell section">
-        <div class="section-head">
-            <h2>There's a person behind this.</h2>
-            <p>Eight years building web software, five of them looking after one system for the same client. I have a
-                literary background as well as an engineering one, and I'm partway through a master's in English
-                literature. That matters more than it sounds like it should, because most of this job is explaining
-                something complicated to someone who has no reason to be patient with you.</p>
-
-            <p class="mt-md">
-                <a class="link-arrow" href="{{ $page->baseUrl }}/about/">
-                    <span>More about me</span>
-                    @include('_components.icon', ['name' => 'arrow-right'])
-                </a>
-            </p>
-        </div>
-    </section>
-
-    @include('_components.testimonials')
+    {{-- No band. The section above this one is a band, and two together make
+         one block of colour with no edge between them. --}}
+    @include('_components.testimonials', ['band' => false])
 
     <section class="shell section" id="contact">
         <div class="callout">

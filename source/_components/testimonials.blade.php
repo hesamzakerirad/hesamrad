@@ -7,6 +7,10 @@
     Parameters:
       $heading — section heading            (a default is below)
       $limit   — show only the first N quotes
+      $band    — draw the section on the raised surface  (default true)
+
+    Set `$band` to false when the section above this one is already a band. Two
+    bands together make one block of colour with no edge between them.
 --}}
 @php
     $quotes = collect($page->testimonials ?? []);
@@ -56,7 +60,8 @@
 @endphp
 
 @if ($quotes->isNotEmpty())
-    <section class="section section--band">
+    {{-- The inner <div class="shell"> sets the width. Do not add `shell` here. --}}
+    <section class="section {{ ($band ?? true) ? 'section--band' : '' }}">
         <div class="shell">
             <div class="section-head">
                 <h2>{{ $heading ?? 'What people who have worked with me say.' }}</h2>
