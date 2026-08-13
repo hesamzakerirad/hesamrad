@@ -1,39 +1,37 @@
 {{--
     The enquiry form.
 
-    Posts to a Cloudflare Worker at hello.hesamrad.com, because the site itself
-    is static on GitHub Pages and has no server of its own. The Worker stores
-    every submission in D1 before it tries to notify anyone, so a mail outage
-    costs a notification rather than a client.
+    The form posts to a Cloudflare Worker at hello.hesamrad.com. The site is
+    static on GitHub Pages and has no server. The Worker writes each submission
+    to D1 before it sends a notification. Therefore a mail failure does not
+    cause the loss of an enquiry.
 
-    It is a real `action`/`method` form: main.js upgrades it to an in-place
-    fetch so nobody loses the page they were reading, and without that script
-    the browser submits it normally and the Worker answers with a redirect.
+    Keep the `action` and `method` attributes. main.js changes the form to an
+    in-place fetch. If the script does not run, the browser does a usual
+    submission, and the Worker replies with a redirect.
 
-    Turnstile needs JavaScript to render, so the <noscript> block below points
-    people at the email address instead of leaving them with a button that
-    cannot work.
+    Turnstile needs JavaScript. The <noscript> block below gives the email
+    address, because the button cannot operate without JavaScript.
 --}}
 <form class="form" method="POST" action="{{ $page->formEndpoint }}" data-contact-form>
-    {{-- Web3Forms' reserved honeypot name, kept because it costs nothing and
-         catches the naive bots before Turnstile is even consulted. Out of
-         sight, out of the accessibility tree and out of the tab order, so a
-         person cannot reach it and a bot that fills every field trips it. --}}
+    {{-- The honeypot field. `botcheck` is the reserved Web3Forms name. It
+         catches simple bots before the Turnstile check. Keep this field out of
+         the accessibility tree and out of the tab order. A person then cannot
+         find it, but a bot that fills all fields sets it. --}}
     <input class="visually-hidden" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-    {{-- Which page the enquiry came from. The same form serves the home page,
-         services, Zero to One and each case study, and without this every
-         submission looks identical in the inbox and in D1 — so there is no way
-         to tell which page is actually producing work. --}}
+    {{-- The source page of the enquiry. Many pages show this same form. Without
+         this field, the inbox and D1 cannot show which page caused the
+         enquiry. --}}
     <input type="hidden" name="page" value="{{ $page->getCanonicalUrl() }}">
 
     <noscript>
-        <p class="form__note form__note--warning">This form needs JavaScript to check you are not a bot. Email me
-            directly at <a href="mailto:{{ $page->email }}">{{ $page->email }}</a> and I will pick it up
+        <p class="form__note form__note--warning">This form needs JavaScript to check you're not a bot. Email me
+            directly at <a href="mailto:{{ $page->email }}">{{ $page->email }}</a> and I'll pick it up
             there.</p>
     </noscript>
 
-    <p class="form__note">Three fields. No budget question &mdash; we can work that out on the call.</p>
+    <p class="form__note">Three fields, and no budget question. We can work that out on the call.</p>
 
     <div class="field">
         <label class="field__label" for="contact-name">Your name</label>
@@ -52,12 +50,12 @@
         <textarea class="field__input" id="contact-message" name="message" rows="6" maxlength="5000" required
             aria-describedby="contact-message-hint"></textarea>
         <p class="field__hint" id="contact-message-hint">A paragraph is plenty. What the business does, and what you
-            want to be true that is not true today.</p>
+            want to be true that isn't true today.</p>
     </div>
 
-    {{-- Turnstile renders itself into this and writes a token into a hidden
-         `cf-turnstile-response` input, which the Worker verifies server-side.
-         Usually invisible: most people never see a challenge at all. --}}
+    {{-- Turnstile draws itself in this element. It writes a token into a hidden
+         `cf-turnstile-response` input. The Worker then verifies the token. Most
+         visitors do not see a challenge. --}}
     <div class="field cf-turnstile" data-sitekey="{{ $page->turnstileSiteKey }}" data-theme="auto"
         data-action="contact"></div>
 
@@ -65,26 +63,24 @@
         <button class="btn btn--primary" type="submit">Send it</button>
     </div>
 
-    {{-- `polite`, not `assertive`: this follows the visitor's own action, so it
-         should not interrupt whatever a screen reader is mid-sentence on.
+    {{-- Use `polite` and not `assertive`. The message comes after an action of
+         the visitor, therefore it must not interrupt the screen reader.
 
-         Never `hidden`. A live region has to be in the accessibility tree
-         before the text arrives, or there is no change for the screen reader
-         to notice — it registers the element and its content together and says
-         nothing. It stays in the DOM permanently and collapses to a
-         zero-height box while it is empty. --}}
+         Do not make this live region `hidden`. The live region must be in the
+         accessibility tree before the text comes. If it is not, the screen
+         reader finds the element and the text together, and it announces
+         nothing. The element stays in the DOM, and its height is zero while it
+         is empty. --}}
     <p class="form__status" data-form-status role="status" aria-live="polite" tabindex="-1"></p>
 
     <p class="form__fallback dim">
-        I use what you send here to reply, and nothing else &mdash; you are not added to any list. Or email me directly
+        I use what you send here to reply, and nothing else. You're not added to any list. Or email me directly
         at <a href="mailto:{{ $page->email }}">{{ $page->email }}</a>.
     </p>
 </form>
 
 @once
     @push('scripts')
-        {{-- Loaded only on pages that actually carry the form, and deferred so
-             it never competes with the content someone came to read. --}}
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     @endpush
 @endonce

@@ -2,9 +2,9 @@
 
 @php
     /*
-     * A sample is never generated once the site is public — the collection
-     * filter in config.php drops it before a page exists. This only controls
-     * the visible warnings on the preview build, and the robots directive.
+     * The collection filter in config.php removes a sample when the site is
+     * public. No page exists then. This code controls only the warning on the
+     * preview build and the robots directive.
      */
     $isSample = $page->sample ?? false;
     $page->robots = ($page->workIsPublic && ! $isSample) ? 'index,follow' : 'noindex,nofollow';
@@ -31,8 +31,6 @@
             @endif
 
             <p class="case__meta">
-                {{-- Linked when there is somewhere to go. A client a reader can
-                     click through and verify is the whole point of naming one. --}}
                 <span>
                     @if ($page->client && $page->clientUrl)
                         <a href="{{ $page->clientUrl }}" target="_blank" rel="noopener noreferrer">{{ $page->client }}</a>
@@ -51,43 +49,66 @@
             @endif
         </div>
 
-        {{-- Block form, not @php(...). Blade matches a php block with
-             `@php(.*?)@endphp`, so an inline @php in a file that also contains
-             a later @php…@endphp matches forward to *that* closing tag and
-             swallows every line between the two as PHP. This file has such a
-             block in the gallery below, and the inline form silently ate sixty
-             lines of markup until the build failed on an @endforeach it could
-             no longer see. --}}
+        {{-- Use the block form. Do not use the inline form @php(...). Blade
+             matches a php block with `@php(.*?)@endphp`. In a file that also
+             has a later @php block, an inline @php matches forward to that
+             @endphp. Blade then compiles all the lines between the two as PHP.
+             The gallery below has such a block. --}}
         @php
             $cover = $page->getCover();
         @endphp
 
         @if ($cover)
             <figure class="study__cover">
-                @if ($cover['src'])
-                    <img src="{{ $cover['src'] }}" alt="{{ $cover['alt'] }}" loading="eager"
-                        decoding="async" width="1600" height="900">
-                @else
-                    @include('_components.image-placeholder', [
-                        'label' => $cover['alt'] ?: 'the finished product',
-                        'ratio' => 'wide',
-                    ])
-                @endif
+                {{-- The frame holds the credit above the image. It must have
+                     `position: relative`, because the credit uses
+                     `position: absolute`. --}}
+                <div class="study__cover-frame {{ $cover['src'] && $cover['credit'] ? 'study__cover-frame--credited' : '' }}">
+                    @if ($cover['src'])
+                        <img src="{{ $cover['src'] }}" alt="{{ $cover['alt'] }}" loading="eager"
+                            decoding="async" width="1600" height="900">
+                    @else
+                        @include('_components.image-placeholder', [
+                            'label' => $cover['alt'] ?: 'the finished product',
+                            'ratio' => 'wide',
+                        ])
+                    @endif
+
+                    @if ($cover['src'] && $cover['credit'])
+                        {{-- Use the block form. Do not use the inline form
+                             @php(...). The gallery below has a later @php
+                             block, and an inline @php matches forward to that
+                             @endphp. --}}
+                        @php
+                            /*
+                             * The link text is the host of the source address.
+                             * A person who reads only the links on the page
+                             * gets no information from a generic word. The
+                             * generic word applies only when the address has no
+                             * host.
+                             *
+                             * The pattern also removes a `www.` or `images.`
+                             * prefix. `credit` points to the image file, and
+                             * the host of an image file is frequently a CDN
+                             * name such as `images.unsplash.com`. The name of
+                             * the site is the necessary text.
+                             */
+                            $creditHost = parse_url($cover['credit'], PHP_URL_HOST);
+                            $creditText = $creditHost ? preg_replace('/^(www|images)\./', '', $creditHost) : 'here';
+                        @endphp
+
+                        <small class="copyright">
+                            Image borrowed from <a href="{{ $cover['credit'] }}" target="_blank"
+                                rel="noopener noreferrer">{{ $creditText }}</a>.
+                        </small>
+                    @endif
+                </div>
 
                 @if ($cover['caption'])
                     <figcaption>{{ $cover['caption'] }}</figcaption>
                 @endif
             </figure>
         @elseif ($page->coverNote)
-            {{-- A study with no cover at all. Left unexplained the page reads as
-                 one that is missing its pictures; saying why turns the absence
-                 into something a reader can weigh, and a client who will not
-                 show a screenshot is worth more as a signal than the screenshot
-                 would have been.
-
-                 This lived on the listing card until the listing stopped
-                 carrying images, at which point it was answering a question
-                 nobody was asking there. Here the gap is visible. --}}
             <p class="study__cover-note">{{ $page->coverNote }}</p>
         @endif
 
@@ -101,8 +122,6 @@
                 @if ($page->constraints)
                     <section class="study__section">
                         <h2>What made it awkward</h2>
-                        {{-- Obstacles, so these are crossed. The heading
-                             is what says so; the mark only agrees. --}}
                         <ul class="card__list card__list--no">
                             @foreach ($page->constraints as $item)
                                 <li>{{ $item }}</li>
@@ -126,9 +145,9 @@
                     <div class="study__section case__gallery">
                         @foreach ($page->gallery as $shot)
                             @php
-                                // A phone screenshot cropped into a 4:3 slot throws
-                                // away most of the screen, so each shot declares its
-                                // own shape rather than inheriting one.
+                                // Each shot sets its own `ratio` key. The default
+                                // is 'tall'. The value 'mobile' also changes the
+                                // `width` and `height` attributes below.
                                 $shotRatio = $shot['ratio'] ?? 'tall';
                             @endphp
 
@@ -152,9 +171,6 @@
                     </div>
                 @endif
 
-                {{-- The section that separates a case study from a brochure. A
-                     feature list says what exists; naming the trade-off and
-                     what it cost is the only part that shows judgement. --}}
                 @if ($page->decisions)
                     <section class="study__section">
                         <h2>Decisions worth explaining</h2>
@@ -208,9 +224,6 @@
                     </blockquote>
                 @endif
 
-                {{-- Admitting a misjudgement reads as confidence rather than
-                     weakness, and it is the section a sceptical buyer believes
-                     precisely because nobody invents one. --}}
                 @if ($page->differently)
                     <section class="study__section">
                         <h2>What I would do differently</h2>
@@ -219,9 +232,6 @@
                 @endif
             </div>
 
-            {{-- The facts, pinned alongside the narrative. On a long page the
-                 reader keeps the answers to "who was this for and how long did
-                 it take" in view instead of scrolling back for them. --}}
             <aside class="study__aside">
                 <div class="study__facts">
                     <dl>
@@ -273,9 +283,9 @@
     </article>
 
     @if ($next && $next->getPath() !== $page->getPath())
-        {{-- A named <nav>, matching the post layout: this is one of the
-             landmarks a screen-reader user jumps between, and it was the only
-             one on the site not announcing what it was. --}}
+        {{-- This <nav> must keep its `aria-label`. A <nav> is a landmark. A
+             screen-reader user moves between the landmarks, and the label tells
+             the landmarks apart. --}}
         <nav class="shell section" aria-label="Next case study">
             <a class="next-post" href="{{ $next->getCanonicalUrl() }}">
                 <span>

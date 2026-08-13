@@ -13,9 +13,9 @@ title: Open source
         @include('_components.breadcrumbs')
 
         <h1>Code I gave away.</h1>
-        <p class="lead prose">Small tools I built for my own work and published for anyone to use. They are here as
-            evidence of how I work &mdash; not as products to buy, and not something you need to understand to hire
-            me.</p>
+        <p class="lead prose">Small tools I built for my own work and published for anyone to use. They're here as
+            evidence of how I work. Nothing on this page is for sale, and you don't need to understand any of it to
+            hire me.</p>
     </div>
 
     <div class="shell section">
@@ -79,7 +79,8 @@ title: Open source
         <div class="grid grid--halves">
             <div class="section-head section-head--start">
                 <h2>Software with no business model.</h2>
-                <p class="dim">Some things should just exist on the internet without a pricing page attached.</p>
+                <p class="dim">Some things should just exist on the internet without a pricing page attached to
+                    them.</p>
             </div>
 
             <div class="card">
@@ -96,7 +97,7 @@ title: Open source
     <div class="shell section">
         <div class="callout">
             <h2>The list is longer than the shipped part.</h2>
-            <p>There are a lot more ideas queued up than there are hours to build them. If one of these is useful to you,
+            <p>There are far more ideas queued up than there are hours to build them. If one of these is useful to you,
                 issues and pull requests are welcome.</p>
 
             <div class="btn-row">

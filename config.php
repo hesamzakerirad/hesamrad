@@ -1,15 +1,20 @@
 <?php
 
 /*
- * Hoisted out of the array below because the case-studies collection filter
- * needs to close over it, and a PHP array literal cannot reference its own
- * keys. Flip this to true once there are real case studies to show.
+ * A PHP array literal cannot reference its own keys. These two values are
+ * therefore outside the array below. The case-studies collection filter closes
+ * over $workIsPublic, and the FAQ answers read $pricing.
  */
 $workIsPublic = true;
 
 /*
- * Hoisted for the same reason: the FAQ answers quote these figures, and an
- * array literal cannot reference its own keys.
+ * The Zero to One prices.
+ *
+ * The amounts are integers. `number_format` adds the comma in "$1,500",
+ * therefore the comma cannot disagree with the figure. `currency` is the ISO
+ * code for the structured data. `symbol` is the character a reader sees.
+ *
+ * `turnaround` is display text and not a number, because it states a range.
  */
 $pricing = [
     'setup' => 1500,
@@ -25,97 +30,50 @@ return [
     'baseUrl' => 'http://localhost:8000',
     'production' => false,
     'siteName' => 'Hesam Rad',
-    // Reused as the JSON-LD `jobTitle`, so it has to stay a job title. The feed
-    // and anywhere else that wants a sentence uses `siteTagline` instead.
+    // The JSON-LD `jobTitle` uses this value. It must stay a job title. For a
+    // sentence, use `siteTagline`.
     'siteDescription' => 'Independent software engineer',
     'siteTagline' => 'Notes from the work: whatever I am building, using, or working out at the time.',
     'siteAuthor' => 'Hesam Rad',
-    // One source of truth for the address. It appears in the footer, in the
-    // contact form's fallback, on the thank-you page and in the structured
-    // data — six places that must never disagree about where mail goes.
+    // The one source for the address. The footer, the contact form fallback,
+    // the thank-you page and the structured data all read it.
     'email' => 'hesamrad.dev@gmail.com',
-    // Defaults. Individual pages override these via `locale`/`language` front
-    // matter; posts fall back to the post-specific pair below.
-    //
-    // The site is English. The Persian/RTL machinery below stays wired up — a
-    // post can still opt in with `language: fa` front matter — but it is no
-    // longer what an unmarked post gets by default.
+    // The default locale and language. A page can override them with `locale`
+    // or `language` front matter. A post without front matter gets the
+    // post-specific pair below. The RTL support stays available: a post can
+    // select it with `language: fa`.
     'defaultLocale' => 'en_US',
     'defaultLanguage' => 'en',
     'postLocale' => 'en_US',
     'postLanguage' => 'en',
     'rtlLanguages' => ['fa', 'ar', 'he', 'iw', 'ur'],
 
-    // Drives the nav entry, the listing page's robots directive, and whether
-    // sample case studies are generated at all. Set at the top of this file.
+    // This value controls the nav entry, the robots directive on the listing
+    // page, and the generation of sample case studies. Set it at the top of
+    // this file.
     'workIsPublic' => $workIsPublic,
 
-    // The contact form posts to a Cloudflare Worker (see worker/), because the
-    // site is static and has no server of its own. Both of these are public by
-    // design — the Turnstile *secret* and every API key live as Worker secrets
-    // and never enter this repository.
+    // The site is static and has no server. The contact form therefore posts to
+    // a Cloudflare Worker (refer to worker/). These two values are public. The
+    // Turnstile secret and all API keys are Worker secrets. Do not put them in
+    // this repository.
     'formEndpoint' => 'https://hello.hesamrad.com',
     'turnstileSiteKey' => '0x4AAAAAAEMSHcNbdcoTgz3f',
 
-    /*
-     * Recommendations, quoted from LinkedIn.
-     *
-     * Real ones only. These are the strongest thing on the site precisely
-     * because a visitor can click through and find the person who wrote them,
-     * which stops working the moment one of them is invented.
-     *
-     * `url` should point at the recommendation or the author's profile — a
-     * quote somebody can verify is worth several they cannot.
-     *
-     * `avatar` is optional. It takes any image URL, but do not leave a
-     * LinkedIn one there: media.licdn.com serves signed URLs that expire,
-     * usually within weeks, and blocks cross-origin embedding. Save the file
-     * into source/_assets/images/ and point at that instead — then it is
-     * permanent, fast, and not a request to somebody else's server on every
-     * page load. If the image ever fails, the initials underneath show
-     * through on their own.
-     *
-     * Worth asking before using someone's photograph. Quoting a public
-     * recommendation is ordinary; putting their face on a commercial page is
-     * a step further, and people generally say yes when asked.
-     */
-    /*
-     * Zero to One's numbers.
-     *
-     * These were written out in eight places across three files — the price
-     * panel, twice in the prose around it, the term list, the services FAQ and
-     * the structured data. A price that appears eight times gets raised in
-     * seven, and the one left behind is the one a client reads first.
-     *
-     * Amounts are integers, so the comma in "$1,500" is derived rather than
-     * typed and cannot drift from the figure. `currency` is the ISO code the
-     * structured data needs; `symbol` is what a reader sees.
-     *
-     * `turnaround` is display text rather than a number: it is a promise about
-     * a range, and "~1 week" is doing work that "7" would not.
-     */
     'pricing' => $pricing,
 
     /*
-     * Where the full set lives. The section quotes a few; this is the door to
-     * the rest, and to the fact that they are on somebody else's site under
-     * their own names — which is the part that makes them worth anything.
+     * All questions, in one place.
      *
-     * Set to null to drop the link without touching the component.
-     */
-    /*
-     * Every question, in one place.
+     * Two pages read this array. /faq/ shows all the questions and carries the
+     * FAQPage schema. /services/ shows a subset. Keep the questions here and
+     * not in a template, because the two pages must show the same answers.
      *
-     * Two pages render these: /faq/ shows all of them and carries the FAQPage
-     * schema, and /services/ shows the subset a buyer asks before committing.
-     * Kept here rather than in either template so the two cannot drift into
-     * saying different things about the same question.
+     * `services` sets the sort order on the services page. Omit it to keep a
+     * question off that page. `open => true` opens the question on load.
      *
-     * `services => true` marks a question as buyer-critical enough to repeat on
-     * the services page. `open => true` opens it on load.
-     *
-     * Answers are arrays of paragraphs. Anything about money reads the pricing
-     * block rather than restating a figure.
+     * Each answer is an array of paragraphs. For an amount of money, read the
+     * `pricing` values. Do not write a figure again.
      */
     'faq' => [
         // ── Before we start ──────────────────────────────────────────────
@@ -124,15 +82,15 @@ return [
             'q' => 'What if I do not know exactly what I want yet?',
             'services' => 3,
             'a' => [
-                'That is the normal case, and it is what the first call is for. You do not need a specification written. You need to be able to describe what is wrong today and what you want to be true instead — working out what that means in software is part of the job, not a prerequisite for starting it.',
+                'That\'s the normal case, and it\'s what the first call is for. You don\'t need a specification written. You need to be able to describe what\'s wrong today and what you want instead. Working out what that means in software is part of the job I\'m being paid for, not something you have to finish before we start.',
             ],
         ],
         [
             'group' => 'Before we start',
             'q' => 'What happens on the first call?',
             'a' => [
-                'Thirty minutes, and you do the talking for most of it: what the business does, what is not working, and what you want to be true instead.',
-                'Afterwards you get a written plan — what I would build, in what order, what it would cost, and what I think could go wrong. It is free and it is yours to keep, including to take to another developer. If I am not the right person for the job, that is the call where I say so.',
+                'Thirty minutes, and you do the talking for most of it: what the business does, what isn\'t working, and what you want instead.',
+                'Afterwards you get a written plan: what I\'d build, in what order, what it would cost, and what I think could go wrong. It\'s free and it\'s yours to keep, including to take to another developer. If I\'m not the right person for the job, that\'s the call where I say so.',
             ],
             'link' => ['href' => '/services/', 'label' => 'How the work runs'],
         ],
@@ -140,15 +98,15 @@ return [
             'group' => 'Before we start',
             'q' => 'How quickly will you reply?',
             'a' => [
-                'Within a day, usually sooner. I read every enquiry myself — there is nobody else here to read them.',
+                'Within a day, usually sooner. I read every enquiry myself, because there\'s nobody else here to read them.',
             ],
         ],
         [
             'group' => 'Before we start',
             'q' => 'What do you need from me to get started?',
             'a' => [
-                'Half an hour on a call, and honesty in it. For a Zero to One website that is genuinely the whole of your homework — I write the words from what you tell me, because sitting down to compose a page about your own business is the step that stalls most websites for months.',
-                'For larger work you will also need to be reachable for a short call each week. Nothing else is required up front: no specification, no wireframes, no list of features.',
+                'Half an hour on a call, and candour in it. For a Zero to One website that\'s the whole of your homework. I write the words from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
+                'For larger work you\'ll also need to be reachable for a short call each week. Nothing else is needed up front: no specification, no wireframes, no list of features.',
             ],
         ],
 
@@ -159,8 +117,8 @@ return [
             'services' => 1,
             'open' => true,
             'a' => [
-                'The cheapest way in is Zero to One: a fixed website for ' . $pricing['symbol'] . number_format($pricing['setup']) . ', plus ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month to keep it running. For a lot of businesses that is the whole answer.',
-                'Anything past that — payments, ordering, booking, a system built around how your business actually runs — is a fixed price for a defined project, or a monthly arrangement for ongoing work. Either way the number is quoted once the plan is written, so it reflects the real work rather than an hourly guess, and you have it before you commit to anything.',
+                'The cheapest way in is Zero to One: a fixed website for ' . $pricing['symbol'] . number_format($pricing['setup']) . ', plus ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month to keep it running. For a lot of businesses that\'s the whole answer.',
+                'Anything past that is a fixed price for a defined project, or a monthly arrangement for ongoing work. That covers payments, ordering, booking, and a system built around how your business runs. Either way the number comes once the plan is written, so it reflects the work in front of us rather than an hourly guess, and you have it before you commit to anything.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'How Zero to One works'],
         ],
@@ -168,23 +126,23 @@ return [
             'group' => 'What it costs',
             'q' => 'Do you charge by the hour?',
             'a' => [
-                'No. You get a number for the work, quoted after the plan is written, so you know what it costs before you commit rather than watching a meter.',
-                'That also means I carry the risk if something takes longer than I thought, which is the right way round — I am the one who estimated it.',
+                'No. You get a number for the work, quoted after the plan is written, so you know what it costs before you commit instead of watching a meter run.',
+                'It also means I carry the risk if something takes longer than I thought. That\'s the right way round: I\'m the one who estimated it.',
             ],
         ],
         [
             'group' => 'What it costs',
             'q' => 'What does the monthly fee cover?',
             'a' => [
-                'On Zero to One, ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month covers hosting, the domain renewal, security updates, backups, and small changes when you need them — new opening hours, a price change, a few new photos. Email me and it gets done.',
-                'On larger projects a monthly arrangement is optional and covers whatever we agree it covers, written down before it starts.',
+                'On Zero to One, ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month covers hosting, the domain renewal, security updates, backups, and small changes when you need them: new opening hours, a price change, a few new photos. Email me and it gets done.',
+                'On larger projects a monthly arrangement is optional, and it covers whatever we agree it covers, written down before it starts.',
             ],
         ],
         [
             'group' => 'What it costs',
             'q' => 'Can I stop paying the monthly fee?',
             'a' => [
-                'Then stop. There is no minimum term. The domain is registered to you and I will hand over everything so you or anyone else can take it on. You will not be held anywhere by the paperwork.',
+                'Then stop. There\'s no minimum term. The domain is registered to you, and I\'ll hand over everything so you or anyone else can pick it up. Nothing in the paperwork keeps you here.',
             ],
         ],
 
@@ -194,15 +152,15 @@ return [
             'q' => 'How long does it take?',
             'services' => 2,
             'a' => [
-                'Most projects run two to six weeks from the plan being agreed to something your customers can use. Bigger builds go longer, and I will say so in the plan rather than discover it halfway through.',
+                'Most projects run two to six weeks from the plan being agreed to something your customers can use. Bigger builds take longer, and I\'ll say so in the plan instead of discovering it halfway through.',
             ],
         ],
         [
             'group' => 'How long it takes',
             'q' => 'Why is Zero to One about a week when other work takes months?',
             'a' => [
-                'Because it is the same defined list every time — a website, the words, the domain and hosting, and your Google listing — with one round of changes. The scope is what makes the week possible, not corner-cutting.',
-                'The moment a business needs online ordering or a booking system, it is a different job with a different number, and I will tell you that rather than squeeze it in.',
+                'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes a week possible. Nothing is being rushed to fit it.',
+                'The moment a business needs online ordering or a booking system, it\'s a different job with a different number, and I\'ll tell you that instead of squeezing it in.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'What is and is not included'],
         ],
@@ -212,8 +170,8 @@ return [
             'group' => 'What I build',
             'q' => 'What do you actually build?',
             'a' => [
-                'Web applications that work as well on a phone as on a laptop. I build both halves — what your customers see and the system running behind it — so there is no seam between them and nobody to coordinate with.',
-                'Where a client already has a designer or a front-end team, I take the half they cannot do and stay out of the way of the half they can. That is usually the cheaper arrangement for the client.',
+                'Web applications that work as well on a phone as on a laptop. I build both halves: what your customers see, and the system running behind it. There\'s no seam between them and nobody to coordinate with.',
+                'Where a client already has a designer or a front-end team, I take the half they can\'t do and stay out of the way of the half they can. That\'s usually the cheaper arrangement for them.',
             ],
             'link' => ['href' => '/work/', 'label' => 'Both projects ran that way'],
         ],
@@ -221,23 +179,23 @@ return [
             'group' => 'What I build',
             'q' => 'Do you work with my existing designer or developer?',
             'a' => [
-                'Often, and it usually costs you less. If you have a designer or a front-end team already, I take the part they cannot do and leave the part they can.',
-                'What I will not do is join a team as an extra pair of hands with no say in how the thing is built. That arrangement produces software nobody is responsible for.',
+                'Often, and it usually costs you less. If you already have a designer or a front-end team, I take the part they can\'t do and leave the part they can.',
+                'What I won\'t do is join a team as an extra pair of hands with no say in how the thing gets built. That arrangement produces software nobody is responsible for.',
             ],
         ],
         [
             'group' => 'What I build',
             'q' => 'What will you not take on?',
             'a' => [
-                'Brand and logo design, apps written natively for iPhone and Android (I build web apps that work properly on a phone instead), and anything where the plan is to skip testing to hit a date. I will say so on the first call rather than three weeks in.',
+                'Brand and logo design, apps written natively for iPhone and Android (I build web apps that work properly on a phone instead), and anything where the plan is to skip testing to hit a date. I\'ll say so on the first call, not three weeks in.',
             ],
         ],
         [
             'group' => 'What I build',
             'q' => 'What is not included in Zero to One?',
             'a' => [
-                'A visual identity invented from scratch. The site is built for your business, but the look is not designed from nothing — that is a separate job at a separate price. Logos, branding and photography are not part of it either.',
-                'Payments, online ordering, booking systems and customer logins are all real work rather than a box to tick, so they are quoted separately.',
+                'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing. That\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
+                'Payments, online ordering, booking systems and customer logins are all proper work rather than a box to tick, so they\'re quoted separately.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'The full list'],
         ],
@@ -247,15 +205,15 @@ return [
             'group' => 'What you own',
             'q' => 'Do I own what you build?',
             'a' => [
-                'All of it, from the first day. The code lives in your repository, it runs on your hosting account, and the domain stays registered to you. I work inside your accounts rather than mine, so there is nothing to prise loose at the end and nothing of yours sitting in my name.',
+                'All of it, from the first day. The code lives in your repository, it runs on your hosting account, and the domain stays registered to you. I work inside your accounts rather than mine, so there\'s nothing to prise loose at the end and nothing of yours sitting in my name.',
             ],
         ],
         [
             'group' => 'What you own',
             'q' => 'Could I hand this to another developer later?',
             'a' => [
-                'Yes, and that is the test I hold the work to. You own the accounts and the code, the setup runs from written instructions, and the tests say whether something is broken.',
-                'If handing it on would be painful, I have done the job badly — whatever else is true about the software.',
+                'Yes, and it\'s the test I hold the work to. You own the accounts and the code, the setup runs from written instructions, and the tests say whether something is broken.',
+                'If handing it on would be painful, I\'ve done the job badly, whatever else is true about the software.',
             ],
         ],
 
@@ -264,8 +222,8 @@ return [
             'group' => 'Working together',
             'q' => 'How do we work together?',
             'a' => [
-                'Remotely, and I have worked this way for most of my career rather than fallen into it. My clients are across Europe and North America and I arrange my day around whichever of those you are in, so there are hours every day when you can reach me directly rather than take a queue position.',
-                'Most people settle into a short call once a week plus email in between. If you would rather have more or less than that, say so and we will do that instead.',
+                'Remotely, and I\'ve worked this way for most of my career by choice, not by accident. My clients are across Europe and North America, and I arrange my day around whichever of those you\'re in, so there are hours every day when you can reach me directly instead of taking a queue position.',
+                'Most people settle into a short call once a week plus email in between. If you\'d rather have more or less than that, say so and we\'ll do that instead.',
             ],
         ],
         [
@@ -273,17 +231,17 @@ return [
             'q' => 'What happens if you are unavailable?',
             'services' => 4,
             'a' => [
-                'I am one person, so let me answer that properly rather than wave it away. There is no second developer waiting in the wings.',
-                'What there is: you own every account and every line of code from day one, and I write things down as I go — a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you would not be locked out of anything, and someone competent could carry on from what is written.',
-                'That is a smaller risk than being unable to reach the agency holding your source code. It is not zero, and you should hear that from me rather than find it out later.',
+                'I\'m one person, so let me answer that properly instead of waving it away. There\'s no second developer waiting in the wings.',
+                'What there is: you own every account and every line of code from day one, and I write things down as I go. That means a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you wouldn\'t be locked out of anything, and someone competent could carry on from what\'s written.',
+                'That\'s a smaller risk than being unable to reach the agency holding your source code. It isn\'t zero, and you should hear it from me rather than find it out later.',
             ],
         ],
         [
             'group' => 'Working together',
             'q' => 'Should I hire you or an agency?',
             'a' => [
-                'Sometimes an agency, honestly. If the job needs several disciplines at once, has a deadline you cannot move, or is large enough that coordinating it is a job in itself, buy the coordination.',
-                'If it is one system that has to be right and stay right, the distance between you and the person building it is the thing worth protecting. I have written the comparison out in full, including the parts that do not favour me.',
+                'Sometimes an agency. If the job needs several disciplines at once, has a deadline you can\'t move, or is large enough that coordinating it is a job in itself, buy the coordination.',
+                'If it\'s one system that has to be right and stay right, the distance between you and the person building it is the thing worth protecting. I\'ve written the comparison out in full, including the parts that don\'t favour me.',
             ],
             'link' => ['href' => '/blog/agency-or-one-independent-engineer/', 'label' => 'The full comparison'],
         ],
@@ -293,13 +251,30 @@ return [
             'group' => 'After it launches',
             'q' => 'What happens after it launches?',
             'a' => [
-                'There is an agreed period where anything I built that turns out to be broken gets fixed at no extra cost. After that some people want a monthly arrangement for changes and monitoring, and some take it in-house — which is what all the documentation is for. Both are fine, and neither is assumed.',
+                'There\'s an agreed period where anything I built that turns out to be broken gets fixed at no extra cost. After that, some people want a monthly arrangement for changes and monitoring, and some take it in-house. The documentation exists so that second option is genuinely open to you. Both are fine, and neither is assumed.',
             ],
         ],
     ],
 
+    // The link to the full set of recommendations. Set it to null to remove the
+    // link. Do not change the component.
     'testimonialsUrl' => 'https://www.linkedin.com/in/hesamrad/details/recommendations/',
 
+    /*
+     * Recommendations, quoted from LinkedIn.
+     *
+     * Use real recommendations only. A visitor can open the profile of the
+     * author and read the recommendation there. An invented quote removes that
+     * capability.
+     *
+     * `url` must point to the recommendation or to the profile of the author.
+     *
+     * `avatar` is optional and accepts any image URL. Do not use a LinkedIn
+     * URL: media.licdn.com signs its URLs, the URLs expire after some weeks,
+     * and the server refuses cross-origin requests. Put the file in
+     * source/_assets/images/ and use that path. If the image does not load, the
+     * component shows the initials.
+     */
     'testimonials' => [
         [
             'quote' => 'I can confidently say that Hesam is one of the most disciplined person I have ever had the opportunity to work with. His leadership skills are excellent and he always ensures that his team is performing at its best. His commitment to delivering high-quality results shows in every project he handles. If you\'re looking for a Back-end development role, I highly recommend Hesam who makes a positive impact on any team he joins.',
@@ -351,25 +326,20 @@ return [
             'sort' => '-created_at',
             'path' => 'blog/{filename}/',
             /*
-             * template.md is a scaffold for writing a post, not a post. It sat
-             * in the collection with nothing but `isPublished: false` keeping
-             * it out, so inverting this filter published it — an empty title
-             * wrapping an empty link, pointing at a blank page.
+             * template.md is a scaffold for a new post and not a post. The
+             * filter excludes it by name.
              *
-             * Excluded by name as well, because what keeps a scaffold out of
-             * the site should not be a flag inside the scaffold.
+             * Do not rely on `isPublished: false` in the scaffold. A change to
+             * this filter then publishes an empty title and an empty link that
+             * point to a blank page.
              */
             'filter' => fn($post) => $post->isPublished === true
                 && $post->getFilename() !== 'template',
         ],
         /*
-         * One file per case study, so each gets a page with room for the whole
-         * story rather than a slot in a shared list.
-         *
-         * The filter is the guard, and it is deliberately here rather than in a
-         * template: a sample is not merely hidden when the site goes public, it
-         * is never generated. There is no URL to leak, nothing in the sitemap,
-         * and no page to reach by guessing the address.
+         * The filter must stay here and not in a template. It prevents the
+         * generation of a sample when the site is public. There is then no URL,
+         * no sitemap entry, and no page to find by a guess at the address.
          */
         'caseStudies' => [
             'path' => 'work/{filename}/',
@@ -384,14 +354,17 @@ return [
     ],
 
     /**
-     * A front-matter date as a Unix timestamp, or null if it isn't usable.
+     * Returns a front-matter date as a Unix timestamp, or null.
      *
-     * Symfony YAML coerces an unquoted `2025-01-01` to an integer, so anything
-     * else — a quoted string, a float, whitespace — is an authoring mistake.
-     * is_numeric is too loose (it accepts floats and padding that
-     * createFromFormat('U') then rejects, fatalling on the callers' `: DateTime`
-     * return type) but ctype_digit is too strict: any date before 1970 is a
-     * negative integer, and so is a Jalali year written as `1403-05-16`.
+     * Symfony YAML converts an unquoted `2025-01-01` to an integer. A different
+     * type is therefore an authoring error.
+     *
+     * Do not use `is_numeric`. It accepts floats and padding.
+     * `createFromFormat('U')` then rejects them, and the `: DateTime` return
+     * type of the callers causes a fatal error.
+     *
+     * Do not use `ctype_digit`. A date before 1970 is a negative integer, and a
+     * Jalali year such as `1403-05-16` is also negative.
      */
     'getTimestamp' => function ($page, $value) {
         if (is_int($value)) {
@@ -414,10 +387,10 @@ return [
     },
 
     /**
-     * updated_at is optional; a post that has never been revised falls back to
-     * its creation date. Shares getLastModified's later-of-the-two rule so that
-     * `dateModified` can never precede `datePublished`, which is a structured
-     * data validation error.
+     * Returns the update date. `updated_at` is optional: a post without one
+     * gets its creation date. This function uses the rule of getLastModified
+     * and takes the later of the two dates. `dateModified` can therefore not be
+     * before `datePublished`, which is a structured data error.
      */
     'getUpdatedAtObject' => function ($page): DateTime {
         $timestamp = $page->getLastModified();
@@ -428,12 +401,12 @@ return [
     },
 
     /**
-     * The timestamp a page was last meaningfully changed, or null for a page
-     * that carries no dates at all (the sitemap then falls back to git).
+     * Returns the timestamp of the last change to a page, or null for a page
+     * with no dates. For null, the sitemap uses the git history.
      *
-     * Takes the later of the two dates rather than trusting updated_at, so an
-     * updated_at accidentally set earlier than created_at cannot publish a
-     * lastmod that predates the post's own pubDate.
+     * This function takes the later of the two dates. An `updated_at` before
+     * `created_at` can therefore not make a `lastmod` before the `pubDate` of
+     * the post.
      */
     'getLastModified' => function ($page) {
         $dates = array_filter([
@@ -461,12 +434,12 @@ return [
     },
 
     /**
-     * Collapses whitespace and bounds a string to $length, cutting on a word
-     * boundary. Leaves the text otherwise untouched.
+     * Collapses the whitespace in a string and cuts the string to $length at a
+     * word boundary. It makes no other change to the text.
      */
     'toSummaryText' => function ($page, $text, $length = null) {
-        // preg_replace returns null on malformed UTF-8; keeping the original is
-        // better than silently collapsing the whole summary to an empty string.
+        // preg_replace returns null for invalid UTF-8. Keep the original text:
+        // an empty summary is worse than an uncollapsed one.
         $collapsed = preg_replace('/\s+/u', ' ', (string)$text) ?? (string)$text;
         $cleaned = trim($collapsed);
 
@@ -474,31 +447,32 @@ return [
             return $cleaned;
         }
 
-        // Multibyte-aware: byte-wise truncation splits Persian characters, and
-        // the resulting invalid UTF-8 makes json_encode() fail outright.
+        // Use the multibyte function. A cut on a byte boundary divides a
+        // Persian character, and json_encode() then fails on the invalid UTF-8.
         $truncated = mb_substr($cleaned, 0, $length);
 
-        // `??`, not `?:` — a trimmed result of "0" is a valid summary, and
-        // treating it as failure would fall back to the untrimmed cut.
+        // Use `??` and not `?:`. A result of "0" is a valid summary, and `?:`
+        // treats it as a failure and returns the untrimmed cut.
         $trimmed = preg_replace('/\s+\S*$/u', '', $truncated) ?? $truncated;
 
         return rtrim($trimmed === '' ? $truncated : $trimmed) . '…';
     },
 
     /**
-     * A plain-text summary of a page's opening content.
+     * Returns a plain-text summary of the first content on a page.
      *
-     * getContent() is rendered HTML, so tags are stripped and entities decoded
-     * — every consumer (meta description, OG/Twitter cards, JSON-LD, the feed)
-     * needs plain text.
+     * getContent() returns HTML. This function removes the tags and decodes the
+     * entities. Each consumer needs plain text: the meta description, the Open
+     * Graph and Twitter cards, the JSON-LD and the feed.
      */
     'getExcerpt' => function ($page, $length = 255) {
         if ($page->excerpt) {
             return $page->toSummaryText($page->excerpt, $length);
         }
 
-        // A <!-- more --> marker chooses where the body is cut, but the caller's
-        // budget still applies — these summaries land in fixed-size meta tags.
+        // A <!-- more --> marker sets the cut point in the body. The $length of
+        // the caller still applies, because these summaries go into meta tags
+        // of a fixed size.
         $content = preg_split('/<!-- more -->/m', $page->getContent(), 2);
         $body = preg_replace(['/<pre>[\w\W]*?<\/pre>/', '/<h\d>[\w\W]*?<\/h\d>/'], '', $content[0]);
         $text = html_entity_decode(strip_tags((string)$body), ENT_QUOTES, 'UTF-8');
@@ -507,26 +481,27 @@ return [
     },
 
     /**
-     * The description used for meta tags, cards, JSON-LD and the feed.
+     * Returns the description for the meta tags, the cards, the JSON-LD and the
+     * feed.
      *
-     * A front-matter description is authored plain text, so it is bounded but
-     * never stripped — removing markup an author typed deliberately would
-     * silently rewrite their words.
+     * A description in front matter is plain text that an author wrote. This
+     * function cuts it to $length but removes no markup. The author typed the
+     * markup, therefore the function keeps it.
      */
     'getSummary' => function ($page, $length = 255) {
-        // Compare against '' rather than testing truthiness: a description of
-        // "0" is something the author wrote and must not be thrown away.
+        // Compare with '' and do not test for a true value. A description of
+        // "0" is text that the author wrote, and the function must keep it.
         $description = $page->toSummaryText($page->description, $length);
 
         return $description !== '' ? $description : $page->getExcerpt($length);
     },
 
     'getRobotsStatus' => function ($page) {
-        // List-form front matter arrives as a plain array on collection items
-        // but as an IterableObject on regular pages; stringifying the latter
-        // would emit a JSON array as the directive. A list of blank entries —
-        // the shape the post template ships — filters down to nothing, so the
-        // default has to be applied after the filter, not before it.
+        // A list in front matter is a plain array on a collection item, but an
+        // IterableObject on a regular page. A string conversion of an
+        // IterableObject writes a JSON array as the directive. The post
+        // template ships a list of empty entries, and the filter removes them
+        // all. Apply the default after the filter and not before it.
         $robots = $page->robots;
 
         if (is_array($robots) || $robots instanceof Traversable) {
@@ -534,16 +509,17 @@ return [
         } elseif (is_string($robots)) {
             $directives = trim($robots);
         } else {
-            // A YAML bool or number is not a directive; `robots: true` would
-            // otherwise stringify to the meaningless content="1".
+            // A YAML boolean or number is not a directive. `robots: true`
+            // converts to the invalid content="1".
             $directives = '';
         }
 
         return $directives !== '' ? $directives : 'index,follow';
     },
 
-    // Front matter wins when set. `??` alone is not enough: a blank `language:`
-    // key parses as an empty string, not null, and would emit lang="".
+    // Front matter has priority. `??` alone is not sufficient: an empty
+    // `language:` key parses to an empty string and not to null, and the page
+    // then gets lang="".
     'getLanguage' => function ($page) {
         return trim((string)$page->language)
             ?: ($page->isPost($page) ? $page->postLanguage : $page->defaultLanguage);
@@ -555,16 +531,18 @@ return [
     },
 
     /**
-     * The primary subtag of a page's language, so 'fa-IR' resolves the same as
-     * 'fa'. Anything keyed by language — direction, the post chrome's wording —
-     * has to agree on what "the language" is, so they all go through this.
+     * Returns the primary subtag of the page language. 'fa-IR' therefore gives
+     * the same result as 'fa'.
+     *
+     * All code that uses the language must call this function. The text
+     * direction and the post labels must agree on the language.
      */
     'getBaseLanguage' => function ($page) {
         return strtolower(strtok($page->getLanguage(), '-_'));
     },
 
     'getDirection' => function ($page) {
-        // rtlLanguages arrives as an IterableObject (a Collection), not an array.
+        // rtlLanguages is an IterableObject (a Collection) and not an array.
         return collect($page->rtlLanguages)->contains($page->getBaseLanguage()) ? 'rtl' : 'ltr';
     },
 
@@ -573,7 +551,7 @@ return [
     },
 
     'isPost' => function ($page) {
-        // 'blog' is the listing page; only 'blog/{slug}' is an actual post.
+        // 'blog' is the listing page. Only 'blog/{slug}' is a post.
         return str_starts_with(trim($page->getPath(), '/'), 'blog/');
     },
 
@@ -587,24 +565,17 @@ return [
             $page->getPath() === 'index';
     },
 
-    // Override URL generator (safety net)
+    // Adds a trailing slash to the page URL.
     'getUrlWithTrailingSlash' => function ($page) {
         $url = rtrim($page->getBaseUrl(), '/') . '/' . ltrim($page->getPath(), '/');
 
         return $url . (str_ends_with($url, '/') ? '' : '/');
     },
 
-    /**
-     * The single URL a page identifies itself by — canonical, og:url, JSON-LD.
-     *
-     * getUrlWithTrailingSlash() is derived from the page path and does not know
-     * about `permalink`, so a page that sets one (the 404 lives at /404.html)
-     * would otherwise advertise a directory URL that the build never emits.
-     */
     /*
-     * The two money figures, formatted for reading. Structured data wants the
-     * bare integer and the ISO code, so it reaches into `pricing` directly
-     * rather than through these.
+     * The two amounts of money, formatted for a reader. The structured data
+     * needs the integer and the ISO code, therefore it reads `pricing`
+     * directly and does not use these two functions.
      */
     'priceSetup' => function ($page) {
         return $page->pricing['symbol'] . number_format($page->pricing['setup']);
@@ -614,11 +585,18 @@ return [
         return $page->pricing['symbol'] . number_format($page->pricing['monthly']);
     },
 
+    /**
+     * Returns the one URL that identifies a page. The canonical link, og:url
+     * and the JSON-LD all use it.
+     *
+     * getUrlWithTrailingSlash() uses the page path and does not read
+     * `permalink`. A page with a `permalink` (the 404 page is at /404.html)
+     * would therefore show a directory URL that the build does not write.
+     */
     'getCanonicalUrl' => function ($page) {
-        // With the trailing slash, because that is the URL the host actually
-        // serves. Advertising the bare origin as canonical while every request
-        // resolves to "/" points the canonical at a URL that redirects, and
-        // every other page on the site ends in a slash.
+        // Add the trailing slash, because the host serves that URL. The bare
+        // origin redirects to "/", and a canonical URL must not redirect. All
+        // other pages on the site end with a slash.
         if ($page->isHomePage()) {
             return rtrim($page->getBaseUrl(), '/') . '/';
         }
@@ -631,22 +609,25 @@ return [
     },
 
     /**
-     * A case study's cover, normalised to [src, alt, caption].
+     * Returns the cover of a case study as [src, alt, caption, credit], or
+     * null.
      *
-     * Front matter writes this two ways — `cover: 'https://…'` when there is
-     * nothing to say about the picture, and a map with `src`/`alt`/`caption`
-     * when there is. The templates only ever read the map form, so a study
-     * using the string silently rendered no image at all: no error, no
-     * placeholder, just a card that quietly ignored its own cover.
+     * Front matter can write a cover in two forms. `cover: 'https://…'` gives
+     * only the address. A map gives `src`, `alt`, `caption` and `credit`. The
+     * templates read the map form only. This function converts the string form
+     * to a map. Without it, a study with the string form shows no image and no
+     * error.
      *
-     * Both shapes are valid authoring, so the fix belongs here rather than in
-     * a rule about which one to type. Returns null when there is no cover.
+     * `credit` is the address of the source of the image. The layout shows a
+     * credit on the image when this key has a value.
      */
     'getCover' => function ($page) {
         $cover = $page->cover;
 
         if (is_string($cover)) {
-            return trim($cover) === '' ? null : ['src' => trim($cover), 'alt' => '', 'caption' => ''];
+            return trim($cover) === ''
+                ? null
+                : ['src' => trim($cover), 'alt' => '', 'caption' => '', 'credit' => ''];
         }
 
         // An IterableObject on a page, a plain array on a collection item.
@@ -654,12 +635,13 @@ return [
             $cover = collect($cover)->all();
             $src = trim((string)($cover['src'] ?? ''));
 
-            // A map with no src is the deliberate "there will be a picture
-            // here one day" marker the placeholder renders for.
+            // A map without a `src` is the marker for a picture that does not
+            // exist yet. The template then shows the placeholder.
             return [
                 'src' => $src === '' ? null : $src,
                 'alt' => (string)($cover['alt'] ?? ''),
                 'caption' => (string)($cover['caption'] ?? ''),
+                'credit' => trim((string)($cover['credit'] ?? '')),
             ];
         }
 
@@ -667,17 +649,15 @@ return [
     },
 
     /**
-     * The trail from the home page to this one, as [name, url, current].
+     * Returns the trail from the home page to this page, as [name, url,
+     * current]. The trail is empty on the home page.
      *
-     * One source of truth on purpose: the visible breadcrumbs and the
-     * BreadcrumbList in the JSON-LD are the same list rendered twice, and
-     * Google treats a mismatch between the two as a reason to ignore the
-     * markup. Deriving both from here means they cannot drift.
+     * The visible breadcrumbs and the BreadcrumbList in the JSON-LD must both
+     * come from this function. Google ignores the markup when the two lists
+     * disagree.
      *
-     * Empty on the home page — a one-item trail is not a trail.
-     *
-     * $labels lets a caller localise the fixed words; a Persian post needs a
-     * Persian "Home" in the same way it already needs a Persian "Back to blog".
+     * $labels translates the fixed words. A Persian post needs a Persian
+     * "Home".
      */
     'getBreadcrumbs' => function ($page, array $labels = []) {
         if ($page->isHomePage()) {
@@ -692,8 +672,8 @@ return [
 
         $base = rtrim($page->getBaseUrl(), '/');
 
-        // Section names rather than slugs: "Open source", not "projects". A URL
-        // segment is an address, and addresses make poor labels.
+        // Use the section name and not the slug. "Open source" is the name of
+        // the /projects/ section. A URL segment is an address and not a label.
         $names = array_merge([
             'home' => 'Home',
             'blog' => 'Blog',

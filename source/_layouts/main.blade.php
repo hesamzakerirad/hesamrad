@@ -2,31 +2,24 @@
 <html lang="{{ $page->getLanguage() }}" dir="{{ $page->getDirection() }}">
 
 @php
-    // Blade's inline `@section('name', $value)` runs the value through e()
-    // before storing it, so yieldContent() hands back already-escaped text.
-    // Decode it once here and let each consumer escape for its own context —
-    // otherwise {{ }} double-encodes and JSON-LD ships HTML entities.
+    // Blade's inline `@section('name', $value)` sends the value through e()
+    // before it stores the value. yieldContent() thus gives back escaped text.
+    // Decode the text one time here. Each consumer then escapes for its own
+    // context. Without this, {{ }} escapes two times and JSON-LD gets HTML
+    // entities.
     $yield = fn ($section) => html_entity_decode(trim($__env->yieldContent($section)), ENT_QUOTES, 'UTF-8');
 
     /*
-     * Page first, brand last. Google shows roughly 60 characters, and leading
-     * every title with "Hesam Rad - " spent twelve of them before saying
-     * anything — three of the posts were truncated with their distinctive words
-     * cut off, which is the half a searcher scans for.
+     * The page title comes first. The brand suffix comes last. Google shows
+     * approximately 60 characters of a title.
      *
-     * The suffix is dropped when the page title already contains the site name,
-     * so the About page reads "About — Hesam Rad" rather than
-     * "Hesam Rad - About Hesam Rad".
-     *
-     * It is also dropped when appending it would push the title past that 60
-     * characters. Three post titles are 58-61 characters on their own, and the
-     * suffix took them to 71-74 — so the brand was not being read either, and
-     * it was taking the end of the sentence down with it. Between a title that
-     * fits and a brand nobody sees, the brand is what goes: the domain is
-     * already on the result line above it.
+     * The code does not add the brand suffix in these conditions:
+     * - `disableTitlePrefix` is true in the front matter.
+     * - The page title already contains the site name.
+     * - The full title becomes more than 60 characters.
      */
     $pageTitle = $yield('title');
-    $brandSuffix = ' — ' . $page->siteName;
+    $brandSuffix = ' · ' . $page->siteName;
     $titleLimit = 60;
     $needsBrand = ! $page->disableTitlePrefix
         && stripos($pageTitle, $page->siteName) === false
@@ -35,18 +28,11 @@
     $description = $yield('description');
     $favicon = $page->baseUrl . '/favicon.ico';
     /*
-     * Every share needs a card. A post uses its own thumbnail; everything else
-     * falls back to the default one, because a link with no image renders as a
-     * bare text stub on LinkedIn, WhatsApp and X — which is precisely where
-     * this site gets shared.
-     */
-    /*
-     * Only prefix a path that needs it. `thumbnail:` in front matter takes a
-     * site-relative path or a full URL, and blindly concatenating produced
-     * "https://hesamrad.comhttps://images.unsplash.com/..." — wrong in
-     * og:image, twitter:image, the preload hint and the BlogPosting node,
-     * while the visible <img> stayed right because it uses the raw value. The
-     * page looked correct and every share of it was broken.
+     * Add the base URL only to a path that needs it. The `thumbnail:` key in
+     * the front matter accepts a site-relative path or a full URL. Do not
+     * concatenate the base URL to a full URL. The result is an incorrect
+     * address in og:image, twitter:image, the preload hint and the BlogPosting
+     * node. The visible <img> stays correct, because it uses the raw value.
      */
     $absoluteUrl = fn ($path) => preg_match('#^(https?:)?//#i', $path)
         ? $path
@@ -61,14 +47,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
-    {{-- No `theme-color`. It can only key off `prefers-color-scheme`, and this
-         site picks its theme from an attribute the visitor can toggle — so the
-         moment somebody chooses light on a dark-mode phone the address bar
-         contradicts the page underneath it. `color-scheme` in tokens.css tells
-         the browser what it needs without being able to lie. --}}
+    {{-- Do not add a `theme-color` meta tag. It can use only
+         `prefers-color-scheme`. This site takes its theme from an attribute
+         that the visitor can change. The address bar then shows a colour that
+         disagrees with the page. `color-scheme` in tokens.css gives the browser
+         the necessary data. --}}
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
     <meta name="author" content="{{ $page->getAuthor() }}">
-    {{-- An empty description tag is worse than none: omit rather than assert nothing. --}}
+    {{-- Do not write an empty description tag. Omit the tag. --}}
     @if ($description !== '')
         <meta name="description" content="{{ $description }}">
     @endif
@@ -76,16 +62,17 @@
         <link rel="canonical" href="{{ $pageUrl }}">
     @endunless
 
-    {{-- Runs before the stylesheet is parsed so the correct palette is in
-         place at first paint; deferring this to main.js flashes the wrong
-         theme on every navigation. A stored choice beats the OS setting. --}}
+    {{-- This script must stay before the stylesheet. The correct palette is
+         then in place at the first paint. The same code in main.js shows the
+         incorrect theme for a moment at each navigation. A stored choice has
+         priority over the OS setting. --}}
     <script>
         (function() {
             var theme;
             try {
                 theme = localStorage.getItem('theme');
             } catch (error) {
-                // Private-mode Safari throws on read as well as write.
+                // Safari in private mode throws an error on a read and on a write.
             }
             if (theme !== 'dark' && theme !== 'light') {
                 theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -107,9 +94,9 @@
     <meta name="twitter:site" content="@hesamzakerirad">
     <meta name="twitter:creator" content="@hesamzakerirad">
 
-    {{-- A post's own thumbnail is worth preloading: it is the largest thing
-         above the fold on that page. The default card is never rendered on
-         the page itself, so preloading it would cost a request for nothing. --}}
+    {{-- Preload only the post's own thumbnail. It is the largest element above
+         the fold on that page. The page does not show the default card, and a
+         preload of the default card makes an unnecessary request. --}}
     @if ($page->thumbnail)
         <link rel="preload" as="image" href="{{ $thumbnail }}">
     @endif
@@ -127,19 +114,25 @@
     <link rel="home" href="{{ $page->baseUrl }}">
     <link rel="alternate" type="application/rss+xml" title="{{ $page->siteName }}"
         href="{{ $page->baseUrl }}/feed.xml">
-    <link rel="icon" href="{{ $favicon }}">
+    {{-- The .ico comes first, for a browser that reads no further. A browser
+         that supports an SVG icon takes the SVG, which stays sharp at each size
+         and follows the colour scheme of the reader. --}}
+    <link rel="icon" href="{{ $favicon }}" sizes="16x16 32x32 48x48">
+    {{-- A plain path. `viteStaticCopy` copies source/_assets/images verbatim,
+         therefore the file has no manifest key and `vite()` throws on it. --}}
+    <link rel="icon" type="image/svg+xml" href="{{ $page->baseUrl }}/assets/build/images/logo.svg">
     @viteRefresh()
-    {{-- Inter's upright face only. It sets every word above the fold, so it is
-         the one request worth racing the stylesheet; the italic and the mono
-         are rare enough that preloading them would just compete with the text
-         a visitor is waiting to read. `vite()` resolves any manifest key, not
-         only entry points, and throws on a miss — so a renamed or deleted font
-         fails the build loudly rather than silently 404ing in production. --}}
+    {{-- Preload only the upright face of Inter. It sets all the text above the
+         fold. Do not preload the italic face or the mono face. They are rare,
+         and a preload of them competes with the text. `vite()` resolves any
+         manifest key, not only an entry point, and it throws an error on a
+         miss. A renamed or deleted font thus stops the build. --}}
     <link rel="preload" as="font" type="font/woff2" crossorigin
         href="{{ vite('source/_assets/fonts/Inter/Inter-Variable.woff2') }}">
     <link rel="stylesheet" href="{{ vite('source/_assets/css/main.css') }}">
 
-    {{-- Analytics last: nothing above it should wait on a third-party request. --}}
+    {{-- The analytics scripts must stay last. No element above them then waits
+         for a third-party request. --}}
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H516TJZR2S"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -157,19 +150,18 @@
 
     @include('_includes.header')
 
-    {{-- `tabindex="-1"` is what makes the skip link above work. Jumping to a
-         fragment moves the scroll position, but only a focusable target moves
-         focus with it — without this, Safari in particular leaves the keyboard
-         exactly where it was and the next Tab goes back into the nav the
-         visitor was trying to skip. --}}
+    {{-- Do not remove `tabindex="-1"`. The skip link above needs it. A jump to
+         a fragment moves the scroll position, but only a focusable target also
+         moves the focus. Without it, Safari keeps the focus in the nav, and the
+         next Tab goes back into that nav. --}}
     <main id="main" class="page-main" tabindex="-1">
         @yield('body')
     </main>
 
     @include('_includes.footer')
 
-    {{-- type="module": the dev server serves this file with its `import`s
-         intact, which a classic script rejects outright. --}}
+    {{-- `type="module"` is necessary. The dev server serves this file with its
+         `import` statements, and a classic script rejects them. --}}
     <script type="module" src="{{ vite('source/_assets/js/main.js') }}"></script>
     @stack('scripts')
 </body>

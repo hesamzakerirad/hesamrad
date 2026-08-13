@@ -1,13 +1,14 @@
 {{--
-    A list of questions as native disclosures.
+    A list of questions as native disclosures. /faq/ and /services/ show the
+    same markup from the same data in config.php.
 
-    Extracted so /faq/ and /services/ render the same markup from the same
-    data in config.php. Only one of them may carry the FAQPage schema, so
-    emitting it is the caller's job rather than this component's — two pages
-    both claiming to be the FAQ is how you get neither of them treated as one.
+    Do not emit the FAQPage schema from this component. The caller must emit it,
+    because only one page can carry the schema. If two pages carry it, a search
+    engine accepts neither page as the FAQ.
 
-    $items    — rows from $page->faq
-    $grouped  — when true, print each `group` as a heading before its questions
+    Parameters:
+      $items   — rows from $page->faq
+      $grouped — when true, show each `group` as a heading  (default false)
 --}}
 @php
     $grouped = $grouped ?? false;
@@ -16,11 +17,12 @@
 
 @if ($grouped)
     @foreach ($rows->groupBy('group') as $group => $questions)
-        {{-- The wrapper carries the measure, not the heading and the list
-             separately. --measure-wide is in ch, and ch is the width of the
-             font's zero — which changes with weight and letter-spacing, not
-             just size. The heading is 600 with tracking, so the same 72ch
-             resolved 34px wider on it than on the list underneath. --}}
+        {{-- Keep the measure on this wrapper. Do not put the measure on the
+             heading and the list. --measure-wide uses the ch unit, and one ch
+             is the width of the zero of the font. That width changes with the
+             weight and the letter-spacing. The heading has weight 600 and
+             tracking, therefore 72ch is 34px more on the heading than on the
+             list. --}}
         <div class="faq-group">
             <h2 class="faq__group">{{ $group }}</h2>
 

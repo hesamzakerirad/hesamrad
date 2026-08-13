@@ -1,21 +1,19 @@
 @php
     /*
-     * Inline SVG icons.
-     *
-     * These replace Font Awesome, which cost a 113 KB webfont and two
-     * stylesheets to draw six arrows. Inlining also lets every icon inherit
-     * `currentColor`, so an icon inside a link or a button is correct in both
-     * themes with no extra rules.
+     * Inline SVG icons. Each icon uses `currentColor`, therefore an icon in a
+     * link or a button gets the correct colour in the two themes.
      *
      * Usage: @include('_components.icon', ['name' => 'arrow-right'])
-     * Optional: 'class' for sizing, 'iconTitle' to make the icon meaningful to
-     * assistive tech instead of decorative.
      *
-     * `iconTitle` rather than `title`, because Blade's @include hands the
-     * parent's whole scope to the partial: a plain `$title` silently picked up
-     * the document title from the layout and named every header icon after the
-     * page. A prefixed name cannot collide with anything a caller happens to
-     * have in scope.
+     * Parameters:
+     *   $name      — a key of $paths          (default 'arrow-right')
+     *   $class     — an extra class, for size (optional)
+     *   $iconTitle — an accessible name; the icon is decorative without it
+     *
+     * Use the name `iconTitle` and not `title`. The Blade @include gives the
+     * full scope of the parent to the partial. A variable with the name `title`
+     * gets the document title from the layout, and each icon then has the name
+     * of the page. A prefixed name cannot collide with a caller variable.
      */
     $paths = [
         'arrow-right' => '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -42,9 +40,8 @@
     $iconTitle = $iconTitle ?? null;
 @endphp
 
-{{-- focusable="false" regardless of the branch: IE/Edge legacy put SVGs in the
-     tab order, and a labelled icon is no more of a stop than a decorative
-     one. --}}
+{{-- Keep `focusable="false"` in the two conditions. Legacy IE and Edge put an
+     SVG in the tab order. An icon with a name must not be a tab stop. --}}
 <svg class="icon {{ $class ?? '' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
     stroke-linecap="round" stroke-linejoin="round" focusable="false"
     @if ($iconTitle) role="img" @else aria-hidden="true" @endif>
