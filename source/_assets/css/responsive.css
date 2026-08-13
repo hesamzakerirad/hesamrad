@@ -17,6 +17,13 @@
         align-items: flex-start;
     }
 
+    /* One column. A 16rem aside beside the text leaves neither column a
+       readable width on a phone. */
+    .split {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+    }
+
     .site-footer__bottom {
         flex-direction: column;
     }

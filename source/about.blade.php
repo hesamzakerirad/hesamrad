@@ -22,32 +22,26 @@ title: About
             and the work of keeping both correct once real people depend on them.</p>
     </div>
 
+    {{-- The heading holds the left column and the prose holds the right one.
+         The heading stays beside the text it introduces, and the text keeps a
+         readable measure without a rule or a panel around it. --}}
     <section class="shell section">
-        <div class="grid grid--halves">
-            <div class="about__portrait">
-                {{-- To add the photograph, replace this include with an <img>.
-                     The layout does not change. --}}
-                @include('_components.image-placeholder', [
-                    'ratio' => 'portrait',
-                    'label' => 'photograph of Hesam Rad',
-                    'note' => 'Photograph to come',
-                ])
+        <div class="split">
+            <div class="split__aside">
+                <h2>How I ended up working alone.</h2>
             </div>
 
-            <div class="section-head section-head--start">
-                <h2>How I ended up working alone.</h2>
+            <div class="split__body">
+                <p>I spent five years as lead engineer on a digital menu platform, and most of another building a
+                    monitoring system for a brokerage. Both were the same shape of work: one engineer who knew the
+                    whole system, answerable for it, still there a year later.</p>
 
-                <p class="dim">I spent five years as lead engineer on a digital menu platform, and most of another
-                    building a monitoring system for a brokerage. Both were the same shape of work: one engineer who
-                    knew the whole system, answerable for it, still there a year later.</p>
+                <p>That's the arrangement I kept choosing, so eventually I stopped pretending it needed a company
+                    around it. There's no agency here and no team to brief. The person you email is the person who
+                    writes the code, and the person who fixes it at eleven at night.</p>
 
-                <p class="dim">That's the arrangement I kept choosing, so eventually I stopped pretending it needed a
-                    company around it. There's no agency here and no team to brief. The person you email is the person
-                    who writes the code, and the person who fixes it at eleven at night.</p>
-
-                <p class="dim">I take on the work I'm good at. When something isn't that, I say so on the first call
-                    instead of three weeks in. It costs me the occasional project and it has never once cost me a
-                    client.</p>
+                <p>I take on the work I'm good at. When something isn't that, I say so on the first call instead of
+                    three weeks in. It costs me the occasional project and it has never once cost me a client.</p>
             </div>
         </div>
     </section>
@@ -80,45 +74,36 @@ title: About
         </div>
     </section>
 
-    <section class="shell section">
-        <div class="grid grid--halves">
-            <div class="section-head section-head--start">
-                <h2>There's a person behind this.</h2>
+    @php
+        // The collection filter in config.php removes each sample when the site
+        // is public, therefore this template does not test for samples again.
+        $selected = $caseStudies->sortByDesc('year')->take(2);
+    @endphp
 
-                <p class="dim">I have a literary background as well as an engineering one, and I'm reading for a
-                    master's in English literature. Most of the time I'm not writing code, I'm reading.</p>
-
-                <p class="dim">It's less of a detour than it sounds. Both jobs are mostly about saying a complicated
-                    thing clearly to somebody who has no reason to be patient with you.</p>
-
-                <p class="dim">I'm on very few platforms, by choice. Email reaches me faster than anything else
-                    does.</p>
+    @if ($page->workIsPublic && $selected->isNotEmpty())
+        <section class="shell section">
+            <div class="section-head">
+                <h2>Some of what I have built.</h2>
+                <p>Each one was a single engineer on a single system for years. The write-ups say what the business
+                    needed, what I built, and what changed.</p>
             </div>
 
-            <div class="rows">
-                <div class="row">
-                    <p class="row__key">Since 2017</p>
-                    <div class="row__value">
-                        <p>Building web software, starting while I was still a computer engineering student.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <p class="row__key">Where I work</p>
-                    <div class="row__value">
-                        <p>Remote, with clients across Europe and North America. I arrange my day around whichever
-                            of those you're in, so there are hours every day when you can reach me.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <p class="row__key">Open source</p>
-                    <div class="row__value">
-                        <p>Four small tools I kept needing and eventually published, plus a free URL shortener built as
-                            a non-profit. <a href="{{ $page->baseUrl }}/projects/">See the code</a>.</p>
-                    </div>
-                </div>
+            <div class="work-list mt-lg">
+                @foreach ($selected as $study)
+                    {{-- An <h2> introduces this list, therefore the card title
+                         is an <h3>. --}}
+                    @include('_components.work-card', ['study' => $study, 'titleLevel' => 3])
+                @endforeach
             </div>
-        </div>
-    </section>
+
+            <p class="mt-lg">
+                <a class="link-arrow" href="{{ $page->baseUrl }}/work/">
+                    <span>All case studies</span>
+                    @include('_components.icon', ['name' => 'arrow-right'])
+                </a>
+            </p>
+        </section>
+    @endif
 
     @include('_components.testimonials')
 
