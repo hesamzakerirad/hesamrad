@@ -213,11 +213,12 @@ title: Zero to One
 
         @if ($launched->isEmpty())
             <div class="empty-state">
-                <p class="lead prose dim">The first businesses are being set up now, and each one gets listed here as it goes live. If you want yours among them, the form below is the whole application.</p>
+                <p class="lead prose dim">The first businesses are being set up now, and each one gets listed here as it goes live. If you want yours among them, take half an hour and tell me about it. The form below does the same job if you'd rather write.</p>
 
                 <div class="btn-row">
-                    <a class="btn btn--primary" href="#contact">
-                        <span>Be the first</span>
+                    <a class="btn btn--primary" href="{{ $page->bookingUrl }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <span>Book a call</span>
                         @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
                     </a>
                 </div>
@@ -260,6 +261,17 @@ title: Zero to One
                         </p>
                     </article>
                 @endforeach
+            </div>
+
+            <div class="btn-row biz-list__more">
+                <a class="btn btn--primary" href="{{ $page->bookingUrl }}" target="_blank"
+                    rel="noopener noreferrer">
+                    <span>Book a call</span>
+                    @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+                </a>
+                <a class="btn btn--ghost" href="#contact">
+                    <span>Write to me instead</span>
+                </a>
             </div>
         @endif
     </section>

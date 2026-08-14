@@ -5,9 +5,10 @@
      * Front matter keys, all optional:
      *   ctaTitle          — the heading
      *   ctaBody           — the paragraph
-     *   ctaAction         — the label of the first button
-     *   ctaSecondary      — the target of the second button, or false
-     *   ctaSecondaryLabel — the label of the second button
+     *   ctaBooking        — false removes the booking button
+     *   ctaAction         — the label of the written-request button
+     *   ctaSecondary      — the target of the last button, or false
+     *   ctaSecondaryLabel — the label of the last button
      *
      * Each default is below. The layout, and not this component, reads
      * `cta: false` to remove the full block.
@@ -27,6 +28,16 @@
      * the host, for example `hesamrad.comprojects/`.
      */
     $ctaSecondary = $page->ctaSecondary === null ? '/zero-to-one/' : $page->ctaSecondary;
+
+    /*
+     * The first button is the booking button on each post. A post sets
+     * `ctaBooking: false` to ask for a written request in its place. The two
+     * never show together: one clear first step reads better than a choice
+     * between two.
+     *
+     * Compare against null for the same reason as above.
+     */
+    $ctaBooking = $page->ctaBooking === null ? true : $page->ctaBooking;
 @endphp
 
 <aside class="callout post-cta">
@@ -35,10 +46,17 @@
     <p>{{ $ctaBody }}</p>
 
     <div class="btn-row">
-        <a class="btn btn--primary" href="{{ $page->baseUrl }}/#contact">
-            <span>{{ $ctaAction }}</span>
-            @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
-        </a>
+        @if ($ctaBooking)
+            <a class="btn btn--primary" href="{{ $page->bookingUrl }}" target="_blank" rel="noopener noreferrer">
+                <span>Book a call</span>
+                @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+            </a>
+        @else
+            <a class="btn btn--primary" href="{{ $page->baseUrl }}/#contact">
+                <span>{{ $ctaAction }}</span>
+                @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+            </a>
+        @endif
 
         @if ($ctaSecondary)
             <a class="btn btn--ghost" href="{{ $page->baseUrl }}/{{ ltrim($ctaSecondary, '/') }}">

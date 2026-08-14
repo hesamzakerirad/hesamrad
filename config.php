@@ -38,6 +38,10 @@ return [
     // The one source for the address. The footer, the contact form fallback,
     // the thank-you page and the structured data all read it.
     'email' => 'hesamrad.dev@gmail.com',
+    // The one source for the booking link. Every "Book a call" button reads it.
+    // The page it opens belongs to cal.com, therefore each of those links is
+    // external and opens in a new tab.
+    'bookingUrl' => 'https://cal.com/hesamrad/30min',
     // The default locale and language. A page can override them with `locale`
     // or `language` front matter. A post without front matter gets the
     // post-specific pair below. The RTL support stays available: a post can

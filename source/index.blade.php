@@ -124,12 +124,13 @@
                     job, I'll say so on that call instead of three weeks in.</p>
 
                 <div class="btn-row">
-                    <a class="btn btn--primary" href="#contact">
-                        <span>Ask for a plan</span>
+                    <a class="btn btn--primary" href="{{ $page->bookingUrl }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <span>Book a call</span>
                         @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
                     </a>
-                    <a class="btn btn--ghost" href="{{ $page->baseUrl }}/services/">
-                        <span>How the work runs</span>
+                    <a class="btn btn--ghost" href="#contact">
+                        <span>Write to me instead</span>
                     </a>
                 </div>
             </div>
