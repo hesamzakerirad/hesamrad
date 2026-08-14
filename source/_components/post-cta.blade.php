@@ -5,9 +5,10 @@
      * Front matter keys, all optional:
      *   ctaTitle          — the heading
      *   ctaBody           — the paragraph
-     *   ctaAction         — the label of the first button
-     *   ctaSecondary      — the target of the second button, or false
-     *   ctaSecondaryLabel — the label of the second button
+     *   ctaBooking        — false removes the booking button
+     *   ctaAction         — the label of the written-request button
+     *   ctaSecondary      — the target of the last button, or false
+     *   ctaSecondaryLabel — the label of the last button
      *
      * Each default is below. The layout, and not this component, reads
      * `cta: false` to remove the full block.
@@ -27,6 +28,12 @@
      * the host, for example `hesamrad.comprojects/`.
      */
     $ctaSecondary = $page->ctaSecondary === null ? '/zero-to-one/' : $page->ctaSecondary;
+
+    /*
+     * The booking button shows on each post. Compare against null for the same
+     * reason as above: a post sets `ctaBooking: false` to remove it.
+     */
+    $ctaBooking = $page->ctaBooking === null ? true : $page->ctaBooking;
 @endphp
 
 <aside class="callout post-cta">
@@ -35,9 +42,20 @@
     <p>{{ $ctaBody }}</p>
 
     <div class="btn-row">
-        <a class="btn btn--primary" href="{{ $page->baseUrl }}/#contact">
+        @if ($ctaBooking)
+            <a class="btn btn--primary" href="{{ $page->bookingUrl }}" target="_blank" rel="noopener noreferrer">
+                <span>Book a call</span>
+                @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+            </a>
+        @endif
+
+        {{-- The written request keeps the primary style when it stands alone,
+             therefore a post without the booking button looks as it did. --}}
+        <a class="btn {{ $ctaBooking ? 'btn--ghost' : 'btn--primary' }}" href="{{ $page->baseUrl }}/#contact">
             <span>{{ $ctaAction }}</span>
-            @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+            @unless ($ctaBooking)
+                @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+            @endunless
         </a>
 
         @if ($ctaSecondary)

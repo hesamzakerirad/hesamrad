@@ -2006,6 +2006,15 @@ textarea.field__input {
     margin-top: var(--space-lg);
 }
 
+/*
+ * The call to action under the list. The section heading above the list is
+ * centred, therefore this row is too.
+ */
+.biz-list__more {
+    margin-top: var(--space-lg);
+    justify-content: center;
+}
+
 .biz-card {
     position: relative;
     isolation: isolate;
