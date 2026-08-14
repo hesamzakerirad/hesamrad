@@ -30,8 +30,12 @@
     $ctaSecondary = $page->ctaSecondary === null ? '/zero-to-one/' : $page->ctaSecondary;
 
     /*
-     * The booking button shows on each post. Compare against null for the same
-     * reason as above: a post sets `ctaBooking: false` to remove it.
+     * The first button is the booking button on each post. A post sets
+     * `ctaBooking: false` to ask for a written request in its place. The two
+     * never show together: one clear first step reads better than a choice
+     * between two.
+     *
+     * Compare against null for the same reason as above.
      */
     $ctaBooking = $page->ctaBooking === null ? true : $page->ctaBooking;
 @endphp
@@ -47,16 +51,12 @@
                 <span>Book a call</span>
                 @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
             </a>
-        @endif
-
-        {{-- The written request keeps the primary style when it stands alone,
-             therefore a post without the booking button looks as it did. --}}
-        <a class="btn {{ $ctaBooking ? 'btn--ghost' : 'btn--primary' }}" href="{{ $page->baseUrl }}/#contact">
-            <span>{{ $ctaAction }}</span>
-            @unless ($ctaBooking)
+        @else
+            <a class="btn btn--primary" href="{{ $page->baseUrl }}/#contact">
+                <span>{{ $ctaAction }}</span>
                 @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
-            @endunless
-        </a>
+            </a>
+        @endif
 
         @if ($ctaSecondary)
             <a class="btn btn--ghost" href="{{ $page->baseUrl }}/{{ ltrim($ctaSecondary, '/') }}">
