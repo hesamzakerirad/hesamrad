@@ -6,7 +6,7 @@ title: Services
 
 @section('title', 'Services')
 
-@section('description', 'Four kinds of project I take on, how the work runs, what it costs, and what I won\'t take.')
+@section('description', 'The work I take on and the work I don\'t, how the work runs, what it costs, and how to start.')
 
 @section('body')
     <div class="shell section page-head">
@@ -21,68 +21,55 @@ title: Services
 
     <div class="shell section">
         <div class="section-head">
-            <h2>Four kinds of project.</h2>
+            <h2>What I do, and what I don't.</h2>
+            <p>Hiring the wrong person costs you a month. Here is the line, so you know which side your job falls on
+                before you write to me.</p>
         </div>
 
         @php
-            $services = [
-                [
-                'title' => 'Build a new product',
-                'for' => 'You have a business idea, or a process you run by hand, and nothing built yet.',
-                'includes' => [
-                        'Working out what it actually has to do, before a line of code exists',
-                        'The screens your customers use, designed and built',
-                        'Accounts, payments, emails, and the admin area you run it from',
-                        'Automatic checks and a one-button release process from the first week',
-                ],
-                ],
-                [
-                'title' => 'Finish something half-built',
-                'for' => 'A developer or agency started it and left. It isn\'t finished, or isn\'t right.',
-                'includes' => [
-                        'A straight read on what is worth keeping and what is not',
-                        'A plan to get it launched, with a date you can hold me to',
-                        'The missing pieces built, usually the unglamorous ones',
-                        'Everything written down, so this cannot happen a second time',
-                ],
-                ],
-                [
-                'title' => 'Make a slow product fast',
-                'for' => 'It was fine at a hundred customers and it\'s struggling at ten thousand.',
-                'includes' => [
-                        'Measuring what is slow instead of guessing at it',
-                        'Getting the pages your customers wait on under a second',
-                        'Handling the busy periods without buying a bigger server',
-                        'A written before-and-after with the numbers, not adjectives',
-                ],
-                ],
-                [
-                'title' => 'Take over software nobody maintains',
-                'for' => 'It still runs the business, nobody knows how, and everyone is afraid to touch it.',
-                'includes' => [
-                        'A frank audit of what is salvageable',
-                        'Safety checks added before anything is changed',
-                        'Moving it onto a footing where changes are routine again',
-                        'Documentation written for whoever comes after me',
-                ],
-                ],
+            $laravel = '<a href="https://laravel.com" target="_blank" rel="noopener noreferrer">Laravel</a>';
+            $next = '<a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">Next.js</a>';
+
+            // The `does` items hold markup and print unescaped. Write them here
+            // and nowhere else, and do not put anything from a form in them.
+            $does = [
+                'Web applications, built with ' . $laravel . ' and ' . $next,
+                'Looking after a ' . $laravel . ' application you already have',
+                'Bespoke admin dashboards to run the business from',
+                'Turning a manual process into software',
+            ];
+
+            $doesNot = [
+                'Design and branding',
+                'Marketing, SEO, and social media',
+                'WordPress, Shopify, and Wix',
+                'Mobile or desktop apps',
             ];
         @endphp
 
         <div class="grid grid--halves mt-lg">
-            @foreach ($services as $index => $service)
-                <article class="card">
-                <p class="card__index tabular">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</p>
-                <h3 class="card__title">{{ $service['title'] }}</h3>
-                <p class="card__body dim">{{ $service['for'] }}</p>
+            <article class="card">
+                <h3 class="card__title">What I do</h3>
 
+                {{-- The span keeps the item as one flex item. Without it, a link
+                     inside the text makes a second item and the row gap opens a
+                     hole in the sentence. --}}
                 <ul class="card__list card__list--yes">
-                        @foreach ($service['includes'] as $item)
-                            <li>{{ $item }}</li>
-                        @endforeach
+                    @foreach ($does as $item)
+                        <li><span>{!! $item !!}</span></li>
+                    @endforeach
                 </ul>
-                </article>
-            @endforeach
+            </article>
+
+            <article class="card">
+                <h3 class="card__title">What I don't</h3>
+
+                <ul class="card__list card__list--no">
+                    @foreach ($doesNot as $item)
+                        <li>{{ $item }}</li>
+                    @endforeach
+                </ul>
+            </article>
         </div>
     </div>
 
