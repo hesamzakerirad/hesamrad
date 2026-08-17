@@ -369,13 +369,4 @@
         </nav>
     @endif
 
-    <div class="shell section" id="contact">
-        <div class="callout">
-            <h2>Got something like this?</h2>
-            <p>Describe it in a paragraph. You will get an honest answer about whether I am the right person for it,
-                including the times when I am not.</p>
-
-            @include('_components.contact-form')
-        </div>
-    </div>
 @endsection

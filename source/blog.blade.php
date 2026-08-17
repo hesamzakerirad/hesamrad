@@ -1,5 +1,6 @@
 ---
 title: Blog
+disableContact: true
 ---
 
 @extends('_layouts.main')

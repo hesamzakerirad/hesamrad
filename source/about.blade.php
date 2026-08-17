@@ -1,5 +1,6 @@
 ---
 title: About
+disableContact: true
 ---
 
 @extends('_layouts.main')

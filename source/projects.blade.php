@@ -1,5 +1,6 @@
 ---
 title: Open source
+disableContact: true
 ---
 
 @extends('_layouts.main')

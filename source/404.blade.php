@@ -3,6 +3,7 @@ title: Not Found!
 permalink: /404.html
 robots: noindex,follow
 disableCanonical: true
+disableContact: true
 ---
 
 @extends('_layouts.main')

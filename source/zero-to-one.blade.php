@@ -1,5 +1,7 @@
 ---
 title: Zero to One
+contactHeading: 'Tell me about the business.'
+contactIntro: "A couple of sentences is plenty: what you do and roughly where. I'll tell you whether Zero to One is right for you, and if it isn't, what would be."
 ---
 
 @extends('_layouts.main')
@@ -276,13 +278,36 @@ title: Zero to One
         @endif
     </section>
 
-    <section class="shell section" id="contact">
-        <div class="callout">
-            <h2>Tell me about the business.</h2>
-            <p>A couple of sentences is plenty: what you do and roughly where. I'll tell you whether Zero to One is
-                right for you, and if it isn't, what would be.</p>
+    {{-- The Offer for the campaign, with the price, on the one page that states
+         the price. structured-data.blade.php runs on every page and therefore
+         carries no price and no campaign: a price on /about/ or on a post is a
+         price for a service that page does not describe.
 
-            @include('_components.contact-form')
-        </div>
-    </section>
+         `provider` points at the ProfessionalService node that the shared
+         include declares, so the two agree without repeating the business.
+
+         The figures come from `pricing` in config.php, which is also what the
+         price block above reads. A search engine and a reader thus cannot be
+         shown two different numbers. When the campaign ends, this block goes
+         with the page and no shared file needs a change. --}}
+    @push('scripts')
+        <script type="application/ld+json">
+            {!! json_encode([
+                '@context' => 'https://schema.org',
+                '@type' => 'Offer',
+                '@id' => $page->getCanonicalUrl() . '#offer',
+                'url' => $page->getCanonicalUrl(),
+                'price' => (string) $page->pricing['setup'],
+                'priceCurrency' => $page->pricing['currency'],
+                'provider' => ['@id' => $page->baseUrl . '/#business'],
+                'itemOffered' => [
+                    '@type' => 'Service',
+                    'name' => 'Zero to One',
+                    'description' => 'A complete website for a business that has none: built, launched and looked after, at a fixed price.',
+                    'serviceType' => 'Website design and development',
+                    'url' => $page->getCanonicalUrl(),
+                ],
+            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+        </script>
+    @endpush
 @endsection
