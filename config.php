@@ -24,7 +24,9 @@ $pricing = [
     'currency' => 'USD',
 ];
 
-$money = fn ($amount) => $pricing['symbol'] . number_format($amount);
+$money = fn($amount) => $pricing['symbol'] . number_format($amount);
+
+$bookingUrl = 'https://cal.com/hesamrad/30min';
 
 return [
     'baseUrl' => 'http://localhost:8000',
@@ -41,7 +43,7 @@ return [
     // The one source for the booking link. Every "Book a call" button reads it.
     // The page it opens belongs to cal.com, therefore each of those links is
     // external and opens in a new tab.
-    'bookingUrl' => 'https://cal.com/hesamrad/30min',
+    'bookingUrl' => $bookingUrl,
     // The default locale and language. A page can override them with `locale`
     // or `language` front matter. A post without front matter gets the
     // post-specific pair below. The RTL support stays available: a post can
@@ -118,6 +120,15 @@ return [
      * with a `page` key ignores it, because only /faq/ shows groups.
      *
      * `open => true` opens the question on load.
+     *
+     * `link` puts one link under the answer. `href` accepts a path on this site
+     * or a full URL, and a full URL opens in a new tab:
+     *
+     *     'link' => ['href' => '/services/', 'label' => 'How the work runs'],
+     *     'link' => ['href' => 'https://laravel.com', 'label' => 'Laravel'],
+     *
+     * Write a path with the leading slash and without the base URL. The
+     * component adds the base URL to a path and leaves a full URL alone.
      *
      * Each answer is an array of paragraphs. For an amount of money, read the
      * `pricing` values. Do not write a figure again.
@@ -246,30 +257,27 @@ return [
         // figure, and it belongs on that page. Do not answer cost here with a
         // number.
         [
-            'group' => 'How long it takes',
-            'q' => 'How long does it take?',
+            'q' => 'What services do I offer?',
             'page' => '/services/',
             'a' => [
-                'Most projects run two to six weeks, from agreeing the plan to something your customers can use. Bigger builds take longer. I\'ll tell you that in the plan.',
+                'Bespoke web application development. I build applications that live on the internet; no mobile or desktop application.',
             ],
         ],
         [
-            'group' => 'Before we start',
-            'q' => 'What if I do not know exactly what I want yet?',
+            'q' => 'How can I see some of your previous works?',
             'page' => '/services/',
             'a' => [
-                'That\'s the normal case, and it\'s what the first call is for. You don\'t need a specification written. You need to be able to describe what\'s wrong today and what you\'d want instead. Working out what that means in software is part of what you\'re paying me for.',
+                'It is natural to feel skeptical but it\'s only fair you see some of the things that I\'ve done.',
             ],
+            'link' => ['href' => '/work/', 'label' => 'Read a few case studies'],
         ],
         [
-            'group' => 'Working together',
-            'q' => 'What happens if you are unavailable?',
+            'q' => 'How do I contact you?',
             'page' => '/services/',
             'a' => [
-                'I\'m one person. There\'s no second developer waiting in the wings, and it\'s a fair thing to worry about.',
-                'What there is: you own every account and every line of code from day one, and I write things down as I go. That means a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you wouldn\'t be locked out of anything, and someone competent could carry on from what\'s written.',
-                'That\'s a smaller risk than being unable to reach the agency holding your source code. It isn\'t zero, and I\'d rather say it out loud.',
+                'There is a form right below this section you can use to write me; or you can just book a quick 30 minutes call so we can talk face to face and hear about your idea.',
             ],
+            'link' => ['href' => $bookingUrl, 'label' => 'Book a call'],
         ],
 
         // ── On /zero-to-one/ only ────────────────────────────────────────
