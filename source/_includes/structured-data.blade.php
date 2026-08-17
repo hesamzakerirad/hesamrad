@@ -25,9 +25,13 @@
     /*
      * This node tells a search engine that the site is a service provider.
      *
-     * Add only a claim that the site also makes in its text. The price is the
-     * price on the Zero to One page. The area served is the area in the footer
-     * and in the FAQ.
+     * Add only a claim that the site also makes in its text. The area served is
+     * the area in the footer and in the FAQ.
+     *
+     * This node carries no price and names no campaign. It is on every page,
+     * and a price on /about/ or on a post is a price for a service that page
+     * does not describe. A page that states a price declares its own Offer.
+     * /zero-to-one/ is the one page that does.
      */
     $business = [
         '@type' => 'ProfessionalService',
@@ -47,19 +51,10 @@
         'hasOfferCatalog' => [
             '@type' => 'OfferCatalog',
             'name' => 'Software development services',
+            // Zero to One is not in this catalog. Its Offer carries a price, and
+            // the price belongs on the page that states it. zero-to-one.blade.php
+            // declares that Offer and points it back at this node.
             'itemListElement' => [
-                [
-                    '@type' => 'Offer',
-                    'itemOffered' => [
-                        '@type' => 'Service',
-                        'name' => 'Zero to One',
-                        'description' => 'A complete website for a business that has none: built, launched and looked after, at a fixed price.',
-                        'serviceType' => 'Website design and development',
-                        'url' => $page->baseUrl . '/zero-to-one/',
-                    ],
-                    'price' => (string) $page->pricing['setup'],
-                    'priceCurrency' => $page->pricing['currency'],
-                ],
                 [
                     '@type' => 'Offer',
                     'itemOffered' => [
@@ -69,9 +64,10 @@
                         'serviceType' => 'Custom software development',
                         'url' => $page->baseUrl . '/services/',
                     ],
-                    // This offer has no `price` key. The site does not publish
-                    // a price for custom work.
-                    'priceCurrency' => $page->pricing['currency'],
+                    // This offer states no money at all. The site publishes no
+                    // price for custom work, and a currency with no price says
+                    // nothing. Keeping it also made this file read `pricing`,
+                    // which exists for the campaign.
                 ],
             ],
         ],

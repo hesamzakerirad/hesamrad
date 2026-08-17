@@ -144,8 +144,8 @@ return [
             'group' => 'Before we start',
             'q' => 'What do you need from me to get started?',
             'a' => [
-                'Half an hour on a call, and straight answers in it. For a Zero to One website that\'s the whole of your homework. I write the words from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
-                'For larger work you\'ll also need to be reachable for a short call each week. Nothing else is needed up front: no specification, no wireframes, no list of features.',
+                'Half an hour on a call, and straight answers in it. You don\'t need a specification, wireframes, or a list of features written before we talk.',
+                'For larger work you\'ll also need to be reachable for a short call each week. Nothing else is needed up front.',
             ],
         ],
 
@@ -160,28 +160,9 @@ return [
         ],
         [
             'group' => 'What it costs',
-            'q' => 'What does the monthly fee cover?',
+            'q' => 'Can I pay you monthly for ongoing work?',
             'a' => [
-                'On Zero to One, ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month covers hosting, the domain renewal, security updates, backups, and small changes when you need them: new opening hours, a price change, a few new photos. Email me and it gets done.',
-                'On larger projects a monthly arrangement is optional, and it covers whatever we agree it covers, written down before it starts.',
-            ],
-        ],
-        [
-            'group' => 'What it costs',
-            'q' => 'Can I stop paying the monthly fee?',
-            'a' => [
-                'Then stop. There\'s no minimum term. The domain is registered to you, and I\'ll hand over everything so you or anyone else can pick it up. Nothing in the paperwork keeps you here.',
-            ],
-        ],
-
-        // ── How long it takes ────────────────────────────────────────────
-        [
-            'group' => 'How long it takes',
-            'q' => 'Why is Zero to One about a week when other work takes months?',
-            'page' => '/zero-to-one/',
-            'a' => [
-                'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes a week possible. Nothing is being rushed to fit it.',
-                'The moment a business needs online ordering or a booking system, it\'s a different job with a different number. I won\'t squeeze it in.',
+                'On a larger project a monthly arrangement is optional. It covers whatever we agree it covers, written down before it starts.',
             ],
         ],
 
@@ -208,15 +189,6 @@ return [
             'q' => 'What will you not take on?',
             'a' => [
                 'Brand and logo design, apps written natively for iPhone and Android (I build web apps that work properly on a phone instead), and anything where the plan is to skip testing to hit a date. I\'ll say so on the first call, not three weeks in.',
-            ],
-        ],
-        [
-            'group' => 'What I build',
-            'q' => 'What is not included in Zero to One?',
-            'page' => '/zero-to-one/',
-            'a' => [
-                'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing. That\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
-                'Payments, online ordering, booking systems and customer logins are all real work, so they\'re quoted separately.',
             ],
         ],
 
@@ -266,20 +238,13 @@ return [
         ],
 
         // ── On /services/ only ───────────────────────────────────────────
-        // These four leave /faq/ and close the services page, in this order:
-        // money, then time, then scope, then the risk of one person. The
-        // `group` key is unused while `page` is set.
-        [
-            'group' => 'What it costs',
-            'q' => 'What does it cost?',
-            'page' => '/services/',
-            'open' => true,
-            'a' => [
-                'The cheapest way in is Zero to One: a fixed website for ' . $pricing['symbol'] . number_format($pricing['setup']) . ', plus ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month to keep it running. For a lot of businesses that\'s the whole answer.',
-                'Anything past that is a fixed price for a defined project, or a monthly arrangement for ongoing work. That covers payments, ordering, booking, and a system built around how your business runs. Either way the number comes once the plan is written, so you have it before you commit to anything.',
-            ],
-            'link' => ['href' => '/zero-to-one/', 'label' => 'How Zero to One works'],
-        ],
+        // These leave /faq/ and close the services page, in this order: time,
+        // then scope, then the risk of one person. The `group` key is unused
+        // while `page` is set.
+        //
+        // Money is not here. Every figure the site publishes is a Zero to One
+        // figure, and it belongs on that page. Do not answer cost here with a
+        // number.
         [
             'group' => 'How long it takes',
             'q' => 'How long does it take?',
@@ -304,6 +269,58 @@ return [
                 'I\'m one person. There\'s no second developer waiting in the wings, and it\'s a fair thing to worry about.',
                 'What there is: you own every account and every line of code from day one, and I write things down as I go. That means a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you wouldn\'t be locked out of anything, and someone competent could carry on from what\'s written.',
                 'That\'s a smaller risk than being unable to reach the agency holding your source code. It isn\'t zero, and I\'d rather say it out loud.',
+            ],
+        ],
+
+        // ── On /zero-to-one/ only ────────────────────────────────────────
+        // The campaign, and the only place on the site that states a price.
+        // Keep it that way: an answer here can name a figure, and an answer
+        // anywhere else cannot. When the campaign ends, this block and the
+        // page go together and no answer elsewhere needs a rewrite.
+        [
+            'q' => 'What does it cost?',
+            'page' => '/zero-to-one/',
+            'open' => true,
+            'a' => [
+                $money($pricing['setup']) . ' once to build it and put it live, then ' . $money($pricing['monthly']) . ' a month to keep it running. That is the whole of it, and it does not move once we have agreed the work.',
+                'Anything outside the list on this page is a different job with its own fixed price, and that number comes once the plan is written.',
+            ],
+        ],
+        [
+            'q' => 'What does the monthly fee cover?',
+            'page' => '/zero-to-one/',
+            'a' => [
+                $money($pricing['monthly']) . ' a month covers hosting, the domain renewal, security updates, backups, and small changes when you need them: new opening hours, a price change, a few new photos. Email me and it gets done.',
+            ],
+        ],
+        [
+            'q' => 'Can I stop paying the monthly fee?',
+            'page' => '/zero-to-one/',
+            'a' => [
+                'Then stop. There\'s no minimum term. The domain is registered to you, and I\'ll hand over everything so you or anyone else can pick it up. Nothing in the paperwork keeps you here.',
+            ],
+        ],
+        [
+            'q' => 'How much work is this for me?',
+            'page' => '/zero-to-one/',
+            'a' => [
+                'Half an hour on a call, and that\'s the whole of your homework. I write the words from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
+            ],
+        ],
+        [
+            'q' => 'Why is this about a week when other work takes months?',
+            'page' => '/zero-to-one/',
+            'a' => [
+                'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes a week possible. Nothing is being rushed to fit it.',
+                'The moment a business needs online ordering or a booking system, it\'s a different job with a different number. I won\'t squeeze it in.',
+            ],
+        ],
+        [
+            'q' => 'What is not included?',
+            'page' => '/zero-to-one/',
+            'a' => [
+                'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing. That\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
+                'Payments, online ordering, booking systems and customer logins are all real work, so they\'re quoted separately.',
             ],
         ],
     ],
