@@ -46,7 +46,7 @@ timeline:
     - phase: 'Final months'
       detail: 'Thresholds, hardening, and handover to the team who run it.'
 results: []
-quote: null
+review: null
 differently: 'I started building before the measures were pinned down as tightly as they needed to be, assuming the details would settle as we went. They did settle, but some of them settled differently to how I''d built for, and I rewrote work that a longer conversation at the start would have got right the first time. On a system whose entire value is the precision of its definitions, the specification was the wrong place to move quickly.'
 cover:
     src: /assets/build/images/broker-monitoring.jpg
