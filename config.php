@@ -67,28 +67,63 @@ return [
     'pricing' => $pricing,
 
     /*
+     * The contact block that closes a page.
+     *
+     * main.blade.php puts this block last on every page, below the questions.
+     * These two values are the wording it uses. A page writes its own pair in
+     * its front matter when the default does not fit:
+     *
+     *     contactHeading: 'Still not answered?'
+     *     contactIntro: 'Ask it directly...'
+     *
+     * A page that must not ask for contact sets `disableContact: true` instead.
+     * A blog post never gets the block, because a post closes with the link to
+     * the next post.
+     *
+     * Keep the heading an instruction and not a label. "Get in touch" states
+     * the obvious. "Tell me what you're trying to build." states what to write.
+     */
+    'contact' => [
+        'heading' => 'Tell me what you\'re trying to build.',
+        'intro' => 'A paragraph is enough. I\'ll tell you whether I\'m the right person for it, including the times I\'m not.',
+    ],
+
+    /*
      * All questions, in one place.
      *
-     * Two pages read this array. /faq/ shows all the questions and carries the
-     * FAQPage schema. /services/ shows a subset. Keep the questions here and
-     * not in a template, because the two pages must show the same answers.
+     * The key is `siteFaq` and not `faq`. A post declares its own questions
+     * with a `faq:` block in its front matter, and front matter wins over this
+     * file. A post therefore hid this whole array from itself, and no question
+     * here could ever reach a post. The two structures also differ: `a` is an
+     * array of paragraphs here and one string in a post. Do not rename this key
+     * back.
      *
-     * `services` sets the sort order on the services page. Omit it to keep a
-     * question off that page. `open => true` opens the question on load.
+     * `page` decides where a question appears, and one question appears on one
+     * page:
+     *
+     * - No `page` key: the question shows on /faq/ and nowhere else. Most
+     *   questions belong here.
+     * - `page => '/zero-to-one/'`: the question shows at the end of that page
+     *   and not on /faq/. Use it for a question that makes sense only next to
+     *   that page, and write the path as it appears in the address bar.
+     *
+     * Nothing else is needed to put a question on a page. main.blade.php asks
+     * every page for its questions, and a page with none gets no heading and no
+     * empty block. Do not add an include to a template.
+     *
+     * A page shows its questions in the order of this array, therefore move an
+     * entry to move it up or down the page.
+     *
+     * `group` sets the heading above a run of questions on /faq/. A question
+     * with a `page` key ignores it, because only /faq/ shows groups.
+     *
+     * `open => true` opens the question on load.
      *
      * Each answer is an array of paragraphs. For an amount of money, read the
      * `pricing` values. Do not write a figure again.
      */
-    'faq' => [
+    'siteFaq' => [
         // ── Before we start ──────────────────────────────────────────────
-        [
-            'group' => 'Before we start',
-            'q' => 'What if I do not know exactly what I want yet?',
-            'services' => 3,
-            'a' => [
-                'That\'s the normal case, and it\'s what the first call is for. You don\'t need a specification written. You need to be able to describe what\'s wrong today and what you\'d want instead. Working out what that means in software is part of what you\'re paying me for.',
-            ],
-        ],
         [
             'group' => 'Before we start',
             'q' => 'What happens on the first call?',
@@ -117,17 +152,6 @@ return [
         // ── What it costs ────────────────────────────────────────────────
         [
             'group' => 'What it costs',
-            'q' => 'What does it cost?',
-            'services' => 1,
-            'open' => true,
-            'a' => [
-                'The cheapest way in is Zero to One: a fixed website for ' . $pricing['symbol'] . number_format($pricing['setup']) . ', plus ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month to keep it running. For a lot of businesses that\'s the whole answer.',
-                'Anything past that is a fixed price for a defined project, or a monthly arrangement for ongoing work. That covers payments, ordering, booking, and a system built around how your business runs. Either way the number comes once the plan is written, so you have it before you commit to anything.',
-            ],
-            'link' => ['href' => '/zero-to-one/', 'label' => 'How Zero to One works'],
-        ],
-        [
-            'group' => 'What it costs',
             'q' => 'Do you charge by the hour?',
             'a' => [
                 'No. You get a number for the work, quoted after the plan is written, so you know what it costs before you commit instead of watching a meter run.',
@@ -153,20 +177,12 @@ return [
         // ── How long it takes ────────────────────────────────────────────
         [
             'group' => 'How long it takes',
-            'q' => 'How long does it take?',
-            'services' => 2,
-            'a' => [
-                'Most projects run two to six weeks, from agreeing the plan to something your customers can use. Bigger builds take longer. I\'ll tell you that in the plan.',
-            ],
-        ],
-        [
-            'group' => 'How long it takes',
             'q' => 'Why is Zero to One about a week when other work takes months?',
+            'page' => '/zero-to-one/',
             'a' => [
                 'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes a week possible. Nothing is being rushed to fit it.',
                 'The moment a business needs online ordering or a booking system, it\'s a different job with a different number. I won\'t squeeze it in.',
             ],
-            'link' => ['href' => '/zero-to-one/', 'label' => 'What is and is not included'],
         ],
 
         // ── What I build ─────────────────────────────────────────────────
@@ -197,11 +213,11 @@ return [
         [
             'group' => 'What I build',
             'q' => 'What is not included in Zero to One?',
+            'page' => '/zero-to-one/',
             'a' => [
                 'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing. That\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
                 'Payments, online ordering, booking systems and customer logins are all real work, so they\'re quoted separately.',
             ],
-            'link' => ['href' => '/zero-to-one/', 'label' => 'The full list'],
         ],
 
         // ── What you own ─────────────────────────────────────────────────
@@ -232,16 +248,6 @@ return [
         ],
         [
             'group' => 'Working together',
-            'q' => 'What happens if you are unavailable?',
-            'services' => 4,
-            'a' => [
-                'I\'m one person. There\'s no second developer waiting in the wings, and it\'s a fair thing to worry about.',
-                'What there is: you own every account and every line of code from day one, and I write things down as I go. That means a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you wouldn\'t be locked out of anything, and someone competent could carry on from what\'s written.',
-                'That\'s a smaller risk than being unable to reach the agency holding your source code. It isn\'t zero, and I\'d rather say it out loud.',
-            ],
-        ],
-        [
-            'group' => 'Working together',
             'q' => 'Should I hire you or an agency?',
             'a' => [
                 'Sometimes an agency. If the job needs several disciplines at once, has a deadline you can\'t move, or is large enough that coordinating it is a job in itself, buy the coordination.',
@@ -256,6 +262,48 @@ return [
             'q' => 'What happens after it launches?',
             'a' => [
                 'There\'s an agreed period where anything I built that turns out to be broken gets fixed at no extra cost. After that, some people want a monthly arrangement for changes and monitoring, and some take it in-house. The documentation exists so that second option is genuinely open to you. Both are fine, and neither is assumed.',
+            ],
+        ],
+
+        // ── On /services/ only ───────────────────────────────────────────
+        // These four leave /faq/ and close the services page, in this order:
+        // money, then time, then scope, then the risk of one person. The
+        // `group` key is unused while `page` is set.
+        [
+            'group' => 'What it costs',
+            'q' => 'What does it cost?',
+            'page' => '/services/',
+            'open' => true,
+            'a' => [
+                'The cheapest way in is Zero to One: a fixed website for ' . $pricing['symbol'] . number_format($pricing['setup']) . ', plus ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month to keep it running. For a lot of businesses that\'s the whole answer.',
+                'Anything past that is a fixed price for a defined project, or a monthly arrangement for ongoing work. That covers payments, ordering, booking, and a system built around how your business runs. Either way the number comes once the plan is written, so you have it before you commit to anything.',
+            ],
+            'link' => ['href' => '/zero-to-one/', 'label' => 'How Zero to One works'],
+        ],
+        [
+            'group' => 'How long it takes',
+            'q' => 'How long does it take?',
+            'page' => '/services/',
+            'a' => [
+                'Most projects run two to six weeks, from agreeing the plan to something your customers can use. Bigger builds take longer. I\'ll tell you that in the plan.',
+            ],
+        ],
+        [
+            'group' => 'Before we start',
+            'q' => 'What if I do not know exactly what I want yet?',
+            'page' => '/services/',
+            'a' => [
+                'That\'s the normal case, and it\'s what the first call is for. You don\'t need a specification written. You need to be able to describe what\'s wrong today and what you\'d want instead. Working out what that means in software is part of what you\'re paying me for.',
+            ],
+        ],
+        [
+            'group' => 'Working together',
+            'q' => 'What happens if you are unavailable?',
+            'page' => '/services/',
+            'a' => [
+                'I\'m one person. There\'s no second developer waiting in the wings, and it\'s a fair thing to worry about.',
+                'What there is: you own every account and every line of code from day one, and I write things down as I go. That means a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you wouldn\'t be locked out of anything, and someone competent could carry on from what\'s written.',
+                'That\'s a smaller risk than being unable to reach the agency holding your source code. It isn\'t zero, and I\'d rather say it out loud.',
             ],
         ],
     ],

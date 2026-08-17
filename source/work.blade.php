@@ -1,5 +1,7 @@
 ---
 title: Work
+contactHeading: "Tell me what you're trying to build."
+contactIntro: "A paragraph is enough. I'll tell you whether I've done something like it before, and whether I'm the right person for this one."
 ---
 
 @extends('_layouts.main')
@@ -58,13 +60,4 @@ title: Work
         @endif
     </div>
 
-    <div class="shell section" id="contact">
-        <div class="callout">
-            <h2>Tell me what you're trying to build.</h2>
-            <p>A paragraph is enough. I'll tell you whether I've done something like it before, and whether I'm the
-                right person for this one.</p>
-
-            @include('_components.contact-form')
-        </div>
-    </div>
 @endsection

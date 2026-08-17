@@ -1,6 +1,7 @@
 ---
 title: Thank you
 robots: noindex,follow
+disableContact: true
 ---
 @extends('_layouts.main')
 

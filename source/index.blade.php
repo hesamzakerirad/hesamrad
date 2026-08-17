@@ -140,14 +140,4 @@
     {{-- No band. The section above this one is a band, and two together make
          one block of color with no edge between them. --}}
     @include('_components.testimonials', ['band' => false])
-
-    <section class="shell section" id="contact">
-        <div class="callout">
-            <h2>Tell me what you're trying to build.</h2>
-            <p>A paragraph is enough. I'll tell you whether I'm the right person for it, including the times I'm
-                not.</p>
-
-            @include('_components.contact-form')
-        </div>
-    </section>
 @endsection

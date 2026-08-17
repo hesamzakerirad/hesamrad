@@ -1,5 +1,7 @@
 ---
 title: Zero to One
+contactHeading: 'Tell me about the business.'
+contactIntro: "A couple of sentences is plenty: what you do and roughly where. I'll tell you whether Zero to One is right for you, and if it isn't, what would be."
 ---
 
 @extends('_layouts.main')
@@ -276,13 +278,4 @@ title: Zero to One
         @endif
     </section>
 
-    <section class="shell section" id="contact">
-        <div class="callout">
-            <h2>Tell me about the business.</h2>
-            <p>A couple of sentences is plenty: what you do and roughly where. I'll tell you whether Zero to One is
-                right for you, and if it isn't, what would be.</p>
-
-            @include('_components.contact-form')
-        </div>
-    </section>
 @endsection

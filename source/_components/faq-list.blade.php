@@ -1,13 +1,13 @@
 {{--
-    A list of questions as native disclosures. /faq/ and /services/ show the
-    same markup from the same data in config.php.
+    A list of questions as native disclosures. /faq/ and any page with its own
+    questions show the same markup from the same data in config.php.
 
-    Do not emit the FAQPage schema from this component. The caller must emit it,
-    because only one page can carry the schema. If two pages carry it, a search
-    engine accepts neither page as the FAQ.
+    Do not emit the FAQPage schema from this component. The caller emits it with
+    _components.faq-schema, and it passes the same rows it passed here. A caller
+    that shows a part of the array must not declare the whole array.
 
     Parameters:
-      $items   — rows from $page->faq
+      $items   — rows from $page->siteFaq
       $grouped — when true, show each `group` as a heading  (default false)
 --}}
 @php

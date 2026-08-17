@@ -245,7 +245,12 @@
 
 {{-- A `faq:` block in the front matter makes a FAQPage node. The same
      questions and answers must also be visible in the body of the post. Google
-     gives this condition for the markup. --}}
+     gives this condition for the markup.
+
+     This `faq:` belongs to the post and has nothing to do with `siteFaq` in
+     config.php. `a` is one string here and an array of paragraphs there, and
+     this block writes no visible markup, because the post writes the questions
+     itself. Do not pass these rows to _components.faq-list. --}}
 @if ($page->faq)
     @push('scripts')
         <script type="application/ld+json">

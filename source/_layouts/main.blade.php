@@ -156,6 +156,8 @@
          next Tab goes back into that nav. --}}
     <main id="main" class="page-main" tabindex="-1">
         @yield('body')
+        @include('_components.faq-section')
+        @include('_components.contact-section')
     </main>
 
     @include('_includes.footer')

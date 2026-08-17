@@ -1,5 +1,7 @@
 ---
 title: Services
+contactHeading: 'Describe the problem in a paragraph.'
+contactIntro: "That's enough for me to tell you whether this is a week of work or a quarter, and whether I'm the right person for it."
 ---
 
 @extends('_layouts.main')
@@ -108,44 +110,10 @@ title: Services
         </div>
     </div>
 
-    <div class="shell section">
-        <div class="section-head">
-            <h2>The questions people ask.</h2>
-            <p>Money and time first, then the ones about risk. If what you need to know isn't here, it's a fair thing
-                to open with.</p>
-        </div>
-
-
-        {{-- This is the subset with a `services` key, sorted by its value.
-             /faq/ shows the same array in full. Do not add the FAQPage schema
-             to this page. Only /faq/ carries the schema. If two pages declare
-             the schema, a search engine accepts neither page. --}}
-        @include('_components.faq-list', [
-            'items' => collect($page->faq)
-                ->filter(fn ($q) => $q['services'] ?? false)
-                ->sortBy('services')
-                ->values(),
-        ])
-
-        {{-- Use this class and do not use .faq__link. .faq__link is the
-             left-aligned link inside an answer. --}}
-        <p class="faq__more">
-            <a class="link-arrow" href="{{ $page->baseUrl }}/faq/">
-                <span>The other sixteen questions</span>
-                @include('_components.icon', ['name' => 'arrow-right'])
-            </a>
-        </p>
-    </div>
+    {{-- The questions for this page are not here. main.blade.php puts them below
+         the body and above the contact block. To add one, put
+         `page => '/services/'` on a question in config.php. Do not add an include
+         here, and do not repeat a question that /faq/ already shows. --}}
 
     @include('_components.testimonials', ['limit' => 2])
-
-    <div class="shell section" id="contact">
-        <div class="callout">
-            <h2>Describe the problem in a paragraph.</h2>
-            <p>That's enough for me to tell you whether this is a week of work or a quarter, and whether I'm the right
-                person for it.</p>
-
-            @include('_components.contact-form')
-        </div>
-    </div>
 @endsection
