@@ -357,7 +357,7 @@ function initCopyButtons() {
  * which heading was the last one to pass the top of the viewport.
  *
  * Enhancement only. Without it the links still jump, and every entry simply
- * stays the colour it already was.
+ * stays the color it already was.
  */
 function initContents() {
     const rail = document.querySelector('.post-toc');
@@ -576,7 +576,7 @@ function initContactForm() {
                  * page views and nothing else, which cannot answer the one
                  * question worth asking: which page produces enquiries.
                  *
-                 * `generate_lead` is the recognised GA4 event name, so it lands
+                 * `generate_lead` is the recognized GA4 event name, so it lands
                  * in the reports that already exist rather than needing a
                  * custom definition. Fired only on a confirmed success, never
                  * on submit — otherwise a bounced request counts as a lead.

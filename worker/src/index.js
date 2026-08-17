@@ -272,7 +272,7 @@ function autoReply(enquiry, env) {
             to: enquiry.email,
             reply_to: env.NOTIFY_TO,
             subject: 'Thanks — I got your message',
-            // Plain text on purpose. A one-paragraph acknowledgement rendered
+            // Plain text on purpose. A one-paragraph acknowledgment rendered
             // as a marketing template is how a real reply gets filed as spam.
             text: [
                 `Hi ${enquiry.name.split(' ')[0] || 'there'},`,

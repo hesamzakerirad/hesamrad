@@ -370,7 +370,7 @@
      * soon as it is open or stuck. A filtered ancestor becomes the containing
      * block for its fixed-position descendants, so `inset: <header> 0 0`
      * resolved against the 4rem header rather than the viewport and the panel
-     * collapsed to 108px — nothing to see, in every browser that honours
+     * collapsed to 108px — nothing to see, in every browser that honors
      * backdrop-filter. Positioning against the header deliberately is stable
      * either way: the header is full-width and pinned to the top, so
      * top:100% / left:0 / right:0 is exactly the viewport below it.

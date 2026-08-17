@@ -20,7 +20,7 @@
          the shell is already full width. --}}
     <div class="hero-field">
         @include('_components.dot-grid', [
-            'centre' => 42,
+            'center' => 42,
             'clear' => 22,
             'peak' => 52,
             'tail' => 42,
@@ -138,7 +138,7 @@
     </section>
 
     {{-- No band. The section above this one is a band, and two together make
-         one block of colour with no edge between them. --}}
+         one block of color with no edge between them. --}}
     @include('_components.testimonials', ['band' => false])
 
     <section class="shell section" id="contact">

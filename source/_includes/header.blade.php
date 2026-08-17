@@ -38,7 +38,7 @@
                  current theme. The button is thus correct before the script
                  runs. --}}
             <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
-                <span class="visually-hidden">Toggle colour theme</span>
+                <span class="visually-hidden">Toggle color theme</span>
                 @include('_components.icon', ['name' => 'sun', 'class' => 'theme-toggle__icon theme-toggle__icon--sun'])
                 @include('_components.icon', ['name' => 'moon', 'class' => 'theme-toggle__icon theme-toggle__icon--moon'])
             </button>

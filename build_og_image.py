@@ -52,7 +52,7 @@ def main():
 
     margin = 88
 
-    # The accent bar. The one piece of colour, and the only thing marking this
+    # The accent bar. The one piece of color, and the only thing marking this
     # as ours rather than any other white card in a feed.
     draw.rounded_rectangle([margin, margin, margin + 64, margin + 8], radius=4, fill=ACCENT)
 

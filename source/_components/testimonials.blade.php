@@ -10,7 +10,7 @@
       $band    — draw the section on the raised surface  (default true)
 
     Set `$band` to false when the section above this one is already a band. Two
-    bands together make one block of colour with no edge between them.
+    bands together make one block of color with no edge between them.
 --}}
 @php
     $quotes = collect($page->testimonials ?? []);

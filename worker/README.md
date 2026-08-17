@@ -142,7 +142,7 @@ npx wrangler d1 execute hesamrad-enquiries --remote \
 ```
 
 A real submission should produce: a row in D1, an email to `NOTIFY_TO` whose
-**reply** goes to the sender, a Telegram push, and an acknowledgement in the
+**reply** goes to the sender, a Telegram push, and an acknowledgment in the
 sender's inbox.
 
 ## Local development
