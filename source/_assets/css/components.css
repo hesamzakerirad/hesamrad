@@ -18,8 +18,20 @@
     color: var(--text-dim);
 }
 
+/*
+ * The cap keeps a page heading off the full width of the shell. It is not a
+ * character count. One ch is the width of the zero of the font, and this
+ * heading has weight 600 and negative tracking, so at the desktop size one ch
+ * is about 32px and 22ch is about 705px in a 1120px shell.
+ *
+ * 22ch holds every heading on the site on one line except the work page, at
+ * 25.6ch, which is written in two clauses and reads better in two lines. Before
+ * a heading of more than about 20 characters, measure it. Do not raise this
+ * value to hold one long heading: mark the break in the markup instead, the way
+ * the home page does.
+ */
 .page-head h1 {
-    max-width: 16ch;
+    max-width: 22ch;
     margin-bottom: var(--space-md);
     font-size: var(--text-3xl);
 }

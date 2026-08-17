@@ -14,9 +14,10 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
     <div class="shell section page-head">
         @include('_components.breadcrumbs')
 
-        <h1>Work I take on.</h1>
-        <p class="lead prose">I build complete products, on my own: the part your customers use, the system behind it,
-            and everything needed to keep it running. Here's the kind of work I take, how it runs, and how to start.</p>
+        <h1>Bespoke web development</h1>
+        <p class="lead prose">Software built for one business: yours. The screens your customers use, the system
+            running behind them, and everything needed to keep it working. I build all of it myself, and I'm still
+            here when it needs changing.</p>
 
         <p class="mt-md"><span class="availability">Available for new projects</span></p>
     </div>

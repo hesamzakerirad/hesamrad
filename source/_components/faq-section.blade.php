@@ -36,7 +36,7 @@
 @if ($pageQuestions->isNotEmpty())
     <div class="shell section">
         <div class="section-head">
-            <h2>Questions.</h2>
+            <h2>Questions</h2>
         </div>
 
         @include('_components.faq-list', ['items' => $pageQuestions])

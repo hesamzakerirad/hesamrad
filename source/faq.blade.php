@@ -26,7 +26,7 @@ contactIntro: "Ask it directly. You'll get a straight answer within a day, even 
     <div class="shell section page-head">
         @include('_components.breadcrumbs')
 
-        <h1>Questions.</h1>
+        <h1>Questions</h1>
 
         <p class="lead prose">Everything people ask me before they commit to anything: money, timing, ownership, and
             the risks. If yours isn't here, ask it and I'll add it.</p>
