@@ -15,7 +15,7 @@ title: Questions
         <h1>Questions.</h1>
 
         <p class="lead prose">Everything people ask me before they commit to anything: money, timing, ownership, and
-            the parts that are a risk rather than a selling point. If yours isn't here, ask it and I'll add it.</p>
+            the risks. If yours isn't here, ask it and I'll add it.</p>
     </div>
 
     <section class="shell section">
@@ -25,7 +25,7 @@ title: Questions
     <section class="shell section" id="contact">
         <div class="callout">
             <h2>Still not answered?</h2>
-            <p>Ask it directly. You'll get a straight answer within a day, including the times the answer is that I'm
+            <p>Ask it directly. You'll get a straight answer within a day, even when the answer is that I'm
                 not the right person for the job.</p>
 
             @include('_components.contact-form')

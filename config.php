@@ -86,7 +86,7 @@ return [
             'q' => 'What if I do not know exactly what I want yet?',
             'services' => 3,
             'a' => [
-                'That\'s the normal case, and it\'s what the first call is for. You don\'t need a specification written. You need to be able to describe what\'s wrong today and what you want instead. Working out what that means in software is part of the job I\'m being paid for, not something you have to finish before we start.',
+                'That\'s the normal case, and it\'s what the first call is for. You don\'t need a specification written. You need to be able to describe what\'s wrong today and what you\'d want instead. Working out what that means in software is part of what you\'re paying me for.',
             ],
         ],
         [
@@ -102,14 +102,14 @@ return [
             'group' => 'Before we start',
             'q' => 'How quickly will you reply?',
             'a' => [
-                'Within a day, usually sooner. I read every enquiry myself, because there\'s nobody else here to read them.',
+                'Within a day, usually sooner. I read every inquiry myself, because there\'s nobody else here to read them.',
             ],
         ],
         [
             'group' => 'Before we start',
             'q' => 'What do you need from me to get started?',
             'a' => [
-                'Half an hour on a call, and candour in it. For a Zero to One website that\'s the whole of your homework. I write the words from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
+                'Half an hour on a call, and straight answers in it. For a Zero to One website that\'s the whole of your homework. I write the words from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
                 'For larger work you\'ll also need to be reachable for a short call each week. Nothing else is needed up front: no specification, no wireframes, no list of features.',
             ],
         ],
@@ -122,7 +122,7 @@ return [
             'open' => true,
             'a' => [
                 'The cheapest way in is Zero to One: a fixed website for ' . $pricing['symbol'] . number_format($pricing['setup']) . ', plus ' . $pricing['symbol'] . number_format($pricing['monthly']) . ' a month to keep it running. For a lot of businesses that\'s the whole answer.',
-                'Anything past that is a fixed price for a defined project, or a monthly arrangement for ongoing work. That covers payments, ordering, booking, and a system built around how your business runs. Either way the number comes once the plan is written, so it reflects the work in front of us rather than an hourly guess, and you have it before you commit to anything.',
+                'Anything past that is a fixed price for a defined project, or a monthly arrangement for ongoing work. That covers payments, ordering, booking, and a system built around how your business runs. Either way the number comes once the plan is written, so you have it before you commit to anything.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'How Zero to One works'],
         ],
@@ -156,7 +156,7 @@ return [
             'q' => 'How long does it take?',
             'services' => 2,
             'a' => [
-                'Most projects run two to six weeks from the plan being agreed to something your customers can use. Bigger builds take longer, and I\'ll say so in the plan instead of discovering it halfway through.',
+                'Most projects run two to six weeks, from agreeing the plan to something your customers can use. Bigger builds take longer. I\'ll tell you that in the plan.',
             ],
         ],
         [
@@ -164,7 +164,7 @@ return [
             'q' => 'Why is Zero to One about a week when other work takes months?',
             'a' => [
                 'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes a week possible. Nothing is being rushed to fit it.',
-                'The moment a business needs online ordering or a booking system, it\'s a different job with a different number, and I\'ll tell you that instead of squeezing it in.',
+                'The moment a business needs online ordering or a booking system, it\'s a different job with a different number. I won\'t squeeze it in.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'What is and is not included'],
         ],
@@ -175,7 +175,7 @@ return [
             'q' => 'What do you actually build?',
             'a' => [
                 'Web applications that work as well on a phone as on a laptop. I build both halves: what your customers see, and the system running behind it. There\'s no seam between them and nobody to coordinate with.',
-                'Where a client already has a designer or a front-end team, I take the half they can\'t do and stay out of the way of the half they can. That\'s usually the cheaper arrangement for them.',
+                'Where a client already has a designer or a front-end team, I take the half they can\'t do. That\'s usually the cheaper arrangement for them.',
             ],
             'link' => ['href' => '/work/', 'label' => 'Both projects ran that way'],
         ],
@@ -199,7 +199,7 @@ return [
             'q' => 'What is not included in Zero to One?',
             'a' => [
                 'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing. That\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
-                'Payments, online ordering, booking systems and customer logins are all proper work rather than a box to tick, so they\'re quoted separately.',
+                'Payments, online ordering, booking systems and customer logins are all real work, so they\'re quoted separately.',
             ],
             'link' => ['href' => '/zero-to-one/', 'label' => 'The full list'],
         ],
@@ -209,7 +209,7 @@ return [
             'group' => 'What you own',
             'q' => 'Do I own what you build?',
             'a' => [
-                'All of it, from the first day. The code lives in your repository, it runs on your hosting account, and the domain stays registered to you. I work inside your accounts rather than mine, so there\'s nothing to prise loose at the end and nothing of yours sitting in my name.',
+                'All of it, from the first day. The code lives in your repository, it runs on your hosting account, and the domain stays registered to you. I work inside your accounts, so at the end there\'s nothing to pry loose and nothing of yours sitting in my name.',
             ],
         ],
         [
@@ -226,8 +226,8 @@ return [
             'group' => 'Working together',
             'q' => 'How do we work together?',
             'a' => [
-                'Remotely, and I\'ve worked this way for most of my career by choice, not by accident. My clients are across Europe and North America, and I arrange my day around whichever of those you\'re in, so there are hours every day when you can reach me directly instead of taking a queue position.',
-                'Most people settle into a short call once a week plus email in between. If you\'d rather have more or less than that, say so and we\'ll do that instead.',
+                'Remotely. I\'ve worked this way for most of my career and I\'m good at it. My clients are across Europe and North America, and I arrange my day around whichever of those you\'re in, so there are hours every day when you can reach me directly.',
+                'Most people settle into a short call once a week plus email in between. If you\'d rather have more or less than that, say so.',
             ],
         ],
         [
@@ -235,9 +235,9 @@ return [
             'q' => 'What happens if you are unavailable?',
             'services' => 4,
             'a' => [
-                'I\'m one person, so let me answer that properly instead of waving it away. There\'s no second developer waiting in the wings.',
+                'I\'m one person. There\'s no second developer waiting in the wings, and it\'s a fair thing to worry about.',
                 'What there is: you own every account and every line of code from day one, and I write things down as I go. That means a setup another developer can run, tests that say whether something is broken, and a walkthrough at handover. If I vanished tomorrow you wouldn\'t be locked out of anything, and someone competent could carry on from what\'s written.',
-                'That\'s a smaller risk than being unable to reach the agency holding your source code. It isn\'t zero, and you should hear it from me rather than find it out later.',
+                'That\'s a smaller risk than being unable to reach the agency holding your source code. It isn\'t zero, and I\'d rather say it out loud.',
             ],
         ],
         [
@@ -245,7 +245,7 @@ return [
             'q' => 'Should I hire you or an agency?',
             'a' => [
                 'Sometimes an agency. If the job needs several disciplines at once, has a deadline you can\'t move, or is large enough that coordinating it is a job in itself, buy the coordination.',
-                'If it\'s one system that has to be right and stay right, the distance between you and the person building it is the thing worth protecting. I\'ve written the comparison out in full, including the parts that don\'t favour me.',
+                'If it\'s one system that has to be right and stay right, the distance between you and the person building it is the thing worth protecting. I\'ve written the comparison out in full, including the parts that don\'t favor me.',
             ],
             'link' => ['href' => '/blog/agency-or-one-independent-engineer/', 'label' => 'The full comparison'],
         ],
