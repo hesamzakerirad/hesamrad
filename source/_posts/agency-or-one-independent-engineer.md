@@ -243,8 +243,8 @@ if I'm unavailable, how the work runs, and what I won't take on.
 
 ## The two columns, side by side
 
-Everything above, in one place. Some of these rows favour an agency and some
-favour me; that's the point.
+Everything above, in one place. Some of these rows favor an agency and some
+favor me; that's the point.
 
 | | An agency | One independent engineer |
 | --- | --- | --- |

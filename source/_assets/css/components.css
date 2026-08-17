@@ -689,7 +689,7 @@ a.card:hover .card__title {
  * The section being read. --heading rather than the accent: nine entries with
  * one always lit would put a permanent spot of blue in the margin, and this is
  * a position indicator rather than a link worth clicking. The weight carries
- * it as much as the colour does, so it survives being looked at sideways.
+ * it as much as the color does, so it survives being looked at sideways.
  */
 .contents__list a.is-current {
     color: var(--heading);
@@ -2008,7 +2008,7 @@ textarea.field__input {
 
 /*
  * The call to action under the list. The section heading above the list is
- * centred, therefore this row is too.
+ * centered, therefore this row is too.
  */
 .biz-list__more {
     margin-top: var(--space-lg);
@@ -2146,8 +2146,8 @@ textarea.field__input {
 }
 
 /*
- * The link out to the full set. Centred under the list, which is itself
- * centred in the shell, so the two share an axis. Distinct from .faq__link,
+ * The link out to the full set. Centered under the list, which is itself
+ * centered in the shell, so the two share an axis. Distinct from .faq__link,
  * which sits inside an answer and reads from the left with the prose.
  */
 .faq__more {
@@ -2155,7 +2155,7 @@ textarea.field__input {
     text-align: center;
 }
 
-/* The section heading above this link is centred, therefore the link is too. */
+/* The section heading above this link is centered, therefore the link is too. */
 .work__more {
     margin-top: var(--space-lg);
     margin-bottom: 0;

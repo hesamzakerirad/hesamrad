@@ -5,10 +5,10 @@ Draws the site mark: source/_assets/images/logo.svg and source/favicon.ico.
     .venv/bin/python build_mark.py
 
 The mark is a four-fold rosette: four petals on the diagonals, four dots on the
-axes, and a ring of small lobes around a disc at the centre.
+axes, and a ring of small lobes around a disc at the center.
 
 One set of numbers makes both files. The SVG and the icon therefore cannot
-disagree about the shape. All geometry is in a 512 unit square with the centre
+disagree about the shape. All geometry is in a 512 unit square with the center
 at (256, 256). The SVG keeps those units. The icon scales them.
 
 The icon has two levels of detail. The full mark needs approximately 24 pixels.
@@ -40,31 +40,31 @@ ACCENT_LIGHT = "#0066cc"
 ACCENT_DARK = "#2997ff"
 
 UNITS = 512
-CENTRE = UNITS / 2
+CENTER = UNITS / 2
 
-# Four petals on the diagonals. `dist` is the distance from the centre of the
-# mark to the centre of the petal. The tip therefore reaches dist + ry, which
+# Four petals on the diagonals. `dist` is the distance from the center of the
+# mark to the center of the petal. The tip therefore reaches dist + ry, which
 # is 348 of a possible 362 to the corner.
 PETAL = {"dist": 203, "rx": 51, "ry": 145}
 
 # Four dots on the axes, between the petals.
 DOT = {"dist": 183, "r": 33}
 
-# The rosette. The lobes reach ROSETTE_LOBE["dist"] + ry from the centre, which
+# The rosette. The lobes reach ROSETTE_LOBE["dist"] + ry from the center, which
 # stays inside the tips of the petals at 58.
 ROSETTE_DISC = 23
 ROSETTE_RING = {"r": 31, "width": 3.5}
 ROSETTE_LOBE = {"count": 16, "dist": 41, "rx": 7, "ry": 10}
 
 # The small icon. The disc replaces the rosette and covers the same area as the
-# ring, therefore the mark keeps its weight at the centre. The petals get wider
+# ring, therefore the mark keeps its weight at the center. The petals get wider
 # to hold their shape at 16 pixels.
 ROSETTE_SIMPLE = 30
 SMALL_PETAL_SCALE = 1.25
 
 
 def ellipse_points(cx, cy, rx, ry, angle_deg, steps=240):
-    """An ellipse as a polygon, rotated `angle_deg` about the centre of the mark.
+    """An ellipse as a polygon, rotated `angle_deg` about the center of the mark.
 
     PIL cannot draw a rotated ellipse. A polygon of this many segments is
     smooth at every size this file writes.
@@ -75,10 +75,10 @@ def ellipse_points(cx, cy, rx, ry, angle_deg, steps=240):
 
     for step in range(steps):
         theta = 2 * math.pi * step / steps
-        # The point on the unrotated ellipse, relative to the centre of the mark.
-        x = cx - CENTRE + rx * math.cos(theta)
-        y = cy - CENTRE + ry * math.sin(theta)
-        points.append((CENTRE + x * cos_a - y * sin_a, CENTRE + x * sin_a + y * cos_a))
+        # The point on the unrotated ellipse, relative to the center of the mark.
+        x = cx - CENTER + rx * math.cos(theta)
+        y = cy - CENTER + ry * math.sin(theta)
+        points.append((CENTER + x * cos_a - y * sin_a, CENTER + x * sin_a + y * cos_a))
 
     return points
 
@@ -101,32 +101,32 @@ def svg(colour_light=ACCENT_LIGHT, colour_dark=ACCENT_DARK):
 
     for angle in (45, 135, 225, 315):
         parts.append(
-            f'        <ellipse cx="{CENTRE:g}" cy="{CENTRE - PETAL["dist"]:g}"'
+            f'        <ellipse cx="{CENTER:g}" cy="{CENTER - PETAL["dist"]:g}"'
             f' rx="{PETAL["rx"]:g}" ry="{PETAL["ry"]:g}"'
-            f' transform="rotate({angle} {CENTRE:g} {CENTRE:g})"/>'
+            f' transform="rotate({angle} {CENTER:g} {CENTER:g})"/>'
         )
 
     parts.append("        <!-- Four dots, on the axes. -->")
     for angle in (0, 90, 180, 270):
         parts.append(
-            f'        <circle cx="{CENTRE:g}" cy="{CENTRE - DOT["dist"]:g}"'
+            f'        <circle cx="{CENTER:g}" cy="{CENTER - DOT["dist"]:g}"'
             f' r="{DOT["r"]:g}"'
-            f' transform="rotate({angle} {CENTRE:g} {CENTRE:g})"/>'
+            f' transform="rotate({angle} {CENTER:g} {CENTER:g})"/>'
         )
 
     parts.append("        <!-- The rosette: lobes, then a ring, then a disc. -->")
     for index in range(ROSETTE_LOBE["count"]):
         angle = 360 * index / ROSETTE_LOBE["count"]
         parts.append(
-            f'        <ellipse cx="{CENTRE:g}" cy="{CENTRE - ROSETTE_LOBE["dist"]:g}"'
+            f'        <ellipse cx="{CENTER:g}" cy="{CENTER - ROSETTE_LOBE["dist"]:g}"'
             f' rx="{ROSETTE_LOBE["rx"]:g}" ry="{ROSETTE_LOBE["ry"]:g}"'
-            f' transform="rotate({angle:g} {CENTRE:g} {CENTRE:g})"/>'
+            f' transform="rotate({angle:g} {CENTER:g} {CENTER:g})"/>'
         )
 
     parts += [
-        f'        <circle cx="{CENTRE:g}" cy="{CENTRE:g}" r="{ROSETTE_RING["r"]:g}"'
+        f'        <circle cx="{CENTER:g}" cy="{CENTER:g}" r="{ROSETTE_RING["r"]:g}"'
         f' fill="none" stroke-width="{ROSETTE_RING["width"]:g}"/>',
-        f'        <circle cx="{CENTRE:g}" cy="{CENTRE:g}" r="{ROSETTE_DISC:g}"/>',
+        f'        <circle cx="{CENTER:g}" cy="{CENTER:g}" r="{ROSETTE_DISC:g}"/>',
         "    </g>",
         "</svg>",
         "",
@@ -148,7 +148,7 @@ def raster(size, detailed=True, render=1024):
     for angle in (45, 135, 225, 315):
         draw.polygon(
             [(at(x), at(y)) for x, y in ellipse_points(
-                CENTRE, CENTRE - PETAL["dist"], petal_rx, PETAL["ry"], angle)],
+                CENTER, CENTER - PETAL["dist"], petal_rx, PETAL["ry"], angle)],
             fill=fill,
         )
 
@@ -158,7 +158,7 @@ def raster(size, detailed=True, render=1024):
         for angle in (0, 90, 180, 270):
             draw.polygon(
                 [(at(x), at(y)) for x, y in ellipse_points(
-                    CENTRE, CENTRE - DOT["dist"], DOT["r"], DOT["r"], angle)],
+                    CENTER, CENTER - DOT["dist"], DOT["r"], DOT["r"], angle)],
                 fill=fill,
             )
 
@@ -167,15 +167,15 @@ def raster(size, detailed=True, render=1024):
             angle = 360 * index / ROSETTE_LOBE["count"]
             draw.polygon(
                 [(at(x), at(y)) for x, y in ellipse_points(
-                    CENTRE, CENTRE - ROSETTE_LOBE["dist"],
+                    CENTER, CENTER - ROSETTE_LOBE["dist"],
                     ROSETTE_LOBE["rx"], ROSETTE_LOBE["ry"], angle)],
                 fill=fill,
             )
 
         radius, width = ROSETTE_RING["r"], ROSETTE_RING["width"] / 2
         draw.ellipse(
-            [at(CENTRE - radius - width), at(CENTRE - radius - width),
-             at(CENTRE + radius + width), at(CENTRE + radius + width)],
+            [at(CENTER - radius - width), at(CENTER - radius - width),
+             at(CENTER + radius + width), at(CENTER + radius + width)],
             outline=fill, width=max(1, round(at(ROSETTE_RING["width"]))),
         )
         disc = ROSETTE_DISC
@@ -183,7 +183,7 @@ def raster(size, detailed=True, render=1024):
         disc = ROSETTE_SIMPLE
 
     draw.ellipse(
-        [at(CENTRE - disc), at(CENTRE - disc), at(CENTRE + disc), at(CENTRE + disc)],
+        [at(CENTER - disc), at(CENTER - disc), at(CENTER + disc), at(CENTER + disc)],
         fill=fill,
     )
 
@@ -211,7 +211,7 @@ def ico(entries):
             size if size < 256 else 0,
             0,  # palette entries: 0 for a PNG payload
             0,  # reserved
-            1,  # colour planes
+            1,  # color planes
             32,  # bits per pixel
             len(data),
             offset,

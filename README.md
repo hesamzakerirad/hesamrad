@@ -128,11 +128,11 @@ The CSS has five files. Each file has one purpose:
 
 | File | Purpose |
 | --- | --- |
-| `tokens.css` | Every colour, size and space value |
+| `tokens.css` | Every color, size and space value |
 | `base.css` | Element defaults |
 | `layout.css` | The page frame, the header, the hero |
 | `components.css` | Cards, forms, the FAQ and the other parts |
-| `syntax.css` | Colours for code blocks |
+| `syntax.css` | Colors for code blocks |
 
 ## Add a blog post
 
@@ -202,7 +202,7 @@ prevents a flash of the wrong theme.
 The header has a button that changes the theme. The choice is kept in the
 browser.
 
-Do not write a colour value in a rule. Use a token from `tokens.css`. Each
+Do not write a color value in a rule. Use a token from `tokens.css`. Each
 token has a value in the light theme and a value in the dark theme. This is
 what makes the dark theme possible to check.
 
@@ -251,14 +251,14 @@ needs the `.ttf` files to make them.
 
 **To rebuild the mark.** This writes both `source/_assets/images/logo.svg` and
 `source/favicon.ico` from one set of numbers. Run it after you change the
-geometry or a colour in the script:
+geometry or a color in the script:
 
 ```bash
 .venv/bin/python build_mark.py
 ```
 
 **To rebuild the share card.** Run this after you change the headline or a
-colour:
+color:
 
 ```bash
 .venv/bin/pip install Pillow
@@ -277,12 +277,12 @@ site key is public. The secret key is not in this repository.
 To set up the Worker, or to read the stored enquiries, see
 [worker/README.md](worker/README.md).
 
-## Licence
+## License
 
-`LICENSE.txt` is the MIT licence of the Jigsaw blog template. It arrived with
-the template in the first commit, and it is not a licence for this site. The
+`LICENSE.txt` is the MIT license of the Jigsaw blog template. It arrived with
+the template in the first commit, and it is not a license for this site. The
 copyright line names the template authors.
 
-This site has no licence of its own yet. Add one, or delete `LICENSE.txt`.
+This site has no license of its own yet. Add one, or delete `LICENSE.txt`.
 Until then, no person has permission to reuse the code, the written content or
 the images.

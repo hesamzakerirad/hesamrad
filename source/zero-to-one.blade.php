@@ -86,7 +86,7 @@ title: Zero to One
                 $included = [
                     [
                         'title' => 'A website, with the pages you need',
-                        'body' => 'Built for your business, in your colours and with your photographs. It works properly on a phone, because that\'s where most of your customers will see it.',
+                        'body' => 'Built for your business, in your colors and with your photographs. It works properly on a phone, because that\'s where most of your customers will see it.',
                     ],
                     [
                         'title' => 'I write the words',

@@ -49,7 +49,7 @@
     <title>{{ $title }}</title>
     {{-- Do not add a `theme-color` meta tag. It can use only
          `prefers-color-scheme`. This site takes its theme from an attribute
-         that the visitor can change. The address bar then shows a colour that
+         that the visitor can change. The address bar then shows a color that
          disagrees with the page. `color-scheme` in tokens.css gives the browser
          the necessary data. --}}
     <meta name="robots" content="{{ $page->getRobotsStatus() }}">
@@ -116,7 +116,7 @@
         href="{{ $page->baseUrl }}/feed.xml">
     {{-- The .ico comes first, for a browser that reads no further. A browser
          that supports an SVG icon takes the SVG, which stays sharp at each size
-         and follows the colour scheme of the reader. --}}
+         and follows the color scheme of the reader. --}}
     <link rel="icon" href="{{ $favicon }}" sizes="16x16 32x32 48x48">
     {{-- A plain path. `viteStaticCopy` copies source/_assets/images verbatim,
          therefore the file has no manifest key and `vite()` throws on it. --}}

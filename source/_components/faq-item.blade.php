@@ -2,7 +2,7 @@
     One question.
 
     Keep the <details> element. Do not use a div with a click handler. The
-    native element gives the keyboard behaviour, the correct role and the
+    native element gives the keyboard behavior, the correct role and the
     expanded state to a screen reader. It also operates without JavaScript. CSS
     adds the animation, therefore a browser without the animation still opens
     and closes the item.

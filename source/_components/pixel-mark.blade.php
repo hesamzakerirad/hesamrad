@@ -41,7 +41,7 @@
 @if ($shapes)
     {{-- Keep `shape-rendering="crispEdges"`. Without it, the browser
          antialiases the edges of the rects at fractional scales, and each pixel
-         gets a soft grey edge. --}}
+         gets a soft gray edge. --}}
     <svg class="pixel-mark {{ $class ?? '' }}" viewBox="0 0 {{ $width }} {{ $height }}"
         role="img" aria-label="{{ $label ?? 'pixel mark' }}" shape-rendering="crispEdges"
         fill="currentColor" focusable="false">

@@ -1,7 +1,7 @@
 @php
     /*
      * Inline SVG icons. Each icon uses `currentColor`, therefore an icon in a
-     * link or a button gets the correct colour in the two themes.
+     * link or a button gets the correct color in the two themes.
      *
      * Usage: @include('_components.icon', ['name' => 'arrow-right'])
      *

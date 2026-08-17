@@ -10,9 +10,9 @@
     browser scales a grid of this density, a moiré pattern occurs.
 
     Parameters:
-      $spacing — pixels between dot centres              (default 24)
+      $spacing — pixels between dot centers              (default 24)
       $dot     — dot radius in pixels                    (default 1)
-      $centre  — vertical position of the clear area     (default 45)
+      $center  — vertical position of the clear area     (default 45)
       $clear   — radius of the clear area, per cent      (default 40)
       $peak    — position of full strength, per cent     (default 74)
       $tail    — start of the vertical fade, per cent    (default 100, off)
@@ -35,7 +35,7 @@
 @php
     $spacing = $spacing ?? 24;
     $dot = $dot ?? 1;
-    $centre = $centre ?? 45;
+    $center = $center ?? 45;
     $clear = $clear ?? 40;
     $peak = $peak ?? 74;
     $tail = $tail ?? 100;
@@ -44,7 +44,7 @@
 
     // A page can contain two dot grids. If two SVG ids are the same, the second
     // grid uses the pattern of the first grid, and no error occurs.
-    $id = 'dg' . substr(md5($spacing . '-' . $dot . '-' . $centre . '-' . uniqid('', true)), 0, 8);
+    $id = 'dg' . substr(md5($spacing . '-' . $dot . '-' . $center . '-' . uniqid('', true)), 0, 8);
 @endphp
 
 {{-- Do not add `width` or `height` attributes. They set the CSS width and
@@ -59,7 +59,7 @@
             <circle cx="{{ $dot }}" cy="{{ $dot }}" r="{{ $dot }}" fill="currentColor" />
         </pattern>
 
-        <radialGradient id="{{ $id }}-fade" cx="50%" cy="{{ $centre }}%" r="72%">
+        <radialGradient id="{{ $id }}-fade" cx="50%" cy="{{ $center }}%" r="72%">
             <stop offset="0%" stop-color="#fff" stop-opacity="0" />
             <stop offset="{{ $clear }}%" stop-color="#fff" stop-opacity="0" />
             <stop offset="{{ $peak }}%" stop-color="#fff" stop-opacity="1" />
