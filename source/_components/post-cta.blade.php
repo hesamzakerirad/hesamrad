@@ -60,7 +60,7 @@
 
         @if ($ctaSecondary)
             <a class="btn btn--ghost" href="{{ $page->baseUrl }}/{{ ltrim($ctaSecondary, '/') }}">
-                <span>{{ $page->ctaSecondaryLabel ?: 'A website in about a week' }}</span>
+                <span>{{ $page->ctaSecondaryLabel ?: 'A website in about two weeks' }}</span>
             </a>
         @endif
     </div>

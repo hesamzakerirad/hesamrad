@@ -19,7 +19,7 @@
      * - The full title becomes more than 60 characters.
      */
     $pageTitle = $yield('title');
-    $brandSuffix = ' · ' . $page->siteName;
+    $brandSuffix = ' - ' . $page->siteName;
     $titleLimit = 60;
     $needsBrand = ! $page->disableTitlePrefix
         && stripos($pageTitle, $page->siteName) === false

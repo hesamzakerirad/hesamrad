@@ -1,11 +1,11 @@
 ---
-title: Thank you
+title: Thank You
 robots: noindex,follow
 disableContact: true
 ---
 @extends('_layouts.main')
 
-@section('title', 'Thank you')
+@section('title', 'Thank You')
 
 @section('description', 'Your message is in. I read every one myself and reply within a day, usually sooner.')
 

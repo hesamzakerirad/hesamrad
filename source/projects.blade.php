@@ -1,11 +1,11 @@
 ---
-title: Open source
+title: Open Source
 disableContact: true
 ---
 
 @extends('_layouts.main')
 
-@section('title', 'Open source')
+@section('title', 'Open Source')
 
 @section('description', 'Small open-source tools I built for my own work and published for anyone to use, plus a free URL shortener run as a non-profit.')
 

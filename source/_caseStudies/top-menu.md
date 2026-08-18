@@ -1,7 +1,7 @@
 ---
 extends: _layouts.case-study
 section: content
-title: 'A menu that changes without a print run'
+title: 'A Menu That Changes without a Print Run'
 description: 'Top Menu: a digital menu and ordering platform for cafés and restaurants, built and run over five years as lead engineer.'
 contactHeading: 'Got something like this?'
 contactIntro: "Describe it in a paragraph. You will get an honest answer about whether I am the right person for it, including the times when I am not."
