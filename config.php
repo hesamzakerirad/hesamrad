@@ -19,7 +19,7 @@ $workIsPublic = true;
 $pricing = [
     'setup' => 1500,
     'monthly' => 50,
-    'turnaround' => '~1 week',
+    'turnaround' => '~2 weeks',
     'symbol' => '$',
     'currency' => 'USD',
 ];
@@ -316,10 +316,10 @@ return [
             ],
         ],
         [
-            'q' => 'Why is this about a week when other work takes months?',
+            'q' => 'Why is this about two weeks when other work takes months?',
             'page' => '/zero-to-one/',
             'a' => [
-                'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes a week possible. Nothing is being rushed to fit it.',
+                'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes two weeks possible. Nothing is being rushed to fit it.',
                 'The moment a business needs online ordering or a booking system, it\'s a different job with a different number. I won\'t squeeze it in.',
             ],
         ],

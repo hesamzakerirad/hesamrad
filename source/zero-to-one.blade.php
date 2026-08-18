@@ -48,9 +48,12 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
     $showTally = $launched->count() >= 3;
 @endphp
 
-@section('title', 'Zero to One: a website in about a week')
+@section('title', 'Zero to One: A Website in About Two Weeks')
 
-@section('description', 'Taking ' . $target . ' businesses from no website at all to one that works. A fixed price, about a week, and the whole thing handled for you.')
+{{-- Keep this close to the opening paragraph on the page. A description that
+     reads like a different page invites Google to write its own snippet out of
+     the body copy, which is what it did with the earlier wording. --}}
+@section('description', 'Zero to One gets ' . $target . ' businesses with no website online, properly. Yours is built around what you do, at a fixed price, in about two weeks.')
 
 @section('body')
     <div class="shell section page-head">
@@ -59,7 +62,7 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
         <h1>Zero to One.</h1>
 
         <p class="lead prose">Zero to One is a campaign with one aim: get {{ $target }} businesses that have no website
-            online, properly. Yours is built around what you do, at a fixed price, in about a week. I handle every part
+            online, properly. Yours is built around what you do, at a fixed price, in about two weeks. I handle every part
             of it, including writing the words.</p>
 
         <p class="lead prose">Plenty of good businesses still don't have one. Usually it isn't that they decided
@@ -150,7 +153,7 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
         <div class="shell">
             <div class="grid grid--halves">
                 <div class="section-head section-head--start">
-                    <h2>How the week goes.</h2>
+                    <h2>How the two weeks go.</h2>
                     <p class="dim">Four steps, and only the first one needs anything from you.</p>
                 </div>
 

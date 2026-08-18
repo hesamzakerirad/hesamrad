@@ -1,7 +1,7 @@
 ---
 extends: _layouts.post
 section: content
-title: 'Agency or one independent engineer: the honest comparison'
+title: 'Agency or One Independent Engineer: The Honest Comparison'
 description: 'The comparison people make is cost. The one that decides the outcome is risk, and an agency''s risks are the opposite of an independent engineer''s.'
 tags:
 robots:

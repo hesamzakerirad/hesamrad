@@ -166,7 +166,7 @@
                 // The last item takes the name of the page. An intermediate
                 // segment is a section, and a slug is not a readable name.
                 // Use $pageTitle, not $title. $title can contain the
-                // " · Hesam Rad" suffix, which puts the brand in the crumb.
+                // " - Hesam Rad" suffix, which puts the brand in the crumb.
                 'name' => $isLast
                     ? ($page->title ?: $pageTitle)
                     : ($sectionNames[$segment] ?? Str::title(str_replace('-', ' ', $segment))),

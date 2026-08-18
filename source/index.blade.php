@@ -1,7 +1,7 @@
 @extends('_layouts.main')
 
 {{-- This title contains the site name, therefore the layout adds no suffix. --}}
-@section('title', 'Hesam Rad · Independent software engineer')
+@section('title', 'Hesam Rad - Independent Software Engineer')
 
 {{-- Keep this description below 120 characters. A phone cuts the search snippet
      at approximately that length. --}}

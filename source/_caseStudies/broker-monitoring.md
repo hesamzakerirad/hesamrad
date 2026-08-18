@@ -1,7 +1,7 @@
 ---
 extends: _layouts.case-study
 section: content
-title: 'The metrics a broker could not buy'
+title: 'The Metrics a Broker Could Not Buy'
 description: 'A monitoring layer that let a brokerage watch its traders on its own measures rather than the ones its trading platform happened to report.'
 contactHeading: 'Got something like this?'
 contactIntro: "Describe it in a paragraph. You will get an honest answer about whether I am the right person for it, including the times when I am not."
