@@ -235,7 +235,8 @@ for both:
 4. **What does the first deliverable look like, and when?** If nothing is
    visible for two months, that's a warning regardless of who you hired.
 5. **What is explicitly not included?** A fixed price only stays fixed if both
-   sides can see the edges. [Zero to One states its exclusions on the page](/zero-to-one/) for exactly that reason.
+   sides can see the edges. Any fixed price I quote comes with its exclusions
+   written down for exactly that reason.
 
 It would be a poor article that asked you to interrogate everyone but me. My
 answers to all five are [on the questions page](/faq/): ownership, what happens

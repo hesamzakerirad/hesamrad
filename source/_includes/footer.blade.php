@@ -20,7 +20,7 @@
             'title' => 'Work with me',
             'links' => [
                 ['label' => 'Services', 'href' => $page->baseUrl . '/services/'],
-                ['label' => 'Zero to One', 'href' => $page->baseUrl . '/zero-to-one/'],
+                ['label' => 'Zero to One', 'href' => $page->baseUrl . '/zero-to-one/', 'when' => $page->campaignIsLive],
                 ['label' => 'Case studies', 'href' => $page->baseUrl . '/work/', 'when' => $page->workIsPublic],
                 ['label' => 'Questions', 'href' => $page->baseUrl . '/faq/'],
                 ['label' => 'Start a conversation', 'href' => $page->baseUrl . '/#contact'],

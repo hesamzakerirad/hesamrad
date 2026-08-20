@@ -40,17 +40,29 @@
                 There's no agency here and no template. One engineer who builds the thing, and who's still around when it needs changing.
             </p>
 
+            {{-- The two buttons are a fork, and the fork needs the campaign.
+                 "Specific" earns its place against "I just need a website"
+                 beside it, and the line below asks which of the two. With the
+                 campaign off, one button and a label that stands alone. --}}
             <div class="btn-row">
-                <a class="btn btn--primary" href="{{ $page->baseUrl }}/services/">
-                    <span>I need something built</span>
-                    @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
-                </a>
-                <a class="btn btn--ghost" href="{{ $page->baseUrl }}/zero-to-one/">
-                    <span>I just need a website</span>
-                </a>
+                @if ($page->campaignIsLive)
+                    <a class="btn btn--primary" href="{{ $page->baseUrl }}/services/">
+                        <span>I need something specific</span>
+                        @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+                    </a>
+                    <a class="btn btn--ghost" href="{{ $page->baseUrl }}/zero-to-one/">
+                        <span>I just need a website</span>
+                    </a>
+                @else
+                    <a class="btn btn--primary" href="{{ $page->baseUrl }}/services/">
+                        <span>I need something built</span>
+                        @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+                    </a>
+                @endif
             </div>
 
-            <p class="hero__route">Not sure which? <a href="#contact">Describe it in a paragraph</a> and I'll tell you.</p>
+            <p class="hero__route">{{ $page->campaignIsLive ? 'Not sure which?' : 'Not sure where to start?' }}
+                <a href="#contact">Describe it in a paragraph</a> and I'll tell you.</p>
         </div>
     </section>
 

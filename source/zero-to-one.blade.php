@@ -7,6 +7,29 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
 @extends('_layouts.main')
 
 @php
+    /*
+     * The campaign switch.
+     *
+     * `false` keeps this URL at 200 and puts a short holding page here: no
+     * price, no turnaround, no campaign name, and noindex. The URL stays alive
+     * on purpose. It is indexed, links point at it, and the campaign comes
+     * back to this same address.
+     *
+     * Front matter cannot read the switch. The values that name the campaign
+     * are therefore reassigned below. case-study.blade.php assigns `robots` in
+     * the same way.
+     *
+     * The noindex is also what keeps the URL out of the sitemap.
+     * GenerateSitemap.php reads this value and drops the page for itself.
+     */
+    $campaignIsLive = $page->campaignIsLive;
+
+    if (! $campaignIsLive) {
+        $page->robots = 'noindex,nofollow';
+        $page->title = 'A Website for Your Business';
+        $page->contactIntro = 'A couple of sentences is plenty: what you do and roughly where. I\'ll tell you what it would take, and what it would cost.';
+    }
+
     $target = 25;
 
     // Add a business here only after its website is live.
@@ -48,14 +71,21 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
     $showTally = $launched->count() >= 3;
 @endphp
 
-@section('title', 'Zero to One: A Website in About Two Weeks')
+@section('title', $campaignIsLive ? 'Zero to One: A Website in About Two Weeks' : 'A Website for Your Business')
 
 {{-- Keep this close to the opening paragraph on the page. A description that
      reads like a different page invites Google to write its own snippet out of
-     the body copy, which is what it did with the earlier wording. --}}
-@section('description', 'Zero to One gets ' . $target . ' businesses with no website online, properly. Yours is built around what you do, at a fixed price, in about two weeks.')
+     the body copy, which is what it did with the earlier wording.
+
+     The holding page carries its own description. The page is noindex, so no
+     search result uses it, but an empty section makes the layout fall back to
+     the body text and a link preview then quotes the holding note. --}}
+@section('description', $campaignIsLive
+    ? 'Zero to One gets ' . $target . ' businesses with no website online, properly. Yours is built around what you do, at a fixed price, in about two weeks.'
+    : 'A website for a business that has none: built, launched and looked after. Tell me about the business and I will give you a price and a date.')
 
 @section('body')
+    @if ($campaignIsLive)
     <div class="shell section page-head">
         @include('_components.breadcrumbs')
 
@@ -313,4 +343,26 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
             ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
         </script>
     @endpush
+    @else
+        {{-- The holding page. It states no price and no turnaround, because
+             those are the terms under revision, and it names no campaign.
+
+             The Offer above sits inside the branch that is now closed, so the
+             page publishes no structured price either.
+
+             main.blade.php adds the contact block after this, therefore the
+             page still has a way to reach me. --}}
+        <div class="shell section page-head">
+            @include('_components.breadcrumbs')
+
+            <h1>A Website for Your Business.</h1>
+
+            <p class="lead prose">I'm rebuilding how this offer works, so it's off the page for now.</p>
+
+            <p class="lead prose">If your business doesn't have a website yet, tell me about it below and I'll give
+                you a price and a date.</p>
+
+            <p class="mt-md"><a href="{{ $page->baseUrl }}/services/">What I take on</a></p>
+        </div>
+    @endif
 @endsection
