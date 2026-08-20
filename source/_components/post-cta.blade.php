@@ -20,14 +20,19 @@
     /*
      * `ctaSecondary: false` removes the second button.
      *
-     * Compare `ctaSecondary` against null. Do not write `?: '/zero-to-one/'`. A
-     * fallback that is not empty makes the guard below always true, and the
+     * The default target is the campaign, therefore it leaves with the
+     * campaign. `$campaignIsLive` false gives false here, and a post that sets
+     * no `ctaSecondary` of its own then shows one button.
+     *
+     * Compare `ctaSecondary` against null. Do not write `?: $campaignDefault`.
+     * A fallback that is not empty makes the guard below always true, and the
      * second button then shows on each post.
      *
      * Keep the ltrim below. A value without a leading slash joins directly to
      * the host, for example `hesamrad.comprojects/`.
      */
-    $ctaSecondary = $page->ctaSecondary === null ? '/zero-to-one/' : $page->ctaSecondary;
+    $campaignDefault = $page->campaignIsLive ? '/zero-to-one/' : false;
+    $ctaSecondary = $page->ctaSecondary === null ? $campaignDefault : $page->ctaSecondary;
 
     /*
      * The first button is the booking button on each post. A post sets

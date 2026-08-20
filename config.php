@@ -1,11 +1,27 @@
 <?php
 
 /*
- * A PHP array literal cannot reference its own keys. These two values are
+ * A PHP array literal cannot reference its own keys. These three values are
  * therefore outside the array below. The case-studies collection filter closes
- * over $workIsPublic, and the FAQ answers read $pricing.
+ * over $workIsPublic, the campaign questions close over $campaignIsLive, and
+ * the FAQ answers read $pricing.
  */
 $workIsPublic = true;
+
+/*
+ * The Zero to One campaign.
+ *
+ * Set this to false to remove the campaign from the site. The page at
+ * /zero-to-one/ then shows a short holding page with noindex, the link leaves
+ * the navigation and the footer, the campaign questions stop, the home page
+ * hero shows one button, and a post gets no second button.
+ *
+ * Set this to true to put the campaign back.
+ *
+ * The prices below stay when this is false. No template reads them then, and
+ * they are what the campaign starts again from.
+ */
+$campaignIsLive = false;
 
 /*
  * The Zero to One prices.
@@ -58,6 +74,11 @@ return [
     // page, and the generation of sample case studies. Set it at the top of
     // this file.
     'workIsPublic' => $workIsPublic,
+
+    // This value controls the campaign page, the nav entry, the footer entry,
+    // the campaign questions, the home page hero and the button at the end of
+    // a post. Set it at the top of this file.
+    'campaignIsLive' => $campaignIsLive,
 
     // The site is static and has no server. The contact form therefore posts to
     // a Cloudflare Worker (refer to worker/). These two values are public. The
@@ -283,54 +304,60 @@ return [
         // ── On /zero-to-one/ only ────────────────────────────────────────
         // The campaign, and the only place on the site that states a price.
         // Keep it that way: an answer here can name a figure, and an answer
-        // anywhere else cannot. When the campaign ends, this block and the
-        // page go together and no answer elsewhere needs a rewrite.
-        [
-            'q' => 'What does it cost?',
-            'page' => '/zero-to-one/',
-            'open' => true,
-            'a' => [
-                $money($pricing['setup']) . ' once to build it and put it live, then ' . $money($pricing['monthly']) . ' a month to keep it running. That is the whole of it, and it does not move once we have agreed the work.',
-                'Anything outside the list on this page is a different job with its own fixed price, and that number comes once the plan is written.',
+        // anywhere else cannot. $campaignIsLive removes this block with the
+        // page, therefore no answer elsewhere needs a rewrite.
+        //
+        // The spread is what makes the switch possible. A `page` key alone
+        // puts a question on the page, and faq-section.blade.php would show
+        // these six on the holding page, prices and all.
+        ...($campaignIsLive ? [
+            [
+                'q' => 'What does it cost?',
+                'page' => '/zero-to-one/',
+                'open' => true,
+                'a' => [
+                    $money($pricing['setup']) . ' once to build it and put it live, then ' . $money($pricing['monthly']) . ' a month to keep it running. That is the whole of it, and it does not move once we have agreed the work.',
+                    'Anything outside the list on this page is a different job with its own fixed price, and that number comes once the plan is written.',
+                ],
             ],
-        ],
-        [
-            'q' => 'What does the monthly fee cover?',
-            'page' => '/zero-to-one/',
-            'a' => [
-                $money($pricing['monthly']) . ' a month covers hosting, the domain renewal, security updates, backups, and small changes when you need them: new opening hours, a price change, a few new photos. Email me and it gets done.',
+            [
+                'q' => 'What does the monthly fee cover?',
+                'page' => '/zero-to-one/',
+                'a' => [
+                    $money($pricing['monthly']) . ' a month covers hosting, the domain renewal, security updates, backups, and small changes when you need them: new opening hours, a price change, a few new photos. Email me and it gets done.',
+                ],
             ],
-        ],
-        [
-            'q' => 'Can I stop paying the monthly fee?',
-            'page' => '/zero-to-one/',
-            'a' => [
-                'Then stop. There\'s no minimum term. The domain is registered to you, and I\'ll hand over everything so you or anyone else can pick it up. Nothing in the paperwork keeps you here.',
+            [
+                'q' => 'Can I stop paying the monthly fee?',
+                'page' => '/zero-to-one/',
+                'a' => [
+                    'Then stop. There\'s no minimum term. The domain is registered to you, and I\'ll hand over everything so you or anyone else can pick it up. Nothing in the paperwork keeps you here.',
+                ],
             ],
-        ],
-        [
-            'q' => 'How much work is this for me?',
-            'page' => '/zero-to-one/',
-            'a' => [
-                'Half an hour on a call, and that\'s the whole of your homework. I write the words from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
+            [
+                'q' => 'How much work is this for me?',
+                'page' => '/zero-to-one/',
+                'a' => [
+                    'Half an hour on a call, and that\'s the whole of your homework. I write the words from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
+                ],
             ],
-        ],
-        [
-            'q' => 'Why is this about two weeks when other work takes months?',
-            'page' => '/zero-to-one/',
-            'a' => [
-                'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes two weeks possible. Nothing is being rushed to fit it.',
-                'The moment a business needs online ordering or a booking system, it\'s a different job with a different number. I won\'t squeeze it in.',
+            [
+                'q' => 'Why is this about two weeks when other work takes months?',
+                'page' => '/zero-to-one/',
+                'a' => [
+                    'Because it\'s the same defined list every time, with one round of changes: a website, the words, the domain and hosting, and your Google listing. The narrow scope is what makes two weeks possible. Nothing is being rushed to fit it.',
+                    'The moment a business needs online ordering or a booking system, it\'s a different job with a different number. I won\'t squeeze it in.',
+                ],
             ],
-        ],
-        [
-            'q' => 'What is not included?',
-            'page' => '/zero-to-one/',
-            'a' => [
-                'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing. That\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
-                'Payments, online ordering, booking systems and customer logins are all real work, so they\'re quoted separately.',
+            [
+                'q' => 'What is not included?',
+                'page' => '/zero-to-one/',
+                'a' => [
+                    'A visual identity invented from scratch. The site is built for your business, but the look isn\'t designed from nothing. That\'s a separate job at a separate price. Logos, branding and photography aren\'t part of it either.',
+                    'Payments, online ordering, booking systems and customer logins are all real work, so they\'re quoted separately.',
+                ],
             ],
-        ],
+        ] : []),
     ],
 
     // The link to the full set of recommendations. Set it to null to remove the

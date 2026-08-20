@@ -191,6 +191,27 @@ Two fields control whether the case study appears:
 
 Name a client only when you have permission.
 
+## The campaign switch
+
+`campaignIsLive` in `config.php` controls the Zero to One campaign.
+
+Set the value to `false` to remove the campaign from the site. The site then:
+
+- shows a short holding page at `/zero-to-one/`, with `noindex`
+- keeps the URL at 200, because the address is indexed and links point to it
+- removes the campaign link from the navigation and the footer
+- removes the six campaign questions
+- shows one button in the home page hero
+- removes the second button at the end of a post
+
+Set the value to `true` to put the campaign back.
+
+The prices in `pricing` stay in `config.php` when the switch is `false`. No
+template reads them then. They are what the campaign starts again from.
+
+The `noindex` also keeps the URL out of `sitemap.xml`. The sitemap listener
+reads the value of the page and removes the page for itself.
+
 ## Themes
 
 The site has a light theme and a dark theme.

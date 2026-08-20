@@ -16,7 +16,12 @@
         $links[] = ['label' => 'Work', 'path' => 'work', 'href' => $page->baseUrl . '/work/'];
     }
 
-    $links[] = ['label' => 'Zero to One', 'path' => 'zero-to-one', 'href' => $page->baseUrl . '/zero-to-one/'];
+    // The campaign switch, for the same reason as the flag above: the holding
+    // page carries noindex, therefore the nav must not point at it.
+    if ($page->campaignIsLive) {
+        $links[] = ['label' => 'Zero to One', 'path' => 'zero-to-one', 'href' => $page->baseUrl . '/zero-to-one/'];
+    }
+
     $links[] = ['label' => 'Services', 'path' => 'services', 'href' => $page->baseUrl . '/services/'];
     $links[] = ['label' => 'Blog', 'path' => 'blog', 'href' => $page->baseUrl . '/blog/'];
 @endphp
