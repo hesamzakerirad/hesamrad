@@ -608,6 +608,41 @@ return [
     },
 
     /**
+     * Returns $html with every off-site link set to open in a new tab.
+     *
+     * The markdown parser writes a plain <a>, therefore the attributes go on
+     * here. `rel` keeps the new page away from this one.
+     *
+     * A link to the site itself stays in the same tab. The host of `baseUrl`
+     * is localhost during a local build, therefore the production host counts
+     * as the same site too.
+     */
+    'withExternalLinksInNewTab' => function ($page, $html) {
+        $siteHosts = collect([parse_url($page->baseUrl, PHP_URL_HOST), 'hesamrad.com'])
+            ->map(fn ($host) => preg_replace('/^www\./', '', (string) $host))
+            ->filter()
+            ->all();
+
+        return preg_replace_callback('/<a\b([^>]*?)href="(https?:\/\/[^"]+)"([^>]*)>/i', function ($match) use ($siteHosts) {
+            $host = preg_replace('/^www\./', '', (string) parse_url($match[2], PHP_URL_HOST));
+            $attributes = $match[1] . $match[3];
+
+            // The author can write the attributes in the markdown itself.
+            if (in_array($host, $siteHosts, true) || stripos($attributes, 'target=') !== false) {
+                return $match[0];
+            }
+
+            $added = ' target="_blank"';
+
+            if (stripos($attributes, 'rel=') === false) {
+                $added .= ' rel="noopener noreferrer"';
+            }
+
+            return '<a' . $match[1] . 'href="' . $match[2] . '"' . $match[3] . $added . '>';
+        }, $html);
+    },
+
+    /**
      * Returns the FAQPage node of the current page as encoded JSON, or ''.
      *
      * The node is built here and not in a template. Blade compiles the word

@@ -55,7 +55,7 @@
              * This code adds the ids and collects the headings in one pass.
              * The contents list and the anchors thus always agree.
              */
-            $body = $__env->yieldContent('content');
+            $body = $page->withExternalLinksInNewTab($__env->yieldContent('content'));
             $flat = [];
 
             // This callback finds h2 and h3 in document order. The nesting
