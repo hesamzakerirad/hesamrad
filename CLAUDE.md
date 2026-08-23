@@ -8,3 +8,7 @@
 - When writing a blog post:
   - make sure the content is SEO optimized.
   - always end the post with a "Summary" section summarizing the entire post in clear language.
+
+## Commiting
+
+- When making a git commit, make sure to leave your name out of the commit.
