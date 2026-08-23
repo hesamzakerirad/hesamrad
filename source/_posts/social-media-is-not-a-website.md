@@ -248,7 +248,8 @@ reliable impression of a page's visual appeal in about 50
 milliseconds](https://www.tandfonline.com/doi/abs/10.1080/01449290500330448).
 Both are old, and neither compares websites to social profiles, so don't let me
 stretch them. What they establish is narrower and still useful: a bad-looking
-page costs you trust before anybody reads a word.
+page costs you trust before anybody reads a word. Judge mine on the same basis
+if you like: [the work is here](/work/).
 
 ## The rent goes up
 
@@ -360,9 +361,14 @@ nothing and it's most of the benefit.
 
 When you do hire someone, ask them what you own on the last day: domain,
 hosting, code, analytics, all of it, in your name. That question separates a
-good outcome from a bad one more reliably than any question about design. My own
-answers are [on the questions page](/faq/), and [Zero to One](/zero-to-one/)
-states what's included and what isn't for exactly that reason.
+good outcome from a bad one more reliably than any question about design. I've
+answered that one on my [FAQ page](/faq/#faq-what-you-own), and [how I run a
+project](/services/) is written down as well.
+
+If the next question is who builds it, I've put the two options side by side in
+[Agency or One Independent
+Engineer](/blog/agency-or-one-independent-engineer/), including the times the
+answer is an agency.
 
 ## Summary
 
