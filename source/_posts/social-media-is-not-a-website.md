@@ -12,8 +12,8 @@ updated_at: 2026-08-14
 readTime: 13
 isFeatured: false
 isPublished: true
-ctaTitle: 'Not sure what you actually need?'
-ctaBody: 'Tell me what your business does and where your customers come from now. I will tell you what a website would change for you, including the times the honest answer is "not much yet". No pitch attached.'
+ctaTitle: 'Need a website for your business?'
+ctaBody: 'Tell me what your business does and where your customers come from now. We can figure out the optimal way to help your business grow.'
 ctaAction: 'Tell me about it'
 ctaSecondary: '/work/'
 ctaSecondaryLabel: 'See what I have built'
