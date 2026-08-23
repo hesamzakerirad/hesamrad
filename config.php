@@ -142,6 +142,13 @@ return [
      *
      * `open => true` opens the question on load.
      *
+     * A group heading gets an identifier from its own text, therefore a post
+     * can link to a run of questions: `/faq/#faq-what-it-costs`. A question
+     * gets no identifier of its own.
+     *
+     * New wording for a group gives a new identifier and breaks a link that a
+     * post already holds. Read the posts before a change to a group name.
+     *
      * `link` puts one link under the answer. `href` accepts a path on this site
      * or a full URL, and a full URL opens in a new tab:
      *

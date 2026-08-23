@@ -1049,6 +1049,12 @@ a.card:hover .card__title {
     border-bottom: var(--hairline) solid var(--line);
 }
 
+/* A link from a post lands on a group heading, and it must not come to rest
+   under the fixed header. */
+.faq__group[id] {
+    scroll-margin-top: calc(var(--header-height) + var(--space-md));
+}
+
 .faq__q {
     display: flex;
     align-items: center;

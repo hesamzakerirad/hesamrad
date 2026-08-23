@@ -24,7 +24,10 @@
              tracking, therefore 72ch is 34px more on the heading than on the
              list. --}}
         <div class="faq-group">
-            <h2 class="faq__group">{{ $group }}</h2>
+            {{-- A link from a post can point at a whole group:
+                 `/faq/#faq-what-it-costs`. The prefix matches the one on a
+                 question, from faq-item. --}}
+            <h2 class="faq__group" id="faq-{{ \Illuminate\Support\Str::slug($group) }}">{{ $group }}</h2>
 
             <div class="faq">
                 @foreach ($questions as $question)
