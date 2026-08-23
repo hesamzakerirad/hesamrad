@@ -205,10 +205,11 @@ self-reported survey of 447 people, and people who've been hacked are more
 likely to answer a survey about hacking. The direction is believable. The
 precision isn't.
 
-## What a website does that a profile can't
+## Do you need a website if you already have Instagram?
 
 Now the positive case, because "the platform might break" is a reason to have a
-backup, not a reason to build anything good.
+backup, not a reason to build anything good. Here's what a website does that a
+social profile can't.
 
 **People still search.** DataReportal's Digital 2026 report, using GWI's global
 survey data, [puts search engines first for brand
