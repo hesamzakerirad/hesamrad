@@ -10,24 +10,13 @@
     page. Do not put the same set on two pages. Two pages with one identical set
     compete with each other, and a search engine can then accept neither page.
 
-    `@id` holds the canonical URL of the page, therefore each node has its own
-    identifier.
+    config.php builds the node, in `faqSchema`. A template cannot build it:
+    Blade compiles the word after an at sign as a directive, in the body and
+    inside a raw PHP block, and the key that carries the vocabulary becomes
+    compiled PHP. The identifier of the node holds the canonical URL of the
+    page, therefore each node has its own.
 
     Parameters:
       $items — rows from $page->siteFaq
 --}}
-<script type="application/ld+json">
-    {!! json_encode([
-        '@context' => 'https://schema.org',
-        '@type' => 'FAQPage',
-        '@id' => $page->getCanonicalUrl() . '#faq',
-        'mainEntity' => collect($items)->map(fn ($question) => [
-            '@type' => 'Question',
-            'name' => $question['q'],
-            'acceptedAnswer' => [
-                '@type' => 'Answer',
-                'text' => html_entity_decode(strip_tags(implode(' ', collect($question['a'])->all())), ENT_QUOTES, 'UTF-8'),
-            ],
-        ])->all(),
-    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-</script>
+<script type="application/ld+json">{!! $page->faqSchema($items) !!}</script>

@@ -142,6 +142,13 @@ return [
      *
      * `open => true` opens the question on load.
      *
+     * A group heading gets an identifier from its own text, therefore a post
+     * can link to a run of questions: `/faq/#faq-what-it-costs`. A question
+     * gets no identifier of its own.
+     *
+     * New wording for a group gives a new identifier and breaks a link that a
+     * post already holds. Read the posts before a change to a group name.
+     *
      * `link` puts one link under the answer. `href` accepts a path on this site
      * or a full URL, and a full URL opens in a new tab:
      *
@@ -598,6 +605,51 @@ return [
         $description = $page->toSummaryText($page->description, $length);
 
         return $description !== '' ? $description : $page->getExcerpt($length);
+    },
+
+    /**
+     * Returns the FAQPage node of the current page as encoded JSON, or ''.
+     *
+     * The node is built here and not in a template. Blade compiles the word
+     * after an at sign as a directive, in the body of a template and inside a
+     * raw PHP block, therefore '@context' in a template becomes compiled PHP
+     * and the node loses the key that makes it valid. Every FAQPage on this
+     * site carried that fault, and no page was eligible for the rich result.
+     * Keep this in a plain PHP file.
+     *
+     * $items accepts the two shapes this site holds: `a` is an array of
+     * paragraphs in `siteFaq` and one string in the `faq:` block of a post.
+     *
+     * JSON_HEX_TAG is necessary. A question that contains `</script>` closes
+     * the element, and the rest of the document then goes into the page as
+     * live markup.
+     */
+    'faqSchema' => function ($page, $items) {
+        $questions = collect($items)->map(function ($item) {
+            $answer = is_array($item['a']) || $item['a'] instanceof Traversable
+                ? implode(' ', collect($item['a'])->all())
+                : $item['a'];
+
+            return [
+                '@type' => 'Question',
+                'name' => $item['q'],
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => html_entity_decode(strip_tags((string)$answer), ENT_QUOTES, 'UTF-8'),
+                ],
+            ];
+        })->all();
+
+        if ($questions === []) {
+            return '';
+        }
+
+        return json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            '@id' => $page->getCanonicalUrl() . '#faq',
+            'mainEntity' => $questions,
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
     },
 
     'getRobotsStatus' => function ($page) {

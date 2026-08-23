@@ -40,6 +40,29 @@
 
     $shareImage = $absoluteUrl($page->thumbnail ?: '/assets/build/images/og-default.png');
     $thumbnail = $page->thumbnail ? $absoluteUrl($page->thumbnail) : null;
+
+    /*
+     * The size of the share card, measured and not assumed. These two tags
+     * held 850x470 for every post, and the post images are 1600x900, so every
+     * card declared a size that no file had.
+     *
+     * A thumbnail is a path in this repository, therefore the file is under
+     * source/ and getimagesize gives the true numbers. Jigsaw runs the build
+     * from the root of the project. A file that the test does not find writes
+     * no tags at all: both are optional, and a wrong number is worse than no
+     * number, because a platform reserves the space it is given.
+     */
+    $shareImageSize = ['width' => 1200, 'height' => 630];
+
+    if ($page->thumbnail) {
+        $shareImageSize = null;
+        $thumbnailFile = 'source/' . ltrim($page->thumbnail, '/');
+
+        if (! preg_match('#^(https?:)?//#i', $page->thumbnail) && is_file($thumbnailFile)) {
+            [$thumbnailWidth, $thumbnailHeight] = getimagesize($thumbnailFile);
+            $shareImageSize = ['width' => $thumbnailWidth, 'height' => $thumbnailHeight];
+        }
+    }
     $pageUrl = $page->getCanonicalUrl();
 @endphp
 
@@ -103,8 +126,10 @@
 
     <meta property="og:image" content="{{ $shareImage }}">
     <meta property="og:image:alt" content="{{ $title }}">
-    <meta property="og:image:width" content="{{ $page->thumbnail ? 850 : 1200 }}">
-    <meta property="og:image:height" content="{{ $page->thumbnail ? 470 : 630 }}">
+    @if ($shareImageSize)
+        <meta property="og:image:width" content="{{ $shareImageSize['width'] }}">
+        <meta property="og:image:height" content="{{ $shareImageSize['height'] }}">
+    @endif
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="{{ $shareImage }}">
     <meta name="twitter:image:alt" content="{{ $title }}">

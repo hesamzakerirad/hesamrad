@@ -9,6 +9,9 @@
 
     The answer stays in the document while the item is closed. Therefore a
     search engine can read the answer.
+
+    A question carries no `id`. A link from elsewhere points at the group it
+    sits under, from faq-list.
 --}}
 <details class="faq__item" @if ($question['open'] ?? false) open @endif>
     <summary class="faq__q">

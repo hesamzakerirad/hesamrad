@@ -251,23 +251,12 @@
      config.php. `a` is one string here and an array of paragraphs there, and
      this block writes no visible markup, because the post writes the questions
      itself. Do not pass these rows to _components.faq-list. --}}
+{{-- config.php builds the node. A template cannot: Blade compiles the word
+     after an at sign as a directive, and the key that carries the vocabulary
+     becomes compiled PHP. --}}
 @if ($page->faq)
     @push('scripts')
-        <script type="application/ld+json">
-            {!! json_encode([
-                '@context' => 'https://schema.org',
-                '@type' => 'FAQPage',
-                '@id' => $page->getCanonicalUrl() . '#faq',
-                'mainEntity' => collect($page->faq)->map(fn ($item) => [
-                    '@type' => 'Question',
-                    'name' => $item['q'],
-                    'acceptedAnswer' => [
-                        '@type' => 'Answer',
-                        'text' => html_entity_decode(strip_tags($item['a']), ENT_QUOTES, 'UTF-8'),
-                    ],
-                ])->all(),
-            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-        </script>
+        <script type="application/ld+json">{!! $page->faqSchema($page->faq) !!}</script>
     @endpush
 @endif
 
