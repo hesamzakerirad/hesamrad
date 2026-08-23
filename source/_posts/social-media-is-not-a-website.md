@@ -9,7 +9,7 @@ robots:
     - follow
 created_at: 2026-08-14
 updated_at: 2026-08-14
-readTime: 11
+readTime: 13
 isFeatured: false
 isPublished: true
 ctaTitle: 'Not sure what you actually need?'
