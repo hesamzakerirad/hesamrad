@@ -28,8 +28,8 @@ faq:
       a: 'No. Both live on somebody else''s account. If that account goes, they go with it. The test is simple: if the platform suspended you tomorrow, would the thing still exist? If the answer is no, you are renting.'
     - q: 'What should I own on day one?'
       a: 'The domain, the hosting account, the code, the analytics and the email list, all registered in your own name. Ask this of anybody who builds a site for you, including me.'
-thumbnail: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=2304&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-thumbnailAlt: ''
+thumbnail: "/assets/build/images/social-media-is-not-a-website.jpg"
+thumbnailAlt: 'A blue and cream OPEN sign hanging in the window of a small shop'
 thumbnailCopyRightSource: "https://unsplash.com/photos/gray-and-blue-open-signage-c9FQyqIECds"
 ---
 
