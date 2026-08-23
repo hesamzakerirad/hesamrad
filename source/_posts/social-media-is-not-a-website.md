@@ -1,8 +1,8 @@
 ---
 extends: _layouts.post
 section: content
-title: 'Social media is not a website: what your business actually owns'
-description: 'You can have 20,000 followers and own nothing at all. What the reach data, the ban waves and the search numbers actually show, with the weak statistics thrown out.'
+title: '10K Followers and You Own Nothing: Do You Need a Website?'
+description: 'Your followers are a permission the platform can withdraw. What the reach data, the ban waves and the search numbers say about whether you need a website.'
 tags:
 robots:
     - index
@@ -33,7 +33,7 @@ thumbnailAlt: ''
 thumbnailCopyRightSource: "https://unsplash.com/photos/gray-and-blue-open-signage-c9FQyqIECds"
 ---
 
-The question comes in almost the same words every time. "I've got 9,000
+The question comes in almost the same words every time. "I've got 10,000
 followers on Instagram and they buy from me. Why would I pay for a website?"
 
 It's a fair question and the usual answers are bad. "Every business needs a
