@@ -80,8 +80,8 @@
                  */
                 $stats = [
                     ['value' => $page->getMyYearsOfExperience() . '+', 'label' => 'Years building software'],
-                    ['value' => '500+', 'label' => 'Businesses serviced'],
-                    ['value' => '2 – 6', 'label' => 'Weeks, plan to launch'],
+                    ['value' => 'Free', 'label' => 'Written plan to keep'],
+                    ['value' => '2–6', 'label' => 'Weeks, plan to launch'],
                     ['value' => '1 day', 'label' => 'To hear back from me'],
                 ];
             @endphp
