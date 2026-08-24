@@ -257,6 +257,17 @@
     font-size: var(--text-xl);
 }
 
+/* The quotation marks belong to the presentation and not to the copy, so they
+   are set here. This is also the one place the site uses curly quotes: the
+   source files are plain ASCII everywhere else. */
+.card__title--quote::before {
+    content: '\201C';
+}
+
+.card__title--quote::after {
+    content: '\201D';
+}
+
 .card__body {
     margin: 0;
     color: var(--text);
@@ -340,6 +351,18 @@ a.card:hover .card__title {
 
 .grid--halves {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+/* Two columns and no more. auto-fit gives four cards a row of three and an
+   orphan at the shell width, which reads as a mistake. */
+.grid--pairs {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 48rem) {
+    .grid--pairs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 .stat-row {
@@ -2281,5 +2304,9 @@ textarea.field__input {
 .work__more {
     margin-top: var(--space-lg);
     margin-bottom: 0;
+    text-align: center;
+}
+
+.hero__route {
     text-align: center;
 }

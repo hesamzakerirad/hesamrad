@@ -5,9 +5,12 @@
 # site's asset URLs at localhost:5173.
 /source/hot
 /vendor/
+/notes/
 .DS_Store
 /cache/
 /.claude/
+/.claude/
+/.agents/
 /.venv
 # Bytecode from the build_*.py scripts.
 __pycache__/
