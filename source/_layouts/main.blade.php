@@ -114,8 +114,8 @@
         <meta property="og:description" content="{{ $description }}">
         <meta name="twitter:description" content="{{ $description }}">
     @endif
-    <meta name="twitter:site" content="@hesamzakerirad">
-    <meta name="twitter:creator" content="@hesamzakerirad">
+    <meta name="twitter:site" content="@radestsam">
+    <meta name="twitter:creator" content="@radestsam">
 
     {{-- Preload only the post's own thumbnail. It is the largest element above
          the fold on that page. The page does not show the default card, and a
