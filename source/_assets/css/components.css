@@ -406,6 +406,19 @@ a.card:hover .card__title {
     line-height: var(--leading-display);
 }
 
+/*
+ * The unit after the numeral: the per-cent sign, the plus, the word `min`.
+ * It is not part of the number and the page stops setting it as though it
+ * were. The smaller size keeps the numeral the thing the eye lands on, and
+ * `em` ties the unit to whatever size the figure takes at that width.
+ */
+.stat__unit {
+    font-size: 0.52em;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--text-dim);
+}
+
 .stat__label {
     display: block;
 
@@ -413,6 +426,7 @@ a.card:hover .card__title {
     color: var(--text-dim);
     font-size: var(--text-sm);
     line-height: var(--leading-body);
+    text-wrap: pretty;
 }
 
 .steps {
@@ -1391,11 +1405,83 @@ a.card:hover .card__title {
     }
 }
 
+/*
+ * The figures a case study ends on.
+ *
+ * The cells sit on a hairline grid rather than in a filled box. The rules
+ * between them come from the gap, which shows the background of the
+ * container, therefore each figure gets a real edge on every side and the
+ * set reads as a table of numbers instead of a row of loose text.
+ *
+ * Two columns at every width. Four figures across the article gives each one
+ * a quarter of it, which is not enough for a caption of any length and makes
+ * the set look crowded. Two columns and two rows give a caption room to sit
+ * on one line or two, and the figures still read as one block.
+ */
 .study__results {
-    padding: var(--space-md);
-    background: var(--surface);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--hairline);
+    padding: 0;
+    background: var(--line);
+    border: var(--hairline) solid var(--line);
     border-radius: var(--radius);
+    overflow: hidden;
+}
+
+/*
+ * An odd number of figures leaves a hole in the last row. The last figure
+ * takes the whole width instead, which closes the grid.
+ *
+ * The last cell of an odd set is at an odd position, and the last cell of an
+ * even set is at an even one, therefore the pair of selectors is the count of
+ * the whole set. A single figure matches as well, and takes the full width,
+ * which is correct.
+ */
+.study__results .stat:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
+.study__results .stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    padding: var(--space-md);
+    background: var(--surface-raised);
     border-top: 0;
+}
+
+.study__results .stat__value {
+    /*
+     * A shorter ceiling than the free-standing figure. Two of these share
+     * the width of the article, and the longest figure a case study carries
+     * is `48,000`, which has to stay inside its half.
+     */
+    font-size: clamp(1.625rem, 1.4vw + 1.2rem, 2.375rem);
+}
+
+.study__results .stat__label {
+    margin-top: auto;
+    padding-top: var(--space-xs);
+}
+
+/*
+ * A section adds space only where one block follows another. A heading
+ * carries its own space below it, therefore the first block in a section
+ * needs none. The rules apply to the free sections a case study defines
+ * for itself, which can put a paragraph before a block or after one.
+ */
+.study__section > p + .rows,
+.study__section > p + .stat-row,
+.study__section > .rows + p,
+.study__section > .stat-row + p {
+    margin-top: var(--space-md);
+}
+
+.study__note {
+    color: var(--text-dim);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
 }
 
 /*

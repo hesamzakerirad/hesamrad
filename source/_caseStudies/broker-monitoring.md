@@ -9,7 +9,7 @@ published: true
 sample: false
 client: null
 sector: 'Financial services'
-year: '2024'
+year: '2025'
 duration: 'One year, as lead engineer'
 summary: 'A brokerage could only see what its trading platform chose to report about its traders, which was not much and not the right things. Their own analysts had worked out what they needed to watch. This is the system that measures it, sitting between the broker and its clients without either side having to change how they work.'
 role: 'Lead engineer. The back end and the API architecture were mine end to end. The firm had its own people and its own tools for presentation, so building an interface would have duplicated what they already had. The engagement was scoped to the part they couldn''t do themselves.'

@@ -204,17 +204,70 @@
                     </section>
                 @endif
 
+                {{-- Free sections a case study adds for itself. Every case
+                     study has a different middle, and the named sections above
+                     cannot cover all of them. A section renders only the parts
+                     its front matter gives, so `heading` alone is valid, and a
+                     study with no `sections` key renders nothing here. --}}
+                @if ($page->sections)
+                    @foreach ($page->sections as $custom)
+                        <section class="study__section">
+                            <h2>{{ $custom['heading'] }}</h2>
+
+                            @if (!empty($custom['intro']))
+                                <p>{{ $custom['intro'] }}</p>
+                            @endif
+
+                            @if (!empty($custom['rows']))
+                                <div class="rows">
+                                    @foreach ($custom['rows'] as $row)
+                                        <div class="row">
+                                            <p class="row__key">{{ $row['key'] }}</p>
+                                            <div class="row__value">
+                                                <p>{{ $row['value'] }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </section>
+                    @endforeach
+                @endif
+
                 @if ($page->results)
                     <section class="study__section">
                         <h2>What changed</h2>
                         <div class="stat-row study__results">
                             @foreach ($page->results as $result)
-                                <div class="stat">
-                                    <span class="stat__value tabular">{{ $result['figure'] }}</span>
-                                    <span class="stat__label">{{ $result['caption'] }}</span>
-                                </div>
+                                @include('_components.stat', [
+                                    'figure' => $result['figure'],
+                                    'caption' => $result['caption'],
+                                ])
                             @endforeach
                         </div>
+                    </section>
+                @endif
+
+                {{-- Totals the work reached, as opposed to the before-and-after
+                     figures in `results`. The `note` carries the arithmetic
+                     behind a figure a reader would otherwise have to take on
+                     trust. --}}
+                @if ($page->achievements && ! empty($page->achievements['stats']))
+                    <section class="study__section">
+                        <h2>{{ $page->achievements['heading'] ?? 'What it added up to' }}</h2>
+
+                        <div class="stat-row study__results">
+                            @foreach ($page->achievements['stats'] as $stat)
+                                @include('_components.stat', [
+                                    'figure' => $stat['figure'],
+                                    'caption' => $stat['caption'],
+                                ])
+                            @endforeach
+                        </div>
+
+                        @if (!empty($page->achievements['note']))
+                            <p class="study__note">{{ $page->achievements['note'] }}</p>
+                        @endif
                     </section>
                 @endif
 
