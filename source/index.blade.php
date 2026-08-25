@@ -88,10 +88,10 @@
 
             <div class="stat-row stat-row--panel">
                 @foreach ($stats as $stat)
-                    <div class="stat">
-                        <span class="stat__value tabular">{{ $stat['value'] }}</span>
-                        <span class="stat__label">{{ $stat['label'] }}</span>
-                    </div>
+                    @include('_components.stat', [
+                        'figure' => $stat['value'],
+                        'caption' => $stat['label'],
+                    ])
                 @endforeach
             </div>
         </section>

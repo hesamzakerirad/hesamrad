@@ -406,6 +406,19 @@ a.card:hover .card__title {
     line-height: var(--leading-display);
 }
 
+/*
+ * The unit after the numeral: the per-cent sign, the plus, the word `min`.
+ * It is not part of the number and the page stops setting it as though it
+ * were. The smaller size keeps the numeral the thing the eye lands on, and
+ * `em` ties the unit to whatever size the figure takes at that width.
+ */
+.stat__unit {
+    font-size: 0.52em;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--text-dim);
+}
+
 .stat__label {
     display: block;
 
@@ -413,6 +426,7 @@ a.card:hover .card__title {
     color: var(--text-dim);
     font-size: var(--text-sm);
     line-height: var(--leading-body);
+    text-wrap: pretty;
 }
 
 .steps {
@@ -1391,11 +1405,69 @@ a.card:hover .card__title {
     }
 }
 
+/*
+ * The figures a case study ends on.
+ *
+ * The cells sit on a hairline grid rather than in a filled box. The rules
+ * between them come from the gap, which shows the background of the
+ * container, therefore each figure gets a real edge on every side and the
+ * set reads as a table of numbers instead of a row of loose text.
+ *
+ * The columns come from the width of a figure, not from a fixed count, so a
+ * section with two figures gives each one half the row and a section with
+ * four gives each one a quarter.
+ */
 .study__results {
-    padding: var(--space-md);
-    background: var(--surface);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
+    gap: var(--hairline);
+    padding: 0;
+    background: var(--line);
+    border: var(--hairline) solid var(--line);
     border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.study__results .stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    padding: var(--space-md) var(--space-sm);
+    background: var(--surface-raised);
     border-top: 0;
+}
+
+.study__results .stat__value {
+    /*
+     * A shorter ceiling than the free-standing figure. Four of these share
+     * the width of the article, and `48,000` at the larger size runs past
+     * the edge of its cell.
+     */
+    font-size: clamp(1.5rem, 1.3vw + 1.1rem, 2.125rem);
+}
+
+.study__results .stat__label {
+    margin-top: auto;
+    padding-top: var(--space-xs);
+}
+
+/*
+ * A section adds space only where one block follows another. A heading
+ * carries its own space below it, therefore the first block in a section
+ * needs none. The rules apply to the free sections a case study defines
+ * for itself, which can put a paragraph before a block or after one.
+ */
+.study__section > p + .rows,
+.study__section > p + .stat-row,
+.study__section > .rows + p,
+.study__section > .stat-row + p {
+    margin-top: var(--space-md);
+}
+
+.study__note {
+    color: var(--text-dim);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
 }
 
 /*
