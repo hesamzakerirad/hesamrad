@@ -49,7 +49,10 @@ disableContact: true
                     people who depend on it.
                 </p>
                 <p>
-                    So I started working independently in late 2025.
+                    So I started working independently in late 2025. If you're weighing one engineer against an
+                    agency, I've written down
+                    <a href="/blog/agency-or-one-independent-engineer/">the honest comparison</a>, including the
+                    jobs an agency is the better answer for.
                 </p>
             </div>
         </div>
