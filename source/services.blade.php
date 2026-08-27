@@ -81,7 +81,9 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
             <div class="section-head section-head--start">
                 <h2>What working with me is like.</h2>
                 <p class="dim">You should know how this goes before you commit to it. Nothing here waits until after
-                the contract is signed to show up.</p>
+                the contract is signed to show up. If you're comparing this against
+                <a href="/blog/agency-or-one-independent-engineer/">hiring an agency</a>, that post lays out both
+                sides.</p>
             </div>
 
             <ol class="steps">

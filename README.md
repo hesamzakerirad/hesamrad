@@ -191,6 +191,50 @@ Two fields control whether the case study appears:
 
 Name a client only when you have permission.
 
+## Redirect an old URL
+
+GitHub Pages sends static files. It cannot send a 301. To move a URL, make a
+stub page that redirects.
+
+**Step 1.** Make a new file in `source/_redirects/`. Give the file any name.
+
+**Step 2.** Write this front matter:
+
+```yaml
+---
+extends: _layouts.redirect
+redirectFrom: blog/the-old-address
+redirectTo: /the-new-address/
+---
+```
+
+`redirectFrom` is the old path. Write it without a slash at the start and
+without a slash at the end. This field controls the output path, and the file
+name does not. A nested address is therefore correct in this flat directory.
+
+`redirectTo` is the new address. Write it with a slash at the start and a slash
+at the end.
+
+The stub sends the reader with a meta refresh. It also gives a canonical link
+to the new address. Search engines obey both. The stub stays out of the
+sitemap, out of the blog list, and out of the feed.
+
+Delete the file when the old address stops getting traffic.
+
+### URLs that redirect on their own
+
+Search Console reports these four addresses as a page with a redirect. Each
+one is correct. Do not try to remove them:
+
+- `http://hesamrad.com/` goes to HTTPS.
+- `http://www.hesamrad.com/` and `https://www.hesamrad.com/` go to the address
+  without `www`.
+- An address without a slash at the end, such as `/projects`, goes to the same
+  address with a slash.
+
+The last one comes from a link somewhere outside this site. Every link in the
+site, in the sitemap, and in the feed already has the slash.
+
 ## The campaign switch
 
 `campaignIsLive` in `config.php` controls the Zero to One campaign.

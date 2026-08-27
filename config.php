@@ -462,6 +462,26 @@ return [
         'pages' => [
             'path' => '{filename}/',
         ],
+
+        /*
+         * URLs that used to have a page and now point somewhere else.
+         *
+         * The site is static and GitHub Pages cannot send a 301, so each item
+         * builds a stub page that redirects with a meta refresh. See
+         * _layouts/redirect.blade.php.
+         *
+         * `redirectFrom` is the old path without the leading or trailing slash,
+         * and it decides where the file is written. The filename does not, which
+         * is what lets a nested URL such as blog/some-post live in a flat
+         * directory. `redirectTo` is the destination, written as a site-relative
+         * path with both slashes.
+         *
+         * Delete an item once the old URL stops getting traffic. A redirect that
+         * nothing follows is a page a crawler still has to fetch.
+         */
+        'redirects' => [
+            'path' => fn($page) => trim($page->redirectFrom, '/').'/',
+        ],
     ],
 
     /**
