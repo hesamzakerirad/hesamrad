@@ -35,7 +35,9 @@ class GenerateSitemap
 
         collect($jigsaw->getOutputPaths())
             ->reject(function ($path) use ($jigsaw) {
-                return $this->isExcluded($path) || $this->isNoIndex($jigsaw, $path);
+                return $this->isExcluded($path)
+                    || $this->isNoIndex($jigsaw, $path)
+                    || $this->isRedirect($jigsaw, $path);
             })
             ->each(function ($path) use ($baseUrl, $destination, $sitemap, $jigsaw) {
                 $sitemap->addItem(
@@ -70,6 +72,34 @@ class GenerateSitemap
         }
 
         return str_contains(strtolower($page->getRobotsStatus()), 'noindex');
+    }
+
+    /**
+     * Whether the page is a redirect stub rather than a destination.
+     *
+     * A redirect belongs in no sitemap: the file asks a crawler to leave for
+     * another URL, and that other URL is the one listed. The test reads the
+     * `redirectTo` property, so a stub cannot be added without leaving.
+     *
+     * The `noindex` test above does not cover these. A redirect stub carries no
+     * robots directive on purpose, because a `noindex` would stop a crawler
+     * folding the old URL into the new one.
+     */
+    public function isRedirect(Jigsaw $jigsaw, $path)
+    {
+        $page = $jigsaw->getPages()[$path] ?? null;
+
+        if (! $page) {
+            return false;
+        }
+
+        // Do not use `empty` or `isset` on this. Front matter arrives through
+        // `__get`, and PHP asks `__isset` first, which a collection item does
+        // not answer for front matter. Both functions then report the value
+        // missing while a plain read returns it. Compare the value instead.
+        $destination = $page->redirectTo;
+
+        return is_string($destination) && trim($destination) !== '';
     }
 
     protected function url($baseUrl, $destination, $path)
