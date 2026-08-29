@@ -7,7 +7,9 @@ disableContact: true
 
 @section('title', 'Open Source')
 
-@section('description', 'Small open-source tools I built for my own work and published for anyone to use, plus a free URL shortener run as a non-profit.')
+{{-- Do not name a project here. A description built from the current entries
+     goes stale the next time one is added or retired. --}}
+@section('description', 'Open-source tools I built for my own work, and non-profit tools I run for public use. If one of them helps you, open an issue or send a pull request.')
 
 @section('body')
     <div class="shell section page-head">

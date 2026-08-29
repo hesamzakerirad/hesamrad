@@ -4,10 +4,11 @@
 @section('title', 'Hesam Rad - Independent Software Engineer')
 
 {{-- Keep this description below 120 characters. A phone cuts the search snippet
-     at approximately that length. --}}
-@section('description',
-    'I build the software behind a growing business, and the website in front of it. One man, start
-    to finish.')
+     at approximately that length.
+
+     Keep it on one line. A string broken across lines puts a real newline and
+     the indentation inside the content attribute. --}}
+@section('description', 'I build bespoke web software behind growing businesses, and the websites in front of them. One man, start to finish.')
 
 @section('body')
     {{-- The dot field covers the hero and the figures below it. It must stay on

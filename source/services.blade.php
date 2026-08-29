@@ -8,7 +8,9 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
 
 @section('title', 'Services')
 
-@section('description', 'The work I take on and the work I don\'t, how the work runs, what it costs, and how to start.')
+{{-- State what the page offers. A description that only lists the page's own
+     headings gets replaced by a sentence Google picks off the page. --}}
+@section('description', 'You get one engineer who builds all of it: the screens your customers use, the system behind them, and the work that keeps it running.')
 
 @section('body')
     <div class="shell section page-head">
