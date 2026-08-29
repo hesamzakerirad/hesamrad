@@ -365,10 +365,13 @@ good outcome from a bad one more reliably than any question about design. I've
 answered that one on my [FAQ page](/faq/#faq-what-you-own), and [how I run a
 project](/services/) is written down as well.
 
-If the next question is who builds it, I've put the two options side by side in
-[Agency or One Independent
-Engineer](/blog/agency-or-one-independent-engineer/), including the times the
-answer is an agency.
+If the next question is what to build it with, a website builder like Squarespace
+or something made for you, that one has an answer with numbers attached in
+[No-Code, Off-the-Shelf, or Custom
+Software](/blog/no-code-off-the-shelf-or-custom/). And if the question after that
+is who builds it, I've put the two options side by side in [Agency or One
+Independent Engineer](/blog/agency-or-one-independent-engineer/), including the
+times the answer is an agency.
 
 ## Summary
 
