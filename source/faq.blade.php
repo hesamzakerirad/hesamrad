@@ -8,7 +8,10 @@ contactIntro: "Ask it directly. You'll get a straight answer within a day, even 
 
 @section('title', 'Questions')
 
-@section('description', 'What it costs, how long it takes, what you own at the end, and what happens if I\'m unavailable. Every question I get asked before somebody hires me.')
+{{-- Answer the questions here, don't list them. A description that only names
+     the page's own headings gets replaced by a sentence Google picks off the
+     page. --}}
+@section('description', 'You own the code from the first day, it lives in your repository, and you know the price before you commit. The answers people want before we get started.')
 
 @php
     /*

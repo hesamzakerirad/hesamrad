@@ -15,7 +15,11 @@ disableContact: true
 
 @section('title', 'Blog')
 
-@section('description', 'Notes from the work: whatever I\'m building, using or working out at the time. Written for people who pay for software, not only those who write it.')
+{{-- Say what the writing is about, not which posts are on the page today. A
+     description built from the current posts goes stale the next time one is
+     published, and one that only names the genre gets replaced by a sentence
+     Google picks off the page. --}}
+@section('description', 'I write about software development, the world of business and how the two intersect. You don\'t need a technical background to follow any of it.')
 
 @section('body')
     <div class="shell section page-head">

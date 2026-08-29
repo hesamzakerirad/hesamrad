@@ -19,7 +19,11 @@ contactIntro: "A paragraph is enough. I'll tell you whether I've done something 
 
 @section('title', 'Work')
 
-@section('description', 'Selected projects: what the business needed, what I built, and what changed as a result.')
+{{-- Say what the projects are, not which ones are on the page today. A
+     description that lists the current entries goes stale the next time one is
+     added, and one that only lists the page's own headings gets replaced by a
+     sentence Google picks off the page. --}}
+@section('description', 'I built every system here end to end, for real businesses. Every one of them shipped and went into daily use.')
 
 @section('body')
     <div class="shell section page-head">

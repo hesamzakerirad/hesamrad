@@ -7,9 +7,9 @@ disableContact: true
 
 @section('title', 'About Hesam Rad')
 
-@section('description',
-    'Independent software engineer. Eight years building web software for businesses, five of them
-    looking after a single system for one client.')
+{{-- Keep this on one line. A string broken across lines puts a real newline and
+     the indentation inside the content attribute. --}}
+@section('description', 'I build bespoke web software for real businesses, and have since late 2017. One person, start to finish, and still around when it needs changing.')
 
 @section('body')
     <div class="shell section page-head">
