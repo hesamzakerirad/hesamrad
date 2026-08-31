@@ -335,75 +335,19 @@
              claims. --}}
         @php
             $review = $page->review;
-
-            $reviewInitials = collect(preg_split('/\s+/', trim($review['name'] ?? '')))
-                ->filter()
-                ->take(2)
-                ->map(fn ($part) => mb_strtoupper(mb_substr($part, 0, 1)))
-                ->implode('');
         @endphp
 
         @if ($review && ! empty($review['quote']))
-            {{-- The order here is the order a phone reads: the label, the
-                 review, then the person. On a wide screen the stylesheet moves
-                 the label and the person into a left rail beside the review.
-                 The <figure> keeps the review and the name tied together. --}}
-            <figure class="review">
-                <h2 class="review__label">What the client said</h2>
-
-                <blockquote class="review__quote">
-                    <p>{{ $review['quote'] }}</p>
-                </blockquote>
-
-                <figcaption class="review__author">
-                    {{-- The avatar and name classes come from the
-                         recommendation cards. The chip is the same one, so a
-                         person is drawn the same way everywhere. --}}
-                    <span class="quote__avatar" aria-hidden="true">
-                        {{ $reviewInitials }}
-                        @if (!empty($review['avatar']))
-                            <img class="quote__photo" src="{{ $review['avatar'] }}" alt=""
-                                loading="lazy" decoding="async" width="44" height="44" data-avatar>
-                        @endif
-                    </span>
-
-                    <span class="quote__who">
-                        <span class="quote__name">
-                            @if (!empty($review['url']))
-                                <a href="{{ $review['url'] }}" target="_blank" rel="noopener noreferrer">{{ $review['name'] }}</a>
-                            @else
-                                {{ $review['name'] }}
-                            @endif
-                        </span>
-
-                        @if (!empty($review['role']))
-                            <span class="quote__role">{{ $review['role'] }}</span>
-                        @endif
-
-                        {{-- The date tells the reader how old the review is. A
-                             review of work that finished years ago and a review
-                             written last month are different evidence. --}}
-                        @if (!empty($review['date']))
-                            @php
-                                /*
-                                 * `datetime` takes a year, a YYYY-MM, or a
-                                 * YYYY-MM-DD. The reader gets a month name
-                                 * where the front matter gives a month, and
-                                 * the bare year where it gives a year.
-                                 */
-                                $reviewDate = (string) $review['date'];
-                                $reviewDateText = match (substr_count($reviewDate, '-')) {
-                                    2 => date('j F Y', strtotime($reviewDate)),
-                                    1 => date('F Y', strtotime($reviewDate . '-01')),
-                                    default => $reviewDate,
-                                };
-                            @endphp
-
-                            <time class="review__date tabular" datetime="{{ $reviewDate }}">Written in {{ $reviewDateText }}</time>
-                        @endif
-                    </span>
-                </figcaption>
-            </figure>
+            {{-- The `feature` variant is the arrangement for one review at the
+                 end of a page: no box, larger text, and the label and the
+                 person in a left rail on a wide screen. The same template
+                 draws the cards elsewhere, so a person is drawn the same way
+                 everywhere. --}}
+            @include('_components.review', [
+                'review' => $review,
+                'variant' => 'feature',
+                'index' => 'study',
+            ])
         @endif
     </article>
 

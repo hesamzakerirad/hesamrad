@@ -120,5 +120,5 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
          `page => '/services/'` on a question in config.php. Do not add an include
          here, and do not repeat a question that /faq/ already shows. --}}
 
-    @include('_components.testimonials', ['limit' => 2])
+    @include('_components.reviews', ['only' => 'clients', 'limit' => 2])
 @endsection

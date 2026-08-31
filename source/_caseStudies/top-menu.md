@@ -78,6 +78,13 @@ review:
     quote: 'After several disappointing experiences with other agencies, I met Hesam in another attempt to work on my idea. He designed the entire system architecture from the ground up and built a robust, scalable backend that powered all our front-end applications seamlessly. After five years of hard work, he turned my concept into the city’s #1 best-selling menu application.'
     name: 'Mahdi Rasaei'
     role: 'Founder, Top Menu'
+    # How the author knows me. It is the line that tells a reader a client
+    # wrote this and not a coworker, so it must not be left out.
+    relationship: 'Client'
+    # A profile or company link, so a reader can check the review at its
+    # source the way the LinkedIn reviews can be checked. Leave it null and the
+    # name renders as plain text.
+    url: 'https://topmenumarket.com'
     # A year, a YYYY-MM, or a YYYY-MM-DD. The value goes in the `datetime`
     # attribute, therefore it must stay in one of those three shapes.
     date: '2025'

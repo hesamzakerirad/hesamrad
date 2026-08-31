@@ -237,23 +237,23 @@ function initReveal() {
 }
 
 /**
- * Testimonials: collapse the long ones, and survive a dead avatar URL.
+ * Reviews: collapse the long ones, and survive a dead avatar URL.
  *
  * The clamp is applied here rather than in the stylesheet so that a visitor
- * whose JavaScript failed sees every recommendation in full. These quotes are
+ * whose JavaScript failed sees every review in full. These reviews are
  * the only real proof on the site — truncating them by default and relying on
  * a script to restore them would be exactly the wrong way round.
  *
- * Only quotes that genuinely overflow get a control. A "read the rest" button
- * under a three-line quote is noise.
+ * Only reviews that genuinely overflow get a control. A "read the rest" button
+ * under a three-line review is noise.
  *
  * The cards are stacked rather than gridded, so nothing here has to reconcile
- * one card's height against another's — expanding a quote pushes the ones
+ * one card's height against another's — expanding a review pushes the ones
  * below it down and leaves them otherwise untouched.
  */
-function initQuotes() {
-    const quotes = document.querySelectorAll('.quote');
-    if (!quotes.length) return;
+function initReviews() {
+    const reviews = document.querySelectorAll('.review--card');
+    if (!reviews.length) return;
 
     /*
      * A LinkedIn avatar URL is signed and expires. When one dies the image is
@@ -268,35 +268,35 @@ function initQuotes() {
     });
 
     const apply = () => {
-        quotes.forEach((quote) => {
-            const text = quote.querySelector('.quote__text');
-            const toggle = quote.querySelector('[data-quote-toggle]');
+        reviews.forEach((review) => {
+            const text = review.querySelector('.review__text');
+            const toggle = review.querySelector('[data-review-toggle]');
             if (!text || !toggle) return;
 
             // Measure against the clamp, then keep it only if it cut something
             // off. Reading scrollHeight while unclamped would always match
-            // clientHeight and every quote would look short enough.
-            quote.classList.add('is-clamped');
+            // clientHeight and every review would look short enough.
+            review.classList.add('is-clamped');
 
             /*
              * A full line has to be hidden before this is worth a control.
-             * Narrow columns push a quote a fraction past the clamp constantly,
+             * Narrow columns push a review a fraction past the clamp constantly,
              * and "read the rest" that reveals seven words is worse than the
              * seven words simply not being there.
              */
             const lineHeight = parseFloat(getComputedStyle(text).lineHeight) || 0;
             const overflows = text.scrollHeight - text.clientHeight > lineHeight;
 
-            quote.classList.toggle('is-clamped', overflows);
+            review.classList.toggle('is-clamped', overflows);
             toggle.hidden = !overflows;
 
             if (!overflows) return;
 
-            const more = toggle.querySelector('[data-quote-more]');
-            const less = toggle.querySelector('[data-quote-less]');
+            const more = toggle.querySelector('[data-review-more]');
+            const less = toggle.querySelector('[data-review-less]');
 
             toggle.onclick = () => {
-                const expanded = quote.classList.toggle('is-clamped') === false;
+                const expanded = review.classList.toggle('is-clamped') === false;
                 toggle.setAttribute('aria-expanded', String(expanded));
                 if (more) more.hidden = expanded;
                 if (less) less.hidden = !expanded;
@@ -619,7 +619,7 @@ initHighlighting();
 initTheme();
 initHeader();
 initReveal();
-initQuotes();
+initReviews();
 initCopyButtons();
 initContents();
 initYear();

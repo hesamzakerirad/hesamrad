@@ -66,7 +66,21 @@ results:
       caption: 'paid platforms replaced, and their subscriptions with them'
     - figure: 'Every'
       caption: 'measure watched continuously, where a person used to check by hand'
-review: null
+review:
+    quote: 'I hoped we would get to work with Hesam from the day I met him. Professionalism, to me, is about how someone deals with people, how versatile they are, and how well they read a situation, and he had all of it. We brought him onto what was probably the hardest project our team had taken on, a platform built on the data sitting in our broker servers. He stayed with it, he was disciplined about it, and he was someone you could hand anything to and stop worrying about. I hope we work with him again.'
+    # `client: null` above and the confidentiality note in `coverNote` both
+    # apply here. The author signs with initials rather than a full name, and
+    # the link goes to the profile that carries them, so the review stays
+    # checkable without naming the firm. Do not expand the initials.
+    name: 'YARTA R.R.'
+    role: 'Lead Financial Analyst'
+    url: 'https://www.linkedin.com/in/yarta-r-r-05ba2a252/'
+    # How the author knows me. It is the line that tells a reader a client
+    # wrote this and not a coworker, so it must not be left out.
+    relationship: 'Client'
+    # A year, a YYYY-MM, or a YYYY-MM-DD. The value goes in the `datetime`
+    # attribute, therefore it must stay in one of those three shapes.
+    date: '2025'
 differently: 'The first thresholds I implemented were wrong, and shadow mode is what told us, after weeks of watching the rules fire against test accounts where a bad call harmed nobody. I built that shadow mode after the rules. I would build it first next time, so it is the thing thresholds get tuned in rather than the thing that catches them being wrong months later.'
 cover:
     src: /assets/build/images/broker-monitoring.jpg

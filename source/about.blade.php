@@ -126,7 +126,7 @@ disableContact: true
         </section>
     @endif
 
-    @include('_components.testimonials')
+    @include('_components.reviews', ['only' => 'clients', 'limit' => 2])
 
     <section class="shell section">
         <div class="callout">
