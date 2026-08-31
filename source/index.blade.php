@@ -186,5 +186,5 @@
 
     {{-- No band. The section above this one is a band, and two together make
          one block of color with no edge between them. --}}
-    @include('_components.testimonials', ['band' => false])
+    @include('_components.reviews', ['band' => false, 'only' => 'clients', 'limit' => 2])
 @endsection

@@ -367,18 +367,26 @@ return [
         ] : []),
     ],
 
-    // The link to the full set of recommendations. Set it to null to remove the
-    // link. Do not change the component.
-    'testimonialsUrl' => 'https://www.linkedin.com/in/hesamrad/details/recommendations/',
+    // The link to the full set of reviews on LinkedIn. Set it to null to remove
+    // the link. Do not change the component.
+    'reviewsUrl' => 'https://www.linkedin.com/in/hesamrad/details/recommendations/',
 
     /*
-     * Recommendations, quoted from LinkedIn.
+     * Reviews written by people I worked with, quoted from LinkedIn.
      *
-     * Use real recommendations only. A visitor can open the profile of the
-     * author and read the recommendation there. An invented quote removes that
-     * capability.
+     * Client reviews do not belong here. Each one lives in the `review` key of
+     * its own case study in source/_caseStudies/, because a client review and
+     * the work it describes belong together and must never drift apart. The
+     * reviews component reads both sources and merges them.
      *
-     * `url` must point to the recommendation or to the profile of the author.
+     * Use real reviews only. A visitor can open the profile of the author and
+     * read the review there. An invented quote removes that capability.
+     *
+     * `relationship` is what tells a reader who wrote the review, therefore
+     * every entry needs one. Write 'Colleague' here. A client review says
+     * 'Client' in the front matter of its case study.
+     *
+     * `url` must point to the review or to the profile of the author.
      *
      * `avatar` is optional and accepts any image URL. Do not use a LinkedIn
      * URL: media.licdn.com signs its URLs, the URLs expire after some weeks,
@@ -386,16 +394,7 @@ return [
      * source/_assets/images/ and use that path. If the image does not load, the
      * component shows the initials.
      */
-    'testimonials' => [
-        [
-            'quote' => 'I can confidently say that Hesam is one of the most disciplined person I have ever had the opportunity to work with. His leadership skills are excellent and he always ensures that his team is performing at its best. His commitment to delivering high-quality results shows in every project he handles. If you\'re looking for a Back-end development role, I highly recommend Hesam who makes a positive impact on any team he joins.',
-            'name' => 'Amir Sorayaei',
-            'role' => 'Senior Front-end Developer',
-            'relationship' => 'Colleague and Co-founder of a startup',
-            'url' => 'https://www.linkedin.com/in/amir-sorayaei',
-            'avatar' => null,
-        ],
-
+    'reviews' => [
         [
             'quote' => 'I had the privilege of working alongside Hesam from my very first day as an intern, and I can confidently say he played a pivotal role in shaping my growth as a developer. As a backend developer, Hesam combines deep technical expertise with a rare quality—genuine patience in mentoring others. What sets Hesam apart isn\'t just his technical skill; it\'s his willingness to stop what he\'s doing to explain a concept, debug an issue together, or share the why behind a decision—not just the how. Many of the habits and best practices I rely on today were shaped by his guidance. Beyond his technical abilities, Hesam is the kind of teammate every engineering team needs: reliable, collaborative, and genuinely invested in the success of those around him. Any team would be lucky to have him.',
             'name' => 'Shahin Behzad Rad',
@@ -403,15 +402,17 @@ return [
             'relationship' => 'Colleague',
             'url' => 'https://www.linkedin.com/in/shahin-behzadrad',
             'avatar' => null,
+            'date' => '2026',
         ],
 
         [
-            'quote' => 'The most disciplined coworker I’ve ever had. Hesam is extremely focused and giving up is not an option for him. He’s actually the man who gets things done no matter what it takes. His enthusiasm to learn new things is unbelievable. He’s the one you can get inspired by.',
-            'name' => 'Sina Nakhaei',
-            'role' => 'Android Developer',
-            'relationship' => 'Colleague',
-            'url' => 'https://www.linkedin.com/in/sina-nakhaei',
-            'avatar' => null
+            'quote' => 'I can confidently say that Hesam is one of the most disciplined person I have ever had the opportunity to work with. His leadership skills are excellent and he always ensures that his team is performing at its best. His commitment to delivering high-quality results shows in every project he handles. If you\'re looking for a Back-end development role, I highly recommend Hesam who makes a positive impact on any team he joins.',
+            'name' => 'Amir Sorayaei',
+            'role' => 'Senior Front-end Developer',
+            'relationship' => 'Colleague and Co-founder of a startup',
+            'url' => 'https://www.linkedin.com/in/amir-sorayaei',
+            'avatar' => null,
+            'date' => '2025',
         ],
 
         [
@@ -420,7 +421,18 @@ return [
             'role' => 'Front-end Developer',
             'relationship' => 'Colleague',
             'url' => 'https://www.linkedin.com/in/ramin-kheradmand-5733b4199',
-            'avatar' => null
+            'avatar' => null,
+            'date' => '2023',
+        ],
+
+        [
+            'quote' => 'The most disciplined coworker I’ve ever had. Hesam is extremely focused and giving up is not an option for him. He’s actually the man who gets things done no matter what it takes. His enthusiasm to learn new things is unbelievable. He’s the one you can get inspired by.',
+            'name' => 'Sina Nakhaei',
+            'role' => 'Android Developer',
+            'relationship' => 'Colleague',
+            'url' => 'https://www.linkedin.com/in/sina-nakhaei',
+            'avatar' => null,
+            'date' => '2023',
         ],
     ],
 

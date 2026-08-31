@@ -883,54 +883,75 @@ a.card:hover .card__title {
     color: var(--text-dim);
 }
 
-.quotes {
+/*
+ * Reviews.
+ *
+ * One block with two modifiers, because a client review and a coworker review
+ * are the same thing and only the arrangement differs:
+ *
+ *   .review--card     a box in a set. Several arrive together, and the boxes
+ *                     tell one from the next. The text clamps.
+ *   .review--feature  one review at the end of a case study. No box and a
+ *                     larger size, because nothing follows it and there is
+ *                     nothing to tell it apart from.
+ *
+ * Everything that draws the person (`__avatar`, `__who`, `__name`, `__role`)
+ * is shared, so a person is drawn the same way in both.
+ */
+.reviews {
     display: grid;
-    gap: var(--space-md);
+    gap: clamp(1.5rem, 2.4vw, 2.5rem);
 }
 
-.quotes__more {
+.reviews__more {
     margin-top: var(--space-lg);
     margin-bottom: 0;
     text-align: center;
 }
 
-.quote {
+.review {
     margin: 0;
-    padding: clamp(1.5rem, 3vw, var(--space-lg));
+}
+
+.review--card {
+    padding: clamp(1.75rem, 3.4vw, 3.25rem);
     background: var(--surface-raised);
     border: var(--hairline) solid var(--line);
     border-radius: var(--radius-lg);
 }
 
 @media (min-width: 768px) {
-    .quote {
+    .review--card {
         display: grid;
         grid-template-columns: 12rem 1fr;
         column-gap: var(--space-lg);
         align-items: start;
     }
 
-    .quote__body {
+    .review--card .review__body {
         grid-column: 2;
         grid-row: 1;
     }
 
-    .quote__toggle {
+    .review__toggle {
         grid-column: 2;
         grid-row: 2;
     }
 
-    .quote__author {
+    .review--card .review__author {
         grid-column: 1;
         grid-row: 1 / span 2;
     }
 }
 
-.quote__body {
+.review__body {
     position: relative;
 }
 
-.quote__body::before {
+/* The oversized opening mark belongs to the card only. The feature review
+   hangs its own punctuation in the margin instead, which is the finer
+   treatment and needs the space this mark would occupy. */
+.review--card .review__body::before {
     content: '\201C';
     position: absolute;
     top: -1.75rem;
@@ -942,7 +963,7 @@ a.card:hover .card__title {
     pointer-events: none;
 }
 
-.quote__text {
+.review__text {
     max-width: var(--measure);
     margin: 0;
     padding: 0;
@@ -953,15 +974,21 @@ a.card:hover .card__title {
     letter-spacing: var(--tracking-tight);
 }
 
-.quote.is-clamped .quote__text {
+/* The feature quote is display size and stays at the tighter lede leading.
+   A card quote is body size across a longer measure, where 1.5 reads better. */
+.review--card .review__text {
+    line-height: var(--leading-body);
+}
+
+.review--card.is-clamped .review__text {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: var(--quote-lines, 6);
-    line-clamp: var(--quote-lines, 6);
+    -webkit-line-clamp: var(--review-lines, 6);
+    line-clamp: var(--review-lines, 6);
     overflow: hidden;
 }
 
-.quote__toggle {
+.review__toggle {
     justify-self: start;
     margin-top: var(--space-sm);
     padding: 0.35rem 0;
@@ -972,32 +999,46 @@ a.card:hover .card__title {
     text-underline-offset: 0.2em;
 }
 
-.quote__toggle:hover {
+.review__toggle:hover {
     color: var(--accent-hover);
 }
 
-.quote__author {
+/*
+ * Stacked, the avatar sits beside the byline. It aligns to the top of it and
+ * not to its middle: the byline runs to five lines and a rule, and centring a
+ * 3rem circle against that leaves it floating in space with the name high
+ * above it. The nudge is optical, lining the circle up with the cap height of
+ * the name rather than with the top of its line box.
+ */
+.review__author {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-xs);
     margin-top: var(--space-md);
 }
 
 @media (min-width: 768px) {
-    .quote__author {
+    .review--card .review__author {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--space-xs);
+        gap: var(--space-sm);
         margin-top: 0;
+
+        /* The quotation mark hangs above the first line of the quote, so the
+           rail starts a little low to sit against the text and not the mark. */
+        padding-top: 0.4rem;
     }
 }
 
-.quote__avatar {
+.review__avatar {
     position: relative;
     display: grid;
     place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 3rem;
+    height: 3rem;
+
+    /* Optical alignment with the cap height of the name, not its line box. */
+    margin-top: 0.15rem;
     flex: none;
     border-radius: 50%;
     overflow: hidden;
@@ -1009,7 +1050,22 @@ a.card:hover .card__title {
     letter-spacing: 0.02em;
 }
 
-.quote__photo {
+/* A withheld name has no initials. The circle keeps the shape of a person
+   without inventing a letter for one the byline is not naming. */
+.review__avatar--anonymous {
+    background: color-mix(in srgb, var(--text-faint) 14%, transparent);
+}
+
+.review__avatar--anonymous::after {
+    content: '';
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    border: 0.125rem solid var(--text-faint);
+    opacity: 0.65;
+}
+
+.review__photo {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1017,31 +1073,81 @@ a.card:hover .card__title {
     object-fit: cover;
 }
 
-.quote__who {
+/*
+ * The byline holds two groups: who the person is, then where the review can be
+ * checked. It was built for three lines and now carries five, so the gap does
+ * real work. At 0.1rem the five ran together into one block of grey.
+ */
+.review__who {
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
+    gap: 0.2rem;
     font-size: var(--text-sm);
     min-width: 0;
 }
 
-.quote__name {
+/* One step above the role and the relationship under it. The rail is five
+   lines of small text, and without this the name is only a weight. */
+.review__name {
     color: var(--heading);
+    font-size: 0.9375rem;
     font-weight: 600;
+    letter-spacing: var(--tracking-body);
 }
 
-.quote__name a {
+.review__name a {
     display: inline-block;
     padding-block: 0.25rem;
 }
 
-.quote__role {
+.review__provenance {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+/* The rule belongs to the card only. The feature review already sits under one
+   in its rail, and a second would cut the same short column twice. */
+.review--card .review__provenance {
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: var(--hairline) solid var(--line);
+}
+
+/* A withheld name is not a name, therefore it does not get the weight of one.
+   It reads as the note it is. */
+.review__withheld {
+    color: var(--text-dim);
+    font-weight: 400;
+    font-style: italic;
+}
+
+.review__role {
     color: var(--text-dim);
 }
 
-.quote__relationship {
+.review__relationship {
     color: var(--text-dim);
     font-style: italic;
+}
+
+.review__study {
+    color: var(--accent);
+    font-size: var(--text-xs);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-wrap: balance;
+}
+
+.review__study:hover {
+    color: var(--accent-hover);
+}
+
+/* Inside the provenance group the gap sets the spacing, so the date drops the
+   margin it needs when it follows the role directly in a feature review. */
+.review__provenance .review__date {
+    margin-top: 0;
 }
 
 .faq {
@@ -1487,23 +1593,23 @@ a.card:hover .card__title {
 /*
  * The client review that closes a case study.
  *
- * The recommendation cards elsewhere sit in boxes, because they arrive in sets
- * and the boxes tell one from the next. This is one review from the person who
- * paid for the work, and it is the last thing on the page, so it gets no box
- * and a larger size. The rule above it is the only edge it needs.
+ * The cards elsewhere sit in boxes, because they arrive in sets and the boxes
+ * tell one from the next. This is one review from the person who paid for the
+ * work, and it is the last thing on the page, so it gets no box and a larger
+ * size. The rule above it is the only edge it needs.
  *
  * On a wide screen the label and the person share a 12rem rail and the review
- * runs beside them, which is the arrangement the recommendation cards use.
- * Below 900px the three stack in reading order: label, review, person.
+ * runs beside them, which is the arrangement the cards use. Below 900px the
+ * three stack in reading order: label, review, person.
  */
-.review {
+.review--feature {
     margin: var(--space-xl) 0 0;
     padding: var(--space-lg) 0 0;
     border-top: var(--hairline) solid var(--line);
 }
 
 @media (min-width: 900px) {
-    .review {
+    .review--feature {
         display: grid;
         grid-template-columns: 12rem minmax(0, 1fr);
         column-gap: var(--space-lg);
@@ -1516,12 +1622,12 @@ a.card:hover .card__title {
 
     /* The review spans both rows, therefore it sets the height of the block and
        the rail holds the label and the person against it. */
-    .review__quote {
+    .review--feature .review__body {
         grid-column: 2;
         grid-row: 1 / span 2;
     }
 
-    .review__author {
+    .review--feature .review__author {
         grid-column: 1;
         grid-row: 2;
         align-self: start;
@@ -1547,49 +1653,37 @@ a.card:hover .card__title {
     }
 }
 
-.review__quote {
+.review--feature .review__text {
     max-width: 46ch;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    color: var(--heading);
     font-size: var(--text-xl);
-    line-height: var(--leading-lede);
-    letter-spacing: var(--tracking-tight);
 
     /* At this size a one-word last line is visible from across the room. */
     text-wrap: pretty;
 }
 
-.review__quote p {
+.review__text p {
     margin: 0;
 }
 
 /* Hanging punctuation. The opening mark sits in the margin, therefore the
    first line of the review starts on the same left edge as the lines under it.
    A quotation mark inside the column pushes the first line right and the edge
-   reads as broken. */
-.review__quote p::before {
+   reads as broken. The card does not get this: it draws the oversized mark
+   above the text instead. */
+.review--feature .review__text p::before {
     content: '\201C';
     margin-inline-start: -0.42em;
 }
 
-.review__quote p::after {
+.review--feature .review__text p::after {
     content: '\201D';
-}
-
-.review__author {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    margin-top: var(--space-md);
 }
 
 @media (min-width: 900px) {
     /* In the rail the person reads as a byline: the chip above the name, under
        a rule that separates them from the label. The rule is short, because it
        is the width of the rail and not of the page. */
-    .review__author {
+    .review--feature .review__author {
         flex-direction: column;
         align-items: flex-start;
         padding-top: var(--space-md);
