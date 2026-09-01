@@ -59,8 +59,10 @@
     ];
 
     $pageNode = [
+        '@type' => 'WebPage',
         '@id' => $pageUrl . '#webpage',
         'url' => $pageUrl,
+        'name' => $title,
         'inLanguage' => $page->getLanguage(),
         'isPartOf' => ['@id' => $websiteId],
     ];
@@ -70,45 +72,72 @@
         $pageNode['description'] = $description;
     }
 
+    /*
+     * The article is a node of its own, beside the page that carries it.
+     *
+     * The two were one node before, with the identifier of the page and the
+     * type of the article. `mainEntityOfPage` then pointed at an identifier
+     * that no node in the graph declared, and the reference resolved to
+     * nothing. A document and the work printed in it are two things, and the
+     * pair of properties below is how they name each other.
+     */
+    $article = null;
+
     if ($page->isPost($page)) {
         // Use the post's own title, not the document title. `name` and
-        // `headline` describe the same article, and they must agree.
-        $pageNode = array_merge($pageNode, [
+        // `headline` describe the same article, and they must agree. The
+        // document title, with its brand suffix, belongs to the page node.
+        $article = [
             '@type' => 'BlogPosting',
+            '@id' => $pageUrl . '#article',
             'name' => $page->title,
             'headline' => $page->title,
+            'url' => $pageUrl,
+            'inLanguage' => $page->getLanguage(),
             'datePublished' => $page->getCreatedAtDateObject()->format('c'),
             'dateModified' => $page->getUpdatedAtObject()->format('c'),
             'author' => ['@id' => $person['@id']],
             'publisher' => ['@id' => $person['@id']],
+            'isPartOf' => ['@id' => $pageNode['@id']],
             // Google uses this property to connect the article to its page.
             // Without it, the BlogPosting node and the WebPage node stay
             // separate objects in the same document.
-            'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $pageUrl],
-        ]);
+            'mainEntityOfPage' => ['@id' => $pageNode['@id']],
+        ];
+
+        if ($description !== '') {
+            $article['description'] = $description;
+        }
 
         /*
          * An article must have an `image` property to be eligible for a rich
          * result. $shareImage is the post's own image, or the default card when
          * the post has no image. The property is thus never absent.
          */
-        $pageNode['image'] = $thumbnail ?: $shareImage;
+        $article['image'] = $thumbnail ?: $shareImage;
 
         // A blank `tags:` entry in the post template gives [null]. That array
         // is truthy, but it implodes to an empty string.
         $keywords = collect($page->tags)->filter()->implode(', ');
 
         if ($keywords !== '') {
-            $pageNode['keywords'] = $keywords;
+            $article['keywords'] = $keywords;
         }
-    } else {
-        $pageNode = array_merge($pageNode, [
-            '@type' => 'WebPage',
-            'name' => $title,
-            // Only a plain page is "about" the author of the site. An article
-            // is about its own subject.
-            'about' => ['@id' => $person['@id']],
-        ]);
+
+        $pageNode['mainEntity'] = ['@id' => $article['@id']];
+    }
+
+    /*
+     * `about` names the subject of the page, and only two pages have the person
+     * for a subject: the home page and /about/.
+     *
+     * Each page that was not a post carried this property before. It told a
+     * search engine that /services/ is a page about a human being, that /faq/
+     * is, and that the 404 page is. A page with no one subject gets no `about`.
+     * An absent property says nothing; an incorrect one says something false.
+     */
+    if (! $article && ($page->isHomePage() || $page->aboutsAuthor)) {
+        $pageNode['about'] = ['@id' => $person['@id']];
     }
 
     /*
@@ -164,6 +193,11 @@
             '@id' => $pageUrl . '#breadcrumbs',
             'itemListElement' => $items,
         ];
+
+        // The trail belongs to this page. Without the reference, the list is a
+        // loose object that shares the document with the page and says nothing
+        // about it.
+        $pageNode['breadcrumb'] = ['@id' => $crumbs['@id']];
     }
 
     /*
@@ -179,7 +213,7 @@
     $jsonLd = json_encode(
         [
             '@context' => 'https://schema.org',
-            '@graph' => array_values(array_filter([$person, $website, $pageNode, $crumbs])),
+            '@graph' => array_values(array_filter([$person, $website, $pageNode, $article, $crumbs])),
         ],
         JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
     );
