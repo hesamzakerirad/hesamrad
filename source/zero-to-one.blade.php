@@ -316,8 +316,9 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
          carries no price and no campaign: a price on /about/ or on a post is a
          price for a service that page does not describe.
 
-         `provider` points at the ProfessionalService node that the shared
-         include declares, so the two agree without repeating the business.
+         `provider` points at the Person node that the shared include declares,
+         so the two agree without repeating the business. One person is the
+         whole business here, and `provider` accepts a Person.
 
          The figures come from `pricing` in config.php, which is also what the
          price block above reads. A search engine and a reader thus cannot be
@@ -332,7 +333,7 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
                 'url' => $page->getCanonicalUrl(),
                 'price' => (string) $page->pricing['setup'],
                 'priceCurrency' => $page->pricing['currency'],
-                'provider' => ['@id' => $page->baseUrl . '/#business'],
+                'provider' => ['@id' => $page->baseUrl . '/#person'],
                 'itemOffered' => [
                     '@type' => 'Service',
                     'name' => 'Zero to One',

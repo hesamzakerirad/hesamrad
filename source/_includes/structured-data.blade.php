@@ -1,13 +1,49 @@
 @php
+    /*
+     * The home URL, with the trailing slash the host serves. Every node that
+     * points at the site must use this one string. `baseUrl` has no trailing
+     * slash, and the canonical home page does, so the raw value and the
+     * canonical URL are two names for one address.
+     */
+    $homeUrl = rtrim($page->baseUrl, '/') . '/';
+
     $websiteId = $page->baseUrl . '/#website';
 
+    /*
+     * One person is the whole business, therefore one node carries both. There
+     * is no second node for the company.
+     *
+     * The site had a `ProfessionalService` node beside this one. Two nodes with
+     * the same name, the same address and the same social profiles give a
+     * search engine two candidates for one entity, and each one gets a part of
+     * the evidence. `ProfessionalService` is also a `LocalBusiness`, which must
+     * carry a street address, and there is no premises to give. schema.org
+     * itself now advises against the type.
+     *
+     * The service a visitor can buy is not here. This node is on every page,
+     * and a page about a post does not sell anything. services.blade.php
+     * declares the services, and each one names this node as its provider.
+     */
     $person = [
         '@type' => 'Person',
         '@id' => $page->baseUrl . '/#person',
         'name' => $page->siteAuthor,
-        'url' => $page->baseUrl,
+        'url' => $homeUrl,
         'jobTitle' => $page->siteDescription,
+        'email' => $page->email,
         'sameAs' => $page->socialProfiles,
+        // Add only a subject the site writes about. This list tells a search
+        // engine what the person is an authority on, and a claim with no page
+        // behind it is an empty claim.
+        'knowsAbout' => [
+            'Web application development',
+            'Laravel',
+            'Next.js',
+            'Software architecture',
+        ],
+        // `knowsLanguage`, not `availableLanguage`. The second belongs to a
+        // service or a contact point, and a Person does not accept it.
+        'knowsLanguage' => ['English', 'Persian'],
     ];
 
     // This node has a fixed @id. Each page must describe it in the same way.
@@ -15,62 +51,11 @@
     $website = [
         '@type' => 'WebSite',
         '@id' => $websiteId,
-        'url' => $page->baseUrl,
+        'url' => $homeUrl,
         'name' => $page->siteName,
         'description' => $page->siteDescription,
         'inLanguage' => $page->defaultLanguage,
         'publisher' => ['@id' => $person['@id']],
-    ];
-
-    /*
-     * This node tells a search engine that the site is a service provider.
-     *
-     * Add only a claim that the site also makes in its text. The area served is
-     * the area in the footer and in the FAQ.
-     *
-     * This node carries no price and names no campaign. It is on every page,
-     * and a price on /about/ or on a post is a price for a service that page
-     * does not describe. A page that states a price declares its own Offer.
-     * /zero-to-one/ is the one page that does.
-     */
-    $business = [
-        '@type' => 'ProfessionalService',
-        '@id' => $page->baseUrl . '/#business',
-        'name' => $page->siteName,
-        'url' => $page->baseUrl,
-        'description' => $page->siteDescription,
-        'founder' => ['@id' => $person['@id']],
-        'sameAs' => $page->socialProfiles,
-        'email' => $page->email,
-        'priceRange' => '$$',
-        'areaServed' => [
-            ['@type' => 'Place', 'name' => 'Europe'],
-            ['@type' => 'Place', 'name' => 'North America'],
-        ],
-        'availableLanguage' => ['English', 'Persian'],
-        'hasOfferCatalog' => [
-            '@type' => 'OfferCatalog',
-            'name' => 'Software development services',
-            // Zero to One is not in this catalog. Its Offer carries a price, and
-            // the price belongs on the page that states it. zero-to-one.blade.php
-            // declares that Offer and points it back at this node.
-            'itemListElement' => [
-                [
-                    '@type' => 'Offer',
-                    'itemOffered' => [
-                        '@type' => 'Service',
-                        'name' => 'Custom software',
-                        'description' => 'A product built end to end: the screens customers use, the system behind them, and the release process that keeps it running.',
-                        'serviceType' => 'Custom software development',
-                        'url' => $page->baseUrl . '/services/',
-                    ],
-                    // This offer states no money at all. The site publishes no
-                    // price for custom work, and a currency with no price says
-                    // nothing. Keeping it also made this file read `pricing`,
-                    // which exists for the campaign.
-                ],
-            ],
-        ],
     ];
 
     $pageNode = [
@@ -194,7 +179,7 @@
     $jsonLd = json_encode(
         [
             '@context' => 'https://schema.org',
-            '@graph' => array_values(array_filter([$person, $website, $business, $pageNode, $crumbs])),
+            '@graph' => array_values(array_filter([$person, $website, $pageNode, $crumbs])),
         ],
         JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
     );
