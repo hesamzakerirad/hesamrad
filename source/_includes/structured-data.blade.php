@@ -82,6 +82,7 @@
      * pair of properties below is how they name each other.
      */
     $article = null;
+    $imageNode = null;
 
     if ($page->isPost($page)) {
         // Use the post's own title, not the document title. `name` and
@@ -113,8 +114,28 @@
          * An article must have an `image` property to be eligible for a rich
          * result. $shareImage is the post's own image, or the default card when
          * the post has no image. The property is thus never absent.
+         *
+         * The image is a node and not an address. A bare address gives a search
+         * engine no size, and it must then fetch the file to learn whether the
+         * picture is large enough for the result it is being considered for.
+         * main.blade.php has already measured the file for the share card, so
+         * the numbers cost nothing and they are measured, not assumed. A remote
+         * address or a missing file gives no size, and the node then carries
+         * only the address.
          */
-        $article['image'] = $thumbnail ?: $shareImage;
+        $imageNode = [
+            '@type' => 'ImageObject',
+            '@id' => $pageUrl . '#primaryimage',
+            'url' => $thumbnail ?: $shareImage,
+        ];
+
+        if ($shareImageSize) {
+            $imageNode['width'] = $shareImageSize['width'];
+            $imageNode['height'] = $shareImageSize['height'];
+        }
+
+        $article['image'] = ['@id' => $imageNode['@id']];
+        $pageNode['primaryImageOfPage'] = ['@id' => $imageNode['@id']];
 
         // A blank `tags:` entry in the post template gives [null]. That array
         // is truthy, but it implodes to an empty string.
@@ -228,7 +249,7 @@
     $jsonLd = json_encode(
         [
             '@context' => 'https://schema.org',
-            '@graph' => array_values(array_filter([$person, $website, $pageNode, $article, $crumbs])),
+            '@graph' => array_values(array_filter([$person, $website, $pageNode, $article, $imageNode, $crumbs])),
         ],
         JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
     );
