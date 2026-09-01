@@ -351,6 +351,124 @@
         @endif
     </article>
 
+    {{-- The case study, as structured data.
+
+         The page had only the WebPage node from the shared include: no type
+         beyond "a page", no picture, no subject, and no sign of when the work
+         happened. These are the pages a person reads before they write to me,
+         and they said the least about themselves of any page on the site.
+
+         The node is an Article, because the page is a written account of a
+         project. It is not a SoftwareApplication: the software belongs to the
+         client, it is not on offer here, and no reader can install it.
+
+         There is no `datePublished`. Front matter gives the year and nothing
+         finer, and a made-up first of January is a date the site cannot stand
+         behind. `temporalCoverage` states the year and claims no more.
+
+         The review at the end of the page gets no Review node, for the reason
+         written in reviews.blade.php. A review of a business, published by
+         that business, wins no stars and risks a manual action.
+
+         A sample and an unpublished study are noindex, therefore they get no
+         node. Structured data changes a search result, and these pages get no
+         search result. --}}
+    @php
+        $studyIsIndexed = ! str_contains(strtolower($page->getRobotsStatus()), 'noindex');
+    @endphp
+
+    @if ($studyIsIndexed)
+        @push('scripts')
+            @php
+                $studyUrl = $page->getCanonicalUrl();
+
+                $study = [
+                    '@type' => 'Article',
+                    '@id' => $studyUrl . '#article',
+                    'name' => $page->title,
+                    'headline' => $page->title,
+                    'url' => $studyUrl,
+                    'inLanguage' => $page->getLanguage(),
+                    'author' => ['@id' => $page->baseUrl . '/#person'],
+                    'publisher' => ['@id' => $page->baseUrl . '/#person'],
+                    // The page node comes from structured-data.blade.php. These
+                    // two properties are how the article and its page name each
+                    // other.
+                    'isPartOf' => ['@id' => $studyUrl . '#webpage'],
+                    'mainEntityOfPage' => ['@id' => $studyUrl . '#webpage'],
+                ];
+
+                // The summary is the sentence a reader gets first, therefore it
+                // is the better description. The front matter description is the
+                // fallback, and it is what the search snippet already uses.
+                $studyDescription = trim((string) ($page->summary ?: $page->description));
+
+                if ($studyDescription !== '') {
+                    $study['description'] = $studyDescription;
+                }
+
+                if ($page->sector) {
+                    $study['articleSection'] = $page->sector;
+                }
+
+                if ($page->year) {
+                    /*
+                     * The year the work ran. Not a publication date: the front
+                     * matter gives no day, and inventing one states a fact the
+                     * site does not have.
+                     *
+                     * A range is written for a reader with a dash, and ISO 8601
+                     * writes an interval with a slash. Convert it, so the value
+                     * is a period and not only a piece of text.
+                     */
+                    $study['temporalCoverage'] = preg_replace(
+                        '/\s*[–—-]\s*/u',
+                        '/',
+                        (string) $page->year
+                    );
+                }
+
+                if ($page->stack) {
+                    $study['keywords'] = collect($page->stack)->filter()->implode(', ');
+                }
+
+                /*
+                 * The client is not in this node. `client` in the front matter
+                 * holds a company on one study and a person on another, and the
+                 * key does not say which. A node must state a type, and a person
+                 * declared as an Organization is a false statement about a real
+                 * and named human being. Add a `clientType` key first, and this
+                 * study can name its client.
+                 */
+
+                /*
+                 * The cover, as an absolute address. `src` is a path in this
+                 * repository or a full URL, and the base URL must go only in
+                 * front of the first form.
+                 */
+                $studyCover = $page->getCover();
+                $coverSrc = $studyCover['src'] ?? null;
+
+                if ($coverSrc) {
+                    $study['image'] = preg_match('#^(https?:)?//#i', $coverSrc)
+                        ? $coverSrc
+                        : rtrim($page->baseUrl, '/') . '/' . ltrim($coverSrc, '/');
+                }
+
+                // json_encode must run here and the body must print the result.
+                // Blade compiles the word after an at sign as a directive in the
+                // template body, therefore `'@context' => ...` written there
+                // becomes a call to a `context` directive.
+                $studyJsonLd = json_encode(
+                    ['@context' => 'https://schema.org'] + $study,
+                    JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
+                );
+            @endphp
+
+            <script type="application/ld+json">{!! $studyJsonLd !!}</script>
+        @endpush
+    @endif
+
     @if ($next && $next->getPath() !== $page->getPath())
         {{-- This <nav> must keep its `aria-label`. A <nav> is a landmark. A
              screen-reader user moves between the landmarks, and the label tells
