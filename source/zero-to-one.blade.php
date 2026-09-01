@@ -323,26 +323,37 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
          The figures come from `pricing` in config.php, which is also what the
          price block above reads. A search engine and a reader thus cannot be
          shown two different numbers. When the campaign ends, this block goes
-         with the page and no shared file needs a change. --}}
+         with the page and no shared file needs a change.
+
+         json_encode must run inside the @php block and the body must print the
+         finished string. Blade compiles the word after an at sign as a
+         directive in the template body, therefore `'@context' => ...` written
+         between @php and @endphp is a PHP string, and the same line written in
+         the body compiles to a call to a `context` directive. --}}
     @push('scripts')
-        <script type="application/ld+json">
-            {!! json_encode([
-                '@context' => 'https://schema.org',
-                '@type' => 'Offer',
-                '@id' => $page->getCanonicalUrl() . '#offer',
-                'url' => $page->getCanonicalUrl(),
-                'price' => (string) $page->pricing['setup'],
-                'priceCurrency' => $page->pricing['currency'],
-                'provider' => ['@id' => $page->baseUrl . '/#person'],
-                'itemOffered' => [
-                    '@type' => 'Service',
-                    'name' => 'Zero to One',
-                    'description' => 'A complete website for a business that has none: built, launched and looked after, at a fixed price.',
-                    'serviceType' => 'Website design and development',
+        @php
+            $offerJsonLd = json_encode(
+                [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'Offer',
+                    '@id' => $page->getCanonicalUrl() . '#offer',
                     'url' => $page->getCanonicalUrl(),
+                    'price' => (string) $page->pricing['setup'],
+                    'priceCurrency' => $page->pricing['currency'],
+                    'provider' => ['@id' => $page->baseUrl . '/#person'],
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => 'Zero to One',
+                        'description' => 'A complete website for a business that has none: built, launched and looked after, at a fixed price.',
+                        'serviceType' => 'Website design and development',
+                        'url' => $page->getCanonicalUrl(),
+                    ],
                 ],
-            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-        </script>
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
+            );
+        @endphp
+
+        <script type="application/ld+json">{!! $offerJsonLd !!}</script>
     @endpush
     @else
         {{-- The holding page. It states no price and no turnaround, because

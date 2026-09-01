@@ -121,4 +121,88 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
          here, and do not repeat a question that /faq/ already shows. --}}
 
     @include('_components.reviews', ['only' => 'clients', 'limit' => 2])
+
+    {{-- The services, as structured data, on the one page that describes them.
+
+         These left structured-data.blade.php, which runs on every page. An
+         offer catalog on a post or on the 404 page describes a service that
+         page does not sell, and the catalog held one Offer that stated no
+         price, which a validator reports as a missing field.
+
+         Each service names the Person node from the shared include as its
+         provider. One person is the whole business, and `provider` accepts a
+         Person.
+
+         Every entry here must match an item in the visible `What I do` list
+         above. A service in the markup that the page does not name is a claim
+         with no page behind it. No entry carries a price: the site publishes
+         one price, it is a Zero to One price, and it belongs on that page.
+
+         json_encode must run inside the @php block and the body must print the
+         finished string. Blade compiles the word after an at sign as a
+         directive in the template body, therefore `'@context' => ...` written
+         between @php and @endphp is a PHP string, and the same line written in
+         the body compiles to a call to a `context` directive. --}}
+    @push('scripts')
+        @php
+            $servicePageUrl = $page->getCanonicalUrl();
+
+            $areaServed = [
+                ['@type' => 'Place', 'name' => 'Europe'],
+                ['@type' => 'Place', 'name' => 'North America'],
+            ];
+
+            $offered = [
+                [
+                    'slug' => 'web-applications',
+                    'name' => 'Web application development',
+                    'serviceType' => 'Web application development',
+                    'description' => 'Applications that live on the internet, built with Laravel and Next.js. The screens your customers use and the system behind them, both from the same person.',
+                ],
+                [
+                    'slug' => 'application-maintenance',
+                    'name' => 'Laravel application maintenance',
+                    'serviceType' => 'Software maintenance',
+                    'description' => 'Looking after a Laravel application that already exists: repairing what breaks, adding what it needs, and keeping it current.',
+                ],
+                [
+                    'slug' => 'admin-dashboards',
+                    'name' => 'Bespoke admin dashboards',
+                    'serviceType' => 'Custom software development',
+                    'description' => 'A dashboard built for the way one business runs, so the people in it stop working out of spreadsheets.',
+                ],
+                [
+                    'slug' => 'process-automation',
+                    'name' => 'Process automation',
+                    'serviceType' => 'Business process automation',
+                    'description' => 'Turning a manual process into software, so work that people repeat by hand happens on its own.',
+                ],
+            ];
+
+            $serviceNodes = collect($offered)->map(fn ($service) => [
+                '@type' => 'Service',
+                '@id' => $servicePageUrl . '#' . $service['slug'],
+                'name' => $service['name'],
+                'description' => $service['description'],
+                'serviceType' => $service['serviceType'],
+                'url' => $servicePageUrl,
+                'provider' => ['@id' => $page->baseUrl . '/#person'],
+                'areaServed' => $areaServed,
+                'availableLanguage' => ['English', 'Persian'],
+                // Connects the service to the page that describes it. Without
+                // it, each service is a loose object in the same document.
+                'mainEntityOfPage' => ['@id' => $servicePageUrl . '#webpage'],
+            ])->all();
+
+            $serviceJsonLd = json_encode(
+                [
+                    '@context' => 'https://schema.org',
+                    '@graph' => $serviceNodes,
+                ],
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
+            );
+        @endphp
+
+        <script type="application/ld+json">{!! $serviceJsonLd !!}</script>
+    @endpush
 @endsection
