@@ -38,7 +38,8 @@
         ? $path
         : rtrim($page->baseUrl, '/') . '/' . ltrim($path, '/');
 
-    $shareImage = $absoluteUrl($page->thumbnail ?: '/assets/build/images/og-default.png');
+    $shareImagePath = $page->thumbnail ?: '/assets/build/images/og-default.png';
+    $shareImage = $absoluteUrl($shareImagePath);
     $thumbnail = $page->thumbnail ? $absoluteUrl($page->thumbnail) : null;
 
     /*
@@ -52,16 +53,21 @@
      * no tags at all: both are optional, and a wrong number is worse than no
      * number, because a platform reserves the space it is given.
      */
-    $shareImageSize = ['width' => 1200, 'height' => 630];
+    $shareImageSize = null;
 
-    if ($page->thumbnail) {
-        $shareImageSize = null;
-        $thumbnailFile = 'source/' . ltrim($page->thumbnail, '/');
+    /*
+     * Measure the default card as well, and do not assume its size. The
+     * numbers used to be the literal 1200x630 on this branch, which agreed
+     * with build_og_image.py only by convention. A new default card of another
+     * size then made every page without a thumbnail declare a size its file
+     * does not have. The JSON-LD publishes these numbers as fact, so they must
+     * come from the file.
+     */
+    $shareImageFile = 'source/' . ltrim($shareImagePath, '/');
 
-        if (! preg_match('#^(https?:)?//#i', $page->thumbnail) && is_file($thumbnailFile)) {
-            [$thumbnailWidth, $thumbnailHeight] = getimagesize($thumbnailFile);
-            $shareImageSize = ['width' => $thumbnailWidth, 'height' => $thumbnailHeight];
-        }
+    if (! preg_match('#^(https?:)?//#i', $shareImagePath) && is_file($shareImageFile)) {
+        [$shareImageWidth, $shareImageHeight] = getimagesize($shareImageFile);
+        $shareImageSize = ['width' => $shareImageWidth, 'height' => $shareImageHeight];
     }
     $pageUrl = $page->getCanonicalUrl();
 @endphp

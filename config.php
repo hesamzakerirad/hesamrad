@@ -677,12 +677,13 @@ return [
     /**
      * Returns the FAQPage node of the current page as encoded JSON, or ''.
      *
-     * The node is built here and not in a template. Blade compiles the word
-     * after an at sign as a directive, in the body of a template and inside a
-     * raw PHP block, therefore '@context' in a template becomes compiled PHP
-     * and the node loses the key that makes it valid. Every FAQPage on this
-     * site carried that fault, and no page was eligible for the rich result.
-     * Keep this in a plain PHP file.
+     * The node is built here because more than one page needs it, not because
+     * a template cannot build it. Blade compiles the word after an at sign as
+     * a directive in the body of a template, therefore '@context' written
+     * there becomes compiled PHP and the node loses the key that makes it
+     * valid. Every FAQPage on this site carried that fault, and no page was
+     * eligible for the rich result. Inside a @php block the compiler stores
+     * the code before it reads directives, so a block is safe.
      *
      * $items accepts the two shapes this site holds: `a` is an array of
      * paragraphs in `siteFaq` and one string in the `faq:` block of a post.
@@ -717,6 +718,59 @@ return [
             '@id' => $page->getCanonicalUrl() . '#faq',
             'mainEntity' => $questions,
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
+    },
+
+    /*
+     * The ItemList for a listing page, or null when the page lists nothing.
+     *
+     * A listing page is a hub. Without this node it is a page with links on it,
+     * and a search engine has to work out from the markup which links are the
+     * contents and which are the navigation.
+     *
+     * The caller assigns the result to `$page->schemaNodes`, and
+     * _includes/structured-data.blade.php retypes the page as a CollectionPage
+     * when it finds the list. One array therefore decides both the type of the
+     * page and the contents of the list. They were two expressions before: the
+     * template counted its raw items and this code dropped the blank ones, so a
+     * post with no title gave a page that claimed four items and a list that
+     * held three, and a listing of nothing but blanks gave a CollectionPage
+     * pointing at a list that no node declared.
+     *
+     * $items is [['name' => …, 'url' => …], …], in the order the page shows.
+     */
+    'collectionListNode' => function ($page, $items) {
+        $entries = collect($items)
+            ->map(fn ($item) => [
+                'name' => trim((string) ($item['name'] ?? '')),
+                'url' => trim((string) ($item['url'] ?? '')),
+            ])
+            ->filter(fn ($item) => $item['name'] !== '' && $item['url'] !== '')
+            ->values();
+
+        if ($entries->isEmpty()) {
+            return null;
+        }
+
+        return [
+            '@type' => 'ItemList',
+            '@id' => $page->getCanonicalUrl() . '#itemlist',
+            'numberOfItems' => $entries->count(),
+            'itemListElement' => $entries
+                ->map(fn ($item, $index) => [
+                    '@type' => 'ListItem',
+                    'position' => $index + 1,
+                    'name' => $item['name'],
+                    'url' => $item['url'],
+                ])
+                ->all(),
+        ];
+    },
+
+    // One test for "this page gets no search result". The breadcrumbs, the
+    // case-study Article and the service nodes all suppress themselves on a
+    // noindex page, and they must agree on what noindex means.
+    'isNoIndex' => function ($page) {
+        return str_contains(strtolower($page->getRobotsStatus()), 'noindex');
     },
 
     'getRobotsStatus' => function ($page) {

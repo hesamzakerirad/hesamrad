@@ -351,6 +351,144 @@
         @endif
     </article>
 
+    {{-- The case study, as structured data.
+
+         The page had only the WebPage node from the shared include: no type
+         beyond "a page", no picture, no subject, and no sign of when the work
+         happened. These are the pages a person reads before they write to me,
+         and they said the least about themselves of any page on the site.
+
+         The node is an Article, because the page is a written account of a
+         project. It is not a SoftwareApplication: the software belongs to the
+         client, it is not on offer here, and no reader can install it.
+
+         There is no `datePublished`. Front matter gives the year and nothing
+         finer, and a made-up first of January is a date the site cannot support.
+         `temporalCoverage` states the year and claims no more.
+
+         The review at the end of the page gets no Review node, for the reason
+         written in reviews.blade.php. A review of a business, published by
+         that business, wins no stars and risks a manual action.
+
+         A sample and an unpublished study are noindex, therefore they get no
+         node. Structured data changes a search result, and these pages get no
+         search result.
+
+         The nodes go on `$page->schemaNodes`, which the shared include folds
+         into the one @graph in the head, and the include reads the Article
+         found there to write `mainEntity` and `primaryImageOfPage` back onto
+         the page node. This block used to print a second <script>, and the
+         `author` reference then pointed into another block. Google reads each
+         block as its own item, so the Article had no author, which is the one
+         Article property Google requires. --}}
+    @php
+        $studyUrl = $page->getCanonicalUrl();
+
+        $study = [
+            '@type' => 'Article',
+            '@id' => $studyUrl . '#article',
+            'name' => $page->title,
+            'headline' => $page->title,
+            'url' => $studyUrl,
+            'inLanguage' => $page->getLanguage(),
+            'author' => ['@id' => rtrim($page->baseUrl, '/') . '/#person'],
+            'publisher' => ['@id' => rtrim($page->baseUrl, '/') . '/#person'],
+            // The page node comes from structured-data.blade.php. These two
+            // properties are how the article and its page name each other, and
+            // the include writes the other half of the pair.
+            'isPartOf' => ['@id' => $studyUrl . '#webpage'],
+            'mainEntityOfPage' => ['@id' => $studyUrl . '#webpage'],
+        ];
+
+        // The summary is the sentence a reader gets first, therefore it is the
+        // better description. The front matter description is the fallback, and
+        // it is what the search snippet already uses.
+        $studyDescription = trim((string) ($page->summary ?: $page->description));
+
+        if ($studyDescription !== '') {
+            $study['description'] = $studyDescription;
+        }
+
+        if ($page->sector) {
+            $study['articleSection'] = $page->sector;
+        }
+
+        if ($page->year) {
+            /*
+             * The year the work ran. Not a publication date: the front matter
+             * gives no day, and inventing one states a fact the site does not
+             * have.
+             *
+             * A range is written for a reader with a dash, and ISO 8601 writes
+             * an interval with a slash. Convert it, so the value is a period
+             * and not only a piece of text.
+             */
+            $study['temporalCoverage'] = preg_replace(
+                '/\s*[–—-]\s*/u',
+                '/',
+                (string) $page->year
+            );
+        }
+
+        /*
+         * Test the joined string and not the raw list. A `stack:` written as a
+         * list of blank entries gives [null], which is truthy, and the filter
+         * then leaves an empty string. The post path states the same rule in
+         * structured-data.blade.php.
+         */
+        $studyKeywords = collect($page->stack)->filter()->implode(', ');
+
+        if ($studyKeywords !== '') {
+            $study['keywords'] = $studyKeywords;
+        }
+
+        /*
+         * The client is not in this node. `client` in the front matter holds a
+         * company on one study and a person on another, and the key does not
+         * say which. A node must state a type, and a person declared as an
+         * Organization is a false statement about a real and named human being.
+         * Add a `clientType` key first, and this study can name its client.
+         */
+
+        /*
+         * The cover is a node and not an address, for the reason the post path
+         * gives: a bare address makes a search engine fetch the file to learn
+         * whether the picture is large enough for the result it is being
+         * considered for. `src` is a path in this repository or a full URL, and
+         * the base URL goes only in front of the first form. A local file is
+         * measured. A remote address gives no size, and the node then carries
+         * only the address.
+         */
+        $studyImage = null;
+        $coverSrc = $cover['src'] ?? null;
+
+        if ($coverSrc) {
+            $isRemoteCover = (bool) preg_match('#^(https?:)?//#i', $coverSrc);
+
+            $studyImage = [
+                '@type' => 'ImageObject',
+                '@id' => $studyUrl . '#primaryimage',
+                'url' => $isRemoteCover
+                    ? $coverSrc
+                    : rtrim($page->baseUrl, '/') . '/' . ltrim($coverSrc, '/'),
+            ];
+
+            $coverFile = 'source/' . ltrim($coverSrc, '/');
+
+            if (! $isRemoteCover && is_file($coverFile)) {
+                [$coverWidth, $coverHeight] = getimagesize($coverFile);
+                $studyImage['width'] = $coverWidth;
+                $studyImage['height'] = $coverHeight;
+            }
+
+            $study['image'] = ['@id' => $studyImage['@id']];
+        }
+
+        $page->schemaNodes = $page->isNoIndex()
+            ? []
+            : array_filter([$study, $studyImage]);
+    @endphp
+
     @if ($next && $next->getPath() !== $page->getPath())
         {{-- This <nav> must keep its `aria-label`. A <nav> is a landmark. A
              screen-reader user moves between the landmarks, and the label tells

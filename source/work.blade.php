@@ -15,6 +15,20 @@ contactIntro: "A paragraph is enough. I'll tell you whether I've done something 
     $showingSamples = $studies->contains(fn ($study) => $study->sample ?? false);
 
     $page->robots = $page->workIsPublic ? 'index,follow' : 'noindex,nofollow';
+
+    // The page lists the studies, therefore the markup does too.
+    //
+    // A private build is noindex, and structured data changes a search result
+    // that the page will not get. The samples in a private build are also
+    // invented, and inventing them again in the markup is worse. An empty
+    // listing gives null, and the shared include then leaves the page a plain
+    // WebPage.
+    $page->schemaNodes = $page->workIsPublic ? [
+        $page->collectionListNode($studies->map(fn ($study) => [
+            'name' => $study->title,
+            'url' => $study->getCanonicalUrl(),
+        ])->all()),
+    ] : [];
 @endphp
 
 @section('title', 'Work')

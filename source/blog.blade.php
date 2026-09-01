@@ -11,6 +11,17 @@ disableContact: true
     $page->robots = $posts->isEmpty() ? 'noindex,follow' : 'index,follow';
 
     $ordered = $posts->where('isFeatured', true)->concat($posts->where('isFeatured', false));
+
+    // The page lists the posts, therefore the markup does too. The order
+    // matches the order below, so a featured post comes first in both.
+    // collectionListNode returns null for an empty listing, and the shared
+    // include then leaves the page a plain WebPage.
+    $page->schemaNodes = [
+        $page->collectionListNode($ordered->map(fn ($post) => [
+            'name' => $post->title,
+            'url' => $post->getCanonicalUrl(),
+        ])->all()),
+    ];
 @endphp
 
 @section('title', 'Blog')

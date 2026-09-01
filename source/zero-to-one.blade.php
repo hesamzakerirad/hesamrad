@@ -316,33 +316,44 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
          carries no price and no campaign: a price on /about/ or on a post is a
          price for a service that page does not describe.
 
-         `provider` points at the ProfessionalService node that the shared
-         include declares, so the two agree without repeating the business.
+         `seller`, not `provider`. schema.org does not define `provider` on an
+         Offer: it belongs to a Service or another CreativeWork. `seller` is
+         the property that names who is offering, and it points at the Person
+         node the shared include declares, so the two agree without repeating
+         the business. The Service inside `itemOffered` keeps `provider`, which
+         is valid there.
 
          The figures come from `pricing` in config.php, which is also what the
          price block above reads. A search engine and a reader thus cannot be
          shown two different numbers. When the campaign ends, this block goes
-         with the page and no shared file needs a change. --}}
-    @push('scripts')
-        <script type="application/ld+json">
-            {!! json_encode([
-                '@context' => 'https://schema.org',
+         with the page and no shared file needs a change.
+
+         The node goes on `$page->schemaNodes`, which the shared include folds
+         into the one @graph in the head. A second <script> would put `seller`
+         in one block and the Person it names in another, and a search engine
+         reads each block on its own. --}}
+    @php
+        $offerPersonId = rtrim($page->baseUrl, '/') . '/#person';
+
+        $page->schemaNodes = [
+            [
                 '@type' => 'Offer',
                 '@id' => $page->getCanonicalUrl() . '#offer',
                 'url' => $page->getCanonicalUrl(),
                 'price' => (string) $page->pricing['setup'],
                 'priceCurrency' => $page->pricing['currency'],
-                'provider' => ['@id' => $page->baseUrl . '/#business'],
+                'seller' => ['@id' => $offerPersonId],
                 'itemOffered' => [
                     '@type' => 'Service',
                     'name' => 'Zero to One',
                     'description' => 'A complete website for a business that has none: built, launched and looked after, at a fixed price.',
                     'serviceType' => 'Website design and development',
                     'url' => $page->getCanonicalUrl(),
+                    'provider' => ['@id' => $offerPersonId],
                 ],
-            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-        </script>
-    @endpush
+            ],
+        ];
+    @endphp
     @else
         {{-- The holding page. It states no price and no turnaround, because
              those are the terms under revision, and it names no campaign.

@@ -1,6 +1,10 @@
 ---
 title: About
 disableContact: true
+# The subject of this page is the person. structured-data.blade.php reads this
+# key and adds `about` to the page node. Only the home page and this one carry
+# it. A page about work for sale is not a page about a human being.
+aboutsAuthor: true
 ---
 
 @extends('_layouts.main')

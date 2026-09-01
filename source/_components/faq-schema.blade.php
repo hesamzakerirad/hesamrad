@@ -10,11 +10,13 @@
     page. Do not put the same set on two pages. Two pages with one identical set
     compete with each other, and a search engine can then accept neither page.
 
-    config.php builds the node, in `faqSchema`. A template cannot build it:
-    Blade compiles the word after an at sign as a directive, in the body and
-    inside a raw PHP block, and the key that carries the vocabulary becomes
-    compiled PHP. The identifier of the node holds the canonical URL of the
-    page, therefore each node has its own.
+    config.php builds the node, in `faqSchema`. Blade compiles the word after an
+    at sign as a directive in the body of a template, so `'@context' => ...`
+    written there becomes a call to a `context` directive. It does not do this
+    inside a @php block, which the compiler stores before it reads directives,
+    so a template can build the node in a block. config.php holds this one
+    because more than one page needs it. The identifier of the node holds the
+    canonical URL of the page, therefore each node has its own.
 
     Parameters:
       $items — rows from $page->siteFaq
