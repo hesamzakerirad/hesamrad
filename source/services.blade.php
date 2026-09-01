@@ -138,71 +138,63 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
          with no page behind it. No entry carries a price: the site publishes
          one price, it is a Zero to One price, and it belongs on that page.
 
-         json_encode must run inside the @php block and the body must print the
-         finished string. Blade compiles the word after an at sign as a
-         directive in the template body, therefore `'@context' => ...` written
-         between @php and @endphp is a PHP string, and the same line written in
-         the body compiles to a call to a `context` directive. --}}
-    @push('scripts')
-        @php
-            $servicePageUrl = $page->getCanonicalUrl();
+         The nodes go on `$page->schemaNodes`, which the shared include folds
+         into the one @graph in the head. They were a second <script> of their
+         own, and the `provider` reference then pointed at a Person node in
+         another block, which a search engine reads as a separate document.
 
-            $areaServed = [
-                ['@type' => 'Place', 'name' => 'Europe'],
-                ['@type' => 'Place', 'name' => 'North America'],
-            ];
+         There is no `areaServed` here. The rule the shared include states is
+         that a node may only make a claim the page also makes in its text, and
+         this page names no region anywhere in its copy. /faq/ is where the site
+         says Europe and North America, in prose. --}}
+    @php
+        $servicePageUrl = $page->getCanonicalUrl();
 
-            $offered = [
-                [
-                    'slug' => 'web-applications',
+        $offered = [
+            [
+                'slug' => 'web-applications',
                     'name' => 'Web application development',
                     'serviceType' => 'Web application development',
-                    'description' => 'Applications that live on the internet, built with Laravel and Next.js. The screens your customers use and the system behind them, both from the same person.',
-                ],
-                [
-                    'slug' => 'application-maintenance',
-                    'name' => 'Laravel application maintenance',
-                    'serviceType' => 'Software maintenance',
-                    'description' => 'Looking after a Laravel application that already exists: repairing what breaks, adding what it needs, and keeping it current.',
-                ],
-                [
-                    'slug' => 'admin-dashboards',
-                    'name' => 'Bespoke admin dashboards',
-                    'serviceType' => 'Custom software development',
-                    'description' => 'A dashboard built for the way one business runs, so the people in it stop working out of spreadsheets.',
-                ],
-                [
-                    'slug' => 'process-automation',
-                    'name' => 'Process automation',
-                    'serviceType' => 'Business process automation',
-                    'description' => 'Turning a manual process into software, so work that people repeat by hand happens on its own.',
-                ],
-            ];
+                'description' => 'Applications that live on the internet, built with Laravel and Next.js. The screens your customers use and the system behind them, both from the same person.',
+            ],
+            [
+                'slug' => 'application-maintenance',
+                'name' => 'Laravel application maintenance',
+                'serviceType' => 'Software maintenance',
+                'description' => 'Looking after a Laravel application that already exists: repairing what breaks, adding what it needs, and keeping it current.',
+            ],
+            [
+                'slug' => 'admin-dashboards',
+                'name' => 'Bespoke admin dashboards',
+                'serviceType' => 'Custom software development',
+                'description' => 'A dashboard built for the way one business runs, so the people in it stop working out of spreadsheets.',
+            ],
+            [
+                'slug' => 'process-automation',
+                'name' => 'Process automation',
+                'serviceType' => 'Business process automation',
+                'description' => 'Turning a manual process into software, so work that people repeat by hand happens on its own.',
+            ],
+        ];
 
-            $serviceNodes = collect($offered)->map(fn ($service) => [
-                '@type' => 'Service',
-                '@id' => $servicePageUrl . '#' . $service['slug'],
-                'name' => $service['name'],
-                'description' => $service['description'],
-                'serviceType' => $service['serviceType'],
-                'url' => $servicePageUrl,
-                'provider' => ['@id' => $page->baseUrl . '/#person'],
-                'areaServed' => $areaServed,
-                'availableLanguage' => ['English', 'Persian'],
-                // Connects the service to the page that describes it. Without
-                // it, each service is a loose object in the same document.
-                'mainEntityOfPage' => ['@id' => $servicePageUrl . '#webpage'],
-            ])->all();
+        $page->schemaNodes = $page->isNoIndex() ? [] : collect($offered)->map(fn ($service) => [
+            '@type' => 'Service',
+            '@id' => $servicePageUrl . '#' . $service['slug'],
+            'name' => $service['name'],
+            'description' => $service['description'],
+            'serviceType' => $service['serviceType'],
+            'provider' => ['@id' => rtrim($page->baseUrl, '/') . '/#person'],
+            // `subjectOf`, not `mainEntityOfPage`. The second is the inverse of
+            // `mainEntity` and names the one primary subject of a page. Four
+            // services each claiming it gave the page four primary subjects.
+            // `subjectOf` states that the page describes the service and claims
+            // nothing exclusive.
+            'subjectOf' => ['@id' => $servicePageUrl . '#webpage'],
+        ])->all();
 
-            $serviceJsonLd = json_encode(
-                [
-                    '@context' => 'https://schema.org',
-                    '@graph' => $serviceNodes,
-                ],
-                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
-            );
-        @endphp
-
-        <script type="application/ld+json">{!! $serviceJsonLd !!}</script>
-    @endpush
+        // Each service has an identifier but no address of its own, so the node
+        // carries no `url`. All four pointed at this page before, which gave
+        // four nodes one address and left them distinguishable only by a
+        // fragment that no `url` resolved to.
+    @endphp
 @endsection

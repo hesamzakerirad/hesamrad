@@ -17,6 +17,13 @@ contactIntro: "Tell me what you're trying to build. I'll tell you whether I'm th
      * Marking them up wins no stars and risks a structured data manual action.
      */
     $page->robots = 'index,follow';
+
+    /*
+     * The page is about the person. Every review here is a review of him, and
+     * with no Review nodes on the page this is the only property that ties the
+     * page to the Person node in the graph.
+     */
+    $page->aboutsAuthor = true;
 @endphp
 
 @section('title', 'Reviews')

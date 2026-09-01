@@ -7,7 +7,11 @@
      */
     $homeUrl = rtrim($page->baseUrl, '/') . '/';
 
-    $websiteId = $page->baseUrl . '/#website';
+    // Build every site-wide identifier from $homeUrl. A raw concatenation of
+    // `baseUrl` gives "https://example.com//#website" when the configured value
+    // ends with a slash, and the identifier then disagrees with the address.
+    $websiteId = $homeUrl . '#website';
+    $personId = $homeUrl . '#person';
 
     /*
      * One person is the whole business, therefore one node carries both. There
@@ -17,8 +21,8 @@
      * the same name, the same address and the same social profiles give a
      * search engine two candidates for one entity, and each one gets a part of
      * the evidence. `ProfessionalService` is also a `LocalBusiness`, which must
-     * carry a street address, and there is no premises to give. schema.org
-     * itself now advises against the type.
+     * carry a street address. This business has no premises. schema.org itself
+     * now advises against the type.
      *
      * The service a visitor can buy is not here. This node is on every page,
      * and a page about a post does not sell anything. services.blade.php
@@ -26,7 +30,7 @@
      */
     $person = [
         '@type' => 'Person',
-        '@id' => $page->baseUrl . '/#person',
+        '@id' => $personId,
         'name' => $page->siteAuthor,
         'url' => $homeUrl,
         'jobTitle' => $page->siteDescription,
@@ -41,8 +45,10 @@
             'Next.js',
             'Software architecture',
         ],
-        // `knowsLanguage`, not `availableLanguage`. The second belongs to a
-        // service or a contact point, and a Person does not accept it.
+        // `knowsLanguage` is the property a Person accepts.
+        // `availableLanguage` is not a substitute anywhere on this site: it
+        // belongs to a ContactPoint or a ServiceChannel, and schema.org does
+        // not define it on Person or on Service.
         'knowsLanguage' => ['English', 'Persian'],
     ];
 
@@ -122,11 +128,14 @@
          * the numbers cost nothing and they are measured, not assumed. A remote
          * address or a missing file gives no size, and the node then carries
          * only the address.
+         *
+         * $shareImage is already the thumbnail when the post has one, and the
+         * default card when it does not, so it needs no second test here.
          */
         $imageNode = [
             '@type' => 'ImageObject',
             '@id' => $pageUrl . '#primaryimage',
-            'url' => $thumbnail ?: $shareImage,
+            'url' => $shareImage,
         ];
 
         if ($shareImageSize) {
@@ -162,72 +171,83 @@
     }
 
     /*
-     * A listing page. The template sets `$page->collectionPage` when it has
-     * items to list, in the same block where it sets the robots directive.
+     * Nodes the page itself contributes.
      *
-     * The flag and _components.collection-list go together. The component
-     * declares the list this reference points at, and the template that sets
-     * the flag must include it. The template sets the flag from the count of
-     * its items, because an empty list writes no node and the reference would
-     * then resolve to nothing.
+     * A page template fills `$page->schemaNodes` in its own @php block, which
+     * Blade runs before it renders this layout. The nodes then join the one
+     * @graph below.
+     *
+     * They must not be a second <script> of their own. A bare {"@id": …} that
+     * points outside its own script block is a dangling reference: Google reads
+     * each block as a separate item, so a case study that named the Person node
+     * in another block had no author at all, and `author` is the one Article
+     * property Google requires. One graph, one set of identifiers.
+     *
+     * There is no flag to keep in step with a list any more. The page node
+     * takes its type and its `mainEntity` from what is actually here, so a
+     * reference to a node that was never built cannot be written.
      */
-    if ($page->collectionPage) {
+    $extraNodes = collect($page->schemaNodes ?? [])
+        ->filter(fn ($node) => is_array($node) && isset($node['@id']))
+        ->values();
+
+    $nodeOfType = fn (array $types) => $extraNodes
+        ->first(fn ($node) => in_array($node['@type'] ?? '', $types, true));
+
+    // The work printed on the page: a case study's Article. A post builds its
+    // own above, and a page never has both.
+    if (! $article && $work = $nodeOfType(['Article', 'BlogPosting'])) {
+        $pageNode['mainEntity'] = ['@id' => $work['@id']];
+
+        if (isset($work['image']['@id'])) {
+            $pageNode['primaryImageOfPage'] = $work['image'];
+        }
+    }
+
+    // A listing page. The contents are the subject of the page.
+    if (! $article && $list = $nodeOfType(['ItemList'])) {
         $pageNode['@type'] = 'CollectionPage';
-        $pageNode['mainEntity'] = ['@id' => $pageUrl . '#itemlist'];
+        $pageNode['mainEntity'] = ['@id' => $list['@id']];
     }
 
     /*
-     * The code makes the breadcrumbs from the URL. Google shows this trail in
-     * the search result in place of the raw URL. The label of a section comes
-     * from $sectionNames, not from the slug.
+     * The breadcrumbs come from getBreadcrumbs(), which is also what
+     * _components/breadcrumbs.blade.php draws. Google ignores the trail when
+     * the markup and the structured data disagree, so there must be one list.
+     *
+     * This block used to rebuild the trail from the URL with a second section
+     * map and a second humaniser. They already disagreed: config.php names
+     * /projects/ "Open source" and this file did not, `ucfirst` and `Str::title`
+     * case a slug differently, and post.blade.php passes Persian labels to the
+     * visible trail that this file had no way to read.
+     *
+     * The labels arrive on `$page`, not as include data. A variable declared in
+     * a child template's @php block is a local of that compiled template and
+     * never reaches the layout, so a Persian post publishes them on the page
+     * object that both templates share.
      *
      * The home page gets no trail. Google ignores a trail of one item.
      */
-    $segments = array_values(array_filter(explode('/', trim($page->getPath(), '/'))));
-
-    $sectionNames = [
-        'blog' => 'Blog',
-        'work' => 'Work',
-    ];
-
     $crumbs = null;
 
     // A page with a `noindex` directive gets no trail. The trail changes a
     // search result, and these pages get no search result.
     $isNoIndex = str_contains(strtolower($page->getRobotsStatus()), 'noindex');
 
-    if ($segments !== [] && ! $page->isHomePage() && ! $isNoIndex) {
-        $items = [[
-            '@type' => 'ListItem',
-            'position' => 1,
-            'name' => 'Home',
-            'item' => rtrim($page->getBaseUrl(), '/') . '/',
-        ]];
+    $trail = $isNoIndex ? [] : $page->getBreadcrumbs(collect($page->crumbLabels ?? [])->all());
 
-        $trail = '';
-
-        foreach ($segments as $index => $segment) {
-            $trail .= '/' . $segment;
-            $isLast = $index === count($segments) - 1;
-
-            $items[] = [
-                '@type' => 'ListItem',
-                'position' => $index + 2,
-                // The last item takes the name of the page. An intermediate
-                // segment is a section, and a slug is not a readable name.
-                // Use $pageTitle, not $title. $title can contain the
-                // " - Hesam Rad" suffix, which puts the brand in the crumb.
-                'name' => $isLast
-                    ? ($page->title ?: $pageTitle)
-                    : ($sectionNames[$segment] ?? Str::title(str_replace('-', ' ', $segment))),
-                'item' => rtrim($page->getBaseUrl(), '/') . $trail . '/',
-            ];
-        }
-
+    if (count($trail) > 1) {
         $crumbs = [
             '@type' => 'BreadcrumbList',
             '@id' => $pageUrl . '#breadcrumbs',
-            'itemListElement' => $items,
+            'itemListElement' => collect($trail)
+                ->map(fn ($crumb, $index) => [
+                    '@type' => 'ListItem',
+                    'position' => $index + 1,
+                    'name' => $crumb['name'],
+                    'item' => $crumb['url'],
+                ])
+                ->all(),
         ];
 
         // The trail belongs to this page. Without the reference, the list is a
@@ -242,14 +262,19 @@
      * document then goes into the page as live markup.
      *
      * The code also encodes here and not in the template body. Blade compiles
-     * `@context` in the template body as a directive.
+     * `@context` in the template body as a directive. Inside a @php block it
+     * does not: the compiler stores raw PHP blocks before it reads directives.
      *
-     * array_filter removes $crumbs on the home page, where the value is null.
+     * array_filter removes $article, $imageNode and $crumbs where the page
+     * built none of them.
      */
     $jsonLd = json_encode(
         [
             '@context' => 'https://schema.org',
-            '@graph' => array_values(array_filter([$person, $website, $pageNode, $article, $imageNode, $crumbs])),
+            '@graph' => array_values(array_merge(
+                array_filter([$person, $website, $pageNode, $article, $imageNode, $crumbs]),
+                $extraNodes->all()
+            )),
         ],
         JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
     );

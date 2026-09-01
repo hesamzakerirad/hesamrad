@@ -12,10 +12,16 @@ disableContact: true
 
     $ordered = $posts->where('isFeatured', true)->concat($posts->where('isFeatured', false));
 
-    // The page lists the posts, therefore the markup does too. The flag and the
-    // collection-list include at the end of the body go together: the flag
-    // makes the page node point at the list, and the include declares it.
-    $page->collectionPage = $ordered->isNotEmpty();
+    // The page lists the posts, therefore the markup does too. The order
+    // matches the order below, so a featured post comes first in both.
+    // collectionListNode returns null for an empty listing, and the shared
+    // include then leaves the page a plain WebPage.
+    $page->schemaNodes = [
+        $page->collectionListNode($ordered->map(fn ($post) => [
+            'name' => $post->title,
+            'url' => $post->getCanonicalUrl(),
+        ])->all()),
+    ];
 @endphp
 
 @section('title', 'Blog')
@@ -48,13 +54,4 @@ disableContact: true
             </div>
         @endif
     </div>
-
-    {{-- The contents of the page, as structured data. The order matches the
-         order above, therefore a featured post comes first here too. --}}
-    @include('_components.collection-list', [
-        'items' => $ordered->map(fn ($post) => [
-            'name' => $post->title,
-            'url' => $post->getCanonicalUrl(),
-        ])->all(),
-    ])
 @endsection

@@ -316,45 +316,44 @@ contactIntro: "A couple of sentences is plenty: what you do and roughly where. I
          carries no price and no campaign: a price on /about/ or on a post is a
          price for a service that page does not describe.
 
-         `provider` points at the Person node that the shared include declares,
-         so the two agree without repeating the business. One person is the
-         whole business here, and `provider` accepts a Person.
+         `seller`, not `provider`. schema.org does not define `provider` on an
+         Offer: it belongs to a Service or another CreativeWork. `seller` is
+         the property that names who is offering, and it points at the Person
+         node the shared include declares, so the two agree without repeating
+         the business. The Service inside `itemOffered` keeps `provider`, which
+         is valid there.
 
          The figures come from `pricing` in config.php, which is also what the
          price block above reads. A search engine and a reader thus cannot be
          shown two different numbers. When the campaign ends, this block goes
          with the page and no shared file needs a change.
 
-         json_encode must run inside the @php block and the body must print the
-         finished string. Blade compiles the word after an at sign as a
-         directive in the template body, therefore `'@context' => ...` written
-         between @php and @endphp is a PHP string, and the same line written in
-         the body compiles to a call to a `context` directive. --}}
-    @push('scripts')
-        @php
-            $offerJsonLd = json_encode(
-                [
-                    '@context' => 'https://schema.org',
-                    '@type' => 'Offer',
-                    '@id' => $page->getCanonicalUrl() . '#offer',
-                    'url' => $page->getCanonicalUrl(),
-                    'price' => (string) $page->pricing['setup'],
-                    'priceCurrency' => $page->pricing['currency'],
-                    'provider' => ['@id' => $page->baseUrl . '/#person'],
-                    'itemOffered' => [
-                        '@type' => 'Service',
-                        'name' => 'Zero to One',
-                        'description' => 'A complete website for a business that has none: built, launched and looked after, at a fixed price.',
-                        'serviceType' => 'Website design and development',
-                        'url' => $page->getCanonicalUrl(),
-                    ],
-                ],
-                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
-            );
-        @endphp
+         The node goes on `$page->schemaNodes`, which the shared include folds
+         into the one @graph in the head. A second <script> would put `seller`
+         in one block and the Person it names in another, and a search engine
+         reads each block on its own. --}}
+    @php
+        $offerPersonId = rtrim($page->baseUrl, '/') . '/#person';
 
-        <script type="application/ld+json">{!! $offerJsonLd !!}</script>
-    @endpush
+        $page->schemaNodes = [
+            [
+                '@type' => 'Offer',
+                '@id' => $page->getCanonicalUrl() . '#offer',
+                'url' => $page->getCanonicalUrl(),
+                'price' => (string) $page->pricing['setup'],
+                'priceCurrency' => $page->pricing['currency'],
+                'seller' => ['@id' => $offerPersonId],
+                'itemOffered' => [
+                    '@type' => 'Service',
+                    'name' => 'Zero to One',
+                    'description' => 'A complete website for a business that has none: built, launched and looked after, at a fixed price.',
+                    'serviceType' => 'Website design and development',
+                    'url' => $page->getCanonicalUrl(),
+                    'provider' => ['@id' => $offerPersonId],
+                ],
+            ],
+        ];
+    @endphp
     @else
         {{-- The holding page. It states no price and no turnaround, because
              those are the terms under revision, and it names no campaign.

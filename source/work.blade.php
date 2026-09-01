@@ -16,14 +16,19 @@ contactIntro: "A paragraph is enough. I'll tell you whether I've done something 
 
     $page->robots = $page->workIsPublic ? 'index,follow' : 'noindex,nofollow';
 
-    // The page lists the studies, therefore the markup does too. The flag and
-    // the collection-list include at the end of the body go together: the flag
-    // makes the page node point at the list, and the include declares it.
+    // The page lists the studies, therefore the markup does too.
     //
     // A private build is noindex, and structured data changes a search result
     // that the page will not get. The samples in a private build are also
-    // invented, and inventing them again in the markup is worse.
-    $page->collectionPage = $page->workIsPublic && $studies->isNotEmpty();
+    // invented, and inventing them again in the markup is worse. An empty
+    // listing gives null, and the shared include then leaves the page a plain
+    // WebPage.
+    $page->schemaNodes = $page->workIsPublic ? [
+        $page->collectionListNode($studies->map(fn ($study) => [
+            'name' => $study->title,
+            'url' => $study->getCanonicalUrl(),
+        ])->all()),
+    ] : [];
 @endphp
 
 @section('title', 'Work')
@@ -72,16 +77,5 @@ contactIntro: "A paragraph is enough. I'll tell you whether I've done something 
             </div>
         @endif
     </div>
-
-    {{-- The contents of the page, as structured data. The order matches the
-         order above, newest first. --}}
-    @if ($page->collectionPage)
-        @include('_components.collection-list', [
-            'items' => $studies->map(fn ($study) => [
-                'name' => $study->title,
-                'url' => $study->getCanonicalUrl(),
-            ])->all(),
-        ])
-    @endif
 
 @endsection

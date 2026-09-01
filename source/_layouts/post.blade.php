@@ -42,6 +42,11 @@
     ];
 
     $t = $strings[$page->getBaseLanguage()] ?? $strings['en'];
+
+    // The JSON-LD trail must carry the same words as the visible one. This
+    // template renders before the layout, so the labels are on the page object
+    // by the time _includes/structured-data.blade.php builds the list.
+    $page->crumbLabels = $t['crumbs'];
 @endphp
 
 @section('title', $page->title)
@@ -101,6 +106,11 @@
     <article class="shell section post-layout">
 
         <header class="article-header">
+            {{-- The same labels reach the BreadcrumbList through
+                 `$page->crumbLabels`, which _includes/structured-data.blade.php
+                 reads. Google ignores the trail when the visible list and the
+                 markup disagree, and a local of this template cannot reach the
+                 layout. --}}
             @include('_components.breadcrumbs', ['crumbLabels' => $t['crumbs']])
 
             <h1>{{ $page->title }}</h1>
