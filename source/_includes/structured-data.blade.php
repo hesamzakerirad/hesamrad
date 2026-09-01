@@ -141,6 +141,21 @@
     }
 
     /*
+     * A listing page. The template sets `$page->collectionPage` when it has
+     * items to list, in the same block where it sets the robots directive.
+     *
+     * The flag and _components.collection-list go together. The component
+     * declares the list this reference points at, and the template that sets
+     * the flag must include it. The template sets the flag from the count of
+     * its items, because an empty list writes no node and the reference would
+     * then resolve to nothing.
+     */
+    if ($page->collectionPage) {
+        $pageNode['@type'] = 'CollectionPage';
+        $pageNode['mainEntity'] = ['@id' => $pageUrl . '#itemlist'];
+    }
+
+    /*
      * The code makes the breadcrumbs from the URL. Google shows this trail in
      * the search result in place of the raw URL. The label of a section comes
      * from $sectionNames, not from the slug.
