@@ -222,11 +222,21 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
                 'serviceType' => 'Website design and development',
                 'url' => rtrim($page->baseUrl, '/') . '/services/',
                 'provider' => ['@id' => $offerPersonId],
-                // The FAQ says the clients are across Europe and North America.
-                // Keep these two in step with that answer.
+                // The work is remote and the client can be anywhere. Naming a
+                // continent here would tell a search engine to stop offering
+                // the page outside it, which is the opposite of the intent.
+                //
+                // A `Place` named "Worldwide" is the readable form and it
+                // validates. The GeoShape box below is what actually says "the
+                // whole planet" to a machine, and the two together mean neither
+                // a person reading the source nor a crawler has to guess.
                 'areaServed' => [
-                    ['@type' => 'Place', 'name' => 'Europe'],
-                    ['@type' => 'Place', 'name' => 'North America'],
+                    '@type' => 'Place',
+                    'name' => 'Worldwide',
+                    'geo' => [
+                        '@type' => 'GeoShape',
+                        'box' => '-90 -180 90 180',
+                    ],
                 ],
                 'offers' => [
                     [
