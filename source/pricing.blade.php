@@ -46,22 +46,8 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
              came here worried about the bill. --}}
         <p class="lead prose">You'll know what this costs before you're committed to anything. A website has a fixed
             price and it's on this page, so you can settle that question right now without speaking to me at all. A
-            web application gets its number once I understand what you're actually asking for, and working that out
+            web application gets its number once I understand what you actually need, and working that out
             costs you nothing.</p>
-
-        <p class="lead prose">Whichever one you need, the price is agreed before the work starts and written into a
-            contract we both sign. It doesn't move unless you ask for something new. And if I think you need less
-            than you came here for, I'll tell you that instead of quoting you for the rest.</p>
-
-        {{-- No `prose` on this one, unlike the paragraph above it. The only
-             thing `prose` adds here is the sweeping underline on hover, and
-             this page keeps its links plain. The width is already right: the
-             `.page-head .lead` rule sets the same measure `prose` would.
-
-             Do not add `prose` back to match the sibling. It would change how
-             the link behaves and nothing else. --}}
-        <p class="lead">If you'd rather see the work described before the money,
-            <a href="{{ $page->baseUrl }}/services/">what I build and what I turn down</a> is set out on its own page.</p>
     </div>
 
     <section class="shell section">
@@ -89,8 +75,8 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
                 <div class="plan__body">
                     <p class="plan__note">What the {{ $page->priceSetup() }} covers</p>
                     <ul class="card__list card__list--yes">
-                        <li>Pages built for your business, and good on a phone</li>
-                        <li>I write the words, from one half-hour call</li>
+                        <li>Any number of pages your business needs</li>
+                        <li>Content writing and editing</li>
                         <li>Domain, hosting and security, all set up</li>
                         <li>Your Google listing, so people nearby can find you</li>
                     </ul>
@@ -122,18 +108,28 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
                 </dl>
 
                 <div class="plan__body">
+                    {{-- Cost drivers a business owner can check against their
+                         own situation, in the order they usually bite. The
+                         earlier list said things like "how many jobs the
+                         software has to do", which is how an engineer scopes a
+                         build and not something the reader can answer. --}}
                     <p class="plan__note">What decides the number</p>
                     <ul class="card__list card__list--yes">
-                        <li>How many jobs the software has to do</li>
+                        <li>Whether your customers use it, or only your staff</li>
                         <li>How many kinds of user, since each needs its own screens</li>
-                        <li>Whether it talks to systems you already pay for</li>
-                        <li>How much has to be right on day one</li>
+                        <li>What it has to connect to, like payments or accounting</li>
+                        <li>How much existing data has to move across</li>
                     </ul>
 
+                    {{-- Both of these used to be about how I charge, which the
+                         hero, the FAQ and the card below already say. These are
+                         the two ways an application build actually goes wrong.
+                         Keep them at two items so the panel stays level with
+                         the website one. --}}
                     <p class="plan__note">What I won't do</p>
                     <ul class="card__list card__list--no">
-                        <li>Quote a figure before anyone has looked at the problem</li>
-                        <li>Bill by the hour and let the meter decide</li>
+                        <li>Start building before the plan is written and agreed</li>
+                        <li>Leave you with something only I can maintain</li>
                     </ul>
                 </div>
             </article>
@@ -144,13 +140,11 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
         <div class="section-head">
             <h2>How you get to a number.</h2>
             <p class="dim">Three steps, and you owe nothing until the end of the third.</p>
-            <p class="dim">It's the same three whichever one you're buying. You can read what came out the other
-                end of it in <a href="{{ $page->baseUrl }}/work/">the case studies</a>.</p>
         </div>
 
         <ol class="steps">
             <li>
-                <h3>A half-hour call</h3>
+                <h3>A 30-minute call</h3>
                 <p>You do most of the talking: what the business does, what isn't working, and what you want instead.
                     You don't need a specification or a list of features written beforehand.</p>
             </li>
@@ -182,8 +176,7 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
         <div class="shell">
             <div class="section-head">
                 <h2>True whichever one you buy.</h2>
-                <p class="dim">Four things that don't change with the size of the job. The rest of what people ask
-                    before hiring me is on <a href="{{ $page->baseUrl }}/faq/">the questions page</a>.</p>
+                <p class="dim">Four things that don't change with the size of the job.</p>
             </div>
 
             @php
