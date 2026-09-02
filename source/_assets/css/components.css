@@ -2400,7 +2400,7 @@ textarea.field__input {
     flex-wrap: wrap;
     align-items: baseline;
     gap: var(--space-2xs) var(--space-xs);
-    padding: var(--space-sm) 0;
+    padding: var(--space-md) 0;
     border-top: var(--hairline) solid var(--line);
 }
 
