@@ -7,14 +7,12 @@
         "prod": "vite build --mode production"
     },
     "devDependencies": {
-        "@tighten/jigsaw-vite-plugin": "^2.0.0",
-        "autoprefixer": "^10.5.0",
-        "browser-sync": "^2.27.4",
-        "fast-glob": "^3.2.12",
-        "highlight.js": "^11.7.0",
-        "postcss": "^8.5.14",
-        "postcss-import": "^14.1.0",
-        "vite": "^8.0.14",
-        "vite-plugin-static-copy": "^4.1.0"
+        "@tighten/jigsaw-vite-plugin": "^2.1.0",
+        "autoprefixer": "^10.5.4",
+        "highlight.js": "^11.12.0",
+        "postcss": "^8.5.26",
+        "postcss-import": "^17.0.0",
+        "vite": "^8.2.2",
+        "vite-plugin-static-copy": "^4.1.1"
     }
 }

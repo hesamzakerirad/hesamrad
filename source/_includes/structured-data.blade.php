@@ -217,14 +217,8 @@
      *
      * This block used to rebuild the trail from the URL with a second section
      * map and a second humaniser. They already disagreed: config.php names
-     * /projects/ "Open source" and this file did not, `ucfirst` and `Str::title`
-     * case a slug differently, and post.blade.php passes Persian labels to the
-     * visible trail that this file had no way to read.
-     *
-     * The labels arrive on `$page`, not as include data. A variable declared in
-     * a child template's @php block is a local of that compiled template and
-     * never reaches the layout, so a Persian post publishes them on the page
-     * object that both templates share.
+     * /projects/ "Open source" and this file did not, and `ucfirst` and
+     * `Str::title` case a slug differently.
      *
      * The home page gets no trail. Google ignores a trail of one item.
      */
@@ -234,7 +228,7 @@
     // search result, and these pages get no search result.
     $isNoIndex = str_contains(strtolower($page->getRobotsStatus()), 'noindex');
 
-    $trail = $isNoIndex ? [] : $page->getBreadcrumbs(collect($page->crumbLabels ?? [])->all());
+    $trail = $isNoIndex ? [] : $page->getBreadcrumbs();
 
     if (count($trail) > 1) {
         $crumbs = [

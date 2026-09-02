@@ -13,6 +13,6 @@
         "db:columns": "wrangler d1 execute hesamrad-enquiries --remote --command \"PRAGMA table_info(enquiries)\""
     },
     "devDependencies": {
-        "wrangler": "^4.0.0"
+        "wrangler": "^4.128.0"
     }
 }

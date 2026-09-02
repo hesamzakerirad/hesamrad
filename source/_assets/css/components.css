@@ -2055,10 +2055,6 @@ textarea.field__input {
     color: var(--line-strong);
 }
 
-[dir='rtl'] .breadcrumbs__item + .breadcrumbs__item::before {
-    content: '\2039';
-}
-
 .breadcrumbs__link {
     display: block;
     padding-block: 0.35rem;
