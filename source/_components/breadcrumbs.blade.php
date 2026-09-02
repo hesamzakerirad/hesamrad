@@ -4,12 +4,8 @@
     getBreadcrumbs() in config.php gives the list. The same function gives the
     BreadcrumbList in the JSON-LD. Therefore the markup and the structured data
     always agree.
-
-    Parameters:
-      $crumbLabels — replacement words, keyed by segment ('home', 'blog', …).
-                     A Persian post gives Persian words.       (optional)
 --}}
-@php($crumbs = $page->getBreadcrumbs($crumbLabels ?? []))
+@php($crumbs = $page->getBreadcrumbs())
 
 @if (count($crumbs) > 1)
     <nav class="breadcrumbs" aria-label="Breadcrumb">

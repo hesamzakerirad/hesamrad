@@ -2,51 +2,22 @@
 
 @php
     /*
-     * The post chrome uses the language of the post, not the language of the
-     * site. `main` sets `dir` from the front matter of the post. Do not
-     * hardcode this text. Hardcoded text puts Persian labels in a
-     * left-to-right document, and it points the arrows in the wrong direction.
-     *
-     * A Persian post shows a Jalali date. All other posts show a Gregorian
-     * date.
+     * The words the post chrome puts on the page. They live here rather than
+     * inline so that the copy for a post is in one place and not spread over
+     * the template.
      */
-    $isRtl = $page->getDirection() === 'rtl';
-
-    $strings = [
-        'fa' => [
-            'readTime' => 'خواندن در :minutes دقیقه',
-            'copyUrl' => 'کپی آدرس',
-            'copied' => 'کپی شد!',
-            'nextPost' => 'نوشته بعدی',
-            'imageCredit' => 'نگاره از :link به امانت گرفته شده است.',
-            'imageCreditLink' => 'اینجا',
-            'crumbs' => ['home' => 'خانه', 'blog' => 'وبلاگ'],
-            'publishedLabel' => 'انتشار :date',
-            'updatedLabel' => 'ویرایش :date',
-            'published' => fn ($page) => $page->getJalaliDate(),
-            'date' => fn ($page) => $page->getUpdatedJalaliDate(),
-        ],
-        'en' => [
-            'readTime' => ':minutes min read',
-            'copyUrl' => 'Copy URL',
-            'copied' => 'Copied',
-            'nextPost' => 'Next post',
-            'imageCredit' => 'Image borrowed from :link.',
-            'imageCreditLink' => 'here',
-            'crumbs' => [],
-            'publishedLabel' => 'Published :date',
-            'updatedLabel' => 'updated :date',
-            'published' => fn ($page) => $page->getCreatedAtDate('j F Y'),
-            'date' => fn ($page) => $page->getUpdatedAtDate('j F Y'),
-        ],
+    $t = [
+        'readTime' => ':minutes min read',
+        'copyUrl' => 'Copy URL',
+        'copied' => 'Copied',
+        'nextPost' => 'Next post',
+        'imageCredit' => 'Image borrowed from :link.',
+        'imageCreditLink' => 'here',
+        'publishedLabel' => 'Published :date',
+        'updatedLabel' => 'updated :date',
+        'published' => fn ($page) => $page->getCreatedAtDate('j F Y'),
+        'date' => fn ($page) => $page->getUpdatedAtDate('j F Y'),
     ];
-
-    $t = $strings[$page->getBaseLanguage()] ?? $strings['en'];
-
-    // The JSON-LD trail must carry the same words as the visible one. This
-    // template renders before the layout, so the labels are on the page object
-    // by the time _includes/structured-data.blade.php builds the list.
-    $page->crumbLabels = $t['crumbs'];
 @endphp
 
 @section('title', $page->title)
@@ -106,12 +77,7 @@
     <article class="shell section post-layout">
 
         <header class="article-header">
-            {{-- The same labels reach the BreadcrumbList through
-                 `$page->crumbLabels`, which _includes/structured-data.blade.php
-                 reads. Google ignores the trail when the visible list and the
-                 markup disagree, and a local of this template cannot reach the
-                 layout. --}}
-            @include('_components.breadcrumbs', ['crumbLabels' => $t['crumbs']])
+            @include('_components.breadcrumbs')
 
             <h1>{{ $page->title }}</h1>
 
@@ -245,7 +211,7 @@
                         <span class="next-post__label">{{ $t['nextPost'] }}</span>
                         <span>{{ $next->title }}</span>
                     </span>
-                    @include('_components.icon', ['name' => $isRtl ? 'arrow-left' : 'arrow-right'])
+                    @include('_components.icon', ['name' => 'arrow-right'])
                 </a>
             </nav>
         @endif

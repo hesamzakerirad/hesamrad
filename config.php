@@ -62,13 +62,11 @@ return [
     'bookingUrl' => $bookingUrl,
     // The default locale and language. A page can override them with `locale`
     // or `language` front matter. A post without front matter gets the
-    // post-specific pair below. The RTL support stays available: a post can
-    // select it with `language: fa`.
+    // post-specific pair below.
     'defaultLocale' => 'en_US',
     'defaultLanguage' => 'en',
     'postLocale' => 'en_US',
     'postLanguage' => 'en',
-    'rtlLanguages' => ['fa', 'ar', 'he', 'iw', 'ur'],
 
     // This value controls the nav entry, the robots directive on the listing
     // page, and the generation of sample case studies. Set it at the top of
@@ -506,8 +504,8 @@ return [
      * `createFromFormat('U')` then rejects them, and the `: DateTime` return
      * type of the callers causes a fatal error.
      *
-     * Do not use `ctype_digit`. A date before 1970 is a negative integer, and a
-     * Jalali year such as `1403-05-16` is also negative.
+     * Do not use `ctype_digit`. A date before 1970 is a negative integer, and
+     * `ctype_digit` rejects the leading minus sign.
      */
     'getTimestamp' => function ($page, $value) {
         if (is_int($value)) {
@@ -568,14 +566,6 @@ return [
         return $page->getUpdatedAtObject()->format($format);
     },
 
-    'getJalaliDate' => function ($page, $format = '%d %B %Y'): string {
-        return verta($page->getCreatedAtDate())->format($format);
-    },
-
-    'getUpdatedJalaliDate' => function ($page, $format = '%d %B %Y'): string {
-        return verta($page->getUpdatedAtDate())->format($format);
-    },
-
     /**
      * Collapses the whitespace in a string and cuts the string to $length at a
      * word boundary. It makes no other change to the text.
@@ -591,7 +581,8 @@ return [
         }
 
         // Use the multibyte function. A cut on a byte boundary divides a
-        // Persian character, and json_encode() then fails on the invalid UTF-8.
+        // multibyte character such as an em dash or a curly quote, and
+        // json_encode() then fails on the invalid UTF-8.
         $truncated = mb_substr($cleaned, 0, $length);
 
         // Use `??` and not `?:`. A result of "0" is a valid summary, and `?:`
@@ -807,22 +798,6 @@ return [
             ?: ($page->isPost($page) ? $page->postLocale : $page->defaultLocale);
     },
 
-    /**
-     * Returns the primary subtag of the page language. 'fa-IR' therefore gives
-     * the same result as 'fa'.
-     *
-     * All code that uses the language must call this function. The text
-     * direction and the post labels must agree on the language.
-     */
-    'getBaseLanguage' => function ($page) {
-        return strtolower(strtok($page->getLanguage(), '-_'));
-    },
-
-    'getDirection' => function ($page) {
-        // rtlLanguages is an IterableObject (a Collection) and not an array.
-        return collect($page->rtlLanguages)->contains($page->getBaseLanguage()) ? 'rtl' : 'ltr';
-    },
-
     'getAuthor' => function ($page) {
         return $page->author ?? $page->siteName;
     },
@@ -932,11 +907,8 @@ return [
      * The visible breadcrumbs and the BreadcrumbList in the JSON-LD must both
      * come from this function. Google ignores the markup when the two lists
      * disagree.
-     *
-     * $labels translates the fixed words. A Persian post needs a Persian
-     * "Home".
      */
-    'getBreadcrumbs' => function ($page, array $labels = []) {
+    'getBreadcrumbs' => function ($page) {
         if ($page->isHomePage()) {
             return [];
         }
@@ -951,12 +923,12 @@ return [
 
         // Use the section name and not the slug. "Open source" is the name of
         // the /projects/ section. A URL segment is an address and not a label.
-        $names = array_merge([
+        $names = [
             'home' => 'Home',
             'blog' => 'Blog',
             'work' => 'Work',
             'projects' => 'Open source',
-        ], $labels);
+        ];
 
         $humanise = fn($segment) => $names[$segment]
             ?? ucfirst(str_replace('-', ' ', $segment));

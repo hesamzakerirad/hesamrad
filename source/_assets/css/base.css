@@ -161,7 +161,6 @@ samp,
 pre {
     font-family: var(--font-mono);
     font-size: 0.9em;
-    direction: ltr;
 }
 
 :not(pre) > code {

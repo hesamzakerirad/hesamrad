@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $page->getLanguage() }}" dir="{{ $page->getDirection() }}">
+<html lang="{{ $page->getLanguage() }}">
 
 @php
     // Blade's inline `@section('name', $value)` sends the value through e()
