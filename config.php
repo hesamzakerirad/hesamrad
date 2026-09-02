@@ -180,7 +180,7 @@ return [
             'group' => 'General',
             'q' => 'Where are you located?',
             'a' => [
-                'I\'m Persian, and I\'m based in Turkey. The clocks here don\'t change through the year, so I\'m on the same time all year round: a couple of hours ahead of London, and seven or eight ahead of New York.',
+                'I\'m Persian, and I work from Iran. The clocks here don\'t change through the year, so the gap between us is the same whatever month it is: about three hours ahead of London, and eight or so ahead of New York.',
                 'The work is remote and I take clients wherever they are. Where I sit matters less than which hours you can reach me in, and that one has its own answer below.',
             ],
         ],
@@ -334,7 +334,7 @@ return [
             'q' => 'How do we work together?',
             'a' => [
                 'Remotely, and with clients anywhere. I\'ve worked this way for most of my career and I\'m good at it.',
-                'I\'m in Turkey, and a working day here reaches most of the world at one end or the other. My mornings land in the afternoon across Asia and Australia. My afternoons and evenings land in the working day across Europe and the Americas. Tell me where you are and I\'ll tell you exactly which hours you get, before you hire me rather than after.',
+                'I work from Iran, and a working day here reaches most of the world at one end or the other. My mornings land in the afternoon across Asia and Australia. My afternoons and evenings land in the working day across Europe and the Americas. Tell me where you are and I\'ll tell you exactly which hours you get, before you hire me rather than after.',
                 'Most people settle into a short call once a week plus email in between. If you\'d rather have more or less than that, say so.',
             ],
         ],
