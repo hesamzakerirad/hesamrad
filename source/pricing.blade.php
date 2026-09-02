@@ -40,10 +40,18 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
              avoid the wrap, mark the break here instead. --}}
         <h1>What it costs to build a&nbsp;website or a web application.</h1>
 
-        <p class="lead prose">Two kinds of work, and they can't be priced the same way. A website is a known job, so
-            it has a number and the number is on this page. A web application is built around how one business runs,
-            so it gets a number once somebody has worked out what it involves. That someone is me, it takes a week,
-            and it costs you nothing.</p>
+        {{-- Open on what the reader gets, not on how the page is arranged. The
+             earlier version led with "two kinds of work, and they can't be
+             priced the same way", which explains the layout to somebody who
+             came here worried about the bill. --}}
+        <p class="lead prose">You'll know what this costs before you're committed to anything. A website has a fixed
+            price and it's on this page, so you can settle that question right now without speaking to me at all. A
+            web application gets its number once I understand what you're actually asking for, and working that out
+            costs you nothing.</p>
+
+        <p class="lead prose">Whichever one you need, the price is agreed before the work starts and written into a
+            contract we both sign. It doesn't move unless you ask for something new. And if I think you need less
+            than you came here for, I'll tell you that instead of quoting you for the rest.</p>
 
         {{-- No `prose` on this one, unlike the paragraph above it. The only
              thing `prose` adds here is the sweeping underline on hover, and
@@ -52,7 +60,7 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
 
              Do not add `prose` back to match the sibling. It would change how
              the link behaves and nothing else. --}}
-        <p class="lead">If you want the work described before the money,
+        <p class="lead">If you'd rather see the work described before the money,
             <a href="{{ $page->baseUrl }}/services/">what I build and what I turn down</a> is set out on its own page.</p>
     </div>
 
