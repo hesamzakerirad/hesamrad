@@ -235,11 +235,16 @@ return [
         ],
         [
             'group' => 'Before we start',
-            'q' => 'Can I see what other clients say about working with you?',
+            // Do not word this as client testimonials. Every review on
+            // /reviews/ is from an engineer who worked alongside me, and a
+            // question that promises buyers and delivers colleagues costs more
+            // trust than the reviews earn. Reword this the day that changes.
+            'q' => 'Can I see reviews from people you\'ve worked with?',
             'a' => [
-                'Yes, and read both halves of it. The case studies show you the problem and what got built. The reviews tell you what the months in between were like to sit through.',
+                'Yes, and it\'s worth knowing what they are before you read them. The reviews on this site are from engineers I\'ve worked alongside. They speak to how I work rather than to what it\'s like to hire me, so read them for that and nothing more.',
+                'The client work is in the case studies: the problem, what got built, and what changed because of it. And if you want to speak to somebody who has actually paid me, ask on the call and I\'ll put you in touch.',
             ],
-            'link' => ['href' => '/reviews/', 'label' => 'What past clients wrote'],
+            'link' => ['href' => '/work/', 'label' => 'The case studies'],
         ],
 
         // ── What it costs ────────────────────────────────────────────────

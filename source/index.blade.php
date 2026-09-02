@@ -62,6 +62,17 @@
                             <span>I need something built</span>
                             @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
                         </a>
+                        {{-- The fork used to need the campaign, because the
+                             campaign was the only page that named a price.
+                             /pricing/ names both prices and does not expire, so
+                             the second button has a live destination again.
+
+                             Keep it the ghost. The first button is for somebody
+                             who knows what they want; this one is for somebody
+                             deciding whether they can afford to ask. --}}
+                        <a class="btn btn--ghost" href="{{ $page->baseUrl }}/pricing/">
+                            <span>What it costs</span>
+                        </a>
                     @endif
                 </div>
 
