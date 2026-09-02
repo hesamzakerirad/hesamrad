@@ -23,6 +23,7 @@
     }
 
     $links[] = ['label' => 'Services', 'path' => 'services', 'href' => $page->baseUrl . '/services/'];
+    $links[] = ['label' => 'Pricing', 'path' => 'pricing', 'href' => $page->baseUrl . '/pricing/'];
     $links[] = ['label' => 'Blog', 'path' => 'blog', 'href' => $page->baseUrl . '/blog/'];
 @endphp
 
