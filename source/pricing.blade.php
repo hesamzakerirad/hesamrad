@@ -33,7 +33,12 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
     <div class="shell section page-head">
         @include('_components.breadcrumbs')
 
-        <h1>What it costs to build a website or a web application.</h1>
+        {{-- The no-break space ties "a" to "website". Without it the line ends
+             on the article and the noun starts the next one, which is the one
+             break this heading must not take. The 22ch cap on `.page-head h1`
+             is what puts the heading on two lines; do not raise the cap to
+             avoid the wrap, mark the break here instead. --}}
+        <h1>What it costs to build a&nbsp;website or a web application.</h1>
 
         <p class="lead prose">Two kinds of work, and they can't be priced the same way. A website is a known job, so
             it has a number and the number is on this page. A web application is built around how one business runs,
