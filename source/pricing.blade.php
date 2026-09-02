@@ -42,30 +42,27 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
                 <dl class="plan__rows">
                     <div class="plan__row">
                         <dt class="tabular">{{ $page->priceMonthly() }}<span class="plan__unit">/mo</span></dt>
-                        <dd>Hosting, the domain renewal, security updates, backups, and small changes when you need
-                            them. No minimum term.</dd>
+                        <dd>Hosting, domain, security updates, backups and small changes. No minimum term.</dd>
                     </div>
                     <div class="plan__row">
                         <dt class="tabular">{{ $page->pricing['turnaround'] }}</dt>
-                        <dd>From our first call to being online.</dd>
+                        <dd>From our first call to being live.</dd>
                     </div>
                 </dl>
 
                 <div class="plan__body">
                     <p class="plan__note">What the {{ $page->priceSetup() }} covers</p>
                     <ul class="card__list card__list--yes">
-                        <li>The pages your business needs, built around what you do and working properly on a phone</li>
-                        <li>I write the words from a half-hour call, so you never sit down to write about your own
-                            business</li>
-                        <li>The domain, the hosting and the security, set up and pointed at the right place</li>
-                        <li>Your Google listing sorted out, so people nearby can find you</li>
+                        <li>Pages built for your business, and good on a phone</li>
+                        <li>I write the words, from one half-hour call</li>
+                        <li>Domain, hosting and security, all set up</li>
+                        <li>Your Google listing, so people nearby can find you</li>
                     </ul>
 
                     <p class="plan__note">What sits outside it</p>
                     <ul class="card__list card__list--no">
-                        <li>A visual identity invented from scratch, logos and photography</li>
-                        <li>Payments, online ordering, booking systems and customer logins, which are quoted
-                            separately</li>
+                        <li>Logos, branding and photography</li>
+                        <li>Payments, ordering, bookings and logins, quoted separately</li>
                     </ul>
                 </div>
             </article>
@@ -74,35 +71,33 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
                 <div class="plan__head">
                     <h2 class="plan__eyebrow" id="web-application">A web application</h2>
                     <p class="plan__value">Quoted</p>
-                    <p class="plan__label">As one fixed number, once the plan is written</p>
+                    <p class="plan__label">One fixed number, once the plan is written</p>
                 </div>
 
                 <dl class="plan__rows">
                     <div class="plan__row">
-                        <dt class="tabular">Free</dt>
-                        <dd>The call and the written plan, whether or not you go ahead with me.</dd>
+                        <dt class="tabular">{{ $page->priceMonthly() }}<span class="plan__unit">/mo</span></dt>
+                        <dd>Hosting, domain, security updates, backups and small changes. No minimum term.</dd>
                     </div>
                     <div class="plan__row">
                         <dt class="tabular">~1 week</dt>
-                        <dd>From our first call to the plan and the number landing in your inbox.</dd>
+                        <dd>From our first call to the plan and the number.</dd>
                     </div>
                 </dl>
 
                 <div class="plan__body">
                     <p class="plan__note">What decides the number</p>
                     <ul class="card__list card__list--yes">
-                        <li>How many separate jobs the software has to do</li>
-                        <li>How many kinds of people use it, since staff, customers and admins each need their own
-                            screens</li>
-                        <li>Whether it has to talk to systems you already pay for</li>
-                        <li>How much has to be right on the first day rather than the third month</li>
+                        <li>How many jobs the software has to do</li>
+                        <li>How many kinds of user, since each needs its own screens</li>
+                        <li>Whether it talks to systems you already pay for</li>
+                        <li>How much has to be right on day one</li>
                     </ul>
 
                     <p class="plan__note">What I won't do</p>
                     <ul class="card__list card__list--no">
-                        <li>Quote you a figure before anyone has looked at the problem, which is how projects end up
-                            costing double</li>
-                        <li>Bill you by the hour and let the meter decide what it cost</li>
+                        <li>Quote a figure before anyone has looked at the problem</li>
+                        <li>Bill by the hour and let the meter decide</li>
                     </ul>
                 </div>
             </article>
