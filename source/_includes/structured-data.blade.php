@@ -210,6 +210,14 @@
         $pageNode['mainEntity'] = ['@id' => $list['@id']];
     }
 
+    // A page about one thing that is sold: /pricing/ and its Service. The node
+    // carries its own offers, therefore the page node names the Service and not
+    // a price. Last of the three, and it checks `mainEntity` itself, so a page
+    // that somehow declared both keeps the work as its subject.
+    if (! isset($pageNode['mainEntity']) && $service = $nodeOfType(['Service'])) {
+        $pageNode['mainEntity'] = ['@id' => $service['@id']];
+    }
+
     /*
      * The breadcrumbs come from getBreadcrumbs(), which is also what
      * _components/breadcrumbs.blade.php draws. Google ignores the trail when

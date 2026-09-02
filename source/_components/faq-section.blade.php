@@ -40,6 +40,25 @@
         </div>
 
         @include('_components.faq-list', ['items' => $pageQuestions])
+
+        {{-- This page shows the questions that belong to it. /faq/ holds every
+             question the site answers, so a reader who wants more has one
+             place to go.
+
+             The link is safe on every page that includes this component. /faq/
+             itself never reaches here, because its own questions carry no
+             `page` key and `$pageQuestions` is therefore empty, so the block
+             above skips and this link cannot point at the page it is on.
+
+             The visible text is short by design. The label spells it out for a
+             reader listing the links on the page, where "View more" on its own
+             says nothing. --}}
+        <p class="faq__more">
+            <a class="link-arrow" href="{{ $page->baseUrl }}/faq/" aria-label="View more questions">
+                <span>View more</span>
+                @include('_components.icon', ['name' => 'arrow-right'])
+            </a>
+        </p>
     </div>
 
     @if ($ownsSchema)

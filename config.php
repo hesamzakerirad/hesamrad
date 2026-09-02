@@ -18,13 +18,22 @@ $workIsPublic = true;
  *
  * Set this to true to put the campaign back.
  *
- * The prices below stay when this is false. No template reads them then, and
- * they are what the campaign starts again from.
+ * This switch no longer decides whether the site states a price. /pricing/
+ * reads the amounts below and is always live. The campaign is one way to sell
+ * a website; the price of a website is a fact about the work either way.
  */
 $campaignIsLive = false;
 
 /*
- * The Zero to One prices.
+ * The website prices.
+ *
+ * These are the figures for a website: one amount to build it, one a month to
+ * keep it running. /pricing/ states them, /zero-to-one/ states them again when
+ * the campaign is live, and the FAQ answers about cost link to /pricing/
+ * instead of repeating them. One number, one place.
+ *
+ * A web application has no figure here and must not get one. It is quoted
+ * after the plan is written, and /pricing/ says so in those words.
  *
  * The amounts are integers. `number_format` adds the comma in "$1,500",
  * therefore the comma cannot disagree with the figure. `currency` is the ISO
@@ -34,7 +43,7 @@ $campaignIsLive = false;
  */
 $pricing = [
     'setup' => 1500,
-    'monthly' => 50,
+    'monthly' => 99,
     'turnaround' => '~2 weeks',
     'symbol' => '$',
     'currency' => 'USD',
@@ -160,7 +169,29 @@ return [
      * `pricing` values. Do not write a figure again.
      */
     'siteFaq' => [
+        [
+            'group' => 'General',
+            'q' => 'Who are you?',
+            'a' => [
+                'I\'m an independent software engineer. I build web applications that work as well on a phone as on a laptop, and I take care of both halves: what your customers see, and the system running behind it.',
+            ],
+        ],
+        [
+            'group' => 'General',
+            'q' => 'Where are you located?',
+            'a' => [
+                'I\'m Persian, and I work from Iran. The clocks here don\'t change through the year, so the gap between us is the same whatever month it is: about three hours ahead of London, and eight or so ahead of New York.',
+                'The work is remote and I take clients wherever they are. Where I sit matters less than which hours you can reach me in, and that one has its own answer below.',
+            ],
+        ],
         // ── Before we start ──────────────────────────────────────────────
+        [
+            'group' => 'Before we start',
+            'q' => 'How quickly will you reply?',
+            'a' => [
+                'Within a day, usually sooner. I read every inquiry myself, because there\'s nobody else here to read them.',
+            ],
+        ],
         [
             'group' => 'Before we start',
             'q' => 'What happens on the first call?',
@@ -172,9 +203,10 @@ return [
         ],
         [
             'group' => 'Before we start',
-            'q' => 'How quickly will you reply?',
+            'q' => 'I\'m not ready for a call. Can I just write to you?',
             'a' => [
-                'Within a day, usually sooner. I read every inquiry myself, because there\'s nobody else here to read them.',
+                'Please do. There\'s a form at the end of every page on this site, and a paragraph about what you\'re trying to build is plenty to start with. Nobody should have to sit through a call to find out whether I\'m the right person.',
+                'I read every message myself, and I\'ll tell you straight when it isn\'t a job for me.',
             ],
         ],
         [
@@ -185,15 +217,54 @@ return [
                 'For larger work you\'ll also need to be reachable for a short call each week. Nothing else is needed up front.',
             ],
         ],
+        [
+            'group' => 'Before we start',
+            'q' => 'How long will my project take?',
+            'a' => [
+                'It depends on the size of what you\'re building. Every job here is built for one business, so anyone who gives you a number before hearing the problem is guessing at it.',
+                'What I can put a date on is the plan. You\'ll have it in writing within a week of the first call: what gets built, in what order, and how long each part takes. That\'s the point where the timeline stops being a guess.',
+            ],
+        ],
+        [
+            'group' => 'Before we start',
+            'q' => 'Is there a contract, and who am I paying?',
+            'a' => [
+                'There\'s always a contract, signed by both of us before any work starts. It sets out what\'s being built, what it costs, when it\'s paid, and what happens if either of us wants out.',
+                'You\'re hiring a person and not a company. I\'m a freelancer, I work for myself, and the contract is between you and me directly with my name on it. That\'s worth knowing up front, and anyone willing to start without putting it in writing is doing you no favors.',
+            ],
+        ],
+        [
+            'group' => 'Before we start',
+            // Do not word this as client testimonials. Every review on
+            // /reviews/ is from an engineer who worked alongside me, and a
+            // question that promises buyers and delivers colleagues costs more
+            // trust than the reviews earn. Reword this the day that changes.
+            'q' => 'Can I see reviews from people you\'ve worked with?',
+            'a' => [
+                'Yes, and it\'s worth knowing what they are before you read them. The reviews on this site are from engineers I\'ve worked alongside. They speak to how I work rather than to what it\'s like to hire me, so read them for that and nothing more.',
+                'The client work is in the case studies: the problem, what got built, and what changed because of it. And if you want to speak to somebody who has actually paid me, ask on the call and I\'ll put you in touch.',
+            ],
+            'link' => ['href' => '/work/', 'label' => 'The case studies'],
+        ],
 
         // ── What it costs ────────────────────────────────────────────────
         [
             'group' => 'What it costs',
             'q' => 'Do you charge by the hour?',
             'a' => [
-                'No. You get a number for the work, quoted after the plan is written, so you know what it costs before you commit instead of watching a meter run.',
-                'It also means I carry the risk if something takes longer than I thought. That\'s the right way round: I\'m the one who estimated it.',
+                'No. A website has a fixed price and it\'s published, so you can read it without talking to me first. A web application is quoted as one number after the plan is written, because until somebody has worked out what it involves, any figure is a guess dressed up as a quote.',
+                'Either way you know the cost before you commit, instead of watching a meter run. It also means I carry the risk when something takes longer than I thought. That\'s the right way round: I\'m the one who estimated it.',
             ],
+            'link' => ['href' => '/pricing/', 'label' => 'What it costs'],
+        ],
+        [
+            'group' => 'What it costs',
+            'q' => 'How do I know I can afford you?',
+            'a' => [
+                'The website price is on the site, so you can settle that question on your own in about ten seconds. For a web application the number comes with the written plan, and both the first call and that plan cost you nothing. You can read the figure and walk away.',
+                'If it\'s more than you want to spend, say so instead of going quiet. There\'s usually a smaller first version that solves the expensive half of the problem, and I\'d rather build that than lose the work over the shape of a quote.',
+            ],
+            'link' => ['href' => '/pricing/', 'label' => 'See the numbers'],
         ],
         [
             'group' => 'What it costs',
@@ -215,6 +286,14 @@ return [
         ],
         [
             'group' => 'What I build',
+            'q' => 'I just need a simple website, not an application. Is that you?',
+            'a' => [
+                'Yes. A few pages that say who you are, what you sell and how to reach you is a real piece of work, and plenty of businesses need nothing more than that for a long time.',
+                'It\'s a smaller job than an application, so it\'s a smaller number and a shorter wait. Tell me what the business does and I\'ll say what it actually needs, including the times that\'s less than you came in expecting.',
+            ],
+        ],
+        [
+            'group' => 'What I build',
             'q' => 'Do you work with my existing designer or developer?',
             'a' => [
                 'Often, and it usually costs you less. If you already have a designer or a front-end team, I take the part they can\'t do and leave the part they can.',
@@ -226,6 +305,14 @@ return [
             'q' => 'What will you not take on?',
             'a' => [
                 'Brand and logo design, apps written natively for iPhone and Android (I build web apps that work properly on a phone instead), and anything where the plan is to skip testing to hit a date. I\'ll say so on the first call, not three weeks in.',
+            ],
+        ],
+        [
+            'group' => 'What I build',
+            'q' => 'Do you also do the marketing, the SEO, and the branding?',
+            'a' => [
+                'No. I build the software and that\'s the whole of it. No logo, no brand guidelines, no ad campaigns, no SEO. Those are full-time trades, and you\'re better off with someone who does them all day than with me doing them badly on the side.',
+                'If you already have people on that work, I\'ll build what they need me to build and stay out of their way.',
             ],
         ],
 
@@ -251,8 +338,18 @@ return [
             'group' => 'Working together',
             'q' => 'How do we work together?',
             'a' => [
-                'Remotely. I\'ve worked this way for most of my career and I\'m good at it. My clients are across Europe and North America, and I arrange my day around whichever of those you\'re in, so there are hours every day when you can reach me directly.',
+                'Remotely, and with clients anywhere. I\'ve worked this way for most of my career and I\'m good at it.',
+                'I work from Iran, and a working day here reaches most of the world at one end or the other. My mornings land in the afternoon across Asia and Australia. My afternoons and evenings land in the working day across Europe and the Americas. Tell me where you are and I\'ll tell you exactly which hours you get, before you hire me rather than after.',
                 'Most people settle into a short call once a week plus email in between. If you\'d rather have more or less than that, say so.',
+            ],
+        ],
+        [
+            'group' => 'Working together',
+            'q' => 'What happens if you get ill, or you\'re not around?',
+            'a' => [
+                'Fair question, and the answer worth anything isn\'t a promise from me. It\'s the setup.',
+                'I work inside your accounts from the first day, so the code, the hosting and the domain are already yours while the work is still going on. The setup runs from written instructions and the tests say what\'s broken. If I vanished tomorrow you\'d hand the repository to another developer and they\'d carry on. That\'s true in week one, not only at the end.',
+                'I don\'t plan on going anywhere. I\'d just rather you didn\'t have to take my word for it.',
             ],
         ],
         [
@@ -279,11 +376,11 @@ return [
         // then scope, then the risk of one person. The `group` key is unused
         // while `page` is set.
         //
-        // Money is not here. Every figure the site publishes is a Zero to One
-        // figure, and it belongs on that page. Do not answer cost here with a
-        // number.
+        // Money is not here. /pricing/ owns every figure the site publishes,
+        // and an answer that needs one links there instead of repeating it. Do
+        // not answer cost here with a number.
         [
-            'q' => 'What services do I offer?',
+            'q' => 'What services do you offer?',
             'page' => '/services/',
             'a' => [
                 'Bespoke web application development. I build applications that live on the internet; no mobile or desktop application.',
@@ -304,6 +401,77 @@ return [
                 'There is a form right below this section you can use to write me; or you can just book a quick 30 minutes call so we can talk face to face and hear about your idea.',
             ],
             'link' => ['href' => $bookingUrl, 'label' => 'Book a call'],
+        ],
+
+        // ── On /pricing/ only ────────────────────────────────────────────
+        // These leave /faq/ and close the pricing page, in this order: the two
+        // money questions with what each one buys, then the question that
+        // decides which of the two a reader needs, then the terms.
+        //
+        // The panels above already state the figures and the lists. An answer
+        // here has to earn its place by saying what the panels cannot: the
+        // page-by-page detail, the test for choosing between them, how the
+        // money is staged, and who pays when an estimate is wrong.
+        //
+        // This is the one block outside the campaign that may name a figure,
+        // because /pricing/ is the page that owns them. Read the amounts from
+        // `pricing` and do not write a number again.
+        [
+            'q' => 'How much does a website cost?',
+            'page' => '/pricing/',
+            'a' => [
+                'A website costs ' . $money($pricing['setup']) . ' to build and put live, then ' . $money($pricing['monthly']) . ' a month to keep it running. That is the whole of it, and it does not move once we have agreed the work.',
+                'Anything outside the list on this page is a different job with its own fixed price, and that number comes once the plan is written.',
+            ],
+        ],
+        [
+            'q' => 'What does the website include?',
+            'page' => '/pricing/',
+            'a' => [
+                'The website includes any number of pages your business needs, the content, the domain and hosting, and your Google listing.',
+                'Most businesses have these pages: Home, About, Services, Pricing, Reviews, Contact, and a few others. The content is written from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
+            ],
+        ],
+        [
+            'q' => 'How much does a web application cost?',
+            'page' => '/pricing/',
+            'a' => [
+                'A web application is quoted as one fixed number once the plan is written.',
+                'The plan is free, and it outlines what the application will do and how much it will cost to build.',
+            ],
+        ],
+        [
+            'q' => 'What does the web application include?',
+            'page' => '/pricing/',
+            'a' => [
+                'There\'s no fixed list, because the whole point of an application is that it\'s built around how your business runs. What it includes is whatever the plan says it includes, written down and agreed before anyone starts.',
+                'What\'s in every build regardless: the screens people use, the database behind them, the accounts and permissions that decide who sees what, hosting and deployment set up and working, tests that tell you when something is broken, and written instructions so somebody else could pick it up. None of those are extras and none of them get itemized separately.',
+            ],
+        ],
+        [
+            'q' => 'Does my business need a website or a web application?',
+            'page' => '/pricing/',
+            'a' => [
+                'A website tells people about your business. An application does work, either for your customers or for your staff. Put that way it\'s usually obvious which one you\'re describing.',
+                'The test I use is whether anybody logs in. If people need accounts, or your staff need screens to run something from, or the thing has to remember what a customer did last time, it\'s an application. If it\'s pages that say what you do and how to reach you, it\'s a website.',
+                'Plenty of businesses need the website now and the application two years from now. If that\'s you, I\'ll say so, and I won\'t sell you the second one early.',
+            ],
+        ],
+        [
+            'q' => 'Can I pay for a web application in stages?',
+            'page' => '/pricing/',
+            'a' => [
+                'Yes, and most people do. The work splits into pieces that each finish something you can actually look at, and each piece is invoiced as it lands. You\'re never paying months ahead of what exists.',
+                'The split is written into the plan before either of us signs anything, so you can see what you\'d be committing to and where you could stop.',
+            ],
+        ],
+        [
+            'q' => 'What happens if the work costs more than you quoted?',
+            'page' => '/pricing/',
+            'a' => [
+                'Then it costs me. The number is fixed once we\'ve agreed the work, and if I estimated it badly that\'s mine to carry. I\'m the one who estimated it.',
+                'It moves only when you ask for something that wasn\'t in the plan, and that gets quoted on its own before anyone builds it. A change is a decision you make, not a surprise on an invoice.',
+            ],
         ],
 
         // ── On /zero-to-one/ only ────────────────────────────────────────
@@ -490,7 +658,7 @@ return [
          * nothing follows is a page a crawler still has to fetch.
          */
         'redirects' => [
-            'path' => fn($page) => trim($page->redirectFrom, '/').'/',
+            'path' => fn($page) => trim($page->redirectFrom, '/') . '/',
         ],
     ],
 
@@ -642,12 +810,12 @@ return [
      */
     'withExternalLinksInNewTab' => function ($page, $html) {
         $siteHosts = collect([parse_url($page->baseUrl, PHP_URL_HOST), 'hesamrad.com'])
-            ->map(fn ($host) => preg_replace('/^www\./', '', (string) $host))
+            ->map(fn($host) => preg_replace('/^www\./', '', (string)$host))
             ->filter()
             ->all();
 
         return preg_replace_callback('/<a\b([^>]*?)href="(https?:\/\/[^"]+)"([^>]*)>/i', function ($match) use ($siteHosts) {
-            $host = preg_replace('/^www\./', '', (string) parse_url($match[2], PHP_URL_HOST));
+            $host = preg_replace('/^www\./', '', (string)parse_url($match[2], PHP_URL_HOST));
             $attributes = $match[1] . $match[3];
 
             // The author can write the attributes in the markdown itself.
@@ -731,11 +899,11 @@ return [
      */
     'collectionListNode' => function ($page, $items) {
         $entries = collect($items)
-            ->map(fn ($item) => [
-                'name' => trim((string) ($item['name'] ?? '')),
-                'url' => trim((string) ($item['url'] ?? '')),
+            ->map(fn($item) => [
+                'name' => trim((string)($item['name'] ?? '')),
+                'url' => trim((string)($item['url'] ?? '')),
             ])
-            ->filter(fn ($item) => $item['name'] !== '' && $item['url'] !== '')
+            ->filter(fn($item) => $item['name'] !== '' && $item['url'] !== '')
             ->values();
 
         if ($entries->isEmpty()) {
@@ -747,7 +915,7 @@ return [
             '@id' => $page->getCanonicalUrl() . '#itemlist',
             'numberOfItems' => $entries->count(),
             'itemListElement' => $entries
-                ->map(fn ($item, $index) => [
+                ->map(fn($item, $index) => [
                     '@type' => 'ListItem',
                     'position' => $index + 1,
                     'name' => $item['name'],

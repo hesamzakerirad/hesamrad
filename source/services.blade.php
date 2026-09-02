@@ -33,22 +33,22 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
 
         @php
             $laravel = '<a href="https://laravel.com" target="_blank" rel="noopener noreferrer">Laravel</a>';
-            $next = '<a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">Next.js</a>';
+            $react = '<a href="https://react.dev" target="_blank" rel="noopener noreferrer">React</a>';
 
             // The `does` items hold markup and print unescaped. Write them here
             // and nowhere else, and do not put anything from a form in them.
             $does = [
-                'Web applications, built with ' . $laravel . ' and ' . $next,
+                'Websites and web applications built with ' . $laravel . ' and ' . $react,
                 'Looking after a ' . $laravel . ' application you already have',
                 'Bespoke admin dashboards to run the business from',
                 'Turning a manual process into software',
             ];
 
             $doesNot = [
-                'Design and branding',
-                'Marketing, SEO, and social media',
-                'WordPress, Shopify, and Wix',
                 'Mobile or desktop apps',
+                'WordPress, Shopify, and Wix',
+                'Marketing, SEO, and social media management',
+                'Design and branding',
             ];
         @endphp
 
@@ -112,6 +112,42 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
                         behind the work has to mean if the phrase is worth anything.</p>
                 </li>
             </ol>
+        </div>
+    </div>
+
+    {{-- The price comes last, after the work is described and after how the
+         work goes. A reader who has got this far knows what they would be
+         buying, which is the point at which a number is information rather
+         than a filter.
+
+         The home page deliberately does not carry this button. "Pricing" is
+         already in the nav on every page, so a hero button would duplicate it
+         and put the cost in front of somebody who has not yet been given a
+         reason to want the thing.
+
+         No figure here. /pricing/ owns every amount the site publishes and
+         this block links to it. --}}
+    <div class="shell section">
+        {{-- `callout` and not `section-head`. A section head is centered text
+             on the page background, which leaves a closing block sitting in
+             empty space. The callout is the surface this site already uses to
+             close /about/ and /projects/, and two buttons fill it the way they
+             do there. --}}
+        <div class="callout">
+            <h2>What it costs.</h2>
+            <p>A website has a fixed price and it's published, so you can settle that question without speaking to
+                me. An application is quoted as one number once the plan is written, and the plan costs you nothing
+                either way.</p>
+
+            <div class="btn-row">
+                <a class="btn btn--primary" href="{{ $page->baseUrl }}/pricing/">
+                    <span>See the numbers</span>
+                    @include('_components.icon', ['name' => 'arrow-right', 'class' => 'btn__icon'])
+                </a>
+                <a class="btn btn--ghost" href="{{ $page->bookingUrl }}" target="_blank" rel="noopener noreferrer">
+                    <span>Book a call</span>
+                </a>
+            </div>
         </div>
     </div>
 
