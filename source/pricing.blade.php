@@ -24,7 +24,14 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
             so it gets a number once somebody has worked out what it involves. That someone is me, it takes a week,
             and it costs you nothing.</p>
 
-        <p class="lead prose">If you want the work described before the money,
+        {{-- No `prose` on this one, unlike the paragraph above it. The only
+             thing `prose` adds here is the sweeping underline on hover, and
+             this page keeps its links plain. The width is already right: the
+             `.page-head .lead` rule sets the same measure `prose` would.
+
+             Do not add `prose` back to match the sibling. It would change how
+             the link behaves and nothing else. --}}
+        <p class="lead">If you want the work described before the money,
             <a href="{{ $page->baseUrl }}/services/">what I build and what I turn down</a> is set out on its own page.</p>
     </div>
 
