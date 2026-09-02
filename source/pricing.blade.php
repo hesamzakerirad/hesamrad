@@ -29,84 +29,83 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
     </div>
 
     <section class="shell section">
-        <div class="section-head">
-            <h2>A website.</h2>
-            <p>A fixed price, because it's the same defined job most times somebody asks for it.</p>
-        </div>
+        {{-- The two panels carry the headings for this page. A `section-head`
+             above them would name the pair, and the pair is the whole page. --}}
+        <div class="plans">
+            <article class="plan">
+                <div class="plan__head">
+                    <h2 class="plan__eyebrow" id="website">A website</h2>
+                    <p class="plan__value tabular">{{ $page->priceSetup() }}</p>
+                    <p class="plan__label">Once, to build it and put it live</p>
+                </div>
 
-        <div class="price">
-            <div class="price__figures">
-                <div class="price__figure">
-                    <span class="price__value tabular">{{ $page->priceSetup() }}</span>
-                    <span class="price__label">Once, to build it and put it live</span>
-                </div>
-                <div class="price__figure">
-                    <span class="price__value tabular">{{ $page->priceMonthly() }}<span class="price__unit">/mo</span></span>
-                    <span class="price__label">To host it, keep it safe and keep it current</span>
-                </div>
-                <div class="price__figure">
-                    <span class="price__value tabular">{{ $page->pricing['turnaround'] }}</span>
-                    <span class="price__label">From our first call to being online</span>
-                </div>
-            </div>
+                <dl class="plan__rows">
+                    <div class="plan__row">
+                        <dt class="tabular">{{ $page->priceMonthly() }}<span class="plan__unit">/mo</span></dt>
+                        <dd>Hosting, the domain renewal, security updates, backups, and small changes when you need
+                            them. No minimum term.</dd>
+                    </div>
+                    <div class="plan__row">
+                        <dt class="tabular">{{ $page->pricing['turnaround'] }}</dt>
+                        <dd>From our first call to being online.</dd>
+                    </div>
+                </dl>
 
-            <dl class="price__terms">
-                <div class="price__term">
-                    <dt>What the {{ $page->priceSetup() }} covers</dt>
-                    <dd>The pages your business needs, built around what you do and working properly on a phone. I
-                        write the words from a half-hour call, so you never have to sit down and write about your own
-                        business. The domain, the hosting and the security are set up and pointed at the right place,
-                        and your Google listing is sorted out so people nearby can find you.</dd>
-                </div>
-                <div class="price__term">
-                    <dt>What the {{ $page->priceMonthly() }} covers</dt>
-                    <dd>Hosting, the domain renewal, security updates, backups, and small changes when you need them:
-                        new opening hours, a price change, a few new photos. Email me and it gets done.</dd>
-                </div>
-                <div class="price__term">
-                    <dt>If you want to stop</dt>
-                    <dd>Then stop. There's no minimum term. The domain is registered to you, and I'll hand over
-                        everything so you or anyone else can pick it up. Nothing in the paperwork keeps you here.</dd>
-                </div>
-                <div class="price__term">
-                    <dt>What sits outside it</dt>
-                    <dd>A visual identity invented from scratch, logos, branding and photography. Taking payments,
-                        online ordering, booking systems and customer logins are all real work too, so they're quoted
-                        separately. A fixed price only stays fixed when both of us can see where the edges are.</dd>
-                </div>
-            </dl>
-        </div>
-    </section>
+                <div class="plan__body">
+                    <p class="plan__note">What the {{ $page->priceSetup() }} covers</p>
+                    <ul class="card__list card__list--yes">
+                        <li>The pages your business needs, built around what you do and working properly on a phone</li>
+                        <li>I write the words from a half-hour call, so you never sit down to write about your own
+                            business</li>
+                        <li>The domain, the hosting and the security, set up and pointed at the right place</li>
+                        <li>Your Google listing sorted out, so people nearby can find you</li>
+                    </ul>
 
-    <section class="section section--band">
-        <div class="shell">
-            <div class="section-head">
-                <h2>A web application.</h2>
-                <p>No figure here, and be suspicious of anyone who gives you one this early.</p>
-            </div>
+                    <p class="plan__note">What sits outside it</p>
+                    <ul class="card__list card__list--no">
+                        <li>A visual identity invented from scratch, logos and photography</li>
+                        <li>Payments, online ordering, booking systems and customer logins, which are quoted
+                            separately</li>
+                    </ul>
+                </div>
+            </article>
 
-            <div class="grid grid--halves">
-                <article class="card">
-                    <p class="card__label">Why there's no number on this page</p>
-                    <h3 class="card__title">Nobody can price what nobody has worked out yet</h3>
-                    <p class="card__body">An application is built around how your business actually runs, and no two
-                        run the same way. A number quoted before anyone has looked at the problem is a guess wearing a
-                        suit. It's also how projects end up costing double: the guess was low, the work was real, and
-                        somebody has to pay for the difference.</p>
-                    <p class="card__body">So the plan comes first, and the number comes with the plan.</p>
-                </article>
+            <article class="plan">
+                <div class="plan__head">
+                    <h2 class="plan__eyebrow" id="web-application">A web application</h2>
+                    <p class="plan__value">Quoted</p>
+                    <p class="plan__label">As one fixed number, once the plan is written</p>
+                </div>
 
-                <article class="card">
-                    <p class="card__label">What decides the number</p>
-                    <h3 class="card__title">Four things, and you'll know all four</h3>
-                    <p class="card__body">How many separate jobs the software has to do. How many kinds of people use
-                        it, since staff, customers and admins each need their own screens. Whether it has to talk to
-                        systems you already pay for. And how much of it has to be right on the first day rather than
-                        the third month.</p>
-                    <p class="card__body">The plan writes all four down in plain language, so you can see which one is
-                        driving the cost and decide whether you still want it.</p>
-                </article>
-            </div>
+                <dl class="plan__rows">
+                    <div class="plan__row">
+                        <dt class="tabular">Free</dt>
+                        <dd>The call and the written plan, whether or not you go ahead with me.</dd>
+                    </div>
+                    <div class="plan__row">
+                        <dt class="tabular">~1 week</dt>
+                        <dd>From our first call to the plan and the number landing in your inbox.</dd>
+                    </div>
+                </dl>
+
+                <div class="plan__body">
+                    <p class="plan__note">What decides the number</p>
+                    <ul class="card__list card__list--yes">
+                        <li>How many separate jobs the software has to do</li>
+                        <li>How many kinds of people use it, since staff, customers and admins each need their own
+                            screens</li>
+                        <li>Whether it has to talk to systems you already pay for</li>
+                        <li>How much has to be right on the first day rather than the third month</li>
+                    </ul>
+
+                    <p class="plan__note">What I won't do</p>
+                    <ul class="card__list card__list--no">
+                        <li>Quote you a figure before anyone has looked at the problem, which is how projects end up
+                            costing double</li>
+                        <li>Bill you by the hour and let the meter decide what it cost</li>
+                    </ul>
+                </div>
+            </article>
         </div>
     </section>
 
