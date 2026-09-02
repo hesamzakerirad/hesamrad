@@ -6,18 +6,34 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
 
 @extends('_layouts.main')
 
-@section('title', 'Pricing')
+{{-- The title names both kinds of work and the money, because "Pricing" is
+     not a phrase anybody searches for.
 
-{{-- Two figures and one refusal to give a figure. Keep this description close
-     to the opening paragraph: a description that reads like a different page
-     invites Google to write its own snippet out of the body copy. --}}
-@section('description', 'A website is a fixed price, published here. A web application is quoted as one number after the plan is written, because any figure before that is a guess.')
+     Keep this under 48 characters. main.blade.php appends " - Hesam Rad" only
+     while the whole title stays under 60, so a longer one drops the name off
+     the search result without saying so. The name is the business here.
+
+     The front matter `title` stays "Pricing". That one draws the breadcrumb,
+     where a full sentence would be wrong. --}}
+@section('title', 'What a Website and a Web Application Cost')
+
+{{-- The figures belong in the description. The snippet is what somebody reads
+     before deciding to click, and on a question about cost the answer is the
+     reason to click.
+
+     Read the amounts from `pricing`, the way the panels do. A number typed
+     here would be a second source for a figure this site keeps in one place.
+
+     Keep this close to the opening paragraph: a description that reads like a
+     different page invites Google to write its own snippet out of the body
+     copy, which is what it did with the earlier wording. --}}
+@section('description', 'A website is ' . $page->priceSetup() . ' to build and ' . $page->priceMonthly() . ' a month to run. A web application is quoted as one fixed number once the plan is written, and the plan is free.')
 
 @section('body')
     <div class="shell section page-head">
         @include('_components.breadcrumbs')
 
-        <h1>What it costs.</h1>
+        <h1>What it costs to build a website or a web application.</h1>
 
         <p class="lead prose">Two kinds of work, and they can't be priced the same way. A website is a known job, so
             it has a number and the number is on this page. A web application is built around how one business runs,
