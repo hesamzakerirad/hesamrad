@@ -1,7 +1,4 @@
-{{-- The listing page is in English, but a post can be in a different language.
-     Therefore each preview gives its own `lang` and `dir`. --}}
-<article class="post-card {{ $post->isFeatured ? 'is-featured' : '' }}" lang="{{ $post->getLanguage() }}"
-    dir="{{ $post->getDirection() }}">
+<article class="post-card {{ $post->isFeatured ? 'is-featured' : '' }}">
     {{-- Keep "Featured" as markup. Do not draw it with a CSS ::before on the
          <h2>. Content from a stylesheet is not in the document. Also, a
          ::before on the <h2> becomes part of the accessible name of the

@@ -3,9 +3,6 @@ extends: _layouts.post
 section: content
 title: 
 description: 
-# Defaults to en/en_US; set both when writing a post in another language.
-language: 
-locale: 
 tags:
     - 
 robots: 

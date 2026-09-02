@@ -1,8 +1,7 @@
 {
     "require": {
         "tightenco/jigsaw": "^1.8",
-        "samdark/sitemap": "^3.1",
-        "hekmatinasser/verta": "^9.0"
+        "samdark/sitemap": "^3.1"
     },
     "autoload": {
         "psr-4": {
