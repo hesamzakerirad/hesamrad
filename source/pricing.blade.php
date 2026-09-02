@@ -24,8 +24,8 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
             so it gets a number once somebody has worked out what it involves. That someone is me, it takes a week,
             and it costs you nothing.</p>
 
-        <p class="lead prose">What I don't do is charge by the hour. You'd be paying for my time instead of the thing
-            you wanted, and I'd be the one holding the stopwatch.</p>
+        <p class="lead prose">If you want the work described before the money,
+            <a href="{{ $page->baseUrl }}/services/">what I build and what I turn down</a> is set out on its own page.</p>
     </div>
 
     <section class="shell section">
@@ -34,7 +34,7 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
         <div class="plans">
             <article class="plan">
                 <div class="plan__head">
-                    <h2 class="plan__eyebrow" id="website">A website</h2>
+                    <h2 class="plan__eyebrow" id="website">How much does a website cost?</h2>
                     <p class="plan__value tabular">{{ $page->priceSetup() }}</p>
                     <p class="plan__label">Once, to build it and put it live</p>
                 </div>
@@ -69,7 +69,7 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
 
             <article class="plan">
                 <div class="plan__head">
-                    <h2 class="plan__eyebrow" id="web-application">A web application</h2>
+                    <h2 class="plan__eyebrow" id="web-application">How much does a web application cost?</h2>
                     <p class="plan__value">Quoted</p>
                     <p class="plan__label">One fixed number, once the plan is written</p>
                 </div>
@@ -81,7 +81,7 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
                     </div>
                     <div class="plan__row">
                         <dt class="tabular">~1 week</dt>
-                        <dd>From our first call to the plan and the number.</dd>
+                        <dd>From our first call to the plan and number.</dd>
                     </div>
                 </dl>
 
@@ -108,6 +108,8 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
         <div class="section-head">
             <h2>How you get to a number.</h2>
             <p class="dim">Three steps, and you owe nothing until the end of the third.</p>
+            <p class="dim">It's the same three whichever one you're buying. You can read what came out the other
+                end of it in <a href="{{ $page->baseUrl }}/work/">the case studies</a>.</p>
         </div>
 
         <ol class="steps">
@@ -144,6 +146,8 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
         <div class="shell">
             <div class="section-head">
                 <h2>True whichever one you buy.</h2>
+                <p class="dim">Four things that don't change with the size of the job. The rest of what people ask
+                    before hiring me is on <a href="{{ $page->baseUrl }}/faq/">the questions page</a>.</p>
             </div>
 
             @php
@@ -171,46 +175,87 @@ contactIntro: "A paragraph about the business is enough. If it's a website you a
         </div>
     </section>
 
-    {{-- The Offer for a website, on the one page that states the price.
-         structured-data.blade.php runs on every page and therefore carries no
-         price: a price on /about/ or on a post is a price for a service that
-         page does not describe.
+    {{-- The website, as the thing this page is about.
 
-         Only the website gets an Offer. An application has no figure, and an
+         The Service is the node and the prices hang off it. The reverse, an
+         Offer with the Service inside `itemOffered`, is legal schema and was
+         what this page had, but it buries the Service as a blank node: nothing
+         can reference it, /services/ cannot reuse it, and the page ends up
+         about a price rather than about the work.
+
+         The Service carries an `@id`, so structured-data.blade.php finds it
+         and points `mainEntity` at it. Without that the node sits in the graph
+         with nothing referring to it, and an unreferenced node is one a search
+         engine is free to ignore.
+
+         Two offers, because the page states two figures. One Offer with only
+         the build price tells a crawler this is a one-time purchase, which is
+         not what the page says. The monthly one uses a
+         UnitPriceSpecification, because `price` alone cannot say "a month".
+         `unitCode` MON is the UN/CEFACT code for a month.
+
+         Only the website gets offers. The application has no figure, and an
          Offer with no price is worse than no Offer.
 
-         `seller`, not `provider`. schema.org does not define `provider` on an
-         Offer: it belongs to a Service or another CreativeWork. `seller` names
-         who is offering, and it points at the Person node the shared include
-         declares, so the two agree without repeating the business. The Service
-         inside `itemOffered` keeps `provider`, which is valid there.
+         `seller` on the Offer and `provider` on the Service. schema.org does
+         not define `provider` on an Offer, and does not define `seller` on a
+         Service. Both point at the Person the shared include declares, so the
+         graph names one human once.
 
          The figures come from `pricing` in config.php, which is also what the
-         price block above reads. A search engine and a reader thus cannot be
-         shown two different numbers.
+         panels above read. A search engine and a reader cannot be shown two
+         different numbers.
 
-         The node goes on `$page->schemaNodes`, which the shared include folds
-         into the one @graph in the head. A second <script> would put `seller`
-         in one block and the Person it names in another, and a search engine
-         reads each block on its own. --}}
+         `priceValidUntil` is computed at build time and not written down. A
+         date in a file goes stale the moment nobody remembers it is there;
+         this one moves a year out on every deploy. --}}
     @php
         $offerPersonId = rtrim($page->baseUrl, '/') . '/#person';
+        $offerValidUntil = date('Y-m-d', strtotime('+1 year'));
 
         $page->schemaNodes = [
             [
-                '@type' => 'Offer',
-                '@id' => $page->getCanonicalUrl() . '#offer',
-                'url' => $page->getCanonicalUrl(),
-                'price' => (string) $page->pricing['setup'],
-                'priceCurrency' => $page->pricing['currency'],
-                'seller' => ['@id' => $offerPersonId],
-                'itemOffered' => [
-                    '@type' => 'Service',
-                    'name' => 'Website design and development',
-                    'description' => 'A website for a business: built, launched and looked after, at a fixed price.',
-                    'serviceType' => 'Website design and development',
-                    'url' => $page->getCanonicalUrl(),
-                    'provider' => ['@id' => $offerPersonId],
+                '@type' => 'Service',
+                '@id' => $page->getCanonicalUrl() . '#website-service',
+                'name' => 'Website design and development',
+                'description' => 'A website for a business: built, launched and looked after, at a fixed price.',
+                'serviceType' => 'Website design and development',
+                'url' => rtrim($page->baseUrl, '/') . '/services/',
+                'provider' => ['@id' => $offerPersonId],
+                // The FAQ says the clients are across Europe and North America.
+                // Keep these two in step with that answer.
+                'areaServed' => [
+                    ['@type' => 'Place', 'name' => 'Europe'],
+                    ['@type' => 'Place', 'name' => 'North America'],
+                ],
+                'offers' => [
+                    [
+                        '@type' => 'Offer',
+                        '@id' => $page->getCanonicalUrl() . '#offer-build',
+                        'name' => 'Built and put live',
+                        'url' => $page->getCanonicalUrl(),
+                        'price' => (string) $page->pricing['setup'],
+                        'priceCurrency' => $page->pricing['currency'],
+                        'availability' => 'https://schema.org/InStock',
+                        'priceValidUntil' => $offerValidUntil,
+                        'seller' => ['@id' => $offerPersonId],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        '@id' => $page->getCanonicalUrl() . '#offer-care',
+                        'name' => 'Hosting, security and small changes',
+                        'url' => $page->getCanonicalUrl(),
+                        'availability' => 'https://schema.org/InStock',
+                        'seller' => ['@id' => $offerPersonId],
+                        'priceSpecification' => [
+                            '@type' => 'UnitPriceSpecification',
+                            'price' => (string) $page->pricing['monthly'],
+                            'priceCurrency' => $page->pricing['currency'],
+                            'unitCode' => 'MON',
+                            'billingDuration' => 1,
+                            'billingIncrement' => 1,
+                        ],
+                    ],
                 ],
             ],
         ];

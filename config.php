@@ -396,6 +396,48 @@ return [
             'link' => ['href' => $bookingUrl, 'label' => 'Book a call'],
         ],
 
+        // ── On /pricing/ only ────────────────────────────────────────────
+        // These leave /faq/ and close the pricing page, in this order: what
+        // the fixed price buys, then how an application is paid for, then the
+        // two questions a published price invites.
+        //
+        // This is the one block outside the campaign that may name a figure,
+        // because /pricing/ is the page that owns them. Read the amounts from
+        // `pricing` and do not write a number again.
+        [
+            'q' => 'Is the ' . $money($pricing['setup']) . ' website built from a template?',
+            'page' => '/pricing/',
+            'a' => [
+                'No. It\'s built for your business, in your colors and around what you actually sell. What makes the price fixed is the scope rather than the sameness: it\'s the same defined list of work every time, so I know what it takes before I quote it.',
+                'What you don\'t get for that number is a visual identity invented from nothing. If you have a logo I\'ll use it. If you don\'t, the site works fine without one.',
+            ],
+        ],
+        [
+            'q' => 'Can I pay for a web application in stages?',
+            'page' => '/pricing/',
+            'a' => [
+                'Yes, and most people do. The work gets split into pieces that each finish something you can look at, and each piece is invoiced as it lands. You\'re never paying months ahead of what exists.',
+                'The split is written into the plan before either of us signs anything, so you can see what you\'d be committing to and where you could stop.',
+            ],
+        ],
+        [
+            'q' => 'What happens if the work costs more than you quoted?',
+            'page' => '/pricing/',
+            'a' => [
+                'Then it costs me, not you. The number is fixed once we\'ve agreed the work, and if I estimated it badly that\'s mine to carry. I\'m the one who estimated it.',
+                'The number moves only when you ask for something that wasn\'t in the plan. That gets quoted on its own before anyone builds it, so a change is a decision you make rather than a surprise on an invoice.',
+            ],
+        ],
+        [
+            'q' => 'Do you take on a site or an application somebody else built?',
+            'page' => '/pricing/',
+            'a' => [
+                'Often. Inheriting a codebase is normal work, and a lot of the time it\'s the cheaper answer than starting again. What it costs depends on the state of what\'s there, which is what the first look is for.',
+                'I\'ll tell you honestly when a rebuild is genuinely the better buy, and I\'ll tell you when it isn\'t and somebody is about to sell you one.',
+            ],
+            'link' => ['href' => '/services/', 'label' => 'What I take on'],
+        ],
+
         // ── On /zero-to-one/ only ────────────────────────────────────────
         // The campaign, and the only place on the site that states a price.
         // Keep it that way: an answer here can name a figure, and an answer
