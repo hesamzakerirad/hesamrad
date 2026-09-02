@@ -375,7 +375,7 @@ return [
         // and an answer that needs one links there instead of repeating it. Do
         // not answer cost here with a number.
         [
-            'q' => 'What services do I offer?',
+            'q' => 'What services do you offer?',
             'page' => '/services/',
             'a' => [
                 'Bespoke web application development. I build applications that live on the internet; no mobile or desktop application.',
@@ -399,26 +399,64 @@ return [
         ],
 
         // ── On /pricing/ only ────────────────────────────────────────────
-        // These leave /faq/ and close the pricing page, in this order: what
-        // the fixed price buys, then how an application is paid for, then the
-        // two questions a published price invites.
+        // These leave /faq/ and close the pricing page, in this order: the two
+        // money questions with what each one buys, then the question that
+        // decides which of the two a reader needs, then the terms.
+        //
+        // The panels above already state the figures and the lists. An answer
+        // here has to earn its place by saying what the panels cannot: the
+        // page-by-page detail, the test for choosing between them, how the
+        // money is staged, and who pays when an estimate is wrong.
         //
         // This is the one block outside the campaign that may name a figure,
         // because /pricing/ is the page that owns them. Read the amounts from
         // `pricing` and do not write a number again.
         [
-            'q' => 'Is the ' . $money($pricing['setup']) . ' website built from a template?',
+            'q' => 'How much does a website cost?',
             'page' => '/pricing/',
             'a' => [
-                'No. It\'s built for your business, in your colors and around what you actually sell. What makes the price fixed is the scope rather than the sameness: it\'s the same defined list of work every time, so I know what it takes before I quote it.',
-                'What you don\'t get for that number is a visual identity invented from nothing. If you have a logo I\'ll use it. If you don\'t, the site works fine without one.',
+                'A website costs ' . $money($pricing['setup']) . ' to build and put live, then ' . $money($pricing['monthly']) . ' a month to keep it running. That is the whole of it, and it does not move once we have agreed the work.',
+                'Anything outside the list on this page is a different job with its own fixed price, and that number comes once the plan is written.',
+            ],
+        ],
+        [
+            'q' => 'What does the website include?',
+            'page' => '/pricing/',
+            'a' => [
+                'The website includes any number of pages your business needs, the content, the domain and hosting, and your Google listing.',
+                'Most businesses have these pages: Home, About, Services, Pricing, Reviews, Contact, and a few others. The content is written from what you tell me, because sitting down to write a page about your own business is the step that stalls most websites for months.',
+            ],
+        ],
+        [
+            'q' => 'How much does a web application cost?',
+            'page' => '/pricing/',
+            'a' => [
+                'A web application is quoted as one fixed number once the plan is written.',
+                'The plan is free, and it outlines what the application will do and how much it will cost to build.',
+            ],
+        ],
+        [
+            'q' => 'What does the web application include?',
+            'page' => '/pricing/',
+            'a' => [
+                'There\'s no fixed list, because the whole point of an application is that it\'s built around how your business runs. What it includes is whatever the plan says it includes, written down and agreed before anyone starts.',
+                'What\'s in every build regardless: the screens people use, the database behind them, the accounts and permissions that decide who sees what, hosting and deployment set up and working, tests that tell you when something is broken, and written instructions so somebody else could pick it up. None of those are extras and none of them get itemized separately.',
+            ],
+        ],
+        [
+            'q' => 'Does my business need a website or a web application?',
+            'page' => '/pricing/',
+            'a' => [
+                'A website tells people about your business. An application does work, either for your customers or for your staff. Put that way it\'s usually obvious which one you\'re describing.',
+                'The test I use is whether anybody logs in. If people need accounts, or your staff need screens to run something from, or the thing has to remember what a customer did last time, it\'s an application. If it\'s pages that say what you do and how to reach you, it\'s a website.',
+                'Plenty of businesses need the website now and the application two years from now. If that\'s you, I\'ll say so, and I won\'t sell you the second one early.',
             ],
         ],
         [
             'q' => 'Can I pay for a web application in stages?',
             'page' => '/pricing/',
             'a' => [
-                'Yes, and most people do. The work gets split into pieces that each finish something you can look at, and each piece is invoiced as it lands. You\'re never paying months ahead of what exists.',
+                'Yes, and most people do. The work splits into pieces that each finish something you can actually look at, and each piece is invoiced as it lands. You\'re never paying months ahead of what exists.',
                 'The split is written into the plan before either of us signs anything, so you can see what you\'d be committing to and where you could stop.',
             ],
         ],
@@ -426,18 +464,9 @@ return [
             'q' => 'What happens if the work costs more than you quoted?',
             'page' => '/pricing/',
             'a' => [
-                'Then it costs me, not you. The number is fixed once we\'ve agreed the work, and if I estimated it badly that\'s mine to carry. I\'m the one who estimated it.',
-                'The number moves only when you ask for something that wasn\'t in the plan. That gets quoted on its own before anyone builds it, so a change is a decision you make rather than a surprise on an invoice.',
+                'Then it costs me. The number is fixed once we\'ve agreed the work, and if I estimated it badly that\'s mine to carry. I\'m the one who estimated it.',
+                'It moves only when you ask for something that wasn\'t in the plan, and that gets quoted on its own before anyone builds it. A change is a decision you make, not a surprise on an invoice.',
             ],
-        ],
-        [
-            'q' => 'Do you take on a site or an application somebody else built?',
-            'page' => '/pricing/',
-            'a' => [
-                'Often. Inheriting a codebase is normal work, and a lot of the time it\'s the cheaper answer than starting again. What it costs depends on the state of what\'s there, which is what the first look is for.',
-                'I\'ll tell you honestly when a rebuild is genuinely the better buy, and I\'ll tell you when it isn\'t and somebody is about to sell you one.',
-            ],
-            'link' => ['href' => '/services/', 'label' => 'What I take on'],
         ],
 
         // ── On /zero-to-one/ only ────────────────────────────────────────
