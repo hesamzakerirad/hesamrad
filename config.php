@@ -629,6 +629,25 @@ return [
          * The filter must stay here and not in a template. It prevents the
          * generation of a sample when the site is public. There is then no URL,
          * no sitemap entry, and no page to find by a guess at the address.
+         *
+         * Two front matter keys control the order and the grouping on /work/.
+         *
+         * `kind` is 'web-application' or 'website'. A study without the key is
+         * a web application, so the key is only necessary on a website. /work/
+         * puts the web applications above the websites, and every other page
+         * that shows a selection of work shows web applications only.
+         *
+         * `launchYear` is the four-digit year the work went live, as an
+         * integer. It orders the studies and nothing renders it. `year` is the
+         * text a reader sees, and it holds a range such as '2020–2025', which
+         * is why the order cannot use it: a string comparison puts '2024' above
+         * '2020–2025'.
+         *
+         * The sort below stays on `year`, and each template orders by
+         * `launchYear` itself. A sort by name reads the key through array
+         * access, which throws when a study leaves the key out or leaves it
+         * empty. The templates read it through `get()`, which returns a default
+         * instead, so a study with no `launchYear` sorts last and builds.
          */
         'caseStudies' => [
             'path' => 'work/{filename}/',

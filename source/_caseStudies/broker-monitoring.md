@@ -7,9 +7,13 @@ contactHeading: 'Got something like this?'
 contactIntro: "Describe it in a paragraph. You will get an honest answer about whether I am the right person for it, including the times when I am not."
 published: true
 sample: false
+kind: 'web-application'
 client: null
 sector: 'Financial services'
 year: '2025'
+# The sort key for /work/. An integer, never rendered. `year` above is the
+# text a reader sees.
+launchYear: 2025
 duration: 'One year, as sole back end engineer'
 summary: 'A brokerage could only see what its trading platform chose to report about its traders, which was not much and not the right things. Their own analysts had worked out what they needed to watch, and the firm had rules it was enforcing by hand. This is the system that measures the first and enforces the second, sitting between the broker and its clients without either side having to change how they work.'
 role: 'Sole back end engineer. Everything behind the API was mine, and the API itself. The firm had its own front end people and its own tools for presentation, so building an interface would have duplicated what they already had. The engagement was scoped to the part they couldn''t do themselves.'
