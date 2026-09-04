@@ -1297,6 +1297,20 @@ a.card:hover .card__title {
     gap: var(--space-md);
 }
 
+/* A group of cards on /work/, under a heading that names the kind of work.
+   The groups sit in the page head with the lede, so the space between two of
+   them comes from here and not from a section. */
+.work-group + .work-group {
+    margin-top: var(--space-xl);
+}
+
+.work-group__heading {
+    margin-bottom: var(--space-md);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    color: var(--text-dim);
+}
+
 .work-card {
     position: relative;
     isolation: isolate;

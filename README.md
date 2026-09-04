@@ -163,13 +163,17 @@ to find.
 
 ## Add a case study
 
-Make a new file in `source/_caseStudies/`. Use `top-menu.md` as the model.
+Make a new file in `source/_caseStudies/`. Use `top-menu.md` as the model for a
+web application, or `melieqa.md` for a website.
 
 A case study has more fields than a post. Each field holds one part of the
-story. The layout puts the parts in order.
+story. The layout puts the parts in order. A field with no value renders
+nothing, so a short case study leaves the fields it has no answer for empty.
 
 | Field | What it holds |
 | --- | --- |
+| `kind` | `web-application` or `website` |
+| `launchYear` | The year the work went live, as an integer |
 | `summary` | The story in one paragraph |
 | `role` | The work that was yours |
 | `problem` | The condition before the work |
@@ -188,6 +192,17 @@ Two fields control whether the case study appears:
 - Set `published` to `true` to build the page.
 - Set `sample` to `true` to mark the case study as an example. A sample is not
   built when `production` is `true`.
+
+Two fields control where it appears:
+
+- `kind` puts the case study in a group on `/work/`. The page shows the web
+  applications first and the websites after them. A case study with no `kind`
+  is a web application. Every other page that shows a selection of the work
+  shows web applications only.
+- `launchYear` sorts the case studies inside a group, newest first. It is an
+  integer and it renders nowhere. `year` is the text a reader sees, and it
+  holds a range such as `2020–2025`, which is why the sort cannot use it: a
+  string comparison puts `2024` above `2020–2025`.
 
 Name a client only when you have permission.
 
