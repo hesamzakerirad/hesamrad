@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>What a Broker Could Not Buy - Hesam Rad</title>
+    
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Hesam Rad">
+    
+            <meta name="description" content="A monitoring layer that let a brokerage watch its traders on its own measures, and act on its own rules, without waiting for a platform to support either.">
+                <link rel="canonical" href="https://hesamrad.com/work/broker-monitoring/">
+    
+    
+    <script>
+        (function() {
+            var theme;
+            try {
+                theme = localStorage.getItem('theme');
+            } catch (error) {
+                // Safari in private mode throws an error on a read and on a write.
+            }
+            if (theme !== 'dark' && theme !== 'light') {
+                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('theme', theme);
+        })();
+    </script>
+
+    <meta property="og:title" content="What a Broker Could Not Buy - Hesam Rad">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hesamrad.com/work/broker-monitoring/">
+    <meta property="og:site_name" content="Hesam Rad">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:title" content="What a Broker Could Not Buy - Hesam Rad">
+            <meta property="og:description" content="A monitoring layer that let a brokerage watch its traders on its own measures, and act on its own rules, without waiting for a platform to support either.">
+        <meta name="twitter:description" content="A monitoring layer that let a brokerage watch its traders on its own measures, and act on its own rules, without waiting for a platform to support either.">
+        <meta name="twitter:site" content="@radestsam">
+    <meta name="twitter:creator" content="@radestsam">
+
+    
+    
+    <meta property="og:image" content="https://hesamrad.com/assets/build/images/og-default.png">
+    <meta property="og:image:alt" content="What a Broker Could Not Buy - Hesam Rad">
+            <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://hesamrad.com/assets/build/images/og-default.png">
+    <meta name="twitter:image:alt" content="What a Broker Could Not Buy - Hesam Rad">
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://hesamrad.com/#person","name":"Hesam Rad","url":"https://hesamrad.com/","jobTitle":"Independent software engineer","email":"hesamrad.dev@gmail.com","sameAs":["https://linkedin.com/in/hesamrad","https://github.com/hesamzakerirad","https://x.com/hesamzakerirad"],"knowsAbout":["Web application development","Laravel","Next.js","Software architecture"],"knowsLanguage":["English","Persian"]},{"@type":"WebSite","@id":"https://hesamrad.com/#website","url":"https://hesamrad.com/","name":"Hesam Rad","description":"Independent software engineer","inLanguage":"en","publisher":{"@id":"https://hesamrad.com/#person"}},{"@type":"WebPage","@id":"https://hesamrad.com/work/broker-monitoring/#webpage","url":"https://hesamrad.com/work/broker-monitoring/","name":"What a Broker Could Not Buy - Hesam Rad","inLanguage":"en","isPartOf":{"@id":"https://hesamrad.com/#website"},"description":"A monitoring layer that let a brokerage watch its traders on its own measures, and act on its own rules, without waiting for a platform to support either.","mainEntity":{"@id":"https://hesamrad.com/work/broker-monitoring/#article"},"primaryImageOfPage":{"@id":"https://hesamrad.com/work/broker-monitoring/#primaryimage"},"breadcrumb":{"@id":"https://hesamrad.com/work/broker-monitoring/#breadcrumbs"}},{"@type":"BreadcrumbList","@id":"https://hesamrad.com/work/broker-monitoring/#breadcrumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hesamrad.com/"},{"@type":"ListItem","position":2,"name":"Work","item":"https://hesamrad.com/work/"},{"@type":"ListItem","position":3,"name":"What a Broker Could Not Buy","item":"https://hesamrad.com/work/broker-monitoring/"}]},{"@type":"Article","@id":"https://hesamrad.com/work/broker-monitoring/#article","name":"What a Broker Could Not Buy","headline":"What a Broker Could Not Buy","url":"https://hesamrad.com/work/broker-monitoring/","inLanguage":"en","author":{"@id":"https://hesamrad.com/#person"},"publisher":{"@id":"https://hesamrad.com/#person"},"isPartOf":{"@id":"https://hesamrad.com/work/broker-monitoring/#webpage"},"mainEntityOfPage":{"@id":"https://hesamrad.com/work/broker-monitoring/#webpage"},"description":"A brokerage could only see what its trading platform chose to report about its traders, which was not much and not the right things. Their own analysts had worked out what they needed to watch, and the firm had rules it was enforcing by hand. This is the system that measures the first and enforces the second, sitting between the broker and its clients without either side having to change how they work.","articleSection":"Financial services","temporalCoverage":"2025","image":{"@id":"https://hesamrad.com/work/broker-monitoring/#primaryimage"}},{"@type":"ImageObject","@id":"https://hesamrad.com/work/broker-monitoring/#primaryimage","url":"https://hesamrad.com/assets/build/images/broker-monitoring.jpg","width":1600,"height":900}]}</script>
+
+    <link rel="home" href="https://hesamrad.com">
+    <link rel="alternate" type="application/rss+xml" title="Hesam Rad"
+        href="https://hesamrad.com/feed.xml">
+    
+    <link rel="icon" href="https://hesamrad.com/favicon.ico" sizes="16x16 32x32 48x48">
+    
+    <link rel="icon" type="image/svg+xml" href="https://hesamrad.com/assets/build/images/logo.svg">
+        
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/assets/build/Inter-Variable-DUFVAGfz.woff2">
+    <link rel="stylesheet" href="/assets/build/main-CgZ4b-0c.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H516TJZR2S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-H516TJZR2S');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" data-header>
+    <div class="shell site-header__inner">
+        <a class="brand" href="https://hesamrad.com" rel="home">Hesam Rad</a>
+
+        <nav class="site-nav" id="primary-nav" aria-label="Primary">
+                                            <a class="site-nav__link " href="https://hesamrad.com"
+                    >Home</a>
+                                            <a class="site-nav__link is-active" href="https://hesamrad.com/work/"
+                     aria-current="page" >Work</a>
+                                            <a class="site-nav__link " href="https://hesamrad.com/services/"
+                    >Services</a>
+                                            <a class="site-nav__link " href="https://hesamrad.com/pricing/"
+                    >Pricing</a>
+                                            <a class="site-nav__link " href="https://hesamrad.com/blog/"
+                    >Blog</a>
+                    </nav>
+
+        <div class="header-actions">
+            
+            <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+                <span class="visually-hidden">Toggle color theme</span>
+                <svg class="icon theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+</svg>
+                <svg class="icon theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>
+</svg>
+            </button>
+
+            <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">
+                <span class="visually-hidden">Toggle navigation</span>
+                <svg class="icon nav-toggle__icon nav-toggle__icon--open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+</svg>
+                <svg class="icon nav-toggle__icon nav-toggle__icon--close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <path d="M6 6l12 12M18 6L6 18"/>
+</svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+    
+    <main id="main" class="page-main" tabindex="-1">
+            <article class="shell section study">
+        <div class="study__head">
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol class="breadcrumbs__list">
+                            <li class="breadcrumbs__item">
+                                            <a class="breadcrumbs__link" href="https://hesamrad.com/">Home</a>
+                                    </li>
+                            <li class="breadcrumbs__item">
+                                            <a class="breadcrumbs__link" href="https://hesamrad.com/work/">Work</a>
+                                    </li>
+                            <li class="breadcrumbs__item">
+                                            
+                        <span class="breadcrumbs__current" aria-current="page">What a Broker Could Not Buy</span>
+                                    </li>
+                    </ol>
+    </nav>
+
+            
+            <p class="case__meta">
+                <span>
+                                            Client name withheld
+                                    </span>
+                <span>Financial services</span>
+                <span class="tabular">2025</span>
+            </p>
+
+            <h1 class="study__title">What a Broker Could Not Buy</h1>
+
+                            <p class="lead study__summary">A brokerage could only see what its trading platform chose to report about its traders, which was not much and not the right things. Their own analysts had worked out what they needed to watch, and the firm had rules it was enforcing by hand. This is the system that measures the first and enforces the second, sitting between the broker and its clients without either side having to change how they work.</p>
+                    </div>
+
+        
+        
+                    <figure class="study__cover">
+                
+                <div class="study__cover-frame study__cover-frame--credited">
+                                            <img src="/assets/build/images/broker-monitoring.jpg" alt="A close-up of a screen at an angle, showing a list of market indexes with red and green percentage moves beside a line chart." loading="eager"
+                            decoding="async" width="1600" height="900">
+                    
+                                            
+                        
+                        <small class="copyright">
+                            Image borrowed from <a href="https://unsplash.com/photos/graphical-user-interface-application-x07ELaNFt34" target="_blank"
+                                rel="noopener noreferrer">unsplash.com</a>.
+                        </small>
+                                    </div>
+
+                            </figure>
+        
+        <div class="study__body">
+            <div class="study__main">
+                <section class="study__section">
+                    <h2>What was wrong</h2>
+                    <p>Brokers largely see their traders through whatever their trading platform surfaces, and MetaTrader surfaces a fixed and fairly shallow set of figures. That&#039;s enough to know what happened and rarely enough to know what is happening: which trader is drifting from their stated strategy, which account is behaving unlike itself this week, where a position warrants a conversation before rather than after. The firm&#039;s senior analyst had defined measures that would answer those questions. Nothing they could buy implemented them. Alongside that sat a second problem. The firm had house rules about how accounts could be used, including a ban on one person running a trade in one account and mirroring it in another, and every one of those rules was being checked by a person reading reports after the fact.</p>
+                </section>
+
+                                    <section class="study__section">
+                        <h2>What made it awkward</h2>
+                        <ul class="card__list card__list--no">
+                                                            <li>The measures themselves are the client&#039;s intellectual property and the reason the system is worth having. They aren&#039;t described here, and that constraint shaped the build as much as any technical one.</li>
+                                                            <li>It had to be invisible from both sides. Traders carry on in the platform they already use, and nothing about the broker&#039;s existing arrangements could be disturbed to accommodate it. That had to hold even when the system acted. A suspended trader sees the suspension in their MetaTrader client, the same place they would see one a person had applied, and never learns there is a system behind it.</li>
+                                                            <li>Financial data, so a figure that is merely probably right is worthless. Anything the system reports has to be reproducible and explainable after the fact, because decisions get taken on the strength of it.</li>
+                                                            <li>The definitions were expected to change. Analysts refine what they measure, and a system where refining a measure means a developer and a release is a system that stops being refined.</li>
+                                                            <li>Some of the rules had to act on live accounts, which meant the system could be wrong about somebody&#039;s trading day. Nothing it did could be allowed to stand without a person being able to undo it.</li>
+                                                    </ul>
+                    </section>
+                
+                                    <section class="study__section">
+                        <h2>What I built</h2>
+                        <ul class="card__list card__list--yes">
+                                                            <li>An ingestion layer that reads trading activity continuously, without traders changing anything about how they work or noticing that it exists.</li>
+                                                            <li>A calculation engine implementing the analysts&#039; measures, built so a definition is configuration rather than code. The people who own the measures can change them without waiting for me.</li>
+                                                            <li>A full history of every calculation, so any figure can be reproduced months later against the inputs it was derived from.</li>
+                                                            <li>An API the firm&#039;s own tools read from, which is where the numbers stop being mine and become theirs to present however they like.</li>
+                                                            <li>Thresholds on the measures that raise something for a human to look at, so a judgment about a trader prompts a conversation rather than an action.</li>
+                                                            <li>A rules engine for the firm&#039;s house rules, which do act. A trader past their loss limit is flagged and can be stopped from opening more positions. Two positions opened at the same moment for the same volume are flagged as mirrored, and accounts that keep producing them are suspended on both sides, because the firm doesn&#039;t allow a position in one account to be copied into another.</li>
+                                                            <li>The rules themselves, written by the broker&#039;s analyst rather than by me, each one a plain condition on facts.</li>
+                                                            <li>A manual override on everything the rules engine does, because the recovery path for a wrong action is a person reversing it, not a support ticket.</li>
+                                                    </ul>
+                    </section>
+                
+                
+                                    <section class="study__section">
+                        <h2>Decisions worth explaining</h2>
+
+                        <div class="study__decisions">
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">Measures as configuration, not as code</h3>
+                                    <p class="decision__why">The analysts own the definitions and keep refining them. Hard-code the first version and every refinement becomes a development task, which is how refinement stops.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> More to build and more to get wrong, and it needed validation of its own so a bad definition fails loudly instead of quietly producing a plausible number.</p>
+                                </div>
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">Rules act, measures only flag</h3>
+                                    <p class="decision__why">The house rules are conditions on facts. A loss limit was passed or it wasn&#039;t. Two positions match on time and volume or they don&#039;t. A measure is closer to a judgment about how somebody trades, and a judgment is the wrong thing to put a consequence behind. Where a fact can still be a coincidence, the first one only flags and a pattern of them acts.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> Two mechanisms instead of one, and a boundary somebody has to keep defending. The case for wiring a measure straight to an action sounds reasonable every time it comes up.</p>
+                                </div>
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">Nothing the system does is irreversible</h3>
+                                    <p class="decision__why">It can stop a trader opening positions and it can suspend an account, and a person can undo either in a step. It was never given the ability to close a position or touch money, because those don&#039;t come back if the rule was wrong.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> No instant automatic response to anything, and a few rules would have been simpler to write without the limit.</p>
+                                </div>
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">Beside the platform, not in front of it</h3>
+                                    <p class="decision__why">Sitting in the order path puts every trade in the firm behind my code, and one bad deployment on my side stops the business.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> It reacts after the fact. Cross a loss limit and send another order and that order fills, with the block landing behind it. The rules catch a pattern over a session rather than referee a single trade.</p>
+                                </div>
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">Every calculation kept, not just the current answer</h3>
+                                    <p class="decision__why">A number that can&#039;t be reproduced isn&#039;t evidence. If a decision gets questioned in six months, the firm has to be able to show what was measured, when, and from what.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> Considerably more storage and a slower path for historical queries than storing only the latest value.</p>
+                                </div>
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">An API rather than screens</h3>
+                                    <p class="decision__why">The firm had people and tools for presentation, and none for this. Building an interface would have duplicated what they already had and put me in the way of their own analysts.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> Nothing is usable until something consumes it, so there was a stretch with real output and nothing to look at.</p>
+                                </div>
+                                                    </div>
+                    </section>
+                
+                                    <section class="study__section">
+                        <h2>How it ran</h2>
+                        <div class="rows">
+                                                            <div class="row">
+                                    <p class="row__key">First weeks</p>
+                                    <div class="row__value">
+                                        <p>Working through the measures with the analyst until they were specified precisely enough to implement, which took longer than expected and was the most valuable part.</p>
+                                    </div>
+                                </div>
+                                                            <div class="row">
+                                    <p class="row__key">Months two to five</p>
+                                    <div class="row__value">
+                                        <p>Ingestion and the calculation engine, checked against periods the analysts already knew the right answers for. The first house rules went in alongside them, hard-coded on purpose, because the question at that stage was whether a rule could see what it needed to see and act on it at all.</p>
+                                    </div>
+                                </div>
+                                                            <div class="row">
+                                    <p class="row__key">Months six to nine</p>
+                                    <div class="row__value">
+                                        <p>The API, the history that makes every figure reproducible, and the configuration layer. The measures and the hard-coded rules both moved into it, which is the point where the analyst stopped needing me to change either.</p>
+                                    </div>
+                                </div>
+                                                            <div class="row">
+                                    <p class="row__key">Final months</p>
+                                    <div class="row__value">
+                                        <p>A long stretch of shadow mode against test accounts. The rules evaluated and logged what they would have done without doing it, which is the only way to find out that a threshold is wrong before it is wrong on somebody real. Then hardening and handover to the team who run it.</p>
+                                    </div>
+                                </div>
+                                                    </div>
+                    </section>
+                
+                
+                
+                                    <section class="study__section">
+                        <h2>What changed</h2>
+                        <div class="stat-row study__results">
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        Zero    </span>
+    <span class="stat__label">developers needed when the analyst needed to change rules</span>
+</div>
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        One    </span>
+    <span class="stat__label">place to look for anything about a trader, in place of several</span>
+</div>
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        Two    </span>
+    <span class="stat__label">paid platforms replaced, and their subscriptions with them</span>
+</div>
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        Every    </span>
+    <span class="stat__label">measure watched continuously, where a person used to check by hand</span>
+</div>
+                                                    </div>
+                    </section>
+                
+                
+                
+                                    <section class="study__section">
+                        <h2>What I would do differently</h2>
+                        <p>The first thresholds I implemented were wrong, and shadow mode is what told us, after weeks of watching the rules fire against test accounts where a bad call harmed nobody. I built that shadow mode after the rules. I would build it first next time, so it is the thing thresholds get tuned in rather than the thing that catches them being wrong months later.</p>
+                    </section>
+                            </div>
+
+            <aside class="study__aside">
+                <div class="study__facts">
+                    <dl>
+                        <dt>Client</dt>
+                        <dd>
+                                                            Withheld
+                                                    </dd>
+
+                        <dt>Sector</dt>
+                        <dd>Financial services</dd>
+
+                        <dt>When</dt>
+                        <dd class="tabular">2025</dd>
+
+                                                    <dt>How long</dt>
+                            <dd>One year, as sole back end engineer</dd>
+                        
+                                                    <dt>My part in it</dt>
+                            <dd>Sole back end engineer. Everything behind the API was mine, and the API itself. The firm had its own front end people and its own tools for presentation, so building an interface would have duplicated what they already had. The engagement was scoped to the part they couldn&#039;t do themselves.</dd>
+                                            </dl>
+
+                    
+                                    </div>
+            </aside>
+        </div>
+
+        
+        
+                    
+            <figure class="review review--feature">
+            <h2 class="review__label">What the client said</h2>
+    
+    <div class="review__body">
+        <blockquote class="review__text" id="review-text-study">
+            <p>I hoped we would get to work with Hesam from the day I met him. Professionalism, to me, is about how someone deals with people, how versatile they are, and how well they read a situation, and he had all of it. We brought him onto what was probably the hardest project our team had taken on, a platform built on the data sitting in our broker servers. He stayed with it, he was disciplined about it, and he was someone you could hand anything to and stop worrying about. I hope we work with him again.</p>
+        </blockquote>
+    </div>
+
+    
+    <figcaption class="review__author">
+        
+        <span class="review__avatar " aria-hidden="true">
+            YR
+                    </span>
+
+        <span class="review__who">
+            <span class="review__name">
+                                    <a href="https://www.linkedin.com/in/yarta-r-r-05ba2a252/" target="_blank" rel="noopener noreferrer">YARTA R.R.</a>
+                            </span>
+
+                            <span class="review__role">Lead Financial Analyst</span>
+            
+                            <span class="review__relationship">Client</span>
+            
+            
+                            <span class="review__provenance">
+                    
+                    
+                                            
+                        <time class="review__date tabular" datetime="2025">Written in 2025</time>
+                                    </span>
+                    </span>
+    </figcaption>
+</figure>
+            </article>
+
+    
+    
+            
+        <nav class="shell section" aria-label="Next case study">
+            <a class="next-post" href="https://hesamrad.com/work/top-menu/">
+                <span>
+                    <span class="next-post__label">Next case study</span>
+                    From Static to Dynamic: The Living Menu
+                </span>
+                <svg class="icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <path d="M5 12h14M13 6l6 6-6 6"/>
+</svg>
+            </a>
+        </nav>
+    
+                <section class="shell section" id="contact">
+        <div class="callout">
+            <h2>Got something like this?</h2>
+            <p>Describe it in a paragraph. You will get an honest answer about whether I am the right person for it, including the times when I am not.</p>
+
+            <form class="form" method="POST" action="https://hello.hesamrad.com" data-contact-form>
+    
+    <input class="visually-hidden" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    
+    <input type="hidden" name="page" value="https://hesamrad.com/work/broker-monitoring/">
+
+    <noscript>
+        <p class="form__note form__note--warning">This form needs JavaScript to check you're not a bot. Email me
+            directly at <a href="mailto:hesamrad.dev@gmail.com">hesamrad.dev@gmail.com</a> and I'll pick it up
+            there.</p>
+    </noscript>
+
+    <p class="form__note">Three fields, and no budget question. We can work that out on the call.</p>
+
+    <div class="field">
+        <label class="field__label" for="contact-name">Your name</label>
+        <input class="field__input" id="contact-name" name="name" type="text" autocomplete="name" maxlength="200"
+            required>
+    </div>
+
+    <div class="field">
+        <label class="field__label" for="contact-email">Email</label>
+        <input class="field__input" id="contact-email" name="email" type="email" autocomplete="email" maxlength="320"
+            required>
+    </div>
+
+    <div class="field">
+        <label class="field__label" for="contact-message">What needs building, or what is broken?</label>
+        <textarea class="field__input" id="contact-message" name="message" rows="6" maxlength="5000" required
+            aria-describedby="contact-message-hint"></textarea>
+        <p class="field__hint" id="contact-message-hint">A paragraph is plenty. What the business does, and what you
+            want to be true that isn't true today.</p>
+    </div>
+
+    
+    <div class="field cf-turnstile" data-sitekey="0x4AAAAAAEMSHcNbdcoTgz3f" data-theme="auto"
+        data-action="contact"></div>
+
+    <div class="btn-row">
+        <button class="btn btn--primary" type="submit">Send it</button>
+    </div>
+
+    
+    <p class="form__status" data-form-status role="status" aria-live="polite" tabindex="-1"></p>
+
+    <p class="form__fallback dim">
+        I use what you send here to reply, and nothing else. You're not added to any list. Or email me directly
+        at <a href="mailto:hesamrad.dev@gmail.com">hesamrad.dev@gmail.com</a>.
+    </p>
+</form>
+
+            </div>
+    </section>
+    </main>
+
+    <footer class="site-footer">
+    <div class="shell">
+        <div class="site-footer__top">
+            <div class="site-footer__brand">
+                <p class="site-footer__name">Hesam Rad</p>
+                <p class="site-footer__pitch">I'm an independent software engineer. I build complete products for businesses.</p>
+                <p><span class="availability">Available for new projects</span></p>
+            </div>
+
+                            
+                                    <nav class="footer-group" aria-label="Work with me">
+                        <p class="footer-group__title">Work with me</p>
+
+                        <ul class="footer-group__list">
+                                                            <li>
+                                    <a href="https://hesamrad.com/services/"
+                                        >Services</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/pricing/"
+                                        >Pricing</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/work/"
+                                        >Case studies</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/reviews/"
+                                        >Reviews</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/faq/"
+                                        >Questions</a>
+                                </li>
+                                                    </ul>
+                    </nav>
+                                            
+                                    <nav class="footer-group" aria-label="More">
+                        <p class="footer-group__title">More</p>
+
+                        <ul class="footer-group__list">
+                                                            <li>
+                                    <a href="https://hesamrad.com/about/"
+                                        >About</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/projects/"
+                                        >Open source</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/blog/"
+                                        >Blog</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/feed.xml"
+                                        >RSS feed</a>
+                                </li>
+                                                    </ul>
+                    </nav>
+                                            
+                                    <nav class="footer-group" aria-label="Elsewhere">
+                        <p class="footer-group__title">Elsewhere</p>
+
+                        <ul class="footer-group__list">
+                                                            <li>
+                                    <a href="mailto:hesamrad.dev@gmail.com"
+                                        >Email</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://linkedin.com/in/hesamrad"
+                                         target="_blank" rel="noopener noreferrer me" >LinkedIn</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://github.com/hesamzakerirad"
+                                         target="_blank" rel="noopener noreferrer me" >GitHub</a>
+                                </li>
+                                                    </ul>
+                    </nav>
+                                    </div>
+
+        <div class="site-footer__bottom">
+            
+            <p>&copy; 2017&ndash;<span data-current-year>2026</span> Hesam Rad. All rights
+                reserved.</p>
+        </div>
+    </div>
+</footer>
+
+    
+    <script type="module" src="/assets/build/main-cJH1VtO_.js"></script>
+            <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    </body>
+
+</html>
