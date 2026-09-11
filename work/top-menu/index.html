@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>From Static to Dynamic: The Living Menu - Hesam Rad</title>
+    
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Hesam Rad">
+    
+            <meta name="description" content="Top Menu: a digital menu and ordering platform for cafés and restaurants, built and run over five years as lead engineer.">
+                <link rel="canonical" href="https://hesamrad.com/work/top-menu/">
+    
+    
+    <script>
+        (function() {
+            var theme;
+            try {
+                theme = localStorage.getItem('theme');
+            } catch (error) {
+                // Safari in private mode throws an error on a read and on a write.
+            }
+            if (theme !== 'dark' && theme !== 'light') {
+                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('theme', theme);
+        })();
+    </script>
+
+    <meta property="og:title" content="From Static to Dynamic: The Living Menu - Hesam Rad">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hesamrad.com/work/top-menu/">
+    <meta property="og:site_name" content="Hesam Rad">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:title" content="From Static to Dynamic: The Living Menu - Hesam Rad">
+            <meta property="og:description" content="Top Menu: a digital menu and ordering platform for cafés and restaurants, built and run over five years as lead engineer.">
+        <meta name="twitter:description" content="Top Menu: a digital menu and ordering platform for cafés and restaurants, built and run over five years as lead engineer.">
+        <meta name="twitter:site" content="@radestsam">
+    <meta name="twitter:creator" content="@radestsam">
+
+    
+    
+    <meta property="og:image" content="https://hesamrad.com/assets/build/images/og-default.png">
+    <meta property="og:image:alt" content="From Static to Dynamic: The Living Menu - Hesam Rad">
+            <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://hesamrad.com/assets/build/images/og-default.png">
+    <meta name="twitter:image:alt" content="From Static to Dynamic: The Living Menu - Hesam Rad">
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://hesamrad.com/#person","name":"Hesam Rad","url":"https://hesamrad.com/","jobTitle":"Independent software engineer","email":"hesamrad.dev@gmail.com","sameAs":["https://linkedin.com/in/hesamrad","https://github.com/hesamzakerirad","https://x.com/hesamzakerirad"],"knowsAbout":["Web application development","Laravel","Next.js","Software architecture"],"knowsLanguage":["English","Persian"]},{"@type":"WebSite","@id":"https://hesamrad.com/#website","url":"https://hesamrad.com/","name":"Hesam Rad","description":"Independent software engineer","inLanguage":"en","publisher":{"@id":"https://hesamrad.com/#person"}},{"@type":"WebPage","@id":"https://hesamrad.com/work/top-menu/#webpage","url":"https://hesamrad.com/work/top-menu/","name":"From Static to Dynamic: The Living Menu - Hesam Rad","inLanguage":"en","isPartOf":{"@id":"https://hesamrad.com/#website"},"description":"Top Menu: a digital menu and ordering platform for cafés and restaurants, built and run over five years as lead engineer.","mainEntity":{"@id":"https://hesamrad.com/work/top-menu/#article"},"primaryImageOfPage":{"@id":"https://hesamrad.com/work/top-menu/#primaryimage"},"breadcrumb":{"@id":"https://hesamrad.com/work/top-menu/#breadcrumbs"}},{"@type":"BreadcrumbList","@id":"https://hesamrad.com/work/top-menu/#breadcrumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hesamrad.com/"},{"@type":"ListItem","position":2,"name":"Work","item":"https://hesamrad.com/work/"},{"@type":"ListItem","position":3,"name":"From Static to Dynamic: The Living Menu","item":"https://hesamrad.com/work/top-menu/"}]},{"@type":"Article","@id":"https://hesamrad.com/work/top-menu/#article","name":"From Static to Dynamic: The Living Menu","headline":"From Static to Dynamic: The Living Menu","url":"https://hesamrad.com/work/top-menu/","inLanguage":"en","author":{"@id":"https://hesamrad.com/#person"},"publisher":{"@id":"https://hesamrad.com/#person"},"isPartOf":{"@id":"https://hesamrad.com/work/top-menu/#webpage"},"mainEntityOfPage":{"@id":"https://hesamrad.com/work/top-menu/#webpage"},"description":"Cafés and restaurants kept their menus on paper, so changing a price meant reprinting everything and living with whatever was on the table until the next print run. Top Menu put the menu behind a QR code on the table, and behind that, a system that made everything work flawlessly.","articleSection":"Hospitality software","temporalCoverage":"2020/2025","image":{"@id":"https://hesamrad.com/work/top-menu/#primaryimage"}},{"@type":"ImageObject","@id":"https://hesamrad.com/work/top-menu/#primaryimage","url":"https://hesamrad.com/assets/build/images/top-menu.jpg","width":2670,"height":1780}]}</script>
+
+    <link rel="home" href="https://hesamrad.com">
+    <link rel="alternate" type="application/rss+xml" title="Hesam Rad"
+        href="https://hesamrad.com/feed.xml">
+    
+    <link rel="icon" href="https://hesamrad.com/favicon.ico" sizes="16x16 32x32 48x48">
+    
+    <link rel="icon" type="image/svg+xml" href="https://hesamrad.com/assets/build/images/logo.svg">
+        
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/assets/build/Inter-Variable-DUFVAGfz.woff2">
+    <link rel="stylesheet" href="/assets/build/main-CgZ4b-0c.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H516TJZR2S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-H516TJZR2S');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" data-header>
+    <div class="shell site-header__inner">
+        <a class="brand" href="https://hesamrad.com" rel="home">Hesam Rad</a>
+
+        <nav class="site-nav" id="primary-nav" aria-label="Primary">
+                                            <a class="site-nav__link " href="https://hesamrad.com"
+                    >Home</a>
+                                            <a class="site-nav__link is-active" href="https://hesamrad.com/work/"
+                     aria-current="page" >Work</a>
+                                            <a class="site-nav__link " href="https://hesamrad.com/services/"
+                    >Services</a>
+                                            <a class="site-nav__link " href="https://hesamrad.com/pricing/"
+                    >Pricing</a>
+                                            <a class="site-nav__link " href="https://hesamrad.com/blog/"
+                    >Blog</a>
+                    </nav>
+
+        <div class="header-actions">
+            
+            <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+                <span class="visually-hidden">Toggle color theme</span>
+                <svg class="icon theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+</svg>
+                <svg class="icon theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>
+</svg>
+            </button>
+
+            <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">
+                <span class="visually-hidden">Toggle navigation</span>
+                <svg class="icon nav-toggle__icon nav-toggle__icon--open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+</svg>
+                <svg class="icon nav-toggle__icon nav-toggle__icon--close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <path d="M6 6l12 12M18 6L6 18"/>
+</svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+    
+    <main id="main" class="page-main" tabindex="-1">
+            <article class="shell section study">
+        <div class="study__head">
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol class="breadcrumbs__list">
+                            <li class="breadcrumbs__item">
+                                            <a class="breadcrumbs__link" href="https://hesamrad.com/">Home</a>
+                                    </li>
+                            <li class="breadcrumbs__item">
+                                            <a class="breadcrumbs__link" href="https://hesamrad.com/work/">Work</a>
+                                    </li>
+                            <li class="breadcrumbs__item">
+                                            
+                        <span class="breadcrumbs__current" aria-current="page">From Static to Dynamic: The Living Menu</span>
+                                    </li>
+                    </ol>
+    </nav>
+
+            
+            <p class="case__meta">
+                <span>
+                                            <a href="https://topmenumarket.com" target="_blank" rel="noopener noreferrer">Mahdi Rasaei</a>
+                                    </span>
+                <span>Hospitality software</span>
+                <span class="tabular">2020–2025</span>
+            </p>
+
+            <h1 class="study__title">From Static to Dynamic: The Living Menu</h1>
+
+                            <p class="lead study__summary">Cafés and restaurants kept their menus on paper, so changing a price meant reprinting everything and living with whatever was on the table until the next print run. Top Menu put the menu behind a QR code on the table, and behind that, a system that made everything work flawlessly.</p>
+                    </div>
+
+        
+        
+                    <figure class="study__cover">
+                
+                <div class="study__cover-frame study__cover-frame--credited">
+                                            <img src="/assets/build/images/top-menu.jpg" alt="printed menu boards mounted on the wall above a café counter" loading="eager"
+                            decoding="async" width="1600" height="900">
+                    
+                                            
+                        
+                        <small class="copyright">
+                            Image borrowed from <a href="https://unsplash.com/photos/a-wooden-table-topped-with-menus-and-a-bottle-of-wine-7CL2rGtND8w" target="_blank"
+                                rel="noopener noreferrer">unsplash.com</a>.
+                        </small>
+                                    </div>
+
+                                    <figcaption>What a customer gets: scan the code on the table, and the menu opens. No app, no account.</figcaption>
+                            </figure>
+        
+        <div class="study__body">
+            <div class="study__main">
+                <section class="study__section">
+                    <h2>What was wrong</h2>
+                    <p>A printed menu is fixed the moment it leaves the printer. A price rises, a supplier stops delivering, a dish sells out, and the menu on the table still says otherwise until somebody reprints the lot or goes around correcting prices by hand, which looks exactly as bad as it sounds. For a café changing things weekly that&#039;s a standing cost, a standing source of small embarrassments with customers, and a quantity of wasted paper nobody felt good about. The alternative most venues had was a PDF on a phone, which solves the printing and none of the rest.</p>
+                </section>
+
+                                    <section class="study__section">
+                        <h2>What made it awkward</h2>
+                        <ul class="card__list card__list--no">
+                                                            <li>Three audiences, one system. A customer wants a menu that opens instantly on a phone with bad signal. Staff want a till-side tool that never gets in the way at a rush. The client wanted to run hundreds of venues from above. Each would have been a reasonable product on its own.</li>
+                                                            <li>No two venues wanted the same thing. Some wanted online ordering and payment; some wanted the menu and nothing else, and were adamant about it. A single fixed feature set would have lost half the market either way.</li>
+                                                            <li>The client isn&#039;t technical, and running a platform of this size can&#039;t depend on a developer being reachable. Anything routine had to be something he could do himself.</li>
+                                                            <li>It was live and earning from early on. Five years of change had to land underneath a product that venues were using during service.</li>
+                                                    </ul>
+                    </section>
+                
+                                    <section class="study__section">
+                        <h2>What I built</h2>
+                        <ul class="card__list card__list--yes">
+                                                            <li>A menu a customer opens by scanning the QR code on their table. No app to install, no account to make, and fast enough to be usable on a phone on café wifi.</li>
+                                                            <li>Ordering and payment on the same screen, so a table can order without waiting to catch someone&#039;s eye. Switched on per venue, because plenty of them didn&#039;t want it.</li>
+                                                            <li>A dashboard each business runs itself: menu and prices, staff accounts with access levels so a floor employee sees less than a manager, and reports on income, sales and walk-ins.</li>
+                                                            <li>A platform dashboard above all of it, so the client can onboard a venue, change what it is allowed to use, and see across the whole estate without opening a terminal or asking me.</li>
+                                                            <li>The infrastructure, deployment and monitoring underneath: the part nobody sees until the menus stop loading during a Friday dinner service.</li>
+                                                            <li>Documentation and mentoring for the client&#039;s own developers, so the product had more than one person who understood it.</li>
+                                                    </ul>
+                    </section>
+                
+                
+                                    <section class="study__section">
+                        <h2>Decisions worth explaining</h2>
+
+                        <div class="study__decisions">
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">The web, not a native app</h3>
+                                    <p class="decision__why">Nobody installs an app to read a menu they&#039;ll look at for four minutes. A QR code that opens a page is the only version a customer will use, and it removed the app stores from the release path entirely.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> Gave up push notifications and native payment sheets, both of which came up more than once.</p>
+                                </div>
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">Features switched on per venue, rather than one product for everyone</h3>
+                                    <p class="decision__why">A restaurant taking online orders and a café that just wants its menu readable are different businesses with different fears. Letting each turn things on kept both, instead of building for the average of the two and suiting neither of them.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> Every feature has to work with the others absent, which makes the system harder to reason about and considerably harder to test.</p>
+                                </div>
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">A platform dashboard the client operates himself</h3>
+                                    <p class="decision__why">A platform where the owner needs a developer to onboard a customer has a bottleneck built into it, and the bottleneck was me. Building the boring administrative screens meant he could run the business at his own pace.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> Months of work that produced nothing a customer would ever see, argued for on the grounds that it would stop mattering who I was.</p>
+                                </div>
+                                                            <div class="decision">
+                                    <h3 class="decision__choice">Mentoring their developers instead of staying the only one who knew it</h3>
+                                    <p class="decision__why">Five years is long enough that being irreplaceable stops being an asset to the client and becomes a risk to them. Bringing their people up on the codebase was how the engagement was supposed to end.</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> Slower delivery while it was happening, and it deliberately made me easier to replace.</p>
+                                </div>
+                                                    </div>
+                    </section>
+                
+                                    <section class="study__section">
+                        <h2>How it ran</h2>
+                        <div class="rows">
+                                                            <div class="row">
+                                    <p class="row__key">First months</p>
+                                    <div class="row__value">
+                                        <p>The customer-facing menu and the QR flow: the piece that had to be right before anything else was worth building.</p>
+                                    </div>
+                                </div>
+                                                            <div class="row">
+                                    <p class="row__key">Year one</p>
+                                    <div class="row__value">
+                                        <p>The business dashboard: menu management, staff accounts and access levels, and the first reports.</p>
+                                    </div>
+                                </div>
+                                                            <div class="row">
+                                    <p class="row__key">Years two and three</p>
+                                    <div class="row__value">
+                                        <p>Ordering and payment, per-venue feature control, and the platform dashboard that took day-to-day administration off me.</p>
+                                    </div>
+                                </div>
+                                                            <div class="row">
+                                    <p class="row__key">Years four and five</p>
+                                    <div class="row__value">
+                                        <p>Scale and handover. Infrastructure and reliability work as the estate grew, then documentation and mentoring so the client&#039;s developers could take it forward.</p>
+                                    </div>
+                                </div>
+                                                    </div>
+                    </section>
+                
+                
+                                                            <section class="study__section">
+                            <h2>Holding up as it grew</h2>
+
+                                                            <p>500 venues is a different problem from 5, and most of what changed in the last two years was invisible to anyone using it.</p>
+                            
+                                                            <div class="rows">
+                                                                            <div class="row">
+                                            <p class="row__key">Photos off the app server</p>
+                                            <div class="row__value">
+                                                <p>A menu carries at least 100 photos, and every photo is its own request. Add the 20 or so requests for everything that isn&#039;t a picture, and one customer reading a menu through to an order asks the server about 120 times and pulls down about 20 MB of images. Customers read the whole menu before they order, so that&#039;s the ordinary session rather than the worst one. I moved the photos onto a separate server I set up and configured myself. That took the machine running the application from 120 requests a session to 20, which is 83% fewer, and it stopped the machine competing with itself: serving pictures and running the application had been fighting over the same processor and the same disk, and the application was losing about 40% of what it could do to that fight.</p>
+                                            </div>
+                                        </div>
+                                                                            <div class="row">
+                                            <p class="row__key">Making the photos arrive faster</p>
+                                            <div class="row__value">
+                                                <p>Two changes on the image server, neither of which touched a line of the application. HTTP/2 first, so a browser asks for all 100 photos over one connection instead of 6 at a time in 17 waves, which took the waiting-around part of the load from about 68 milliseconds to 2. Then proper cache headers, so a phone that has seen the menu before asks &quot;has this changed?&quot; in about 200 bytes rather than fetching the picture again. About four photos in five now come back from the phone itself, which turns a 20 MB visit into a 4 MB one. That is the difference between a menu that makes somebody wait and one that is simply there.</p>
+                                            </div>
+                                        </div>
+                                                                            <div class="row">
+                                            <p class="row__key">Deploying without me</p>
+                                            <div class="row__value">
+                                                <p>Releasing a change used to mean me at a keyboard for about 10 minutes, running the same steps in the same order, and nobody else could do it. The pipeline I built does it in 1 minute and doesn&#039;t care where I am. The point was never the 9 minutes. It was that a fix to a live problem stopped waiting on one person being free.</p>
+                                            </div>
+                                        </div>
+                                                                    </div>
+                                                    </section>
+                                    
+                                    <section class="study__section">
+                        <h2>What changed</h2>
+                        <div class="stat-row study__results">
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        83<span class="stat__unit">%</span>    </span>
+    <span class="stat__label">fewer requests on the main server</span>
+</div>
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        ~1<span class="stat__unit"> min</span>    </span>
+    <span class="stat__label">to release a change, from ten</span>
+</div>
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        80<span class="stat__unit">%</span>    </span>
+    <span class="stat__label">less to download on a return visit</span>
+</div>
+                                                    </div>
+                    </section>
+                
+                
+                                    <section class="study__section">
+                        <h2>What it added up to</h2>
+
+                        <div class="stat-row study__results">
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        500<span class="stat__unit">+</span>    </span>
+    <span class="stat__label">businesses running on it</span>
+</div>
+                                                            <div class="stat">
+    <span class="stat__value tabular">
+        48,000    </span>
+    <span class="stat__label">sheets of paper not printed each year</span>
+</div>
+                                                    </div>
+
+                                                    <p class="study__note">The paper figure is arithmetic rather than a measurement, so here it is. A venue keeps about 10 menus, each one 2 sheets, and reprints them roughly every 2 months as prices move, which comes to 120 sheets a year. Around a fifth of venues kept a printed copy going anyway, so the saving covers the other 400: near enough 48,000 sheets a year. That is a figure for one year, not a total, and it goes up every time another venue signs up. Venues are still signing up.</p>
+                                            </section>
+                
+                                    <section class="study__section">
+                        <h2>What I would do differently</h2>
+                        <p>I built the venue dashboard before the platform dashboard, which meant that for the first couple of years every new venue came through me. It felt like the right order, since it was the thing customers touch first, but it made me the bottleneck in someone else&#039;s growth and I stayed that way longer than I should have. The administrative screens were the least interesting work in the project and would have been worth doing a year earlier than I did them.</p>
+                    </section>
+                            </div>
+
+            <aside class="study__aside">
+                <div class="study__facts">
+                    <dl>
+                        <dt>Client</dt>
+                        <dd>
+                                                            <a href="https://topmenumarket.com" target="_blank" rel="noopener noreferrer">Mahdi Rasaei</a>
+                                                    </dd>
+
+                        <dt>Sector</dt>
+                        <dd>Hospitality software</dd>
+
+                        <dt>When</dt>
+                        <dd class="tabular">2020–2025</dd>
+
+                                                    <dt>How long</dt>
+                            <dd>Five years, as lead engineer</dd>
+                        
+                                                    <dt>My part in it</dt>
+                            <dd>Lead engineer. The client already had another engineer on the front end, so the split was straightforward: the back end, the API architecture, the infrastructure, the deployments and the reliability work were mine, along with mentoring the client&#039;s own developers so the product could carry on without me. On a project without that cover I&#039;d have built the front end too. Here it would have meant duplicating somebody who was already doing it well.</dd>
+                                            </dl>
+
+                    
+                                    </div>
+            </aside>
+        </div>
+
+        
+        
+                    
+            <figure class="review review--feature">
+            <h2 class="review__label">What the client said</h2>
+    
+    <div class="review__body">
+        <blockquote class="review__text" id="review-text-study">
+            <p>After several disappointing experiences with other agencies, I met Hesam in another attempt to work on my idea. He designed the entire system architecture from the ground up and built a robust, scalable backend that powered all our front-end applications seamlessly. After five years of hard work, he turned my concept into the city’s #1 best-selling menu application.</p>
+        </blockquote>
+    </div>
+
+    
+    <figcaption class="review__author">
+        
+        <span class="review__avatar " aria-hidden="true">
+            MR
+                    </span>
+
+        <span class="review__who">
+            <span class="review__name">
+                                    <a href="https://topmenumarket.com" target="_blank" rel="noopener noreferrer">Mahdi Rasaei</a>
+                            </span>
+
+                            <span class="review__role">Founder, Top Menu</span>
+            
+                            <span class="review__relationship">Client</span>
+            
+            
+                            <span class="review__provenance">
+                    
+                    
+                                            
+                        <time class="review__date tabular" datetime="2025">Written in 2025</time>
+                                    </span>
+                    </span>
+    </figcaption>
+</figure>
+            </article>
+
+    
+    
+            
+        <nav class="shell section" aria-label="Next case study">
+            <a class="next-post" href="https://hesamrad.com/work/broker-monitoring/">
+                <span>
+                    <span class="next-post__label">Next case study</span>
+                    What a Broker Could Not Buy
+                </span>
+                <svg class="icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+    stroke-linecap="round" stroke-linejoin="round" focusable="false"
+     aria-hidden="true" >
+        <path d="M5 12h14M13 6l6 6-6 6"/>
+</svg>
+            </a>
+        </nav>
+    
+                <section class="shell section" id="contact">
+        <div class="callout">
+            <h2>Got something like this?</h2>
+            <p>Describe it in a paragraph. You will get an honest answer about whether I am the right person for it, including the times when I am not.</p>
+
+            <form class="form" method="POST" action="https://hello.hesamrad.com" data-contact-form>
+    
+    <input class="visually-hidden" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    
+    <input type="hidden" name="page" value="https://hesamrad.com/work/top-menu/">
+
+    <noscript>
+        <p class="form__note form__note--warning">This form needs JavaScript to check you're not a bot. Email me
+            directly at <a href="mailto:hesamrad.dev@gmail.com">hesamrad.dev@gmail.com</a> and I'll pick it up
+            there.</p>
+    </noscript>
+
+    <p class="form__note">Three fields, and no budget question. We can work that out on the call.</p>
+
+    <div class="field">
+        <label class="field__label" for="contact-name">Your name</label>
+        <input class="field__input" id="contact-name" name="name" type="text" autocomplete="name" maxlength="200"
+            required>
+    </div>
+
+    <div class="field">
+        <label class="field__label" for="contact-email">Email</label>
+        <input class="field__input" id="contact-email" name="email" type="email" autocomplete="email" maxlength="320"
+            required>
+    </div>
+
+    <div class="field">
+        <label class="field__label" for="contact-message">What needs building, or what is broken?</label>
+        <textarea class="field__input" id="contact-message" name="message" rows="6" maxlength="5000" required
+            aria-describedby="contact-message-hint"></textarea>
+        <p class="field__hint" id="contact-message-hint">A paragraph is plenty. What the business does, and what you
+            want to be true that isn't true today.</p>
+    </div>
+
+    
+    <div class="field cf-turnstile" data-sitekey="0x4AAAAAAEMSHcNbdcoTgz3f" data-theme="auto"
+        data-action="contact"></div>
+
+    <div class="btn-row">
+        <button class="btn btn--primary" type="submit">Send it</button>
+    </div>
+
+    
+    <p class="form__status" data-form-status role="status" aria-live="polite" tabindex="-1"></p>
+
+    <p class="form__fallback dim">
+        I use what you send here to reply, and nothing else. You're not added to any list. Or email me directly
+        at <a href="mailto:hesamrad.dev@gmail.com">hesamrad.dev@gmail.com</a>.
+    </p>
+</form>
+
+            </div>
+    </section>
+    </main>
+
+    <footer class="site-footer">
+    <div class="shell">
+        <div class="site-footer__top">
+            <div class="site-footer__brand">
+                <p class="site-footer__name">Hesam Rad</p>
+                <p class="site-footer__pitch">I'm an independent software engineer. I build complete products for businesses.</p>
+                <p><span class="availability">Available for new projects</span></p>
+            </div>
+
+                            
+                                    <nav class="footer-group" aria-label="Work with me">
+                        <p class="footer-group__title">Work with me</p>
+
+                        <ul class="footer-group__list">
+                                                            <li>
+                                    <a href="https://hesamrad.com/services/"
+                                        >Services</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/pricing/"
+                                        >Pricing</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/work/"
+                                        >Case studies</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/reviews/"
+                                        >Reviews</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/faq/"
+                                        >Questions</a>
+                                </li>
+                                                    </ul>
+                    </nav>
+                                            
+                                    <nav class="footer-group" aria-label="More">
+                        <p class="footer-group__title">More</p>
+
+                        <ul class="footer-group__list">
+                                                            <li>
+                                    <a href="https://hesamrad.com/about/"
+                                        >About</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/projects/"
+                                        >Open source</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/blog/"
+                                        >Blog</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://hesamrad.com/feed.xml"
+                                        >RSS feed</a>
+                                </li>
+                                                    </ul>
+                    </nav>
+                                            
+                                    <nav class="footer-group" aria-label="Elsewhere">
+                        <p class="footer-group__title">Elsewhere</p>
+
+                        <ul class="footer-group__list">
+                                                            <li>
+                                    <a href="mailto:hesamrad.dev@gmail.com"
+                                        >Email</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://linkedin.com/in/hesamrad"
+                                         target="_blank" rel="noopener noreferrer me" >LinkedIn</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://github.com/hesamzakerirad"
+                                         target="_blank" rel="noopener noreferrer me" >GitHub</a>
+                                </li>
+                                                    </ul>
+                    </nav>
+                                    </div>
+
+        <div class="site-footer__bottom">
+            
+            <p>&copy; 2017&ndash;<span data-current-year>2026</span> Hesam Rad. All rights
+                reserved.</p>
+        </div>
+    </div>
+</footer>
+
+    
+    <script type="module" src="/assets/build/main-cJH1VtO_.js"></script>
+            <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    </body>
+
+</html>

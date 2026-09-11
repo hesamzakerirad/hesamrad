@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 -50.75 210 210"
+     width="210" height="210" role="img" aria-label="Hesam Rad">
+    <title>Hesam Rad</title>
+    <style>
+        .mark { fill: #0066cc; }
+        @media (prefers-color-scheme: dark) {
+            .mark { fill: #2997ff; }
+        }
+    </style>
+    <g class="mark">
+        <!-- The diamond, then the left wing, the right wing, and the triangle. -->
+        <path d="M105 0L129.5 24.5L105 49L80.5 24.5Z"/>
+        <path d="M0 84L70 84L105 49L35 49Z"/>
+        <path d="M210 84L140 84L105 49L175 49Z"/>
+        <path d="M80.5 108.5L129.5 108.5L105 84Z"/>
+    </g>
+</svg>
