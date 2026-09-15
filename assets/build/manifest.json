@@ -1,0 +1,111 @@
+{
+  "node_modules/highlight.js/es/core.js": {
+    "file": "core-CpUURGPY.js",
+    "name": "core",
+    "src": "node_modules/highlight.js/es/core.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/bash.js": {
+    "file": "bash-LmRjUKlR.js",
+    "name": "bash",
+    "src": "node_modules/highlight.js/es/languages/bash.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/css.js": {
+    "file": "css-D8M8GYaw.js",
+    "name": "css",
+    "src": "node_modules/highlight.js/es/languages/css.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/javascript.js": {
+    "file": "javascript-8AmHuH5O.js",
+    "name": "javascript",
+    "src": "node_modules/highlight.js/es/languages/javascript.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/json.js": {
+    "file": "json-PmyKWHmm.js",
+    "name": "json",
+    "src": "node_modules/highlight.js/es/languages/json.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/markdown.js": {
+    "file": "markdown-D6FrnlqJ.js",
+    "name": "markdown",
+    "src": "node_modules/highlight.js/es/languages/markdown.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/php.js": {
+    "file": "php-DuZl5e-L.js",
+    "name": "php",
+    "src": "node_modules/highlight.js/es/languages/php.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/scss.js": {
+    "file": "scss-gOyOKiXd.js",
+    "name": "scss",
+    "src": "node_modules/highlight.js/es/languages/scss.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/xml.js": {
+    "file": "xml-COl5yFSC.js",
+    "name": "xml",
+    "src": "node_modules/highlight.js/es/languages/xml.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/highlight.js/es/languages/yaml.js": {
+    "file": "yaml-DjOhhVLG.js",
+    "name": "yaml",
+    "src": "node_modules/highlight.js/es/languages/yaml.js",
+    "isDynamicEntry": true
+  },
+  "source/_assets/css/main.css": {
+    "file": "main-CgZ4b-0c.css",
+    "name": "main",
+    "names": [
+      "main.css"
+    ],
+    "src": "source/_assets/css/main.css",
+    "isEntry": true,
+    "assets": [
+      "Inter-Variable-DUFVAGfz.woff2",
+      "Inter-Italic-Variable-m473lBsn.woff2",
+      "JetBrainsMono-Variable-sFtVIffe.woff2",
+      "JetBrainsMono-Italic-Variable-CbGqWyIl.woff2"
+    ]
+  },
+  "source/_assets/fonts/Inter/Inter-Italic-Variable.woff2": {
+    "file": "Inter-Italic-Variable-m473lBsn.woff2",
+    "src": "source/_assets/fonts/Inter/Inter-Italic-Variable.woff2"
+  },
+  "source/_assets/fonts/Inter/Inter-Variable.woff2": {
+    "file": "Inter-Variable-DUFVAGfz.woff2",
+    "src": "source/_assets/fonts/Inter/Inter-Variable.woff2"
+  },
+  "source/_assets/fonts/JetBrains-Mono/JetBrainsMono-Italic-Variable.woff2": {
+    "file": "JetBrainsMono-Italic-Variable-CbGqWyIl.woff2",
+    "src": "source/_assets/fonts/JetBrains-Mono/JetBrainsMono-Italic-Variable.woff2"
+  },
+  "source/_assets/fonts/JetBrains-Mono/JetBrainsMono-Variable.woff2": {
+    "file": "JetBrainsMono-Variable-sFtVIffe.woff2",
+    "src": "source/_assets/fonts/JetBrains-Mono/JetBrainsMono-Variable.woff2"
+  },
+  "source/_assets/js/main.js": {
+    "file": "main-cJH1VtO_.js",
+    "name": "main",
+    "src": "source/_assets/js/main.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/highlight.js/es/core.js",
+      "node_modules/highlight.js/es/languages/bash.js",
+      "node_modules/highlight.js/es/languages/css.js",
+      "node_modules/highlight.js/es/languages/xml.js",
+      "node_modules/highlight.js/es/languages/javascript.js",
+      "node_modules/highlight.js/es/languages/json.js",
+      "node_modules/highlight.js/es/languages/markdown.js",
+      "node_modules/highlight.js/es/languages/php.js",
+      "node_modules/highlight.js/es/languages/scss.js",
+      "node_modules/highlight.js/es/languages/yaml.js"
+    ]
+  }
+}
