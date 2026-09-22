@@ -51,11 +51,30 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
  * wins and OS changes are ignored — an explicit choice should not be quietly
  * undone at sunset.
  */
+/**
+ * The browser chrome color.
+ *
+ * The head script leaves either two tags scoped to the OS query, when the
+ * reader has expressed no preference, or one unscoped tag when they have. From
+ * here the answer is always known outright — a toggle, or an OS change this
+ * script is handling itself — so it collapses to one unscoped tag either way.
+ */
+function paintChrome(theme) {
+    const tags = [...document.querySelectorAll('meta[name="theme-color"]')];
+    const tag = tags.shift() ?? document.head.appendChild(document.createElement('meta'));
+
+    tags.forEach((extra) => extra.remove());
+    tag.name = 'theme-color';
+    tag.removeAttribute('media');
+    tag.content = theme === 'dark' ? '#000000' : '#ffffff';
+}
+
 function initTheme() {
     const toggle = document.querySelector('[data-theme-toggle]');
 
     const apply = (theme) => {
         root.setAttribute('theme', theme);
+        paintChrome(theme);
         if (toggle) {
             toggle.setAttribute('aria-pressed', String(theme === 'dark'));
         }
