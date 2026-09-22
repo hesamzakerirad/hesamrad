@@ -78,6 +78,11 @@
     --text: #424245;
     --text-dim: #6e6e73;
 
+    /* Decoration only. This measures 3.62 against white and 3.33 against
+       --surface, which clears the 3:1 floor for a mark or a rule and misses
+       the 4.5:1 one for text. A bullet glyph, a separator dot and an icon mask
+       may take it. Anything a person reads as words or figures takes
+       --text-dim, which measures 5.07 and 4.66 in the same two places. */
     --text-faint: #86868b;
 
     --accent: #0066cc;
@@ -121,6 +126,10 @@
     --heading: #f5f5f7;
     --text: #d2d2d7;
     --text-dim: #a1a1a6;
+
+    /* Decoration only, for the reason given against the light value. This
+       measures 4.17 against --surface-raised, which is the darkest surface it
+       lands on, therefore it misses 4.5:1 there. */
     --text-faint: #86868b;
 
     --accent: #2997ff;

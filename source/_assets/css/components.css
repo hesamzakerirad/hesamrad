@@ -458,7 +458,7 @@ a.card:hover .card__title {
     padding-block: 0.15rem;
 
     background: var(--section-bg);
-    color: var(--text-faint);
+    color: var(--text-dim);
     font-size: var(--text-sm);
     font-variant-numeric: tabular-nums;
 }
@@ -722,7 +722,7 @@ a.card:hover .card__title {
 }
 
 .contents__list li::marker {
-    color: var(--text-faint);
+    color: var(--text-dim);
     font-variant-numeric: tabular-nums;
 }
 
@@ -1692,10 +1692,14 @@ a.card:hover .card__title {
 }
 
 /* Quieter than the name and the role above it. The date qualifies the review.
-   It does not identify the person. */
+   It does not identify the person.
+
+   The size does that work alone. The color was --text-faint, which measures
+   4.17 against the raised surface a review card uses and is thus too low for
+   text a person reads. */
 .review__date {
     margin-top: 0.3rem;
-    color: var(--text-faint);
+    color: var(--text-dim);
     font-size: var(--text-xs);
 }
 

@@ -130,8 +130,10 @@ li {
     margin-bottom: var(--space-xs);
 }
 
+/* A marker on an ordered list is a figure the reader uses, therefore it takes
+   a text color and not the decorative one. */
 li::marker {
-    color: var(--text-faint);
+    color: var(--text-dim);
 }
 
 blockquote {
