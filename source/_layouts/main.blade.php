@@ -91,22 +91,52 @@
         <link rel="canonical" href="{{ $pageUrl }}">
     @endunless
 
+    {{-- The color of the browser chrome: the address bar on Android, and the
+         area around the notch on iOS. The two values are --bg in the two
+         themes. Without these the chrome stays light while the page is dark,
+         and the seam is visible on every phone.
+
+         These must stay before the script below, which rewrites them when the
+         reader has made a choice of their own. --}}
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
     {{-- This script must stay before the stylesheet. The correct palette is
          then in place at the first paint. The same code in main.js shows the
          incorrect theme for a moment at each navigation. A stored choice has
          priority over the OS setting. --}}
     <script>
         (function() {
-            var theme;
+            var stored;
             try {
-                theme = localStorage.getItem('theme');
+                stored = localStorage.getItem('theme');
             } catch (error) {
                 // Safari in private mode throws an error on a read and on a write.
             }
-            if (theme !== 'dark' && theme !== 'light') {
-                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            }
+            var explicit = stored === 'dark' || stored === 'light';
+            var theme = explicit
+                ? stored
+                : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             document.documentElement.setAttribute('theme', theme);
+
+            /*
+             * The two theme-color tags above are scoped to the OS query, which
+             * is the right answer until the reader overrides it. A stored
+             * choice must win in the chrome as it does on the page, so the tag
+             * for the other theme goes and the one that stays loses its media
+             * attribute.
+             */
+            if (explicit) {
+                var wanted = theme === 'dark' ? '#000000' : '#ffffff';
+                var tags = document.querySelectorAll('meta[name="theme-color"]');
+                for (var i = 0; i < tags.length; i++) {
+                    if (tags[i].content.toLowerCase() === wanted) {
+                        tags[i].removeAttribute('media');
+                    } else {
+                        tags[i].parentNode.removeChild(tags[i]);
+                    }
+                }
+            }
         })();
     </script>
 
