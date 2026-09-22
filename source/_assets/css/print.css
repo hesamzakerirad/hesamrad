@@ -1,0 +1,182 @@
+/*
+ * Print.
+ *
+ * People save a case study or a pricing page as a PDF and send it on to
+ * somebody who was not at the meeting. That copy is the page doing its job
+ * without the site around it, so this strips the site and keeps the words.
+ *
+ * The one rule here that fixes a defect rather than tidying an edge: .reveal
+ * starts at opacity 0 and is cleared by an IntersectionObserver as each
+ * section arrives. A reader who prints before scrolling would otherwise get a
+ * sheet of blank paper for every section they had not reached yet.
+ */
+@media print {
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* The chrome. None of it can be used on paper, and the fixed header would
+       print over the top of the first section. */
+    .site-header,
+    .skip-link,
+    .dot-grid,
+    .site-footer__top,
+    .breadcrumbs,
+    .post-toc,
+    .btn,
+    .btn-row,
+    .post-cta,
+    .next-post,
+    .faq__more,
+    .work__more,
+    .biz-list__more,
+    .reviews__more,
+    .hero__route,
+    .cf-turnstile,
+    .form__note,
+    .field,
+    .form__status {
+        display: none !important;
+    }
+
+    /*
+     * The contact section stays and only its fields go. The heading, the
+     * invitation and the email address under them are the one thing a printed
+     * page must not lose: a sheet of paper cannot submit a form, and a reader
+     * holding one still needs to know how to reach him.
+     */
+    .form__fallback {
+        margin-top: 0;
+    }
+
+    .page-main {
+        padding-top: 0;
+    }
+
+    /* Ink. A scrim, a tinted panel and a blurred photograph all become a grey
+       rectangle on paper, and the text on them becomes unreadable. */
+    :root,
+    [theme='light'],
+    [theme='dark'] {
+        --bg: #ffffff;
+        --bg-elevated: #ffffff;
+        --surface: #ffffff;
+        --surface-raised: #ffffff;
+        --surface-hover: #ffffff;
+        --heading: #000000;
+        --text: #1a1a1a;
+        --text-dim: #3a3a3a;
+        --text-faint: #3a3a3a;
+        --line: #b0b0b0;
+        --line-strong: #707070;
+        --accent: #000000;
+        --accent-hover: #000000;
+    }
+
+    body {
+        background: #ffffff;
+        color: #1a1a1a;
+    }
+
+    /* The covered cards draw white text over a photograph. Without the
+       photograph they would be white on white. */
+    .work-card,
+    .biz-card--covered {
+        background: #ffffff;
+        border: 1px solid #b0b0b0;
+    }
+
+    .work-card__bg,
+    .biz-card__bg,
+    .work-card::before,
+    .biz-card--covered::before {
+        display: none !important;
+    }
+
+    .work-card__title a,
+    .work-card__summary,
+    .work-card__more .link-arrow,
+    .biz-card--covered .biz-card__name a,
+    .biz-card--covered .biz-card__trade,
+    .biz-card--covered .biz-card__foot {
+        color: #000000 !important;
+    }
+
+    /* A section is spaced for a screen a reader scrolls. On paper that space
+       is a wasted sheet. */
+    .section {
+        padding-block: 1.5rem;
+    }
+
+    .site-footer {
+        margin-top: 1.5rem;
+        padding-block: 1rem;
+    }
+
+    /* The measure is set for reading on a screen at arm's length. A sheet of
+       A4 is narrower than the shell and does not need the cap. */
+    .shell,
+    .prose,
+    .rich-text,
+    .measure,
+    .post-layout__body {
+        max-width: none;
+        padding-inline: 0;
+    }
+
+    @page {
+        margin: 18mm 16mm;
+    }
+
+    /* An answer that starts at the foot of one sheet and finishes on the next
+       is worse than a short page. */
+    h1,
+    h2,
+    h3,
+    h4 {
+        break-after: avoid;
+        break-inside: avoid;
+    }
+
+    figure,
+    .card,
+    .plan,
+    .stat,
+    .review,
+    .decision,
+    .faq__item,
+    tr {
+        break-inside: avoid;
+    }
+
+    /*
+     * A collapsed answer prints as a question with nothing under it. The
+     * closed state is the browser's own, so it is opened through
+     * ::details-content rather than by setting display on the answer, which a
+     * closed <details> ignores.
+     *
+     * A browser without ::details-content keeps its closed answers. There is
+     * no CSS that opens one, and the alternative is a script that rewrites the
+     * page at print time for a case this small.
+     */
+    .faq__item::details-content {
+        block-size: auto !important;
+        content-visibility: visible !important;
+        overflow: visible !important;
+    }
+
+    /* A link is a color on a screen and nothing at all on paper, so the
+       address goes beside it. Only for a link that leaves the site: an
+       in-page address is no use to somebody holding a sheet of paper. */
+    .rich-text a[href^='http']:not([href*='hesamrad.com'])::after,
+    .prose a[href^='http']:not([href*='hesamrad.com'])::after {
+        content: ' (' attr(href) ')';
+        font-size: 0.85em;
+        word-break: break-all;
+    }
+
+    img {
+        break-inside: avoid;
+    }
+}
