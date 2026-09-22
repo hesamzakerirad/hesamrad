@@ -2631,3 +2631,52 @@ textarea.field__input {
 .hero__route {
     text-align: center;
 }
+
+/*
+ * Touch.
+ *
+ * A touch browser has no pointer to move away, so it applies :hover on tap and
+ * holds it until the next tap lands somewhere else. A hover that only tints a
+ * card is harmless, because the tap navigates and the page is replaced. A hover
+ * on a control that keeps the reader on the page is not: the toggle stays lit
+ * and reads as a selected state that nothing will clear.
+ *
+ * The arrows matter for the same reason in reverse. They shift 3 to 4px to say
+ * "this goes somewhere", and a shifted arrow that never comes back says it
+ * permanently.
+ *
+ * Only these are reset. The rest keep their hover, because the tap that set it
+ * also leaves the page.
+ */
+@media (hover: none) {
+    .btn:hover .btn__icon,
+    .link-arrow:hover svg,
+    .next-post:hover svg,
+    .post-card:hover .post-card__more svg {
+        transform: none;
+    }
+
+    .theme-toggle:hover,
+    .nav-toggle:hover {
+        color: var(--text-dim);
+        background: none;
+    }
+
+    .faq__q:hover {
+        color: inherit;
+    }
+
+    /* Back to its own resting color and not to `inherit`, which would take the
+       body color from .faq__q and leave the mark darker than it starts. */
+    .faq__q:hover .faq__mark {
+        color: var(--text-dim);
+    }
+
+    .review__toggle:hover {
+        color: var(--accent);
+    }
+
+    .prose a:not(.btn):not(.link-arrow):hover {
+        background-size: 0% 1px;
+    }
+}
