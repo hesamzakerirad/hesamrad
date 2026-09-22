@@ -182,6 +182,14 @@
     {{-- A plain path. `viteStaticCopy` copies source/_assets/images verbatim,
          therefore the file has no manifest key and `vite()` throws on it. --}}
     <link rel="icon" type="image/svg+xml" href="{{ $page->baseUrl }}/assets/build/images/logo.svg">
+    {{-- The icon iOS uses when a reader adds the site to their home screen.
+         Without it, iOS grabs a screenshot of the page instead.
+
+         The file is 180x180 and opaque. iOS paints no background of its own,
+         therefore a transparent icon comes out black, and it rounds the corners
+         itself, therefore the file must stay square. The mark is the geometry
+         of logo.svg on white. --}}
+    <link rel="apple-touch-icon" href="{{ $page->baseUrl }}/assets/build/images/apple-touch-icon.png">
     @viteRefresh()
     {{-- Preload only the upright face of Inter. It sets all the text above the
          fold. Do not preload the italic face or the mono face. They are rare,
