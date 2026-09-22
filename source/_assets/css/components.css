@@ -239,8 +239,13 @@
     background: var(--surface-raised);
     border: var(--hairline) solid var(--line);
     border-radius: var(--radius-lg);
-    transition: background-color var(--duration) var(--ease-out),
-        border-color var(--duration) var(--ease-out),
+
+    /* The surface moves at the same speed as the title color inside it. At
+       --duration the title turned accent in 150ms and the card caught up 150ms
+       later, so one hover arrived in two parts. Transform keeps the longer
+       time: it is movement rather than feedback. */
+    transition: background-color var(--duration-fast) var(--ease-out),
+        border-color var(--duration-fast) var(--ease-out),
         transform var(--duration) var(--ease-out);
 }
 
@@ -2484,8 +2489,10 @@ textarea.field__input {
     background: var(--surface-raised);
     border: var(--hairline) solid var(--line);
     border-radius: var(--radius-lg);
-    transition: border-color var(--duration) var(--ease-out),
-        background-color var(--duration) var(--ease-out);
+
+    /* Matched to the name color inside it, for the reason given on .card. */
+    transition: border-color var(--duration-fast) var(--ease-out),
+        background-color var(--duration-fast) var(--ease-out);
 }
 
 .biz-card:hover {
