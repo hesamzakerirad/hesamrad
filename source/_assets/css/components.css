@@ -516,7 +516,7 @@ a.card:hover .card__title {
 
 .tag {
     margin: 0;
-    padding: 0.25rem 0.7rem;
+    padding: 0.3rem 0.7rem;
     background: var(--bg-elevated);
     border: var(--hairline) solid var(--line);
     border-radius: var(--radius-pill);
@@ -2139,14 +2139,6 @@ textarea.field__input {
     margin-top: var(--space-lg);
 }
 
-.tag {
-    padding: 0.3rem 0.7rem;
-    border: var(--hairline) solid var(--line);
-    border-radius: var(--radius-pill);
-    color: var(--text-dim);
-    font-size: var(--text-sm);
-}
-
 .post-card__foot {
     display: flex;
     align-items: center;
@@ -2625,10 +2617,6 @@ textarea.field__input {
 .work__more {
     margin-top: var(--space-lg);
     margin-bottom: 0;
-    text-align: center;
-}
-
-.hero__route {
     text-align: center;
 }
 

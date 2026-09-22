@@ -259,10 +259,14 @@
     justify-content: center;
 }
 
+/* Centered here rather than left to .hero, which centers its own contents. The
+   home page uses this a second time under the grid of problems, where there is
+   no centered ancestor to inherit from. */
 .hero__route {
     margin-top: var(--space-md);
     color: var(--text-dim);
     font-size: var(--text-sm);
+    text-align: center;
 }
 
 .site-footer {
