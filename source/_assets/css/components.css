@@ -1963,8 +1963,23 @@ textarea.field__input {
     min-height: 8rem;
 }
 
+/*
+ * The invalid field.
+ *
+ * The border changes weight as well as color. A red hairline against a grey
+ * hairline is one signal carried by hue alone, and it reaches nobody who cannot
+ * separate the two. The doubled edge reads at a glance without it.
+ *
+ * An inset shadow rather than a wider border. A border of 2px would move the
+ * text inside the field by a pixel the moment it became invalid, which puts a
+ * flinch in the form at the exact moment the reader made a mistake.
+ *
+ * The native validation bubble still carries the words. This only has to say
+ * which field it is about after the bubble has gone.
+ */
 .field__input:user-invalid {
     border-color: var(--danger);
+    box-shadow: inset 0 0 0 1px var(--danger);
 }
 
 .field__input:user-invalid:focus-visible {
