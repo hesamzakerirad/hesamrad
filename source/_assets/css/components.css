@@ -239,8 +239,13 @@
     background: var(--surface-raised);
     border: var(--hairline) solid var(--line);
     border-radius: var(--radius-lg);
-    transition: background-color var(--duration) var(--ease-out),
-        border-color var(--duration) var(--ease-out),
+
+    /* The surface moves at the same speed as the title color inside it. At
+       --duration the title turned accent in 150ms and the card caught up 150ms
+       later, so one hover arrived in two parts. Transform keeps the longer
+       time: it is movement rather than feedback. */
+    transition: background-color var(--duration-fast) var(--ease-out),
+        border-color var(--duration-fast) var(--ease-out),
         transform var(--duration) var(--ease-out);
 }
 
@@ -458,7 +463,7 @@ a.card:hover .card__title {
     padding-block: 0.15rem;
 
     background: var(--section-bg);
-    color: var(--text-faint);
+    color: var(--text-dim);
     font-size: var(--text-sm);
     font-variant-numeric: tabular-nums;
 }
@@ -516,7 +521,7 @@ a.card:hover .card__title {
 
 .tag {
     margin: 0;
-    padding: 0.25rem 0.7rem;
+    padding: 0.3rem 0.7rem;
     background: var(--bg-elevated);
     border: var(--hairline) solid var(--line);
     border-radius: var(--radius-pill);
@@ -722,7 +727,7 @@ a.card:hover .card__title {
 }
 
 .contents__list li::marker {
-    color: var(--text-faint);
+    color: var(--text-dim);
     font-variant-numeric: tabular-nums;
 }
 
@@ -1692,10 +1697,14 @@ a.card:hover .card__title {
 }
 
 /* Quieter than the name and the role above it. The date qualifies the review.
-   It does not identify the person. */
+   It does not identify the person.
+
+   The size does that work alone. The color was --text-faint, which measures
+   4.17 against the raised surface a review card uses and is thus too low for
+   text a person reads. */
 .review__date {
     margin-top: 0.3rem;
-    color: var(--text-faint);
+    color: var(--text-dim);
     font-size: var(--text-xs);
 }
 
@@ -1954,8 +1963,23 @@ textarea.field__input {
     min-height: 8rem;
 }
 
+/*
+ * The invalid field.
+ *
+ * The border changes weight as well as color. A red hairline against a grey
+ * hairline is one signal carried by hue alone, and it reaches nobody who cannot
+ * separate the two. The doubled edge reads at a glance without it.
+ *
+ * An inset shadow rather than a wider border. A border of 2px would move the
+ * text inside the field by a pixel the moment it became invalid, which puts a
+ * flinch in the form at the exact moment the reader made a mistake.
+ *
+ * The native validation bubble still carries the words. This only has to say
+ * which field it is about after the bubble has gone.
+ */
 .field__input:user-invalid {
     border-color: var(--danger);
+    box-shadow: inset 0 0 0 1px var(--danger);
 }
 
 .field__input:user-invalid:focus-visible {
@@ -2133,14 +2157,6 @@ textarea.field__input {
     flex-wrap: wrap;
     gap: var(--space-2xs);
     margin-top: var(--space-lg);
-}
-
-.tag {
-    padding: 0.3rem 0.7rem;
-    border: var(--hairline) solid var(--line);
-    border-radius: var(--radius-pill);
-    color: var(--text-dim);
-    font-size: var(--text-sm);
 }
 
 .post-card__foot {
@@ -2488,8 +2504,10 @@ textarea.field__input {
     background: var(--surface-raised);
     border: var(--hairline) solid var(--line);
     border-radius: var(--radius-lg);
-    transition: border-color var(--duration) var(--ease-out),
-        background-color var(--duration) var(--ease-out);
+
+    /* Matched to the name color inside it, for the reason given on .card. */
+    transition: border-color var(--duration-fast) var(--ease-out),
+        background-color var(--duration-fast) var(--ease-out);
 }
 
 .biz-card:hover {
@@ -2624,6 +2642,51 @@ textarea.field__input {
     text-align: center;
 }
 
-.hero__route {
-    text-align: center;
+/*
+ * Touch.
+ *
+ * A touch browser has no pointer to move away, so it applies :hover on tap and
+ * holds it until the next tap lands somewhere else. A hover that only tints a
+ * card is harmless, because the tap navigates and the page is replaced. A hover
+ * on a control that keeps the reader on the page is not: the toggle stays lit
+ * and reads as a selected state that nothing will clear.
+ *
+ * The arrows matter for the same reason in reverse. They shift 3 to 4px to say
+ * "this goes somewhere", and a shifted arrow that never comes back says it
+ * permanently.
+ *
+ * Only these are reset. The rest keep their hover, because the tap that set it
+ * also leaves the page.
+ */
+@media (hover: none) {
+    .btn:hover .btn__icon,
+    .link-arrow:hover svg,
+    .next-post:hover svg,
+    .post-card:hover .post-card__more svg {
+        transform: none;
+    }
+
+    .theme-toggle:hover,
+    .nav-toggle:hover {
+        color: var(--text-dim);
+        background: none;
+    }
+
+    .faq__q:hover {
+        color: inherit;
+    }
+
+    /* Back to its own resting color and not to `inherit`, which would take the
+       body color from .faq__q and leave the mark darker than it starts. */
+    .faq__q:hover .faq__mark {
+        color: var(--text-dim);
+    }
+
+    .review__toggle:hover {
+        color: var(--accent);
+    }
+
+    .prose a:not(.btn):not(.link-arrow):hover {
+        background-size: 0% 1px;
+    }
 }

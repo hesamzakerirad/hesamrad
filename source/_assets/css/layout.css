@@ -259,10 +259,14 @@
     justify-content: center;
 }
 
+/* Centered here rather than left to .hero, which centers its own contents. The
+   home page uses this a second time under the grid of problems, where there is
+   no centered ancestor to inherit from. */
 .hero__route {
     margin-top: var(--space-md);
     color: var(--text-dim);
     font-size: var(--text-sm);
+    text-align: center;
 }
 
 .site-footer {
@@ -314,10 +318,17 @@
     font-weight: 600;
 }
 
+/*
+ * The gap is a touch target concern and not a typographic one. Each link is a
+ * 30px box, and at 0.15rem the boxes sat 2.4px apart, which is under the 8px a
+ * thumb needs to be sure which of two stacked links it hit. The column reads a
+ * little looser as a result. That is the cost of the row below not being the
+ * one that opens.
+ */
 .footer-group__list {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.5rem;
     margin: 0;
     padding: 0;
     list-style: none;

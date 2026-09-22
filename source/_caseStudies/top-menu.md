@@ -91,7 +91,7 @@ review:
 differently: 'I built the venue dashboard before the platform dashboard, which meant that for the first couple of years every new venue came through me. It felt like the right order, since it was the thing customers touch first, but it made me the bottleneck in someone else''s growth and I stayed that way longer than I should have. The administrative screens were the least interesting work in the project and would have been worth doing a year earlier than I did them.'
 cover:
     src: /assets/build/images/top-menu.jpg
-    alt: 'printed menu boards mounted on the wall above a café counter'
+    alt: 'printed coffee menus laid out flat on a wooden café counter, beside a tablet on a stand'
     caption: 'What a customer gets: scan the code on the table, and the menu opens. No app, no account.'
     credit: 'https://unsplash.com/photos/a-wooden-table-topped-with-menus-and-a-bottle-of-wine-7CL2rGtND8w'
 gallery:
