@@ -330,6 +330,60 @@ color:
 .venv/bin/python build_og_image.py
 ```
 
+**To rebuild the payment QR code.** Run this after you change the address in
+`config.php`:
+
+```bash
+.venv/bin/pip install segno
+.venv/bin/python build_qr.py
+```
+
+The script reads the address from `payment` in `config.php`. It does not hold
+its own copy. It writes `source/_assets/images/usdt-trc20-qr.svg`.
+
+The script tests the address before it writes the file. It tests the length, the
+first character and the Base58Check checksum. A mistyped address stops the
+script, and the previous QR code stays on disk.
+
+## The payment page
+
+`/pay/` tells a client how to pay an invoice. The page gives the address, a QR
+code and two sets of steps. One set is for a client who holds USDT. The other
+set is for a client who holds no crypto.
+
+The page is `noindex,nofollow`. Therefore it is not in the sitemap. It is also
+not in the navigation, and no other page links to it. Send the URL to a client
+yourself.
+
+The page is unlisted. It is not secret. A URL travels in a browser history, in a
+forwarded email and in a link preview. Do not put a secret on this page.
+
+Do not add a `Disallow` line for `/pay/` to `source/robots.txt`. That file is
+public. The line makes the address public with it.
+
+`payment` in `config.php` holds the address, the asset, the network and the
+explorer URL. This is the one copy of the address in the repository:
+
+| Key | Purpose |
+| --- | --- |
+| `address` | The Tron mainnet address a client sends USDT to |
+| `asset` | The name of the asset the page shows |
+| `network` | The name of the chain, as an exchange writes it |
+| `explorer` | The block explorer the page links to |
+| `qr` | The file name of the QR code image |
+
+To change the address, change `address` and then run `build_qr.py`. The page and
+the QR code read the same value, therefore they cannot disagree.
+
+The page shows the first four and the last four characters of the address a
+second time, as a check for the client after they paste it. `pay.blade.php` cuts
+these eight characters from the address. Do not type them in.
+
+The page starts with two links. One goes to the short steps at `#already-hold`.
+The other goes to the walkthrough at `#never-used-crypto`. Both sections are
+always open. Nothing on this page is behind a toggle, because a client who needs
+a step must not have to find it first.
+
 ## The contact form
 
 The form is on the home page, the Work page, the Services page, the Zero to One
