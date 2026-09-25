@@ -3,6 +3,11 @@
         --header-height: 4rem;
 
         --space-section: 5rem;
+
+        /* 3rem of indent on a 375px screen leaves the step text 282px to wrap
+           in. The number beside the rail is about 20px wide, so this still
+           clears it and gives the words back a fifth of the line. */
+        --step-indent: var(--space-md);
     }
 
     .hero {

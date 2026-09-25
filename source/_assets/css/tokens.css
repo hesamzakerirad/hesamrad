@@ -35,6 +35,12 @@
     --space-xl: 5rem;
     --space-section: clamp(5.5rem, 10vw, 10rem);
 
+    /* How far the text in a step list sits from its rail. A token and not a
+       value on the list, because the block that follows a step list has to line
+       up with it, and the two live in different rules. responsive.css cuts it on
+       a phone, where 3rem of indent costs a fifth of the screen. */
+    --step-indent: var(--space-lg);
+
     --shell: 1120px;
     --measure: 60ch;
     --measure-wide: 72ch;
