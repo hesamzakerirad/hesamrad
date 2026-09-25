@@ -26,6 +26,9 @@
     .post-toc,
     .btn,
     .btn-row,
+    /* Two links to places on the same sheet. A reader holding the paper has
+       both sections in front of them. */
+    .pay-choose,
     .post-cta,
     .next-post,
     .faq__more,
@@ -166,11 +169,32 @@
         overflow: visible !important;
     }
 
+    /*
+     * The payment card.
+     *
+     * Every surface above is white on paper, therefore the card loses the panel
+     * that holds its five facts together. The border puts the group back. A
+     * client who prints this page and works from the sheet must still see that
+     * the address, the amount and the network belong to each other.
+     *
+     * The copy button goes with every other `.btn`. A button on paper does
+     * nothing, and the address is beside it as text.
+     */
+    .pay-card {
+        border: 1px solid #b0b0b0;
+        break-inside: avoid;
+    }
+
     /* A link is a color on a screen and nothing at all on paper, so the
        address goes beside it. Only for a link that leaves the site: an
-       in-page address is no use to somebody holding a sheet of paper. */
+       in-page address is no use to somebody holding a sheet of paper.
+
+       The exchange links are in this list for the same reason. A printed page
+       that names four exchanges and gives no address for any of them sends the
+       reader to a search engine, which is where a fake app is waiting. */
     .rich-text a[href^='http']:not([href*='hesamrad.com'])::after,
-    .prose a[href^='http']:not([href*='hesamrad.com'])::after {
+    .prose a[href^='http']:not([href*='hesamrad.com'])::after,
+    .pay-apps a[href^='http']::after {
         content: ' (' attr(href) ')';
         font-size: 0.85em;
         word-break: break-all;

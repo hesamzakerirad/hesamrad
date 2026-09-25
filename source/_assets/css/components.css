@@ -445,7 +445,7 @@ a.card:hover .card__title {
     position: relative;
     counter-increment: step;
     margin: 0;
-    padding: 0 0 var(--space-lg) var(--space-lg);
+    padding: 0 0 var(--space-lg) var(--step-indent);
     border-left: var(--hairline) solid var(--line);
 }
 
@@ -504,6 +504,15 @@ a.card:hover .card__title {
     color: var(--text-dim);
     font-size: var(--text-sm);
     padding-top: 0.3rem;
+}
+
+/* A <dd> carries a 40px inline-start margin from the browser, and nothing here
+   resets it. The case studies use a <div> for this and never saw it. /pay/ uses
+   a <dl>, where two columns hid the margin inside the value column on a wide
+   screen and stacked it into a 40px indent under every key on a narrow one.
+   Reset it on the class, so it holds whichever element a page uses. */
+.row__value {
+    margin: 0;
 }
 
 .row__value > :last-child {
@@ -2640,6 +2649,338 @@ textarea.field__input {
     margin-top: var(--space-lg);
     margin-bottom: 0;
     text-align: center;
+}
+
+/*
+ * The payment page.
+ *
+ * The two paths, offered as a choice before either one is shown.
+ *
+ * Two and not more. A chooser is only worth the space it takes while the reader
+ * can answer it without reading it twice, and "do you already hold USDT" is a
+ * question they answer in the time it takes to look at it.
+ *
+ * Borrowed from `a.card`: the same surface, the same hairline, the same hover.
+ * These are cards with a question in them and they are not a new kind of thing.
+ */
+.pay-choose {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    max-width: var(--measure);
+    margin-top: var(--space-md);
+}
+
+@media (min-width: 40rem) {
+    .pay-choose {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/*
+ * One tile, used twice: the two paths at the top of the page, and the four
+ * exchanges at the bottom.
+ *
+ * Both are the same thing to a reader. A short name, a line saying what picking
+ * it costs them, and a mark saying where it goes. Two looks for one job would
+ * say they are different kinds of choice, and the exchanges were a list of
+ * underlined links, which gave the only decision that leaves the site the weight
+ * of a footnote.
+ *
+ * The whole tile is the link, so the target is the card and not the four
+ * characters of a company name.
+ */
+.pay-tile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--surface-raised);
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius-lg);
+    color: inherit;
+
+    transition: background-color var(--duration-fast) var(--ease-out),
+        border-color var(--duration-fast) var(--ease-out);
+}
+
+.pay-tile:hover {
+    background: var(--surface-hover);
+    color: inherit;
+}
+
+.pay-tile__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+}
+
+.pay-tile__name {
+    color: var(--heading);
+    font-weight: 500;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.pay-tile:hover .pay-tile__name {
+    color: var(--accent);
+}
+
+.pay-tile__note {
+    color: var(--text-dim);
+    font-size: var(--text-sm);
+}
+
+.pay-tile svg {
+    --icon-size: 0.9rem;
+
+    flex-shrink: 0;
+    color: var(--text-dim);
+    transition: transform var(--duration) var(--ease-out),
+        color var(--duration-fast) var(--ease-out);
+}
+
+.pay-tile:hover svg {
+    color: var(--accent);
+}
+
+/* The mark moves the way the link goes. Down the page for the chooser, out of
+   the page for an exchange. The timing is `--duration`, as it is for every other
+   arrow in this file: it is movement rather than feedback. */
+.pay-choose .pay-tile:hover svg {
+    transform: translateY(3px);
+}
+
+.pay-apps .pay-tile:hover svg {
+    transform: translate(2px, -2px);
+}
+
+/*
+ * One card holds everything a client needs to send money: the QR code, the
+ * amount, the asset, the network and the address. It is one card on purpose. The
+ * five facts are read together, and a reader who finds four of them and misses
+ * the fifth has sent the payment somewhere I cannot reach it.
+ */
+.pay-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md) var(--space-lg);
+    align-items: start;
+    /* Wider than `--measure-wide`, which is the only place on the site that
+       takes a width of its own. The address is 34 characters of mono that must
+       sit on one line: a reader compares it against their wallet screen, and a
+       string broken across two lines is one they compare in two halves and give
+       up on. 54rem holds it beside a 220px code with room to spare, and the
+       spare is deliberate — the line must not break if Inter or JetBrains Mono
+       is ever swapped for something a little wider.
+
+       Centered in the shell. A capped width with no auto margin left the card
+       against the left edge with 144px of nothing on its right, under a heading
+       that is centered. Either the card centers or the heading does not, and the
+       heading follows every other section on the site. */
+    max-width: 54rem;
+    margin-inline: auto;
+    padding: clamp(1.25rem, 4vw, var(--space-lg));
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+}
+
+@media (min-width: 40rem) {
+    .pay-card {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+}
+
+/*
+ * The plate under the QR code.
+ *
+ * White in both themes, and not a token. A camera reads a QR code by contrast,
+ * and an inverted code, a tinted one or one without its white margin fails on
+ * the cheaper sensors first. This is the one element on the site that is allowed
+ * to ignore the theme, because the theme is not what it serves.
+ *
+ * The hairline keeps the plate from floating in dark mode, where white on near
+ * black otherwise reads as a hole in the page.
+ */
+.pay-card__code {
+    margin: 0;
+    padding: var(--space-xs);
+    background: #ffffff;
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+/* Centered in the plate. In the two-column card the plate shrink-wraps the code
+   and the two agree. In one column the plate stretches to the width of the card,
+   and a left-aligned code left a hand's width of empty white beside it that read
+   as a rendering fault.
+
+   The lower bound is what a phone camera needs at arm's length, and 44vw keeps
+   it growing with the plate rather than sitting small in the middle of it. */
+.pay-card__code img {
+    display: block;
+    width: clamp(9rem, 44vw, 13.75rem);
+    height: auto;
+    margin-inline: auto;
+}
+
+/* The caption sits on the white plate, therefore it takes an ink color and not
+   a token: --text-dim is a light grey in dark mode and would be grey on white
+   here. #6e6e73 is the light theme's own --text-dim, which measures 5.07
+   against white in either theme. */
+.pay-card__code figcaption {
+    padding-top: var(--space-2xs);
+    color: #6e6e73;
+    font-size: var(--text-xs);
+}
+
+/* The rows already carry a top border from `.rows`. Inside the card the first
+   one sits against the padding, and a line there reads as the edge of something
+   rather than the start of a list. */
+.pay-card__detail .rows {
+    border-top: 0;
+}
+
+.pay-card__detail .row:first-child {
+    padding-top: 0;
+}
+
+.pay-card__detail .row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* 12rem for the key column, which `.row` uses elsewhere, leaves the address
+   wrapping in about half the card. The keys here are one word each. */
+@media (min-width: 768px) {
+    .pay-card__detail .row {
+        grid-template-columns: 5rem minmax(0, 1fr);
+    }
+}
+
+/*
+ * The address.
+ *
+ * Mono, because the reader's job is to compare it character by character against
+ * their wallet screen, and a proportional font hides the difference between a
+ * narrow and a wide glyph.
+ *
+ * `break-all` and not `break-word`. The string is one 34-character word, so
+ * `break-word` leaves it overflowing its column on a narrow screen rather than
+ * wrapping it.
+ *
+ * `user-select: all` selects the whole address on one click, for a reader who
+ * would rather highlight and copy than trust a button. No spaces and no grouping
+ * anywhere: a group separator that survives a manual copy is an address every
+ * wallet rejects, and the reader gets no clue why.
+ */
+.pay-address {
+    margin-bottom: var(--space-xs);
+    color: var(--heading);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    word-break: break-all;
+    user-select: all;
+}
+
+/* The network, which is the one fact in the card that loses money when it is
+   missed. Body text sits at --text; the heading color is a step darker, and it
+   makes the bold read as bold rather than as slightly heavier grey. */
+.pay-card__detail strong {
+    color: var(--heading);
+}
+
+/* The check on the two ends of the address. Same size as the caption under the
+   code, because both are instructions about the thing beside them and neither
+   is a fact the reader has to carry away.
+
+   The two ends take the heading color while the sentence around them stays dim.
+   They are what the eye has to land on, and eight characters of mono in the
+   darkest ink on the card is enough emphasis to find them without a panel or a
+   second color. */
+.pay-check {
+    margin: var(--space-xs) 0 0;
+    color: var(--text-dim);
+    font-size: var(--text-xs);
+}
+
+.pay-check b {
+    color: var(--heading);
+    font-family: var(--font-mono);
+    font-weight: 400;
+    user-select: all;
+}
+
+/* The two facts at the foot of the card. Dim and small, and set apart by a rule
+   rather than by a color or an icon, so they read as facts about the card above
+   them and not as an error the reader has already made. */
+.pay-card__final {
+    grid-column: 1 / -1;
+    padding-top: var(--space-sm);
+    border-top: var(--hairline) solid var(--line);
+    max-width: var(--measure);
+}
+
+.pay-card__final p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: var(--text-sm);
+}
+
+.pay-card__final p + p {
+    margin-top: var(--space-xs);
+}
+
+/* The block that follows a step list, on the text column the steps use.
+   `.steps > li` pads its content by --space-lg to clear the rail and the
+   numbers, therefore anything under the list has to do the same or the section
+   ends in two different left edges. */
+.pay-after-steps {
+    /* The step indent plus the hairline. The rail is a left border on the list
+       item, which sits inside its padding box, so a step's words start one pixel
+       further in than its padding alone. Reading the token keeps this aligned at
+       every width without a second media query. */
+    padding-left: calc(var(--step-indent) + var(--hairline));
+}
+
+/* Level with the step headings above it rather than at the full h3 size. It is
+   a heading of the same rank in the same section, and the size is what says
+   so. */
+.pay-apps__head {
+    margin-top: var(--space-lg);
+    font-size: var(--text-lg);
+}
+
+/* Capped to the measure, like the paragraph above it. Out of the accordion the
+   list had the whole shell to spread across, which put two columns of four
+   short links at opposite ends of the page. */
+.pay-apps {
+    margin: var(--space-md) 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-sm);
+    max-width: var(--measure);
+}
+
+@media (min-width: 40rem) {
+    .pay-apps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* The list item is a wrapper and nothing else. The tile inside it is the card,
+   and it has to fill the cell or four tiles of four different name lengths come
+   out four different widths. */
+.pay-apps > li {
+    display: flex;
+    margin: 0;
+}
+
+.pay-apps .pay-tile {
+    flex: 1;
 }
 
 /*

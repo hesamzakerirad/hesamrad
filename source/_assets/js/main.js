@@ -335,29 +335,68 @@ function initReviews() {
     }
 }
 
-/** Copy-to-clipboard, used by article pages. */
+/**
+ * Copy-to-clipboard, used by article pages and by the address on /pay/.
+ *
+ * `data-copy-text` overrides the default of the current URL. It is read at click
+ * time rather than at setup, so a value written into the attribute later still
+ * gets copied.
+ */
 function initCopyButtons() {
     document.querySelectorAll('[data-copy-url]').forEach((button) => {
         const idle = button.querySelector('[data-copy-idle]');
         const done = button.querySelector('[data-copy-done]');
+        const fail = button.querySelector('[data-copy-fail]');
+
+        // The status region is the next sibling, which the component guarantees.
+        // A lookup in the parent would find the wrong one where two buttons
+        // share a row.
+        const next = button.nextElementSibling;
+        const status = next?.matches('[data-copy-status]') ? next : null;
+
         let timer;
 
+        const announce = (message) => {
+            if (status) status.textContent = message;
+        };
+
+        // One state at a time. Each press starts from here, which is what clears
+        // a failure left on screen from the press before it.
+        const show = (state) => {
+            if (idle) idle.hidden = state !== idle;
+            if (done) done.hidden = state !== done;
+            if (fail) fail.hidden = state !== fail;
+        };
+
         button.addEventListener('click', async () => {
+            window.clearTimeout(timer);
+
             try {
-                await navigator.clipboard.writeText(window.location.href);
+                await navigator.clipboard.writeText(
+                    button.dataset.copyText || window.location.href,
+                );
             } catch {
-                // Denied permission or an insecure origin. Saying nothing is
-                // better than a fake success state.
+                // Denied permission, an old browser, or a page served over
+                // plain HTTP. A check mark here would be a lie, and saying
+                // nothing hands the reader a dead button.
+                //
+                // No timer on this one. The reader has to act on it, and both
+                // the page URL and the payment address are selectable by hand.
+                show(fail);
+                announce('Copy failed. Select the text and copy it yourself.');
                 return;
             }
 
             if (!idle || !done) return;
-            idle.hidden = true;
-            done.hidden = false;
-            window.clearTimeout(timer);
+
+            show(done);
+            announce(done.textContent.trim());
+
             timer = window.setTimeout(() => {
-                idle.hidden = false;
-                done.hidden = true;
+                show(idle);
+                // Cleared, so the next copy of the same thing announces again.
+                // A region that still holds the old text repeats nothing.
+                announce('');
             }, 2000);
         });
     });

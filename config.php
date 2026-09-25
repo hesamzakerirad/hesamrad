@@ -51,6 +51,34 @@ $pricing = [
 
 $money = fn($amount) => $pricing['symbol'] . number_format($amount);
 
+/*
+ * Where a client sends payment.
+ *
+ * `address` is the one source for the figure that matters most on this site. It
+ * is a Tron mainnet address, 34 characters, and it starts with T. /pay/ prints
+ * it, and build_qr.py reads it out of this file to draw the QR code. Neither
+ * one holds a second copy, therefore the page and the code cannot disagree.
+ *
+ * Change the address and the QR code is stale until the script runs again:
+ *
+ *     .venv/bin/python build_qr.py
+ *
+ * `network` is display text and must name the chain the way a client's exchange
+ * names it. An exchange withdrawal screen says "TRC20" or "Tron (TRC20)". A
+ * client matching the page against that screen is the whole point of the words,
+ * so do not shorten them to "Tron".
+ *
+ * `explorer` takes a transaction hash on the end. The page uses it to let a
+ * client check their own payment went through without asking me.
+ */
+$payment = [
+    'address' => 'TGJax1x83hmyXb6ShbocErixCN2gDQJ5vv',
+    'asset' => 'USDT',
+    'network' => 'Tron (TRC20)',
+    'explorer' => 'https://tronscan.org/#/transaction/',
+    'qr' => 'usdt-trc20-qr.svg',
+];
+
 $bookingUrl = 'https://cal.com/hesamrad/30min';
 
 return [
@@ -95,6 +123,10 @@ return [
     'turnstileSiteKey' => '0x4AAAAAAEMSHcNbdcoTgz3f',
 
     'pricing' => $pricing,
+
+    // The payment details. /pay/ is the only page that reads them. Set them at
+    // the top of this file.
+    'payment' => $payment,
 
     /*
      * The contact block that closes a page.
