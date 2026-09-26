@@ -7,10 +7,14 @@ contactHeading: 'Got something like this?'
 contactIntro: "Describe it in a paragraph. You will get an honest answer about whether I am the right person for it, including the times when I am not."
 published: true
 sample: false
+kind: 'web-application'
 client: 'Mahdi Rasaei'
 clientUrl: 'https://topmenumarket.com'
 sector: 'Hospitality software'
 year: '2020–2025'
+# The sort key for /work/. An integer, never rendered. `year` above is the
+# text a reader sees, and it holds the whole range.
+launchYear: 2020
 duration: 'Five years, as lead engineer'
 summary: 'Cafés and restaurants kept their menus on paper, so changing a price meant reprinting everything and living with whatever was on the table until the next print run. Top Menu put the menu behind a QR code on the table, and behind that, a system that made everything work flawlessly.'
 role: 'Lead engineer. The client already had another engineer on the front end, so the split was straightforward: the back end, the API architecture, the infrastructure, the deployments and the reliability work were mine, along with mentoring the client''s own developers so the product could carry on without me. On a project without that cover I''d have built the front end too. Here it would have meant duplicating somebody who was already doing it well.'

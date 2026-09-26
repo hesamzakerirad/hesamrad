@@ -9,7 +9,18 @@
     $isSample = $page->sample ?? false;
     $page->robots = ($page->workIsPublic && ! $isSample) ? 'index,follow' : 'noindex,nofollow';
 
-    $studies = $caseStudies->sortByDesc('year')->values();
+    /*
+     * The order of /work/: the web applications first, then the websites, and
+     * the newest first inside each group. The link at the foot of the page
+     * walks this order, so a reader who follows it sees the studies in the
+     * order the listing shows them.
+     */
+    // Read both keys with `get()` and a default, the way /work/ does. A study
+    // that leaves either key out still builds.
+    $studies = $caseStudies
+        ->sortByDesc(fn ($study) => (int) ($study->get('launchYear') ?: 0))
+        ->sortBy(fn ($study) => ($study->get('kind') ?: 'web-application') === 'website' ? 1 : 0)
+        ->values();
     $position = $studies->search(fn ($study) => $study->getPath() === $page->getPath());
     $next = $position === false ? null : $studies->get($position + 1) ?? $studies->first();
 @endphp
@@ -38,8 +49,13 @@
                         {{ $page->client ?? 'Client name withheld' }}
                     @endif
                 </span>
-                <span>{{ $page->sector }}</span>
-                <span class="tabular">{{ $page->year }}</span>
+                @if ($page->sector)
+                    <span>{{ $page->sector }}</span>
+                @endif
+
+                @if ($page->year)
+                    <span class="tabular">{{ $page->year }}</span>
+                @endif
             </p>
 
             <h1 class="study__title">{{ $page->title }}</h1>
@@ -115,10 +131,12 @@
 
         <div class="study__body">
             <div class="study__main">
-                <section class="study__section">
-                    <h2>What was wrong</h2>
-                    <p>{{ $page->problem }}</p>
-                </section>
+                @if ($page->problem)
+                    <section class="study__section">
+                        <h2>What was wrong</h2>
+                        <p>{{ $page->problem }}</p>
+                    </section>
+                @endif
 
                 @if ($page->constraints)
                     <section class="study__section">
@@ -291,11 +309,15 @@
                             @endif
                         </dd>
 
-                        <dt>Sector</dt>
-                        <dd>{{ $page->sector }}</dd>
+                        @if ($page->sector)
+                            <dt>Sector</dt>
+                            <dd>{{ $page->sector }}</dd>
+                        @endif
 
-                        <dt>When</dt>
-                        <dd class="tabular">{{ $page->year }}</dd>
+                        @if ($page->year)
+                            <dt>When</dt>
+                            <dd class="tabular">{{ $page->year }}</dd>
+                        @endif
 
                         @if ($page->duration)
                             <dt>How long</dt>
