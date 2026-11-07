@@ -102,7 +102,17 @@ aboutsAuthor: true
     @php
         // The collection filter in config.php removes each sample when the site
         // is public, therefore this template does not test for samples again.
-        $selected = $caseStudies->sortByDesc('year')->take(2);
+        //
+        // Web applications only. A page that shows a selection of the work
+        // shows the applications, because they are the work this page is
+        // about. /work/ is the page that carries the websites as well.
+        //
+        // Read both keys with `get()` and a default, the way /work/ does. A
+        // study that leaves either key out still builds.
+        $selected = $caseStudies
+            ->filter(fn ($study) => ($study->get('kind') ?: 'web-application') === 'web-application')
+            ->sortByDesc(fn ($study) => (int) ($study->get('launchYear') ?: 0))
+            ->take(2);
     @endphp
 
     @if ($page->workIsPublic && $selected->isNotEmpty())
