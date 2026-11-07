@@ -131,7 +131,7 @@ contactIntro: "That's enough for me to tell you whether this is a week of work o
         {{-- `callout` and not `section-head`. A section head is centered text
              on the page background, which leaves a closing block sitting in
              empty space. The callout is the surface this site already uses to
-             close /about/ and /projects/, and two buttons fill it the way they
+             close /about/, and two buttons fill it the way they
              do there. --}}
         <div class="callout">
             <h2>What it costs.</h2>

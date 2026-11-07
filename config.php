@@ -1141,13 +1141,12 @@ return [
 
         $base = rtrim($page->getBaseUrl(), '/');
 
-        // Use the section name and not the slug. "Open source" is the name of
-        // the /projects/ section. A URL segment is an address and not a label.
+        // Use the section name and not the slug. A URL segment is an address
+        // and not a label.
         $names = [
             'home' => 'Home',
             'blog' => 'Blog',
             'work' => 'Work',
-            'projects' => 'Open source',
         ];
 
         $humanise = fn($segment) => $names[$segment]
