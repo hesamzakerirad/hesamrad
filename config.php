@@ -605,7 +605,8 @@ return [
     'socialProfiles' => [
         'https://linkedin.com/in/hesamrad',
         'https://github.com/hesamzakerirad',
-        'https://x.com/hesamzakerirad',
+        'https://x.com/radestsam',
+        'https://www.instagram.com/radestsam',
     ],
 
     // collections

@@ -10,6 +10,15 @@
     $page->robots = ($page->workIsPublic && ! $isSample) ? 'index,follow' : 'noindex,nofollow';
 
     /*
+     * A case study is an article, not a general page. main.blade.php reads
+     * `type` for og:type and `thumbnail` for the share card, so set both here
+     * and no other layout changes. The cover is the share card. A study with
+     * no cover source keeps the site default card.
+     */
+    $page->type = 'article';
+    $page->thumbnail = $page->getCover()['src'] ?? null;
+
+    /*
      * The order of /work/: the web applications first, then the websites, and
      * the newest first inside each group. The link at the foot of the page
      * walks this order, so a reader who follows it sees the studies in the
