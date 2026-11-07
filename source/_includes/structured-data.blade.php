@@ -224,7 +224,7 @@
      * the markup and the structured data disagree, so there must be one list.
      *
      * This block used to rebuild the trail from the URL with a second section
-     * map and a second humaniser. They already disagreed: config.php names
+     * map and a second humaniser. They already disagreed: config.php named
      * /projects/ "Open source" and this file did not, and `ucfirst` and
      * `Str::title` case a slug differently.
      *

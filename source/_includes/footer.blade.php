@@ -31,7 +31,6 @@
             'title' => 'More',
             'links' => [
                 ['label' => 'About', 'href' => $page->baseUrl . '/about/'],
-                ['label' => 'Open source', 'href' => $page->baseUrl . '/projects/'],
                 ['label' => 'Blog', 'href' => $page->baseUrl . '/blog/'],
                 ['label' => 'RSS feed', 'href' => $page->baseUrl . '/feed.xml'],
             ],

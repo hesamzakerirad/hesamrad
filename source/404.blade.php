@@ -38,9 +38,11 @@ disableContact: true
             <a class="btn btn--ghost" href="{{ $page->baseUrl }}/services/">
                 <span>Services</span>
             </a>
-            <a class="btn btn--ghost" href="{{ $page->baseUrl }}/projects/">
-                <span>Open source</span>
-            </a>
+            @if ($page->workIsPublic)
+                <a class="btn btn--ghost" href="{{ $page->baseUrl }}/work/">
+                    <span>Work</span>
+                </a>
+            @endif
         </div>
     </div>
 @endsection
