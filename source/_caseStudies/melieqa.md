@@ -8,7 +8,7 @@ contactIntro: "Describe your business in a paragraph. You will get an honest ans
 # Set this to true once the content below is yours, the review is real, and the
 # images are in. The collection filter in config.php builds a study only when
 # `published` is true.
-published: true
+published: false
 sample: false
 # 'website' puts this study in the Websites group on /work/. It also keeps it
 # off the pages that show a selection of the work, which show web applications
