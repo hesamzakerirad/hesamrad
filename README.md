@@ -204,6 +204,10 @@ Two fields control where it appears:
   holds a range such as `2020–2025`, which is why the sort cannot use it: a
   string comparison puts `2024` above `2020–2025`.
 
+Each case study sets its own share card and its `og:type`. The layout uses
+`cover.src` as the card image and sets `og:type` to `article`. A case study
+with no `cover.src` shows the default share card.
+
 Name a client only when you have permission.
 
 ## Redirect an old URL
