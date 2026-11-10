@@ -886,6 +886,26 @@ return [
     },
 
     /**
+     * Returns the text of a case study field as safe HTML, with links.
+     *
+     * The text is escaped first. Then each `[label](https://example.com)` turns
+     * into a link. Only an address that starts with http:// or https:// turns
+     * into a link. Do not use this in a field that also feeds a meta tag
+     * (`summary`, `description`), because the tag shows the raw brackets.
+     */
+    'withInlineLinks' => function ($page, $text) {
+        $html = htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
+
+        $html = preg_replace(
+            '/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/',
+            '<a href="$2">$1</a>',
+            $html
+        );
+
+        return $page->withExternalLinksInNewTab($html);
+    },
+
+    /**
      * Returns the FAQPage node of the current page as encoded JSON, or ''.
      *
      * The node is built here because more than one page needs it, not because
