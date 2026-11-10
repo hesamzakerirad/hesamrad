@@ -143,7 +143,7 @@
                 @if ($page->problem)
                     <section class="study__section">
                         <h2>What was wrong</h2>
-                        <p>{{ $page->problem }}</p>
+                        <p>{!! $page->withInlineLinks($page->problem) !!}</p>
                     </section>
                 @endif
 
@@ -152,7 +152,7 @@
                         <h2>What made it awkward</h2>
                         <ul class="card__list card__list--no">
                             @foreach ($page->constraints as $item)
-                                <li>{{ $item }}</li>
+                                <li><span>{!! $page->withInlineLinks($item) !!}</span></li>
                             @endforeach
                         </ul>
                     </section>
@@ -163,9 +163,57 @@
                         <h2>What I built</h2>
                         <ul class="card__list card__list--yes">
                             @foreach ($page->built as $item)
-                                <li>{{ $item }}</li>
+                                <li><span>{!! $page->withInlineLinks($item) !!}</span></li>
                             @endforeach
                         </ul>
+                    </section>
+                @endif
+
+                {{-- A side-by-side table. `columns` holds the header cells and
+                     each item of `rows` holds one cell per column. The first
+                     cell of a row is its row header. --}}
+                @if ($page->comparison)
+                    <section class="study__section">
+                        <h2>{{ $page->comparison['heading'] ?? 'How it compares' }}</h2>
+
+                        @if (!empty($page->comparison['intro']))
+                            <p>{{ $page->comparison['intro'] }}</p>
+                        @endif
+
+                        <div class="study__table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        @foreach ($page->comparison['columns'] as $column)
+                                            <th scope="col">{{ $column }}</th>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($page->comparison['rows'] as $row)
+                                        <tr>
+                                            @foreach ($row as $index => $cell)
+                                                @if ($index === 0)
+                                                    <th scope="row">{{ $cell }}</th>
+                                                @elseif (preg_match('/^(Yes|No)(?:,\s*(.*))?$/', $cell, $answer))
+                                                    {{-- A cell that starts with Yes or No shows a mark.
+                                                         The word stays in the page for screen readers. --}}
+                                                    <td>
+                                                        <span class="mark mark--{{ strtolower($answer[1]) }}" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">{{ $answer[1] }}</span>
+                                                        @if (!empty($answer[2]))
+                                                            <span class="mark__note">{{ $answer[2] }}</span>
+                                                        @endif
+                                                    </td>
+                                                @else
+                                                    <td>{{ $cell }}</td>
+                                                @endif
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
                 @endif
 
@@ -207,8 +255,8 @@
                             @foreach ($page->decisions as $decision)
                                 <div class="decision">
                                     <h3 class="decision__choice">{{ $decision['choice'] }}</h3>
-                                    <p class="decision__why">{{ $decision['why'] }}</p>
-                                    <p class="decision__cost"><strong>The trade-off:</strong> {{ $decision['cost'] }}</p>
+                                    <p class="decision__why">{!! $page->withInlineLinks($decision['why']) !!}</p>
+                                    <p class="decision__cost"><strong>The trade-off:</strong> {!! $page->withInlineLinks($decision['cost']) !!}</p>
                                 </div>
                             @endforeach
                         </div>

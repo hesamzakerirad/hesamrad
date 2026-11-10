@@ -180,12 +180,19 @@ nothing, so a short case study leaves the fields it has no answer for empty.
 | `constraints` | What made the work difficult |
 | `built` | A list of what you delivered |
 | `decisions` | A list of `choice` and `why` pairs |
+| `comparison` | A table: `heading`, `intro`, `columns`, and `rows`. Each row is a list with one cell per column |
 | `timeline` | The order of the work |
 | `results` | What changed |
 | `quote` | What the client said |
 | `differently` | What you would change |
 | `stack` | The technologies |
 | `cover` and `gallery` | The images |
+
+The text fields `problem`, `constraints`, `built`, and `decisions` accept links.
+Write a link as `[label](https://example.com)`. Only addresses that start with
+`http://` or `https://` become links. A link to another site opens in a new tab.
+Do not put a link in `summary` or `description`. Those fields also feed the meta
+tags, and the tags would show the brackets.
 
 Two fields control whether the case study appears:
 

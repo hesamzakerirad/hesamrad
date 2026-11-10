@@ -1528,6 +1528,50 @@ a.card:hover .card__title {
     margin-top: 0;
 }
 
+.study__table {
+    overflow-x: auto;
+}
+
+.study__table table {
+    min-width: 30rem;
+    margin-top: var(--space-sm);
+}
+
+.study__table tbody th {
+    color: var(--heading);
+    font-weight: 500;
+}
+
+.study__table td {
+    white-space: nowrap;
+}
+
+.study__table .mark__note {
+    margin-left: 0.5rem;
+    color: var(--text-dim);
+    white-space: normal;
+}
+
+.mark {
+    display: inline-block;
+    width: 1.1rem;
+    height: 1.1rem;
+    vertical-align: middle;
+    background-color: var(--text-faint);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 100% 100%;
+}
+
+.mark--yes {
+    background-color: currentColor;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5 6.5 12 13 4.5'/%3E%3C/svg%3E");
+}
+
+.mark--no {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M4 4l8 8M12 4l-8 8'/%3E%3C/svg%3E");
+}
+
 .study__decisions {
     display: grid;
     gap: var(--space-md);
