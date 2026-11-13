@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Hesam Rad - Blog</title>
+        <link>https://hesamrad.com/blog/</link>
+        <description>Notes from the work: whatever I am building, using, or working out at the time.</description>
+        <language>en</language>
+        <atom:link href="https://hesamrad.com/feed.xml" rel="self" type="application/rss+xml" />
+                    <lastBuildDate>Sat, 29 Aug 2026 00:00:00 +0000</lastBuildDate>
+                            <item>
+                <title>No-Code, Off-the-Shelf, or Custom Software: The Cost of Growth</title>
+                <link>https://hesamrad.com/blog/no-code-off-the-shelf-or-custom/</link>
+                <guid isPermaLink="true">https://hesamrad.com/blog/no-code-off-the-shelf-or-custom/</guid>
+                                    <description>A website builder costs $30 a month until it doesn&#039;t. What seats, usage and transaction fees really cost you as the business grows.</description>
+                                <pubDate>Sat, 29 Aug 2026 00:00:00 +0000</pubDate>
+                <dc:creator>Hesam Rad</dc:creator>
+                <dc:language>en</dc:language>
+            </item>
+                    <item>
+                <title>10K Followers and You Own Nothing: Do You Need a Website?</title>
+                <link>https://hesamrad.com/blog/do-you-need-a-website/</link>
+                <guid isPermaLink="true">https://hesamrad.com/blog/do-you-need-a-website/</guid>
+                                    <description>Your followers are a permission the platform can withdraw. What the reach data, the ban waves and the search numbers say about whether you need a website.</description>
+                                <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
+                <dc:creator>Hesam Rad</dc:creator>
+                <dc:language>en</dc:language>
+            </item>
+                    <item>
+                <title>Agency or One Independent Engineer: The Honest Comparison</title>
+                <link>https://hesamrad.com/blog/agency-or-one-independent-engineer/</link>
+                <guid isPermaLink="true">https://hesamrad.com/blog/agency-or-one-independent-engineer/</guid>
+                                    <description>The comparison people make is cost. The one that decides the outcome is risk, and an agency&#039;s risks are the opposite of an independent engineer&#039;s.</description>
+                                <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
+                <dc:creator>Hesam Rad</dc:creator>
+                <dc:language>en</dc:language>
+            </item>
+            </channel>
+</rss>
