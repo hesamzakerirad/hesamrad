@@ -23,17 +23,19 @@ contactIntro: "A paragraph is enough. I'll tell you whether I've done something 
     $showingSamples = $studies->contains(fn ($study) => $study->sample ?? false);
 
     /*
-     * The page shows the work in two groups, and a group keeps the sort above.
+     * The page shows the work in three groups, and a group keeps the sort
+     * above.
      *
-     * A study without a `kind` is a web application. Both groups use the same
+     * A study without a `kind` is a web application. All groups use the same
      * card, therefore a reader tells them apart by the heading over them and
-     * not by two designs.
+     * not by different designs.
      *
      * A group with nothing in it renders nothing at all, heading included.
      */
     $groups = [
         ['heading' => 'Web Applications', 'studies' => $studies->filter(fn ($study) => $kind($study) === 'web-application')->values()],
         ['heading' => 'Websites', 'studies' => $studies->filter(fn ($study) => $kind($study) === 'website')->values()],
+        ['heading' => 'Open Source', 'studies' => $studies->filter(fn ($study) => $kind($study) === 'open-source')->values()],
     ];
 
     $page->robots = $page->workIsPublic ? 'index,follow' : 'noindex,nofollow';

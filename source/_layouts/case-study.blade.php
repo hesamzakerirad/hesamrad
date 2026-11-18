@@ -217,6 +217,20 @@
                     </section>
                 @endif
 
+                {{-- The weak points of the work, in the author's own words. It
+                     comes after the comparison, because a reader who sees the
+                     strengths in the table must also see the limits. --}}
+                @if ($page->limits)
+                    <section class="study__section">
+                        <h2>Where it falls short</h2>
+                        <ul class="card__list card__list--no">
+                            @foreach ($page->limits as $item)
+                                <li><span>{!! $page->withInlineLinks($item) !!}</span></li>
+                            @endforeach
+                        </ul>
+                    </section>
+                @endif
+
                 @if ($page->gallery)
                     <div class="study__section case__gallery">
                         @foreach ($page->gallery as $shot)

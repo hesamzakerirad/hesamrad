@@ -172,7 +172,7 @@ nothing, so a short case study leaves the fields it has no answer for empty.
 
 | Field | What it holds |
 | --- | --- |
-| `kind` | `web-application` or `website` |
+| `kind` | `web-application`, `website`, or `open-source` |
 | `launchYear` | The year the work went live, as an integer |
 | `summary` | The story in one paragraph |
 | `role` | The work that was yours |
@@ -181,6 +181,7 @@ nothing, so a short case study leaves the fields it has no answer for empty.
 | `built` | A list of what you delivered |
 | `decisions` | A list of `choice` and `why` pairs |
 | `comparison` | A table: `heading`, `intro`, `columns`, and `rows`. Each row is a list with one cell per column |
+| `limits` | A list of the weak points, shown after `comparison` as "Where it falls short" |
 | `timeline` | The order of the work |
 | `results` | What changed |
 | `quote` | What the client said |
@@ -188,7 +189,7 @@ nothing, so a short case study leaves the fields it has no answer for empty.
 | `stack` | The technologies |
 | `cover` and `gallery` | The images |
 
-The text fields `problem`, `constraints`, `built`, and `decisions` accept links.
+The text fields `problem`, `constraints`, `built`, `decisions`, and `limits` accept links.
 Write a link as `[label](https://example.com)`. Only addresses that start with
 `http://` or `https://` become links. A link to another site opens in a new tab.
 Do not put a link in `summary` or `description`. Those fields also feed the meta
@@ -203,7 +204,8 @@ Two fields control whether the case study appears:
 Two fields control where it appears:
 
 - `kind` puts the case study in a group on `/work/`. The page shows the web
-  applications first and the websites after them. A case study with no `kind`
+  applications first, then the websites, then the open source work. A case
+  study with no `kind`
   is a web application. Every other page that shows a selection of the work
   shows web applications only.
 - `launchYear` sorts the case studies inside a group, newest first. It is an
