@@ -665,10 +665,11 @@ return [
          *
          * Two front matter keys control the order and the grouping on /work/.
          *
-         * `kind` is 'web-application' or 'website'. A study without the key is
-         * a web application, so the key is only necessary on a website. /work/
-         * puts the web applications above the websites, and every other page
-         * that shows a selection of work shows web applications only.
+         * `kind` is 'web-application', 'website', or 'open-source'. A study
+         * without the key is a web application, so the key is only necessary
+         * on the other two. /work/ shows the web applications first, then the
+         * websites, then the open source work. Every other page that shows a
+         * selection of work shows web applications only.
          *
          * `launchYear` is the four-digit year the work went live, as an
          * integer. It orders the studies and nothing renders it. `year` is the
